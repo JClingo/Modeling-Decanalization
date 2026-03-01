@@ -1,0 +1,146 @@
+% \begin{itemize}
+%     \item HRL × decanalization
+%     \item HRL × no-decanalization
+%     \item NF × decanalization
+%     \item NF × no-decanalization
+% \end{itemize}
+
+% Each was carried out in trials with three phases that varied, depending on whether there was a decanalization phase.
+
+
+\subsection{Implementation}\label{model-implementation}
+
+The simulation moved the HRL and NF reward functions to the level of implementation, which introduced several factors that require some adjustments to the above specifications to accommodate this shift. The constantly moving agent navigated a two-dimensional space by altering its rotation in that space from its current location, using a form of visual perception to detect objects and their parameters, and calculating the anticipated future state, given its knowledge of the state space.
+
+Beyond the shift from rewarding based on actual homeostatic effects of overlap to rewarding based on future homeostatic change possibilities, the most notable adaptations from the original formulations of HRL and NF into implementation are as follows:
+
+\paragraph{Agent perception constraints}
+
+Agents could only observe objects that fall within a 90° range from their transform origin and only up to a fixed distance from that origin. This was intended to simulate real-world vision constraints and complemented the movement limitations, that the agent only ever moved forward and could not rotate more than one degree per tick.
+
+\paragraph{Agent action constraints}
+
+Each frame, agents could perform a single action, rotate, limited to one degree of rotation. This meant that a loop (total rotation input \(±180°\)) would, at minimum, have taken \(180\) ticks to execute. 
+
+\paragraph{Passive homeostatic loss over time}
+
+Passive homeostatic loss over time. In the original HRL formulation, passive setpoint value loss was represented as a constant decremental force, similar to how a living system metabolizes available resources. We retained this dissipative force, represented as \(l\). This force was suspended during decanalization. 
+
+\paragraph{Introduction of additional homeostatic value loss through traversal cost}
+
+The agent was also taxed for traversing each tile, with the tax rate decreasing upon repeated traversals of that tile. This loosely aligns with the notion of ‘niche construction’, which suggests that organisms actively modify their environments to be better suited to their short- and long-term needs \parencite{pio-lopez_scale-free_2025}. In doing so, organisms can effectively cultivate sources of homeostatic gain and loss \parencite{lyon_reframing_2021}. However, such behavior can also be interpreted as ecological canalization, which, alongside physiological canalization, leads to long-term exploitation that may or may not be optimal for overall flourishing, even though it might increase predictability and therefore decrease risk. 
+
+We represented different aspects of canalization in this simulation: canalization through learning to optimize internal setpoints with perception, and canalization through shaping the environment to improve predictability/reduce uncertainty. Agent training is itself a form of canalization, where the agent is shaped both by reinforcement and by the environment in which it learned. Although we do not presently explore actively updating agent behavior during or after decanalization, the training environment could be said to be partially constitutive of the agent, in the sense that the agent's canalization of the world alters the environment, such that it must use its formal learning to effectively learn novel behaviors in its new environment, without the agent having to alter itself internally. Of course, this superficial form of environmental knowledge does not persist when the environment is altered. 
+
+To represent different degrees of canalization throughout the world, we created a grid of ‘tiles’ \(\mathbf{T}\) that produced negative \(h\) (we call this movement tax ‘traversal cost’) each tick they overlapped with the agent. Each tile was tracked individually and started with the same initial traversal cost, which was discounted based on the number of times \(n\) the agent had overlapped with it. The traversal cost remained constant while the agent continued to overlap the same tile. The agent had to leave and return to the tile for that \(n\) to increase. Traversal cost was reduced at the rate of initial cost divided by the number of traversals. 
+
+Let \(\tau_i\) represent a single tile where \(\tau_i \in \mathbf{T}\): 
+
+\begin{equation*}
+\tau_{i,t} = \frac{\tau_{i, 0}}{n}
+\end{equation*}
+\begin{align*}
+\text{where:} \\
+(-h_{i,0}) &\quad\text{ is the initial value of }  \tau_{i} \text{, at time } t=0\\
+n &\quad\text{ is the number of agent overlaps with }\tau_i
+\end{align*}
+
+Each tile was tracked individually. As the agent moved within the bounding box of the overlapping tile, the negative effect of \(\tau_{i,t}\) was applied to \(h_{t+1}\). The agent also used this value to approximate future losses due to tile traversal. Total loss due to traversal was estimated after each action as the total loss from tiles that intersected with the agent's raycast, assuming \(n+1\) (i.e., that traversal would be discounted upon agent overlap). Performing a perfect prediction of future tile traversal-caused losses is computationally expensive, but we approximated this by gathering the future cost of each tile that collided with the raycast at time \(t\), then calculating the total number of movement timesteps (and therefore homeostatic loss) the agent would take to bisect these tiles through the hypotenuse (dividing the cost of the first and last tile that collide with the raycast by \(2\), as an average of the distance that remains to be covered), factoring in current velocity.
+
+During decanalization, agent overlap \(n\) was incremented at a higher rate (3x the canalized rate). Post-decanalization, all tile overlap counts were reduced by a constant factor, resulting in \(n^{post} = \lfloor n^{pre} \cdot 0.5 \rfloor\) for each tile.
+
+\paragraph{Introduction of a two-dimensional world}
+
+\paragraph{Representation through geometric shapes}
+
+Pellet instances (\(o_i\)) were represented as cylindrical objects that occupied the center of a tile and produced a positive effect on \(h\) upon overlap with the agent. Each tile instance (\(\tau_i\)) produced a negative effect on \(h\) upon agent overlap. The agent was represented as a cube with a bounding box that monitored and managed overlap with \(o\) and \(\tau\) objects.
+
+\paragraph{Spacial distribution and density of pellets}
+
+Based on a random seed set deterministically, pellets were distributed throughout the landscape at a fixed density. Pellet locations were shuffled between training episodes and trial phases.
+
+\paragraph{Variability of setpoint-altering sources (both initially and as part of ‘decanalization’)}
+
+The positive \(h\) value of each pellet (\(o_i\)) was set from a seeded random value, within a range of 1 to 20. Throughout canalization phases, the value remained constant, and the agent could perceive it when it intersected with its raycasts. During the decanalization phase, the value of each \(o_i\) became the set maximum possible \(\mathbf{O}\) value, 20.
+
+\textbf{Variability of starting rotation, location, and \(h_0\)}
+
+For training and running trials for analysis, we placed the agent in a deterministically random starting rotation and location, with an equal-density distribution of rewards. For training, we set the initial \(h\), \(h_0\), to \(-15\). In trials, \(-15 < h_0 < 15\). 
+
+In training, this stochasticity helped prevent overfitting, where the agent would have devised a strategy that is not generally useful, resulting in brittle behavior that could easily be perturbed. In trials, this stochasticity presented different challenges to the agents, allowing us to observe their behavior more broadly. 
+
+
+---------------
+
+
+% % TODO: Cut because redundant?
+% Homeostatic Reinforcement Learning (HRL) posits that “seeking rewards is equivalent to the fundamental objective of physiological stability” \parencite{keramati_homeostatic_2014}. This involves keeping the overall distance from the setpoint as small as possible, punishing homeostatic over-satiation, not just starvation. That is, the organism will forgo sources of positive homeostatic value to avoid getting too far from the setpoint, since any excess gain will increase the distance just as much as a loss would. 
+
+% % TODO: Is this too much additional background too?
+% There are other models. In this simulated, we featured Negative Feedback (NF), which supports body temperature regulation and control of blood glucose through mechanisms that activate only when the system reaches a particular state above and/or below the setpoint(s). However, these systems prefer indolence as much as possible, as zero loss is just as good as any gain. This approach has a fundamental weakness—a system that does not actively expend energy within cycles to proactively preempt future deviations cannot produce complex, goal-directed behavior typical of living systems, which are constantly losing energy and being threatened with dissipative forces. They do not discount immediate rewards and, as such, preclude actions that will counterintuitively yet effectively take a circuitous path towards overall setpoint distance minimization through self-deprivation and niche construction. 
+
+% % TODO: Is this too much additional background too?
+% A complete treatment of the comparisons that can be made between HRL, NF, and other models is beyond the scope of this work, but a core benefit of HRL is that it enables long-term planning through proactive behavior, with the cost of short-term deprivation. HRL posits that living organisms are better served by and, in fact, operate according to functionally predictive solutions that intelligently discount current rewards for possible future rewards. Such actions carry risk, but an avoidance of all proactive actions is even more globally risky, given the possibility of dangerous forces depriving the organism of its resources. The prediction aspect is roughly equivalent and complementary to what is asserted by deprivation-modulated reward (decision field theory, intrinsically motivated RL theory, motivator theory), active inference, predictive homeostasis, and ‘settling point’ theory \parencite{friston_free-energy_2009, keramati_homeostatic_2014,barrett_active_2016, lyon_reframing_2021}—all of which are dynamical systems models that have outputs that can be reformulated as HRL. 
+
+% Thus agents eat when hungry but stop eating when satiated. In this way, organisms avoid extreme excess (overeating) and absence (starvation), finding a balance between the two by learning strategies and shaping their environments to this end.
+
+% % The agent started in different states and progressively gained and lost \(h\) as time unfolded and as the agent moved throughout the simulated landscape.
+
+
+% The primary learning and inference functions were handled as follows:
+% \begin{itemize}
+%     \item Agent: Represented as a cube with a bounding box at its edges for collision detection. Moved forwards at a constant rate, projecting raycasts for object detection
+%     \item Agent Manager: Configured agent training and ran inferences on the trained model
+%     \item Agent Interactor: Specified and gathered observations—egocentric agent state (e.g., transform, \(h_t\), etc.)—and agent actions (in this case, a scalar value that represented rotation amount)
+%     \item Agent Training Environment: Calculated and distributed rewards and checked for termination conditions 
+% \end{itemize}
+
+
+% To implement HRL and NF, we created an environment (the ‘landscape’), comprised of several object types.
+% \begin{itemize}
+%     \item Agent: Represented as a cube that moves forward at a constant velocity, losing \(h_t\) at a constant rate
+%     \item Pellets: Cylindrical objects \(o\) that, upon overlap with the agent, increasing \(h_t\)
+%     \item Tiles: Planar objects \(\tau\) that, upon collision with the agent after an agent takes an action, reduce \(h_t\)
+%     \item Boundary: Rectangular object that, upon collision with the agent, result in the agent's location being changed to the opposite end of the boundary (to approximate a boundary-free arcade-game or torus world). This is a practical convenience, as a rigid boundary results in the agent having to manage another environmental factor, which would result in data colored by edge-influenced behavior. 
+% \end{itemize}
+
+% Beyond the agent, we generated instances of the following at runtime:
+% \begin{itemize}
+%     \item Pellets: Represented as cylinders, distributed across a grid according to a set random seed—these reported overlap with the agent, resulting in a positive force to \(h_{t+1}\). Each pellet was also given a preset value within a range, according to a deterministic random seed
+%     \item Tiles: Represented as planes, distributed equally in a grid. Each tracked the number of times the agent overlapped with its bounding box, using this to discount their negative \(h\) impact, which was done every ‘tick’ (i.e., the speed at which the engine cycles through states, equivalent to \(t\) in the formulations). 
+%     \item Boundary: A collision box drawn around the landscape. If the agent collided with it, the agent teleported to the opposite end, with the same orientation. 
+% \end{itemize}
+
+
+% \textbf{External} (exteroception)
+% \begin{itemize}
+%     \item Agent transform (rotation in degrees and location as x–y coordinates)
+%     \item Agent velocity as cm/s
+%     \item \(o\) and \(\tau\) objects that collided with an array of raycasts (detailed in \nameref{model-implementation}), simulating object perception
+%     \item Whether the agent bounding box overlapped with \(o\) bounding box (expressed as a boolean; whether there is overlap with any \(o\) instance)
+%     \item Predicted \(h_{t+\kappa}\), or \(\hat{h}\), where \(\kappa\) is the amount of time, given agent velocity and rotation, it would take to collide with all objects in its current path, bounded by perception distance \(\delta\) (detailed below).
+% \end{itemize}
+
+% \textbf{Internal} (interoception)
+% \begin{itemize}
+%     \item \(l\), a constant decremental force applied to \(h\), expressed as a function
+%     \item \(h_t\), the homeostatic state value at time \(t\), which can be updated based on traversal cost of the tile, \(\tau_{j,t}\), given agent bounding box overlap (producing a negative effect on \(h_t\)), \(l\) (constant), pellet overlap \(o_{i,t}\), given agent bounding box overlap but only for the first tick
+% \end{itemize}
+
+\begin{itemize}
+    \item Sensory observations \(\rightarrow\) Active agent perception: observations about internal and external states
+    \item Synaptic weight landscape \(\rightarrow\) Agent learning: the learned association between perceived gains and losses and the accompanying reward (representing long-term traits, such as beliefs), executed during reinforcement learning
+    \item Metaplasticity \(\rightarrow\) Adjustment of landscape canalization
+    \item Neural activity landscape \(\rightarrow\) Agent context—short-term, instantiated belief, manifested as the agent's current trajectory through the landscape
+\end{itemize}
+
+From a dynamical systems perspective, organisms get stuck in the wells of a fixed set of attractors—in the ruts and grooves of a ‘canalized’ landscape of behaviors \parencite{waddington_canalization_1959, carhart-harris_canalization_2023}. From a Bayesian perspective, the dynamics of belief update shifts from dynamic to fixed, resulting in repeated non-optimal behaviors \parencite{harle_anhedonia_2017} and rigid response patterns. From a reinforcement learning perspective \parencite{sutton_reinforcement_1998}, the interaction of meta-parameters and environmental factors leads to reduced exploration and therefore over-exploitation of rewarding resources \parencite{huys_mapping_2013}. These resources are discounted in perceived value, resulting in ‘observational overfitting’, where agents stop exploring altogether because they fixate on the wrong observational factors—resources that were once but are no longer rewarding \parencite{song_observational_2019}.
+
+
+\subsection{Immediate meaning}
+
+Another key feature of HRL is that it strongly suggests a form of basal meaning, where the meaningfulness of perceived objects is directly related to their ability to greatly reduce or increase the organism's homeostatic state (\(H\)) values, relative to its setpoints (\(H^*\)). Objects that present little to no possibility of affecting \(H\) are attentionally discounted—non-salient. This also suggests why basic drives such as hunger, thirst, tiredness, and lust are far more salient (and therefore meaningful) in the right context—when an organism has a high drive. Moreover, perception plays a key role in determining how rewarding a drive-reducing act is. For example, orosensory perception is highly sensitive to homeostatic needs and drive itself is sensitive to predictions and observations made throughout orosensation: “…[I]ntravenous injection of food is not rewarding, despite its drive-reduction effect… this could be due to the orosensory-based approximation mechanism required for computing the reward” \parencite{keramati_homeostatic_2014}. This suggests that organisms learn to rely on external perceptual cues to make predictions about homeostatic changes. The presentation of objects as more or less meaningful is a natural side effect of interoceptive and exteroceptive perceptions being mutually reinforcing.
+
+The simulation demonstrated this in terms of function, where the agent discounted or entirely ignored pellets that were perceived as unlikely to produce a net decrease in \(|h|\). Instead, the agent fixated on pellets that portended the greatest rewards. The agent also spontaneously searched for meaningful objects as it moved and rotated, stopping this rotation once it found a reasonable source of negative net \(|h|\). 
+
+Another aspect of meaning is the way in which the immediate meaning we generate with the experiential field is itself dependent on a long-term orientation towards purpose and goals. The way in which the field presents itself can cause us to canalize or allow us to freely explore new regions that could offer greater benefits—or risks. We call this ‘meaning structure’ and explore the dynamic interplay between immediate meaning—objects in the field, colored by their predicted homeostatic relevance—and the landscape that shapes the immediate experiences we can have, given our location, homeostatic state, and the canalization properties of that landscape. Through canalization, we alter the landscape and through altering the landscape, we alter our experiences. Immediate meaning and meaning structure shape each other. 

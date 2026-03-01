@@ -1,0 +1,18 @@
+\section{Appendix}\label{appendix}
+
+The following is a direct comparison between HRL and NF performance.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/ccc-hrl-nf.png}
+    \caption{Canalized performance differences between HRL and NF-trained agents. Total reward is normalized for ease of visual comparison. ‘NF-CCC’ refers to the negative reinforcement-trained agent and ‘HRL-CCC’ is the HRL-trained agent. In each trial, the agent (starting from a seeded random location) and landscape (randomly rearranged to start) underwent three canalization phases at set timesteps, where \(h_t\) was reset at the beginning of each. ‘\(h\) Gained’ is the average total \(h\) increase from pellets, whereas ‘Unique Pellets Harvested’ is the average number of different pellets (i.e., pellet diversity) consumed by the agent during the phase. The core focus should be on setpoint average and deviation, which increase in both conditions, indicating some performance degradation. However, while HRL did not degrade in terms of total reward estimate, NF did.}
+    \label{fig:hrl-nf-no-decanalization}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/cdr-hrl-nf.png}
+    \caption{Decanalized performance difference between HRL and NF-trained agents. Total reward is normalized for ease of visual comparison. ‘NF-CDR’ refers to the negative reinforcement-trained agent and ‘HRL-CDR’ is the HRL-trained agent. In each trial, the agent (starting from a seeded random location) and landscape (randomly rearranged to start) underwent three phases (canalization, decanalization, and recanalization) at set timesteps, where \(h_t\) was reset at the beginning of each. ‘\(h\) Gained’ is the average total \(h\) increase from pellets, whereas ‘Unique Pellets Harvested’ is the average number of different pellets (i.e., pellet diversity) consumed by the agent during the phase.}
+    \label{fig:hrl-nf-decanalization}
+\end{figure}
+

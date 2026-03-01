@@ -1,0 +1,65 @@
+\documentclass[12pt,fleqn]{article}
+\usepackage{setspace}
+\usepackage{float}
+
+\usepackage[english]{babel}
+\usepackage[notransparent]{svg}
+\usepackage[table,xcdraw]{xcolor}
+% \usepackage[utf8x]{inputenc}
+
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% A few common packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{relsize}
+\usepackage[titletoc]{appendix}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt plus 0.01pt}
+\usepackage{subcaption}  % \begin{subfigure}...\end{subfigure} within figure
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{ltablex}
+\usepackage[autostyle, english = american]{csquotes}
+\usepackage{svg}
+\usepackage{caption}
+
+
+
+% Uncomment the following to attempt to enforce Type 1 or TrueType 
+% fonts. ProQuest does not want the type 3 fonts used by default as
+% of Dec. 2019 - see 
+% https://support.proquest.com/articledetail?id=kA01W000000k9o2SAA . 
+% If you are unable to embed fonts such as 'Zapf Dingbats' or 
+% 'Symbol', try using raster images (.jpg or .png) instead of vector 
+%images (.pdf or .eps).
+% \usepackage[T1]{fontenc} 
+
+% plainpages=false fixes the "duplicate ignored" error with page counters
+% Set pdfborder to 0 0 0 to disable colored borders around PDF hyperlinks
+\usepackage[plainpages=false,pdfborder={0 0 0}]{hyperref}
+
+\begin{document}
+
+\title{Modeling Decanalization with Homeostatic Reinforcement Learning}
+\author{Joshua Clingo and Jeff Yoshimi}
+\date{\today} % or leave empty: \date{}
+\maketitle
+
+
+\include{content}
+
+\sloppy
+\printbibliography
+
+\begin{appendices}
+\include{appendix}
+\end{appendices}
+
+\end{document}
