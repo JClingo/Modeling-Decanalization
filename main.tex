@@ -3,8 +3,8 @@
 \usepackage{float}
 
 \usepackage[english]{babel}
+\PassOptionsToPackage{table,xcdraw}{xcolor}
 \usepackage[notransparent]{svg}
-\usepackage[table,xcdraw]{xcolor}
 % \usepackage[utf8x]{inputenc}
 
 \usepackage[style=apa, backend=biber]{biblatex}
@@ -27,8 +27,6 @@
 \usepackage{booktabs}
 \usepackage{ltablex}
 \usepackage[autostyle, english = american]{csquotes}
-\usepackage{svg}
-\usepackage{caption}
 
 
 
@@ -49,9 +47,11 @@
 
 \title{Modeling Decanalization with Homeostatic Reinforcement Learning}
 \author{Joshua Clingo and Jeff Yoshimi}
-\date{\today} % or leave empty: \date{}
 \maketitle
 
+\begin{abstract}
+    We present a computational proof-of-principle model of canalization, decanalization, and recanalization using reinforcement learning in a homeostatic navigation task. Agents learned to manage a single homeostatic variable in a tiled environment where repeated traversal reduced movement costs and promoted entrenched behavioral paths. We compared homeostatic reinforcement learning (HRL) and a negative-feedback (NF) reward function under matched canalization and decanalization conditions. Decanalization was modeled as a temporary composite intervention that altered perceived reward, perceived traversal cost, and the rate and depth of canalization. In this setting, HRL agents showed improved post-decanalization homeostatic performance relative to matched no-decanalization controls, whereas NF agents did not show the same benefit. We present the model as a formal instantiation of one candidate mechanism by which temporary destabilization can shift exploration and subsequent behavior in a constrained environment. The results are intended to clarify computational assumptions behind canalization-style frameworks, not to provide a direct model of psychiatric disorders or psychedelic therapy.
+\end{abstract}
 
 \include{content}
 
@@ -59,7 +59,7 @@
 \printbibliography
 
 \begin{appendices}
-\include{appendix}
+    \include{appendix}
 \end{appendices}
 
 \end{document}

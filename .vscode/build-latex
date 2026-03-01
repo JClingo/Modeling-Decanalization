@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+export PATH="/Library/TeX/texbin:$PATH"
+cd /Users/jingo/Work/Modeling-Decanalization || exit 1
+exec /Library/TeX/texbin/latexmk \
+  -synctex=1 \
+  -interaction=nonstopmode \
+  -file-line-error \
+  -pdf \
+  -outdir=out \
+  main.tex
