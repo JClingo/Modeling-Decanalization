@@ -10,3 +10,4 @@ out/
 *.pdf
 *.run.xml
 *.synctex.gz
+.DS_Store
