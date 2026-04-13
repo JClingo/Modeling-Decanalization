@@ -1,0 +1,7 @@
+Thank you for submitting your paper, "Modeling Decanalization with Homeostatic Reinforcement Learning", to eLife. Your submission has been considered by the editors. Since we receive more submissions than our editors can handle, we prioritise ones for which we can produce high-quality public reviews that will be of significant value to the community. 
+
+Unfortunately in this case we are unable to proceed as we believe the submission would be better served being peer reviewed within a more specialized community.
+
+While the advantages of HRL under different scenarios are worthwhile investigations, the manuscript does not make sufficient contact with mechanistic, biological or psychological data to benefit from public review at eLife. As such we felt the work is more suited for a specialized journal.
+
+We appreciate your interest in a public review process: other services that offer public reviews include Review Commons (https://www.reviewcommons.org/) and Peer Community In (https://peercommunityin.org/). We wish you good luck with this work and we hope you will consider eLife for future submissions.
