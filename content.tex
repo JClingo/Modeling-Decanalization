@@ -27,13 +27,13 @@ We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer 
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{./figures/canalization-phases.png}
+    \includegraphics[width=1\linewidth]{./figures/canalization-phases.jpg}
     \caption{Top-down views of a trained HRL agent across four stages: pre-canalization, canalization, decanalization, and post-canalization. The small yellow square marks the agent, and the white line indicates its orientation and forward raycast. Darker ``well-traveled'' tiles cost less to cross.  Pellets are shown in green, with shading proportional to reward value. The yellow-tinted panel marks the decanalization phase and its altered perceptual properties.}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{figures/first-person.png}
+    \includegraphics[width=1\linewidth]{figures/first-person.jpg}
     \caption{First-person view from the agent's field of view (FOV). Within this FOV, the agent detects objects and estimates the future value of \(h\) from the current state, given the pellets and tiles along its projected trajectory. During decanalization, these estimates are altered so that all pellets are perceived as having equal homeostatic value and all tiles are treated as having zero traversal cost.}
 \end{figure}
 
@@ -187,7 +187,7 @@ We compared two different versions of the trained agents (HRL and NF) under two 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{figures/modeling-process.png}
+    \includegraphics[width=0.75\linewidth]{figures/modeling-process.jpg}
     \caption{Evaluation design. Within each matched CDR-CCC comparison, agents were evaluated on the same pellet arrangement and starting transform, with the phase-2 decanalization manipulation as the only intended difference.}
 \end{figure}
 
