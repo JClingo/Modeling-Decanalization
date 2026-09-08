@@ -1,0 +1,98 @@
+01-Sep-2026
+
+Dear Dr. Clingo,
+
+The manuscript ID  AB-26-0160 entitled "Modeling Decanalization with Homeostatic Reinforcement Learning" which you submitted to Adaptive Behavior, has been reviewed.  The comments of the reviewers are included at the bottom of this letter.
+
+The handling editor has recommended major revisions to your manuscript. Therefore, I invite you to respond to the reviewer(s)' comments and revise your manuscript.
+
+Major revisions are expected within 30 days of receiving this communication.
+
+Once the revised manuscript is prepared, you can upload it and submit it through your Author Center. Log into https://mc.manuscriptcentral.com/ad-behav and enter your Author Center, where you will find your manuscript title listed under "Manuscripts with Decisions."  Under "Actions," click on "Create a Revision."  Your manuscript number has been appended to denote a revision.
+
+When submitting your revised manuscript, you will be able to respond to the comments made by the reviewers in the space provided.  Please use this space to document any changes you make to the original manuscript.  In order to expedite the processing of the revised manuscript, please be as specific as possible in your response to the reviewers, for instance by directly quoting the changes you made to the text and referring to page and line numbers.
+
+IMPORTANT:  Your original files are available to you when you upload your revised manuscript.  Please delete any redundant files (i.e., the main text from the previous version) before completing the submission.
+
+Because we are trying to facilitate timely publication of manuscripts submitted to Adaptive Behavior, your revised manuscript should be uploaded as soon as possible.  If it is not possible for you to submit your revision in a reasonable amount of time, we may have to consider your paper as a new submission.
+
+Once again, thank you for submitting your manuscript to Adaptive Behavior and I look forward to receiving your revision.
+
+Please contact the Associate Editor (copied in CC) for any inquiries regarding the handling of the manuscript.
+
+Sincerely,
+Prof. Lola Cañamero
+Editor in Chief, Adaptive Behavior
+lola.canamero@cyu.fr
+
+Associate Editor
+Comments to the Author:
+Dear Authors,
+
+you will find below the reviewers' recommendations, please take them into account to prepare a revised version of your manuscript.
+
+Reviewer(s)' Comments to Author:
+
+Reviewer: 1
+
+Comments to the Author
+Summary
+The paper attempts to provide a concrete simulation of the processes of canalization and decanalization as described by Carhart-Harris et al. (2023) and Juliani et al. (2024). The authors utilize a 3D environment with a food gathering task and homeostatic reinforcement learning agents in order to do so. They design a custom reward function intended to induce a canalization in the behavior of the agent, and then propose a temporary intervention on that reward function which is intended to reduce the canalization. The authors find that their reward function does indeed induce canalization, and that their intervention is able to help rescue the agent from the negative effects of that canalization. It is important and valuable to think through and make concrete the sometimes highly abstract theories being generated in the field of computational psychiatry. By forcing them to adhere to the needs of an ecologically valid simulation, flaws or weak points in the theory may be exposed and addressed.
+
+General Comments
+My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. The manuscript describes a complex reward function in which the traversal cost of a tile decays each time the agent enters the tile. I see how this will induce a rigid behavioral policy within an agent and penalize it for exploration. What is not well explained is why this is an ecologically valid reward function in this case. As the manuscript notes, the typical source of canalization is from the training process adjusting the parameters of the model itself, not from the external reward function. RL algorithms tend to naturally produce greedy policies, and much of the research in the field over its history has been devoted to designing algorithms which optimally balance exploration and exploitation throughout the training process. My recommendation would be to focus on canalization that is connected to the intrinsic dynamics of learning itself. If, however, the focus remains on the design of the reward function, then that choice should be thoroughly justified and defended within the paper. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one. This could make more clear the pathological nature of the canalized policies by having a “healthy” policy to compare against.
+
+Specific Comments
+Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
+Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are. More generally, the paper is lacking a clear hypothesis that is being evaluated. Is the hypothesis that the decanalization procedure will produce specific improvements in model performance? If so, that should be stated explicitly.  
+Page 4: Why was a 3D environment chosen? All of the experiments take place on a 2D plane, so it would seem that height is not relevant.
+Page 5: The PPO algorithm should be properly cited here, and in doing so there is no need for a detailed explanation of how the algorithm works.
+Page 5: There is no description of the architecture of the model itself. It is not even clear that the models being trained are neural networks, as all that is described are the Python and PyTorch versions. Please include these details, as well as what parameter choices were used for training (this can be included in an appendix).
+Page 7: I am not clear on the action space available to the agent. Presumably the agent moves around the environment, yet movement actions are not described. In fact, it sounds based on the current wording of the paper that the agent can only ever take a single action, which is to rotate its angle of view by a single degree? This cannot be the case, as then there would be nothing for the agent to learn. Please clarify this.
+Page 10: It is claimed that it is a normal practice to provide “disproportionally more reward the closer it gets to the target.” There should be a citation for this claim and the claim itself should be better justified or made more specific, because as currently stated it is not true. In cases where reaching the target induces a terminal state, a pathological policy in which the agent gets ever closer but never reaches the target can be learned.
+Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement. Please provide a citation for this claim.
+Page 11: The choice of the Negative Feedback agent as a baseline should be better justified. For example, why shouldn’t a Positive Feedback agent also be used as a baseline? Or why shouldn’t a more traditional non-homeostatic RL agent be included as a baseline? Currently it feels quite arbitrary, and given the nature of the reward function, it is not surprising that this agent suffers the pathologies that it does.
+Page 12: It is not clear what “60 seconds” means in this context, as wall clock time is arbitrarily related to timesteps within an RL simulation.
+Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. Why, for example, was the “rate of canalization increased threefold” in the intervention? Why not twofold, or not at all? It would be valuable to see how adjusting this parameter influences the results of the simulations.
+Page 15: The tables are somewhat difficult to interpret. It would be helpful if the different metrics were more clearly explained beforehand. Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition. To what extent do they learn the task? What pathologies of behavior arise? How much might the agents be in need of decanalization?
+Page 16: The authors find differences in the performance of the control conditions which they describe as a “false positive.” This may suggest that the study is underpowered in some way.
+Page 19: Having a stronger hypothesis being tested would help make the summary section more clear. Right now it reads as a list of various findings, and it is not clear as a reader what to make of them, or what their relevance is to the larger conversations the paper is positioning itself as contributing to. A related question is: “why did this need to be simulated at all?” Are the results predictable given the algorithms and reward functions? It is important for the authors to demonstrate that they discovered something that wouldn’t have been known beforehand.
+Page 19: The authors provide “niche-construction” as a motivation for the reward function in the discussion. This should be expanded upon and presented much earlier in the paper. It again gets to the question of justifying the design of the simulation.
+Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment. It would be helpful to know why this was the case. Could it be that the correct learning parameters were not used, or is there something more intrinsic to the design of the environment that prevented an optimal policy from being learned?
+Page 20: The discussion is a place for engaging with the wider literature and positioning the results of the paper within that literature. Right now the discussion is mostly a reflection on the results. It would be valuable to expand it.
+Page 28 and 29: These figures are difficult to read. It would be helpful to significantly increase the font size of the figures. Another suggestion would be to have a single “hero figure” in which the most important result of the paper is plainly visually presented to the reader in an intuitive manner. Right now these figures require significant parsing to make sense of.
+
+
+Reviewer: 2
+
+Summary:
+"Modeling Decanalization with Homeostatic Reinforcement Learning", introduces a computational framework designed to formalize long-standing theoretical concepts in psychology, neuroscience, and integrative psychotherapy. Living organisms often rely on habituated or entrenched behavioral repertoires to manage internal setpoints, but in clinical conditions such as depression, anxiety, PTSD, or substance use disorders, these behavioral patterns can become rigidly fixed—a phenomenon conceptualized as hypercanalization. While therapeutic interventions like psychedelic-assisted therapy or targeted stimulus regimes are increasingly used to transiently break these entrenched loops and allow healthier behaviors to stabilize, these dynamics of canalization, decanalization, and recanalization have historically remained qualitative metaphors. The authors address this theoretical gap by constructing an explicit agent-based model to test whether and how temporary behavioral destabilization can lead to more adaptive behavioral patterns.
+
+To test these ideas, the authors created a 3D simulation sandbox in Unreal Engine 5 using PyTorch and Proximal Policy Optimization (PPO) to train simulated agents in a homeostatic navigation task. The environment consists of a continuous 2D toroidal arena populated with resource pellets that replenish an internal homeostatic variable and terrain tiles that impose movement costs. Behavioral and ecological canalization is implemented through a dynamic movement-cost mechanism: as an agent repeatedly traverses a specific tile, the traversal cost of that tile decreases proportional to the number of past visits. This design creates physical "ruts" or low-cost pathways in the environment, encouraging agents to over-exploit familiar routes at the expense of broader exploration.
+
+The core experiment evaluates a composite decanalization intervention across three sequential phases: an initial canalization phase, a decanalization phase, and a final recanalization phase. During the decanalization phase, the agent’s perceptual and environmental parameters are temporarily altered to simulate an exploratory, altered state. Specifically, all resource pellets are perceived as having maximum reward value, tile movement costs are perceived as zero, the rate of pathway canalization is tripled to model heightened metaplasticity, and post-decanalization tile visit counts are halved to represent a smoothing of entrenched pathways. The study compares two control architectures under identical matched environments: Homeostatic Reinforcement Learning (HRL), which penalizes setpoint deviations both above and below an ideal setpoint, and Homeostatic Negative Feedback (NF), a simpler control architecture that only penalizes negative deviations below the setpoint.
+
+The results demonstrate a clear functional divergence between the two control architectures following decanalization. In HRL agents, temporary decanalization led to a statistically significant improvement in post-decanalization homeostatic performance compared to matched control agents that underwent continuous canalization without intervention. Following the decanalization phase, HRL agents maintained their internal homeostatic variable significantly closer to the target setpoint and constrained setpoint variance to a narrower range, successfully leveraging the transient perturbation to escape suboptimal local trajectories and discover more efficient pathways. In contrast, NF-trained agents derived no homeostatic benefit from decanalization; during the intervention phase, they exhibited indiscriminate and greedy pellet consumption, but failed to achieve improved setpoint stability or higher cumulative rewards during the subsequent recanalization phase.
+
+The authors conclude that temporary destabilization can indeed serve as a functional mechanism for escaping entrenched behavioral patterns and achieving superior homeostatic regulation, but its success depends heavily on the agent's internal reward structure and predictive capacity. While HRL agents utilized new environmental information gathered during decanalization to better balance homeostatic gains and losses, NF agents lacked the anticipatory framework necessary to translate transient exploration into long-term behavioral optimization. The authors offer their model as a preliminary, quantitative proof-of-concept for modeling behavioral entrenchment and therapeutic change, while explicitly noting its limitations as a simplified single-variable environment that lays the groundwork for more complex, empirically constrained future models.
+
+Review:
+This is a very well-written and we-reasoned manuscript, and would be a valuable contribution to the field if published as is. Below I offer some suggestions which I hope may be helpful to the authors in some capacity, whether for this or for future work.
+
+“Canalization and plasticity in psychopathology” is a highly problematic paper, in that it claims that the “first principal component” of psychopathology is rigidity due to excessively canalized (expected) free energy landscapes, when a more accurate/grounding of the literature suggests the situation is precisely the opposite: As a conjunction of low Conscientiousness, low Agreeableness, and high Neuroticism, the Pfactors is actually the inverse of the Big-5 meta-trait of “Stability”, which may be understood as lack of well-configured (for life) characteristic adaptations. Alternatively, the P-factor could be understood as a deficit with respect to positive/adaptive canalization, which seems highly consistent with the findings described in this manuscript.
+
+Integrating Cybernetic Big Five Theory with the free energy principle: A new strategy for modeling personalities as complex systems
+
+Towards Understanding Persons and Their Personalities with Cybernetic Big 5 Theory and the Free Energy Principle and Active Inference (FEP-AI) Framework
+
+Robin is not incorrect in pointing out the dangers of excessive rigidity via maladaptive canalization. However, it would be more accurate (even if less satisfying/aggrandizing) to refer to this as the “second principal component” of psychopathology.
+
+While we’re attempting to correct for overly simplified (over-reaching) models, in discussing altered beliefs under psychedelics, it could be worth mentioning this work which suggests we ought to expect combinations of both directly and indirectly relaxed and strengthened beliefs at different levels of neural hierarchies:
+
+On the varieties of conscious experiences: Altered Beliefs Under Psychedelics (ALBUS) | Neuroscience of Consciousness
+
+Another question I had in reading this manuscript was the extent to which these findings could be used to understand the natural/normative functioning of psychedelic-like transformative experiences as described in the excellent work of Ari Brouwer:
+
+Pivotal mental states
+
+The Temporal Trajectory of the Psychedelic Mushroom Experience Mimics the Narrative Arc of the Hero’s Journey
