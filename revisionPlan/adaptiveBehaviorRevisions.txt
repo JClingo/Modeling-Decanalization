@@ -1,7 +1,9 @@
 Reviewer: 1
 
 General Comments
-My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. The manuscript describes a complex reward function in which the traversal cost of a tile decays each time the agent enters the tile. I see how this will induce a rigid behavioral policy within an agent and penalize it for exploration. What is not well explained is why this is an ecologically valid reward function in this case. As the manuscript notes, the typical source of canalization is from the training process adjusting the parameters of the model itself, not from the external reward function. RL algorithms tend to naturally produce greedy policies, and much of the research in the field over its history has been devoted to designing algorithms which optimally balance exploration and exploitation throughout the training process. My recommendation would be to focus on canalization that is connected to the intrinsic dynamics of learning itself. If, however, the focus remains on the design of the reward function, then that choice should be thoroughly justified and defended within the paper. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one. This could make more clear the pathological nature of the canalized policies by having a “healthy” policy to compare against.
+My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. The manuscript describes a complex reward function in which the traversal cost of a tile decays each time the agent enters the tile. I see how this will induce a rigid behavioral policy within an agent and penalize it for exploration. What is not well explained is WHY THIS IS AN ECOLOGICALLY VALID REWARD FUNCTION IN THIS CASE. As the manuscript notes, the typical source of canalization is from the training process adjusting the parameters of the model itself, not from the external reward function. RL algorithms tend to naturally produce greedy policies, and much of the research in the field over its history has been devoted to designing algorithms which optimally balance exploration and exploitation throughout the training process. My recommendation would be to FOCUS ON CANALIZATION THAT IS CONNECTED TO THE INTRINSIC DYNAMICS OF LEARNING ITSELF. IF, HOWEVER, THE FOCUS REMAINS ON THE DESIGN OF THE REWARD FUNCTION, THEN THAT CHOICE SHOULD BE THOROUGHLY JUSTIFIED AND DEFENDED WITHIN THE PAPER. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one. This could make more clear the pathological nature of the canalized policies by having a “healthy” policy to compare against.
+
+> Clingo / leave this for stage 2 and discuss.
 
 EACH OF US THINK / DISCUSS
 
@@ -9,73 +11,84 @@ Specific Comments
 
 Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
 
-> DO IT
+> DO IT. Clingo. Easy.
 
 Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are. More generally, the paper is lacking a clear hypothesis that is being evaluated. Is the hypothesis that the decanalization procedure will produce specific improvements in model performance? If so, that should be stated explicitly. 
 
-> DO IT
+> DO IT. Jeff will revise comment.
 
 Page 4: Why was a 3D environment chosen? All of the experiments take place on a 2D plane, so it would seem that height is not relevant.
 
-> Unreal engine naturally affords itself to 3d environments but in principle this could have been a 2d simulation.
+> We have added the following note: "Though it is a 3D tool, the simulation itself is essentially a 2D planar simulation."
 
 Page 5: The PPO algorithm should be properly cited here, and in doing so there is no need for a detailed explanation of how the algorithm works.
 
-> DO IT. Add citation and remove detailed explaantion
+> Done
 
 Page 5: There is no description of the architecture of the model itself. It is not even clear that the models being trained are neural networks, as all that is described are the Python and PyTorch versions. Please include these details, as well as what parameter choices were used for training (this can be included in an appendix).
 
-> DO IT: Add appendix or description
+> DO IT: Add appendix or description. Clingo.
 
 Page 7: I am not clear on the action space available to the agent. Presumably the agent moves around the environment, yet movement actions are not described. In fact, it sounds based on the current wording of the paper that the agent can only ever take a single action, which is to rotate its angle of view by a single degree? This cannot be the case, as then there would be nothing for the agent to learn. Please clarify this.
 
-> DO IT: Discuss together
+> This is in fact the only action it takes, but with constant forward motion this is sufficient to produce complex behaviors. We have tried to make this more clear in the text. 
 
 Page 10: It is claimed that it is a normal practice to provide “disproportionally more reward the closer it gets to the target.” There should be a citation for this claim and the claim itself should be better justified or made more specific, because as currently stated it is not true. In cases where reaching the target induces a terminal state, a pathological policy in which the agent gets ever closer but never reaches the target can be learned.
 
-> DO IT
+> DO IT. Clingo.
 
 Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement. Please provide a citation for this claim.
 
-> Clarify meaning. It was more effective _in this scenario_.
+> Clarify meaning. It was more effective _in this scenario_. Clingo.
 
 Page 11: The choice of the Negative Feedback agent as a baseline should be better justified. For example, why shouldn’t a Positive Feedback agent also be used as a baseline? Or why shouldn’t a more traditional non-homeostatic RL agent be included as a baseline? Currently it feels quite arbitrary, and given the nature of the reward function, it is not surprising that this agent suffers the pathologies that it does.
 
-> Add citation that backs this up
+> Add citation that backs this up. Clingo.
 
 Page 12: It is not clear what “60 seconds” means in this context, as wall clock time is arbitrarily related to timesteps within an RL simulation.
 
-> Explain relation to time steps and report integration time step if there is one.
+> Clingo. Sounds a bit complicated. Find a way to say it.
 
 Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. Why, for example, was the “rate of canalization increased threefold” in the intervention? Why not twofold, or not at all? It would be valuable to see how adjusting this parameter influences the results of the simulations.
 
-> Discuss.
+> Discuss. Clingo.
 
-Page 15: The tables are somewhat difficult to interpret. It would be helpful if the different metrics were more clearly explained beforehand. Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition. To what extent do they learn the task? What pathologies of behavior arise? How much might the agents be in need of decanalization?
+Page 15: The tables are somewhat difficult to interpret. It would be helpful if the different metrics were more clearly explained beforehand. 
 
-> Discuss
+> Jeff will make a table at start of results section. 
+
+Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition. To what extent do they learn the task? What pathologies of behavior arise? How much might the agents be in need of decanalization?
+
+> Clingo.
 
 Page 16: The authors find differences in the performance of the control conditions which they describe as a “false positive.” This may suggest that the study is underpowered in some way.
 
-> Discuss
+> Discuss / Clingo.
 
-Page 19: Having a stronger hypothesis being tested would help make the summary section more clear. Right now it reads as a list of various findings, and it is not clear as a reader what to make of them, or what their relevance is to the larger conversations the paper is positioning itself as contributing to. A related question is: “why did this need to be simulated at all?” Are the results predictable given the algorithms and reward functions? It is important for the authors to demonstrate that they discovered something that wouldn’t have been known beforehand.
+Page 19: Having a stronger hypothesis being tested would help make the summary section more clear. Right now it reads as a list of various findings, and it is not clear as a reader what to make of them, or what their relevance is to the larger conversations the paper is positioning itself as contributing to. 
+
+> I think what we do with the other questions below will address this.
+
+A related question is: “why did this need to be simulated at all?” Are the results predictable given the algorithms and reward functions? It is important for the authors to demonstrate that they discovered something that wouldn’t have been known beforehand.
+
+> Clingo
 
 Page 19: The authors provide “niche-construction” as a motivation for the reward function in the discussion. This should be expanded upon and presented much earlier in the paper. It again gets to the question of justifying the design of the simulation.
 
-> Discus
+> Clingo. Maybe pull from older stuff.
 
 Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment. It would be helpful to know why this was the case. Could it be that the correct learning parameters were not used, or is there something more intrinsic to the design of the environment that prevented an optimal policy from being learned?
 
-> Discuss
+> Clingo
+
 
 Page 20: The discussion is a place for engaging with the wider literature and positioning the results of the paper within that literature. Right now the discussion is mostly a reflection on the results. It would be valuable to expand it.
 
-> Do this using Saffron as guidance
+> Clingo. Do this using Saffron as guidance
 
 Page 28 and 29: These figures are difficult to read. It would be helpful to significantly increase the font size of the figures. Another suggestion would be to have a single “hero figure” in which the most important result of the paper is plainly visually presented to the reader in an intuitive manner. Right now these figures require significant parsing to make sense of.
 
-> Discuss
+> * Discuss together
 
 
 Reviewer: 2
