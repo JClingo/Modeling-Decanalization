@@ -15,7 +15,7 @@ Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL i
 
 Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are. More generally, the paper is lacking a clear hypothesis that is being evaluated. Is the hypothesis that the decanalization procedure will produce specific improvements in model performance? If so, that should be stated explicitly. 
 
-> DO IT. Jeff will revise comment.
+> The final  paragraph of the intro has been revised in accordance with this suggestion. We did not explicitly summarize results but we do 
 
 Page 4: Why was a 3D environment chosen? All of the experiments take place on a 2D plane, so it would seem that height is not relevant.
 
@@ -55,7 +55,7 @@ Page 12: As currently described, the decanalization intervention feels somewhat 
 
 Page 15: The tables are somewhat difficult to interpret. It would be helpful if the different metrics were more clearly explained beforehand. 
 
-> Jeff will make a table at start of results section. 
+> We have moved the descriptions we had to a table and expanded and improved on those descriptions. We also moved the pre and during intervention differences to an appendix, to keep the focus on the main comparison and further clarify the results.
 
 Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition. To what extent do they learn the task? What pathologies of behavior arise? How much might the agents be in need of decanalization?
 
@@ -63,7 +63,7 @@ Furthermore, it would be valuable to demonstrate more clearly what kind of polic
 
 Page 16: The authors find differences in the performance of the control conditions which they describe as a “false positive.” This may suggest that the study is underpowered in some way.
 
-> Discuss / Clingo.
+> Clingo.
 
 Page 19: Having a stronger hypothesis being tested would help make the summary section more clear. Right now it reads as a list of various findings, and it is not clear as a reader what to make of them, or what their relevance is to the larger conversations the paper is positioning itself as contributing to. 
 

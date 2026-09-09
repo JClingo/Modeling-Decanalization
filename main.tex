@@ -272,6 +272,7 @@ These choices were inspired by \cite{juliani_deep_2024}, which cleanly separates
 
 \subsection{Statistical Analysis and Reproducibility}
 
+% TODO (statistical tests): analysis/sandbox.py uses scipy.stats.ttest_ind and pooled-variance Cohen's d, whereas the text describes paired tests. Identify the analysis that generated the reported results and verify trial pairing; reconcile the methods, Results terminology, effect-size definition, and numerical results as needed.
 For each reward function, we trained multiple agents and observed similar converged behavior across agents. Evaluation then consisted of matched comparisons between decanalization (CDR) and no-decanalization (CCC) conditions. Reported summary measures were captured at the end of each phase. CDR-CCC condition differences were evaluated with paired two-sided $t$-tests, using matched environment instances as the unit of pairing. We report mean differences, $p$-values, and Cohen's $d$ as compact summaries of these paired condition comparisons.
 
 All completed matched CDR-CCC trial pairs were retained for analysis, and no agents or trial pairs were excluded post hoc. Episode termination at 60 seconds or when \(|h_t| > 50\) was part of the predefined training procedure, rather than attrition. Outcome measures were extracted automatically from logged simulation variables, so no manual scoring or investigator blinding was involved. Because the study used simulated agents rather than biological subjects, sex, age, weight, and other subject demographic variables were not applicable. The numbers of trained agents and matched evaluation trials were fixed before analysis to provide stable comparisons across environment seeds—no formal a priori power analysis was performed. All stochastic elements of training and evaluation were seed-controlled so that environment generation, initial transforms, and matched condition comparisons could be reproduced from the recorded parameter settings.
@@ -292,128 +293,125 @@ We compared two different versions of the trained agents (HRL and NF) under two 
   \caption{Evaluation design. Within each matched CDR-CCC comparison, agents were evaluated on the same pellet arrangement and starting transform, with the phase-2 decanalization manipulation as the only intended difference.}
 \end{figure}
 
-Recall that each agent was trained with reinforcement learning to maximize the rewards it received, which were awarded proportionately to the distance of the agent from \(h_*\), where \(h_* = 0\). High mean distances and large \(h\) deviation would suggest that the agent was not performing actions that maximized its rewards.
+We evaluated our models using the measures shown in Table \ref{tab:outcome-measures}. 
+
+% TODO (reward meaning): Inspect BP_GameMode's EstimateReward and its connection to the logged reward-total in the decanalization repository. Blueprint names/comments mention estimated reward and anticipated paths, but binary-string inspection does not establish whether the logged metric scores observed changes, anticipated outcomes, or a learned return estimate. Confirm before revising the definition, interpretation, and metric name throughout the paper.
+% TODO (reward aggregation/normalization): analysis/sandbox.py reads phase-level reward-total and min-max normalizes it separately within each dataset and reward function, pooling phases. Confirm that this script/version generated the reported tables and figures, verify how the Blueprint accumulates reward-total, and document the calculation. Check whether separately scaling CDR and CCC is appropriate for the intended comparison; the existing prose alternates between total and average reward.
+% TODO (h deviation): BP_GameMode contains GetStandardDev and LearningSetpointStdDev, and BFL_Common contains GetStandardDeviation, Variance, and Sqrt. These suggest standard deviation, but inspect the Blueprint calculation and logged setpoint-dev connection before specifying the statistic and units consistently throughout the paper.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.15}
+  \caption{Outcome measures}
+  \label{tab:outcome-measures}
+  \begin{tabularx}{\linewidth}{@{}p{0.19\linewidth}XX@{}}
+    \toprule
+    \textbf{Measure} & \textbf{Definition} & \textbf{Interpretation} \\
+    \midrule
+    Mean distance & Mean absolute distance of \(h_t\) from \(h^*\) over timesteps within a phase. & Lower values indicate closer setpoint regulation, regardless of whether deviations are above or below the setpoint; a negative intervention--control difference favors intervention. \\
+    \(h\) deviation & Variability of \(h_t\) over timesteps within a phase. & Lower values indicate a more stable homeostatic state; a negative intervention--control difference favors intervention. \\
+    Reward prediction & Reward calculated during evaluation under the agent's reward function (HRL or NF), without updating its learned weights. & Scores behavior under the training reward rule during evaluation; higher values indicate better performance under that rule. \\
+    \(h\) lost & Homeostatic loss from tile traversal costs and baseline depletion during a phase. & \\
+    \(h\) gained & Total increase in \(h\) from resource pellets during a phase. & \\
+    Unique pellets & Number of distinct pellets consumed during a phase. & \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+We refer to the three observation periods as pre-intervention, during intervention, and post-intervention. Control agents were observed over the corresponding periods without receiving the intervention. For within-architecture comparisons, \(\Delta M\) denotes the difference in condition means, calculated as intervention minus control within the same observation period. It is not a change from pre-intervention to post-intervention. The main tables report post-intervention differences; pre-intervention and during-intervention comparisons are reported in Appendix \ref{app:early-comparisons}.
 
 \subsection{HRL: decanalization vs. no-decanalization}
 
-\begin{table}
+\begin{table}[htbp]
   \centering
-  \scriptsize
-  \setlength{\tabcolsep}{2.5pt}
-  \resizebox{\linewidth}{!}{
-    \begin{tabular}{|l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|}
-      \hline
-      \textbf{Phase comparison} & \multicolumn{3}{|l|}{\cellcolor[HTML]{E4EEFC}\textbf{CDR-1 vs. CCC-1}} & \multicolumn{3}{|l|}{\cellcolor[HTML]{FFE6E5}\textbf{CDR-2 vs. CCC-2}} & \multicolumn{3}{|l|}{\cellcolor[HTML]{E4EEFC}\textbf{CDR-3 vs. CCC-3}}                                                                                                   \\ \hline
-      \textbf{Measure}          & \textbf{\(\Delta\)M}                                                   & \textbf{p}                                                             & \textbf{d}                                                             & \textbf{\(\Delta\)M} & \textbf{p} & \textbf{d} & \textbf{\(\Delta\)M} & \textbf{p} & \textbf{d} \\ \hline
-      Mean distance             & -19.60                                                                 & 0.0085**                                                               & -0.5368                                                                & 262.57               & 0.0000***  & 6.2267     & -42.77               & 0.0000***  & -1.0640    \\ \hline
-      \(h\) deviation           & -742.02                                                                & 0.0529                                                                 & -0.3918                                                                & 12927.72             & 0.0000***  & 6.2509     & -1847.65             & 0.0000***  & -0.9336    \\ \hline
-      Reward prediction         & 0.2121                                                                 & 0.9623                                                                 & 0.0095                                                                 & -0.0728              & 0.0000***  & -5.3206    & 0.2400               & 0.0114*    & 0.5160     \\ \hline
-      \(h\) lost                & -6.97                                                                  & 0.3262                                                                 & 0.1973                                                                 & 122.64               & ---        & ---        & 39.77                & 0.0001***  & 0.8255     \\ \hline
-      \(h\) gained              & -34.43                                                                 & 0.0186*                                                                & -0.4788                                                                & 159.35               & 0.0000***  & 2.0970     & -45.75               & 0.0020**   & -0.6341    \\ \hline
-      Unique pellets            & -1.30                                                                  & 0.3868                                                                 & -0.1739                                                                & 10.52                & 0.0000***  & 1.3959     & 0.84                 & 0.6223     & 0.0988     \\ \hline
-    \end{tabular}}
-  \caption{Comparisons of dependent measures for HRL agents in the decanalization (CDR) and no-decanalization (CCC) conditions. Values were recorded at the end of each phase. Mean distance is the mean absolute distance from the ideal setpoint value. ‘\(\Delta\)M’ denotes the mean difference (CDR minus CCC), and ‘d’ denotes Cohen's \(d\). The \(p\)- and \(d\)-values for \(h\) lost in phase 2 are omitted because the absence of perceived \(h\) loss was part of the decanalization manipulation.}
+  \small
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    \textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
+    \midrule
+    Mean distance & -42.77 & 0.0000*** & -1.0640 \\
+    \(h\) deviation & -1847.65 & 0.0000*** & -0.9336 \\
+    Reward prediction & 0.2400 & 0.0114* & 0.5160 \\
+    \(h\) lost & 39.77 & 0.0001*** & 0.8255 \\
+    \(h\) gained & -45.75 & 0.0020** & -0.6341 \\
+    Unique pellets & 0.84 & 0.6223 & 0.0988 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Post-intervention comparisons of dependent measures for HRL agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}.}
   \label{model-analysis-hrl}
 \end{table}
 
-Table \ref{model-analysis-hrl} compares 6 measures between the CDR and CCC conditions. These are treatment-minus-control comparisons, so negative values indicate that more of something occurred in the control condition. A negative $h$-mean indicates that the agent was more “hungry” in the control condition. A negative $h$-deviation indicates greater variance in hunger in the control condition. ‘Reward prediction’ is the total normalized reward prediction, that is, what an agent would be rewarded for if it were being trained. Positive reward prediction indicates that the agent in the control condition predicted a smaller reward. Negative $h$-lost indicates that more new paths were taken in the control condition (passive loss is the same in each case, so this measure tracks traversal costs). ‘\(h\) gained’ is the average total \(h\) increase from pellets, while ‘Unique pellets’ is the average number of different pellets consumed during the phase. Negative $h$ gained signifies that the agent received fewer or lower-value pellets in the control condition. Negative unique pellets indicates that the agent received more unique pellets in the control condition; positive unique pellets signifies that it received more unique pellets in the treatment condition.
+Table \ref{model-analysis-hrl} compares the six post-intervention outcome measures between intervention and control conditions for HRL agents.
 
-Performance differences in phase 1 were minimal, as expected, since the phases were identical. There was a small but significant difference in mean \(h\) and total \(h\) gained. Because the environments were matched, we interpret this residual stochastic variation in learned behavior as a false positive. The other measures did not change significantly, as expected.
+The post-intervention comparison (recanalization vs. continued canalization) was vital because it directly compared agents that did or did not undergo a decanalization phase. The agent in the recanalization condition managed mean \(h\) more effectively. The $\Delta M$ of -42.77 indicates that agents that went through decanalization and recanalization maintained $h$ 42.77 units closer on average to the ideal setpoint than agents in the canalization only condition. Intervention agents also showed much lower setpoint deviation than the control agents, meaning that they constrained $h$ to a narrower range (smaller standard deviation over all timesteps in the phase). Additionally, intervention agents predicted more average reward than control agents. The intervention agents experienced more loss in \(h\) than control agents. This increased loss was accompanied by lower \(h\) gain through pellet consumption, while pellet diversity did not differ significantly.
 
-During phase 2 (decanalization vs. canalization), we observed significant differences in all measures. This was expected, given the changes in perception of pellet value, tile traversal cost, and canalization rate. The decanalized agent collected pellets more greedily (159.35 more \(h\) gain on average) and with greater pellet diversity (10.52 more unique pellets consumed on average).
+Pre-intervention differences (Table \ref{model-analysis-hrl-early}) were minimal, as expected, since the phases were identical. There was a small but significant difference in mean \(h\) and total \(h\) gained. Because the environments were matched, we interpret this residual stochastic variation in learned behavior as a false positive. The other measures did not change significantly, as expected.
 
-% Positive means they got more of. Negative means it was on average a lower value
-The phase 3 comparison (recanalization vs. canalization) was vital because it directly compared agents that did or did not undergo a decanalization phase. The agent in the recanalization condition managed mean \(h\) more effectively. The $\Delta M$ of -42.77 indicates that agents that went through decanalization and recanalization (CDR) maintained $h$ 42.77 units closer on average to the ideal setpoint than agents in the canalization only condition (CCC). CDR agents also showed much lower setpoint deviation than the CCC agents, meaning that they constrained $h$ to a narrower range (smaller standard deviation over all timesteps in the phase). Additionally, CDR agents predicted more average reward than CCC agents. The CDR agents experienced more loss in \(h\) than CCC agents. This increased loss was offset by greater \(h\) gain through pellet consumption, although pellet diversity did not increase, suggesting that decanalized agents located higher-payout pellets in less-traversed regions.
+During intervention, we observed significant differences in all measures tested (Table \ref{model-analysis-hrl-early}). This was expected, given the changes in perception of pellet value, tile traversal cost, and canalization rate. The decanalized agent collected pellets more greedily (159.35 more \(h\) gain on average) and with greater pellet diversity (10.52 more unique pellets consumed on average).
 
 These results suggest that decanalization can lead to spontaneous exploration of new pathways, resulting in improved homeostatic performance.
 
 \subsection{NF: decanalization vs. no-decanalization}
 
 The effects of decanalization on the NF-trained agent were much more mixed.
-\begin{table}
+\begin{table}[htbp]
   \centering
-  \scriptsize
-  \setlength{\tabcolsep}{2.5pt}
-  \resizebox{\linewidth}{!}{
-    \begin{tabular}{|l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|}
-      \hline
-      \textbf{Phase comparison} & \multicolumn{3}{|l|}{\cellcolor[HTML]{E4EEFC}\textbf{CDR-1 vs. CCC-1}} & \multicolumn{3}{|l|}{\cellcolor[HTML]{FFE6E5}\textbf{CDR-2 vs. CCC-2}} & \multicolumn{3}{|l|}{\cellcolor[HTML]{E4EEFC}\textbf{CDR-3 vs CCC-3}}                                                                                                   \\ \hline
-      \textbf{Measure}          & \textbf{\(\Delta\)M}                                                   & \textbf{p}                                                             & \textbf{d}                                                            & \textbf{\(\Delta\)M} & \textbf{p} & \textbf{d} & \textbf{\(\Delta\)M} & \textbf{p} & \textbf{d} \\ \hline
-      Mean distance             & -3.562                                                                 & 0.3687                                                                 & -0.1806                                                               & 241.13               & 0.0000***  & 4.9965     & -14.42               & 0.0976     & -0.3345    \\ \hline
-      \(h\) deviation           & -92.90                                                                 & 0.6706                                                                 & -0.0853                                                               & 11629.61             & 0.0000***  & 5.0702     & -595.34              & 0.1552     & -0.2865    \\ \hline
-      Reward prediction         & -0.1404                                                                & 0.0000***                                                              & -1.0695                                                               & 0.131                & 0.0063**   & 0.5587     & -0.1702              & 0.0000***  & -1.1767    \\ \hline
-      \(h\) lost                & 3.302                                                                  & 0.3779                                                                 & 0.1772                                                                & 163.4                & ---        & ---        & 31.600               & 0.0003***  & 0.7499     \\ \hline
-      \(h\) gained              & -12.93                                                                 & 0.2211                                                                 & -0.2463                                                               & 100.65               & 0.0000***  & 1.2309     & -2.636               & 0.8457     & -0.0390    \\ \hline
-      Unique pellets            & 1.020                                                                  & 0.3370                                                                 & 0.1930                                                                & 1.500                & 0.2260     & 0.2437     & 1.680                & 0.2666     & 0.2234     \\ \hline
-    \end{tabular}}
-  \caption{Comparisons of dependent measures for NF agents in the decanalization (CDR) and no-decanalization (CCC) conditions. As in Table \ref{model-analysis-hrl}, values were recorded at the end of each phase.}
+  \small
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    \textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
+    \midrule
+    Mean distance & -14.42 & 0.0976 & -0.3345 \\
+    \(h\) deviation & -595.34 & 0.1552 & -0.2865 \\
+    Reward prediction & -0.1702 & 0.0000*** & -1.1767 \\
+    \(h\) lost & 31.600 & 0.0003*** & 0.7499 \\
+    \(h\) gained & -2.636 & 0.8457 & -0.0390 \\
+    Unique pellets & 1.680 & 0.2666 & 0.2234 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Post-intervention comparisons of dependent measures for NF agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}.}
   \label{model-analysis-nf}
 \end{table}
 
-As with HRL, and as expected, phase 1 performance was flat, even flatter with NF, possibly due to the simplicity of its reward function. We again observed a small unexpected phase-1 difference, here in reward prediction, which we interpret as residual stochastic variation rather than as evidence of a systematic condition effect.
+Post-intervention performance of the intervention versus control agent was strikingly different from what we saw with HRL. Mean distance from the ideal setpoint was not significantly different across conditions, and most of the other results were flat across conditions, with the strong exceptions of reward prediction and \(h\) lost, where the decanalized agent saw a significantly lower reward prediction and a higher loss in \(h\). As with HRL, this could suggest that decanalization can result in pushing the agent into a less-explored region of the landscape. However, unlike HRL, NF-trained agents do not appear to benefit in the homeostatic sense discussed here. They were pushed outside their trajectories, but they did not spontaneously identify pathways that could improve their homeostatic performance by keeping their \(h\) value above zero, nor did they increase their rewards received.
 
-Phase 2 performance was similar to that of HRL, with the decanalized agent showing increased deviation from the setpoint as it greedily pursued pellets. However, it did not increase pellet diversity; instead, it tended to exploit the same pellets. We also saw a modest effect on reward prediction. Given the opposite effect in phase 1, this suggests that reward prediction may have been sensitive to randomness in agent actions and/or to poor reward prediction.
+As with HRL, and as expected, pre-intervention performance was flat (Table \ref{model-analysis-nf-early}), even flatter with NF, possibly due to the simplicity of its reward function. We again observed a small unexpected pre-intervention difference, here in reward prediction, which we interpret as residual stochastic variation rather than as evidence of a systematic condition effect.
 
-Phase 3 performance of the decanalization versus no-decanalization agent was strikingly different from what we saw with HRL. Mean distance from the ideal setpoint was not significantly different across conditions, as were most of the other results were flat across conditions, with the strong exceptions of reward prediction and \(h\) lost, where the decanalized agent saw a significantly lower reward prediction and a higher loss in \(h\). As with HRL, this could suggest that decanalization can result in pushing the agent into a less-explored region of the landscape. However, unlike HRL, RL-trained agents do not appear to benefit in the homeostatic sense discussed here. They were pushed outside their trajectories, but they did not spontaneously identify pathways that could improve their homeostatic performance by keeping their \(h\) value above zero, nor did they increase their rewards received.
+During-intervention performance (Table \ref{model-analysis-nf-early}) was similar to that of HRL, with the decanalized agent showing increased deviation from the setpoint as it greedily pursued pellets. However, it did not increase pellet diversity; instead, it tended to exploit the same pellets. We also saw a modest effect on reward prediction. Given the opposite effect before intervention, this suggests that reward prediction may have been sensitive to randomness in agent actions and/or to poor reward prediction.
 
 \subsection{HRL vs. NF after decanalization}
-\begin{table}
+
+% TODO: Joshua, I find this table pretty hard to think about. It's hard to do a difference of differences in one's head and quickly see what negative and positive mean. I'm inclined to just put in a narrative paragraph. The tables above are nice and easy to think about and make it clear that HRL is doing better.  
+
+
+\begin{table}[htbp]
   \centering
-  \scriptsize
-  \setlength{\tabcolsep}{2.5pt}
-  \resizebox{\linewidth}{!}{
-    \begin{tabular}{|l|
-        >{\columncolor[HTML]{E4EEFC}}l|
-        >{\columncolor[HTML]{FFE6E5}}l|
-        >{\columncolor[HTML]{E4EEFC}}l|}
-      \hline
-      \textbf{Phase comparison}
-                        & \multicolumn{1}{|l|}{\cellcolor[HTML]{E4EEFC}\textbf{\(\Delta\)HRL-1 vs. \(\Delta\)NF-1}}
-                        & \multicolumn{1}{|l|}{\cellcolor[HTML]{FFE6E5}\textbf{\(\Delta\)HRL-2 vs. \(\Delta\)NF-2}}
-                        & \multicolumn{1}{|l|}{\cellcolor[HTML]{E4EEFC}\textbf{\(\Delta\)HRL-3 vs. \(\Delta\)NF-3}}                      \\ \hline
-
-      \textbf{Measure}
-                        & \textbf{\(\Delta\)M}
-                        & \textbf{\(\Delta\)M}
-                        & \textbf{\(\Delta\)M}                                                                                           \\ \hline
-
-      Mean distance     & -16.04                                                                                    & 21.44   & -28.35   \\ \hline
-      \(h\) deviation   & -649.12                                                                                   & 1298.11 & -1252.21 \\ \hline
-      Reward prediction & 0.353                                                                                     & -0.204  & 0.41     \\ \hline
-      \(h\) lost        & 3.668                                                                                     & -40.76  & 8.17     \\ \hline
-      \(h\) gained      & -21.50                                                                                    & 58.70   & -43.11   \\ \hline
-      Unique pellets    & 2.32                                                                                      & 9.02    & -0.84    \\ \hline
-    \end{tabular}}
-  \caption{Difference-in-differences summary comparing the effects of decanalization on HRL- and NF-trained agents across the three phases. Each entry is the decanalization effect on HRL agents minus the corresponding decanalization effect on NF agents.}
+  \small
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    \textbf{Measure} & \(\boldsymbol{\Delta M_{\mathrm{HRL}}-\Delta M_{\mathrm{NF}}}\) \\
+    \midrule
+    Mean distance & -28.35 \\
+    \(h\) deviation & -1252.21 \\
+    Reward prediction & 0.41 \\
+    \(h\) lost & 8.17 \\
+    \(h\) gained & -43.11 \\
+    Unique pellets & -0.84 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Post-intervention differences in mean differences for HRL and NF agents. Negative values favor HRL for mean distance and \(h\) deviation; positive values favor HRL for reward prediction.}
   \label{model-analysis-hrl-vs-nf}
 \end{table}
 Despite the shared series of trial configurations, only HRL-trained agents saw homeostatic performance benefits from decanalization.
 
-Comparing the effects of decanalization across both agents, HRL-trained agents showed lower \(h\)-mean deviation in the first and third phases, staying closer to the ideal homeostatic setpoint, \(h_*\). During decanalization, the HRL-trained agent also showed a stronger exploratory preference, pursuing and consuming a greater diversity of pellets.
+Comparing the effects of decanalization across both agents, HRL-trained agents showed lower \(h\)-mean deviation in the pre-intervention and post-intervention periods, staying closer to the ideal homeostatic setpoint, \(h_*\). During intervention, the HRL-trained agent also showed a stronger exploratory preference, pursuing and consuming a greater diversity of pellets.
 
 Focusing on the post-decanalization results, only HRL agents were able to improve their reward prediction. HRL-trained agents did this with fewer unique pellets and a lower per-pellet gain, suggesting that they zeroed in on pellets that could reduce their deviation from the setpoint, which was greatly reduced from the initial value. This was accompanied by a higher \(h\) loss rate, demonstrating that the HRL-trained agents pursued low-payout pellets in less-exploited regions. In contrast, NF-trained agents did not improve their performance, including worse performance in reward prediction, where they greedily and erratically consumed pellets. In summary, decanalization greatly improved the homeostatic performance of HRL-trained agents and did not improve the performance of NF-trained agents.
 
 \subsection{Summary}
 
-We observed that decanalization had a strong effect on agent behavior, especially for the HRL-trained agent, which improved its performance without internal relearning through weight adjustment. Temporary changes in perception were sufficient to nudge the agent toward regions and rewards that reduced both the average setpoint distance and the deviation of setpoint distance. Performance with the NF-trained agent was more mixed. Although the NF agent stayed above the setpoint during recanalization, it showed increased \(h\) variation. It also greedily consumed pellets to the point that its reward prediction decreased, since its \(h_t\) rose well above \(h_*\) and could no longer be rewarded. For NF, decanalization increased exploitation. For HRL, the effect was markedly different: post-decanalization, the agent decreased its mean ideal setpoint distance, reduced pellet consumption, increased both homeostatic loss and gain, and decreased variation in \(h\).
+We observed that decanalization had a strong effect on agent behavior, especially for the HRL-trained agent, which improved its performance without internal relearning through weight adjustment. Temporary changes in perception were sufficient to nudge the agent toward regions and rewards that reduced both the average setpoint distance and the deviation of setpoint distance. Performance with the NF-trained agent was more mixed. Although the NF agent stayed above the setpoint during recanalization, it showed increased \(h\) variation. It also greedily consumed pellets to the point that its reward prediction decreased, since its \(h_t\) rose well above \(h_*\) and could no longer be rewarded. For NF, decanalization increased exploitation. For HRL, the effect was markedly different: post-decanalization, the agent decreased its mean ideal setpoint distance, reduced pellet consumption, increased homeostatic loss and decreased homeostatic gain, and decreased variation in \(h\).
 
 \section{Discussion}\label{model-discussion}
 
@@ -760,9 +758,61 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
 \end{thebibliography}
 
 
+\clearpage
 \begin{appendices}
 
   \section{Appendix}\label{appendix}
+
+  \subsection{Pre-intervention and during-intervention comparisons}\label{app:early-comparisons}
+
+  Tables \ref{model-analysis-hrl-early} and \ref{model-analysis-nf-early} report intervention--control differences before and during the intervention for HRL and NF agents, respectively. 
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{2pt}
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+     & \multicolumn{3}{c}{\textbf{Pre-intervention}} & \multicolumn{3}{c}{\textbf{During intervention}} \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
+\textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
+    \midrule
+    Mean distance & -19.60 & 0.0085** & -0.5368 & 262.57 & 0.0000*** & 6.2267 \\
+    \(h\) deviation & -742.02 & 0.0529 & -0.3918 & 12927.72 & 0.0000*** & 6.2509 \\
+    Reward prediction & 0.2121 & 0.9623 & 0.0095 & -0.0728 & 0.0000*** & -5.3206 \\
+    \(h\) lost & -6.97 & 0.3262 & 0.1973 & 122.64 & --- & --- \\
+    \(h\) gained & -34.43 & 0.0186* & -0.4788 & 159.35 & 0.0000*** & 2.0970 \\
+    Unique pellets & -1.30 & 0.3868 & -0.1739 & 10.52 & 0.0000*** & 1.3959 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Pre-intervention and during-intervention comparisons of dependent measures for HRL agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}. The \(p\)- and \(d\)-values for \(h\) lost during intervention are omitted because the absence of perceived \(h\) loss was part of the decanalization manipulation.}
+  \label{model-analysis-hrl-early}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{2pt}
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+     & \multicolumn{3}{c}{\textbf{Pre-intervention}} & \multicolumn{3}{c}{\textbf{During intervention}} \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
+\textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
+    \midrule
+    Mean distance & -3.562 & 0.3687 & -0.1806 & 241.13 & 0.0000*** & 4.9965 \\
+    \(h\) deviation & -92.90 & 0.6706 & -0.0853 & 11629.61 & 0.0000*** & 5.0702 \\
+    Reward prediction & -0.1404 & 0.0000*** & -1.0695 & 0.131 & 0.0063** & 0.5587 \\
+    \(h\) lost & 3.302 & 0.3779 & 0.1772 & 163.4 & --- & --- \\
+    \(h\) gained & -12.93 & 0.2211 & -0.2463 & 100.65 & 0.0000*** & 1.2309 \\
+    Unique pellets & 1.020 & 0.3370 & 0.1930 & 1.500 & 0.2260 & 0.2437 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Pre-intervention and during-intervention comparisons of dependent measures for NF agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}. The \(p\)- and \(d\)-values for \(h\) lost during intervention are omitted because the absence of perceived \(h\) loss was part of the decanalization manipulation.}
+  \label{model-analysis-nf-early}
+\end{table}
+
+  \clearpage
+  \subsection{HRL and NF performance across phases}
 
   The following is a direct comparison between HRL and NF performance.
 
