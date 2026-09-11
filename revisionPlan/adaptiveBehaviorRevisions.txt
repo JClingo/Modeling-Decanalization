@@ -3,7 +3,10 @@ Reviewer: 1
 General Comments
 My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. The manuscript describes a complex reward function in which the traversal cost of a tile decays each time the agent enters the tile. I see how this will induce a rigid behavioral policy within an agent and penalize it for exploration. What is not well explained is WHY THIS IS AN ECOLOGICALLY VALID REWARD FUNCTION IN THIS CASE. As the manuscript notes, the typical source of canalization is from the training process adjusting the parameters of the model itself, not from the external reward function. RL algorithms tend to naturally produce greedy policies, and much of the research in the field over its history has been devoted to designing algorithms which optimally balance exploration and exploitation throughout the training process. My recommendation would be to FOCUS ON CANALIZATION THAT IS CONNECTED TO THE INTRINSIC DYNAMICS OF LEARNING ITSELF. IF, HOWEVER, THE FOCUS REMAINS ON THE DESIGN OF THE REWARD FUNCTION, THEN THAT CHOICE SHOULD BE THOROUGHLY JUSTIFIED AND DEFENDED WITHIN THE PAPER. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one. This could make more clear the pathological nature of the canalized policies by having a “healthy” policy to compare against.
 
-> Clingo / leave this for stage 2 and discuss.
+> Clingo. Some things we can do here. (1) describe with citations how it is rewarding for animals to follow the same path. Perhaps skilled performance literature. Less costly to do something the same way again. (2) more importantly, discuss what happened when we did NOT have the path penalty. In that case it hyperfixates and only learns the strategy of spiraling and hypercanalizing immediately on its first source of reward and does not explore.
+    - Suggest really thinking about the ref's comments here. ARe there ways we could have gotten this type of thing using simpler reward and other exploitation params in an RL algorithm
+    - We could have added environmental constraints where it's just harder to move up a groove, but that is effectively the same as traversal cost
+
 
 EACH OF US THINK / DISCUSS
 
@@ -124,3 +127,16 @@ Another question I had in reading this manuscript was the extent to which these 
 Pivotal mental states
 
 The Temporal Trajectory of the Psychedelic Mushroom Experience Mimics the Narrative Arc of the Hero’s Journey
+
+
+OTHER
+
+- Upate all descriptions of reward prediction. Reward predicted given the current orientation and what the agent perceives looking forwrad. If following the trajectory through the space what would be passive loss, pellets added, etc. Anticipated future state. It is actually rewarded based on these anticipations. It is rewarded based on this anticipated setpoint. Inspired by how K and G do things. 
+
+- If all you do is turn the ac or heater on, and not both, you won't do as well as if you have.
+
+- Clarity on unique pellets. Non-unique of circling around and getting it again.  Value as an indirect indicator of exploration. If low it finds reward and circles back. Add this to interpretation of unique pellet.s
+
+- Collapse h lost and h gained into one
+
+- Figure 4 make clear it's just a baseline comparison. Either improve the figures so it's clear how to get the table numbers by looking at the graph, or just remove these figures altogether.

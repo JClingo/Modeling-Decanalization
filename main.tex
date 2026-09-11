@@ -175,6 +175,7 @@ The agent was unaware of anything beyond these values and the actions it took ov
 
 % The action space was limited to a single action, \(a\): rotate by one degree. This meant that a loop (total rotation input \(\pm 180^\circ\)) would, at minimum, have taken \(180\) ticks to execute.
 
+% TODO (Jeff). Consider adding some language here that signposts / highlights that this is our predicted reward function. 
 Let \(\mathbf{O} = \left\{ o_1,o_2,\ldots,o_{n} \right\}\) denote the pellet \(h\)-values intersected by the central 0° raycast at time \(t\), and let \(\mathbf{T} = \left\{\tau_1,\tau_2,\ldots,\tau_{m}\right\}\) denote the tiles intersected by that raycast at time \(t\). Then
 \begin{equation}
   \begin{aligned}
@@ -454,27 +455,26 @@ During-intervention performance (Table \ref{model-analysis-nf-early}) was simila
 
 \subsection{HRL vs. NF after decanalization}
 
-% TODO: Joshua, I find this table pretty hard to think about. It's hard to do a difference of differences in one's head and quickly see what negative and positive mean. I'm inclined to just put in a narrative paragraph. The tables above are nice and easy to think about and make it clear that HRL is doing better.  
 
+%\begin{table}[htbp]
+%  \centering
+%  \small
+%  \begin{tabular}{@{}lr@{}}
+%    \toprule
+%    \textbf{Measure} & \(\boldsymbol{\Delta M_{\mathrm{HRL}}-\Delta M_{\mathrm{NF}}}\) \\
+%    \midrule
+%    Mean distance & -28.35 \\
+%    \(h\) deviation & -1252.21 \\
+%    Reward prediction & 0.41 \\
+%    \(h\) lost & 8.17 \\
+%    \(h\) gained & -43.11 \\
+%    Unique pellets & -0.84 \\
+%    \bottomrule
+%  \end{tabular}
+%  \caption{Post-intervention differences in mean differences for HRL and NF agents. Negative values favor HRL for mean distance and \(h\) deviation; positive values favor HRL for reward prediction.}
+%  \label{model-analysis-hrl-vs-nf}
+%\end{table}
 
-\begin{table}[htbp]
-  \centering
-  \small
-  \begin{tabular}{@{}lr@{}}
-    \toprule
-    \textbf{Measure} & \(\boldsymbol{\Delta M_{\mathrm{HRL}}-\Delta M_{\mathrm{NF}}}\) \\
-    \midrule
-    Mean distance & -28.35 \\
-    \(h\) deviation & -1252.21 \\
-    Reward prediction & 0.41 \\
-    \(h\) lost & 8.17 \\
-    \(h\) gained & -43.11 \\
-    Unique pellets & -0.84 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Post-intervention differences in mean differences for HRL and NF agents. Negative values favor HRL for mean distance and \(h\) deviation; positive values favor HRL for reward prediction.}
-  \label{model-analysis-hrl-vs-nf}
-\end{table}
 Despite the shared series of trial configurations, only HRL-trained agents saw homeostatic performance benefits from decanalization.
 
 Comparing the effects of decanalization across both agents, HRL-trained agents showed lower \(h\)-mean deviation in the pre-intervention and post-intervention periods, staying closer to the ideal homeostatic setpoint, \(h_*\). During intervention, the HRL-trained agent also showed a stronger exploratory preference, pursuing and consuming a greater diversity of pellets.
