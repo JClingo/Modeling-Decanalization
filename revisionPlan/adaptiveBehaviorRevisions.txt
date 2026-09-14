@@ -14,7 +14,7 @@ Specific Comments
 
 Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
 
-> DO IT. Clingo. Easy.
+> Done. Removed footnote in included direct distinction between models in the main text.
 
 Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are. More generally, the paper is lacking a clear hypothesis that is being evaluated. Is the hypothesis that the decanalization procedure will produce specific improvements in model performance? If so, that should be stated explicitly. 
 
@@ -30,11 +30,11 @@ Page 5: The PPO algorithm should be properly cited here, and in doing so there i
 
 Page 5: There is no description of the architecture of the model itself. It is not even clear that the models being trained are neural networks, as all that is described are the Python and PyTorch versions. Please include these details, as well as what parameter choices were used for training (this can be included in an appendix).
 
-> DO IT: Add appendix or description. Clingo.
+> Drafted: Added "Neural-network architecture and training" in the appendix and a Methods cross-reference. The main text now explicitly identifies the neural-network policy. Bold [TO FILL] fields cover architecture, PPO hyperparameters, training budgets, seeds, checkpoint selection and evaluation settings; these must be completed from the configurations and checkpoints used for the reported results. Clingo.
 
 Page 7: I am not clear on the action space available to the agent. Presumably the agent moves around the environment, yet movement actions are not described. In fact, it sounds based on the current wording of the paper that the agent can only ever take a single action, which is to rotate its angle of view by a single degree? This cannot be the case, as then there would be nothing for the agent to learn. Please clarify this.
 
-> This is in fact the only action it takes, but with constant forward motion this is sufficient to produce complex behaviors. We have tried to make this more clear in the text. 
+> Done. This is in fact the only action the agent takes, but with constant forward motion this is sufficient to produce complex behaviors. We have tried to make this more clear in the text. 
 
 Page 10: It is claimed that it is a normal practice to provide “disproportionally more reward the closer it gets to the target.” There should be a citation for this claim and the claim itself should be better justified or made more specific, because as currently stated it is not true. In cases where reaching the target induces a terminal state, a pathological policy in which the agent gets ever closer but never reaches the target can be learned.
 
@@ -42,7 +42,7 @@ Page 10: It is claimed that it is a normal practice to provide “disproportiona
 
 Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement. Please provide a citation for this claim.
 
-> Clarify meaning. It was more effective _in this scenario_. Clingo.
+> Done. Went ahead and removed comment, as it's not pertinent.
 
 Page 11: The choice of the Negative Feedback agent as a baseline should be better justified. For example, why shouldn’t a Positive Feedback agent also be used as a baseline? Or why shouldn’t a more traditional non-homeostatic RL agent be included as a baseline? Currently it feels quite arbitrary, and given the nature of the reward function, it is not surprising that this agent suffers the pathologies that it does.
 
