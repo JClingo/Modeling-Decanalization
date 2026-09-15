@@ -1,0 +1,970 @@
+{
+  "source_assets_checked": 200,
+  "source_asset_changes": [
+    {
+      "file": "Content/Learning/BP_AgentInteractor.uasset",
+      "export_source_sha256": "424fe7164f646b664195c8cdb10f97949acfbda59e82985a7c6975e015aaaf6f",
+      "workspace_sha256_at_packaging": "f9dcee904468370761bc06db52a9d124a7d731ba5dc9b22372353ecd5ae6b597"
+    },
+    {
+      "file": "Content/Learning/BP_AgentManager.uasset",
+      "export_source_sha256": "e8fe145a36a39eb71295f7918e1c90edb4dffc13466daa402c448c5e5c0208d0",
+      "workspace_sha256_at_packaging": "e1fc9204c4b8078dad6b05712cf0c301f41c4d1a97b059d4ebbe8718a1975594"
+    }
+  ],
+  "source_assets_match_current_workspace": false,
+  "capture_scope": "Retained native exports from the original extraction; latest workspace changes were not re-exported.",
+  "successful_native_exports": 87,
+  "labels": [
+    "current",
+    "committed_b2ec222",
+    "study_candidate_5e508dd"
+  ],
+  "files": [
+    {
+      "file": "build_settings_evidence.py",
+      "bytes": 19129,
+      "sha256": "52686b8c24435a8544bc91d27d25574b40f5ee599fafc9f9296df348ebb45486"
+    },
+    {
+      "file": "checkpoint_architectures.json",
+      "bytes": 447012,
+      "sha256": "01c4b040f084650f4cbecf68dabb1e3c3892674e02f0d935a57f90c8af4d4b53"
+    },
+    {
+      "file": "checkpoint_inventory.json",
+      "bytes": 34739,
+      "sha256": "ad7c53755539b32ba8de16348dc832162bcbbb4813be6987480331af1a5207d8"
+    },
+    {
+      "file": "collect_evidence.py",
+      "bytes": 3381,
+      "sha256": "4df2b54398923635f2b3a886a23881befc680955f7647d34b71437a3b906d5ec"
+    },
+    {
+      "file": "derived/committed_b2ec222/BFL_Common.json",
+      "bytes": 183680,
+      "sha256": "737d1dbb811dd1c8e37fce81ad0aa92c70809af4b2813b22615b8b1a8c921cfc"
+    },
+    {
+      "file": "derived/committed_b2ec222/BFL_Common.txt",
+      "bytes": 45295,
+      "sha256": "56f38f018f477fc600f493165b4857b2b493fc76ae94b3e327c4c9bc8fc684a4"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_Agent.json",
+      "bytes": 1913725,
+      "sha256": "ae72b022ad0447d4a3a75956ef470ca348a57ca2ba2c580a47bdb4ac832e1cdc"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_Agent.txt",
+      "bytes": 451141,
+      "sha256": "89c582c1e0a64ecccec5448cbb501d2486bccf4226205508d147ed74c33c6134"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_AgentInteractor.json",
+      "bytes": 718902,
+      "sha256": "d13c494d4b1232bcfe79d443de9af408ced198ea4f6beeeb5d4e6d0a5a21b506"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_AgentInteractor.txt",
+      "bytes": 163754,
+      "sha256": "81a9e18e8f6b6c1cd467ed556fa2149fe4b9984fa1d1bc295d33e91d9faabb71"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_AgentManager.json",
+      "bytes": 366039,
+      "sha256": "d675ae3b91f9950431402524147051ea83031d936e32ac164266ff27781b136d"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_AgentManager.txt",
+      "bytes": 90961,
+      "sha256": "c30f5a092c3689896096c420d22cc6febb8e4b6e64e0658c835209841dba3ce3"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_AgentTrainingEnv.json",
+      "bytes": 1454791,
+      "sha256": "07186305db34717d14a4e98d3a7195f9aa104b9acc2b7bc2e681fb30826bf42e"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_AgentTrainingEnv.txt",
+      "bytes": 341393,
+      "sha256": "d3c0fdbb9cf26c8fd4d8e47ca8938743a77159aae1eab34cf820978d1e5eb6c6"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_GameMode.json",
+      "bytes": 2873502,
+      "sha256": "0e029508595510a92c4f02a3c5336578b52ab28934063031f1300ddee991e64a"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_GameMode.txt",
+      "bytes": 677687,
+      "sha256": "9377efa8c05af527974edf2ff9e40fc71fd30019bea4efdac8a9bd4d3858ae60"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_Resource.json",
+      "bytes": 286036,
+      "sha256": "0c4e3d336e04e1e40f452490cdc7bc3dfbe5c88b780f839f2929e6db889312c8"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_Resource.txt",
+      "bytes": 66044,
+      "sha256": "6c48b5916ad33fbefd41b7cdc3791afc32e931cfb44cfdf4aebd6a734ed4b5c7"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_ResourceSpawner.json",
+      "bytes": 590788,
+      "sha256": "36a893b5dbe51cef69b149ddf0adf6d5325225de67d1f8503ce426593a1973eb"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_ResourceSpawner.txt",
+      "bytes": 134335,
+      "sha256": "9f78ed224ceae44035f2cdf165d37b6e23c5afc9b3e026da003a8ded1432c7db"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_Tile.json",
+      "bytes": 314808,
+      "sha256": "50f3861329d867a6d9c43199f448d1dd1d8275bb8a780fa446595016bb1cc700"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_Tile.txt",
+      "bytes": 75262,
+      "sha256": "3465d7044bfa2cc0be6360346de8186b7614f960e4aa0e27ef8fef159576295e"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_TileSpawner.json",
+      "bytes": 311584,
+      "sha256": "920704a352a0174bab6ccda48b2c9c2730be69852d0fc963020faf94a4ff3d65"
+    },
+    {
+      "file": "derived/committed_b2ec222/BP_TileSpawner.txt",
+      "bytes": 72145,
+      "sha256": "a438a84085a0701ea28dbd4e2bc9cfc05d9b887517998af82960dadc5563ff84"
+    },
+    {
+      "file": "derived/current/BFL_Common.json",
+      "bytes": 183680,
+      "sha256": "01d4238cc80616d3255ed5e70b5affa09eaf5dd7b4a3922d002022fc044d3621"
+    },
+    {
+      "file": "derived/current/BFL_Common.txt",
+      "bytes": 45295,
+      "sha256": "fce98e99f88e4d88378d9dbb5bf87723aafa21ef1e59c0d92f7117bb043d940c"
+    },
+    {
+      "file": "derived/current/BP_Agent.json",
+      "bytes": 1913725,
+      "sha256": "a29eb4c49720471d75af40c03e063e82e5d076dd1ed5ca985720be2c886a20d7"
+    },
+    {
+      "file": "derived/current/BP_Agent.txt",
+      "bytes": 451141,
+      "sha256": "62e80aa813773293cf51b1933d3f1220dfdf0bd92df91d84a9d8ffb8057d38a0"
+    },
+    {
+      "file": "derived/current/BP_AgentInteractor.json",
+      "bytes": 718902,
+      "sha256": "c49695c9e721089c9792193561d6d1374698983b43f3fe57408f3af84aa3f41e"
+    },
+    {
+      "file": "derived/current/BP_AgentInteractor.txt",
+      "bytes": 163754,
+      "sha256": "8dda1f47d36647aa0526649c8bf7a6e8485135e9762dccea9a3953e2cea1ccc4"
+    },
+    {
+      "file": "derived/current/BP_AgentManager.json",
+      "bytes": 366039,
+      "sha256": "93357efc75b762dc3d87fd51bab90da49397536d771b8f0e7f0b5e6bb830a8c3"
+    },
+    {
+      "file": "derived/current/BP_AgentManager.txt",
+      "bytes": 90961,
+      "sha256": "c98012b256a883b32049057841e174055b5b8307993906573c21ea24af0fef65"
+    },
+    {
+      "file": "derived/current/BP_AgentTrainingEnv.json",
+      "bytes": 1454791,
+      "sha256": "9ebbc9c061f97bd2543fb15c84b5d64cd17fb3d2d00fd0d093731f32175f9be9"
+    },
+    {
+      "file": "derived/current/BP_AgentTrainingEnv.txt",
+      "bytes": 341393,
+      "sha256": "42c31d738597a38221661cd41a73d742f8b1e91e225550fb7b580ca3b4f029bf"
+    },
+    {
+      "file": "derived/current/BP_GameMode.json",
+      "bytes": 2873502,
+      "sha256": "a10b5ced895b9368475de54ac70cfefa372ede5bac38dc3a5a1506be02876381"
+    },
+    {
+      "file": "derived/current/BP_GameMode.txt",
+      "bytes": 677687,
+      "sha256": "818b77e9ebd18f69ad9430a48814ad241641acc2040c273f9ad19af5d3c22ddb"
+    },
+    {
+      "file": "derived/current/BP_Resource.json",
+      "bytes": 286036,
+      "sha256": "67a4be0ab79952d01a748ca51fac123698cde997eda97786823592a958ae5664"
+    },
+    {
+      "file": "derived/current/BP_Resource.txt",
+      "bytes": 66044,
+      "sha256": "e522583cfa830fd72f429981e4c288678c7c1fc6bef81888315accfd1b56028c"
+    },
+    {
+      "file": "derived/current/BP_ResourceSpawner.json",
+      "bytes": 590788,
+      "sha256": "27736529980f7e53291ac0686a16f62485089f9d08e9a53323a15dd96f13dd92"
+    },
+    {
+      "file": "derived/current/BP_ResourceSpawner.txt",
+      "bytes": 134335,
+      "sha256": "966e32e3ac541ff8fabbd0ad5ce97804c02115bf0c6a89f1793d3ad62e1f1bdc"
+    },
+    {
+      "file": "derived/current/BP_Tile.json",
+      "bytes": 314808,
+      "sha256": "56844941db3a4d1f7e8af858e6acbdd4da398020f38f50389932458b4050e81f"
+    },
+    {
+      "file": "derived/current/BP_Tile.txt",
+      "bytes": 75262,
+      "sha256": "2781eb26bd2bea8f62d00a8c02e1d52f7d97009d79cc63b9a366f0bb1de86247"
+    },
+    {
+      "file": "derived/current/BP_TileSpawner.json",
+      "bytes": 311584,
+      "sha256": "052545554a6d510e3f4977b51960157a4d333b2481987be26a783317c99548f4"
+    },
+    {
+      "file": "derived/current/BP_TileSpawner.txt",
+      "bytes": 72145,
+      "sha256": "b560189c489cf38b9e12fa2bca13c2bdc0b5922c798e558e43faa18a1c91908c"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BFL_Common.json",
+      "bytes": 183680,
+      "sha256": "e47c67a0273f70a79b645835209b985515d804694c0075640ace73b5ecf0e286"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BFL_Common.txt",
+      "bytes": 45295,
+      "sha256": "410c7d6a289fa1a4b6eda971126515ff431b49baff5310b512e74d6a6664b592"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_Agent.json",
+      "bytes": 1913728,
+      "sha256": "cc9ece8901f6879c9a94176fe15c5121b3f964882cd403e8ac0129264e3131f3"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_Agent.txt",
+      "bytes": 451144,
+      "sha256": "6cfa0f9db005b9c2da53764ced617dbc6fd347647f6e6c37ede041f80d917953"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_AgentInteractor.json",
+      "bytes": 718902,
+      "sha256": "ce5127c32d4a8c6f4ec0caae8a1db780a4047debad83ebd5d7c391e4d9f14e36"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_AgentInteractor.txt",
+      "bytes": 163754,
+      "sha256": "8a6e97cc15376df813181d4a033bce939ddfa2bdd98c7d39ccd762b8d0e91184"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_AgentManager.json",
+      "bytes": 366039,
+      "sha256": "c3bf1c33823eb302959ba8f432896e11c67cf9038d95d745b6b5780d90c1443b"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_AgentManager.txt",
+      "bytes": 90961,
+      "sha256": "3532f147f6e0e814f7a4619209726f66a23ea9c02d9c31c7d4bdda4095abc211"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_AgentTrainingEnv.json",
+      "bytes": 1454791,
+      "sha256": "eddb59e14e84c289c25a9dbb21e35f219b169771b7a28fafc7ea2c2aac0e18df"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_AgentTrainingEnv.txt",
+      "bytes": 341393,
+      "sha256": "d39cbd3e0dd7dc790ff9af56f004397096e939852af46fa76647651f9f3a5a64"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_GameMode.json",
+      "bytes": 2873502,
+      "sha256": "9acd028f67236cd2ed62a3a7e6584d14402a24528a8b8901b7e73accb0f37de5"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_GameMode.txt",
+      "bytes": 677687,
+      "sha256": "faab7d98bcc2f41ba3bf1bb25c0bac4ac5a7999990d0f3e6b8a3bc42f8e06bc6"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_Resource.json",
+      "bytes": 286036,
+      "sha256": "932d9bb8de2d6538f38ced2f3bb0a50cc8b3a44533638c56f2ef2441333feeb0"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_Resource.txt",
+      "bytes": 66044,
+      "sha256": "7f219c8ef8d12bce147d09fb386f8ce245827cf0aa537ef9a8f8f80e0466360c"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_ResourceSpawner.json",
+      "bytes": 590788,
+      "sha256": "1291ee85d30b29891e6f1a1852382da6af2bf0caf0b31a92680db15be3886b30"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_ResourceSpawner.txt",
+      "bytes": 134335,
+      "sha256": "419bca90fbefc5d11c1daba6b3dad9672d5ecd63ba7dddf8247c5d588a355c5a"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_Tile.json",
+      "bytes": 314808,
+      "sha256": "e9dbfc8bfad23abf63d9ea942b3dfd4e30f1e7d735fdec0d63e3aca2847d3765"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_Tile.txt",
+      "bytes": 75262,
+      "sha256": "77334c9efeb2e7be7a03be4e5168152b3dcb615721d3ee8ac7b05c318f80e800"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_TileSpawner.json",
+      "bytes": 311584,
+      "sha256": "2bb382e4060353f3a22b76e70efc86bb7b1edcf4613b63975d46642119b97fc4"
+    },
+    {
+      "file": "derived/study_candidate_5e508dd/BP_TileSpawner.txt",
+      "bytes": 72145,
+      "sha256": "fcf0f172ab41097561c66119a149314143900857cb64fdb503491c69083fb0aa"
+    },
+    {
+      "file": "evaluation_data_provenance.json",
+      "bytes": 2347,
+      "sha256": "9abc37d5cbea542c8cb15b3a0ed1114c50e1677f5267fab420363eadd3ef29cc"
+    },
+    {
+      "file": "export_unreal_settings.py",
+      "bytes": 3105,
+      "sha256": "595fef0cd7dd9e8f7c28cb5f0bfcf1af56e6a092290dc34f565c790a8b2fe8aa"
+    },
+    {
+      "file": "inspect_checkpoints.py",
+      "bytes": 2900,
+      "sha256": "21245b772c0c86d77d2bbac7d81b823ef39caa50d6f35ce235cbf1f1cdaad820"
+    },
+    {
+      "file": "inspect_training_events.py",
+      "bytes": 1775,
+      "sha256": "822d0cd2112c967736644f82777e558d2b25c8e962017576ffe8d1ce28b86b1e"
+    },
+    {
+      "file": "package_evidence.py",
+      "bytes": 4923,
+      "sha256": "1188a46e28112c0ce971621131a0395682c3cf379325f3e5bc8ef946a629b848"
+    },
+    {
+      "file": "prepare_committed_snapshot.py",
+      "bytes": 1024,
+      "sha256": "248dd28c95c44d13e8d25f49c2ef1cf940cb4f4ee82e27f570368bb4558b5025"
+    },
+    {
+      "file": "query_blueprint.py",
+      "bytes": 1419,
+      "sha256": "70b8a333ac54682e0bb6151e863308fb1a6a6e182a594138b432e0760ffab98e"
+    },
+    {
+      "file": "raw/committed_b2ec222/BFL_Common.t3d",
+      "bytes": 379890,
+      "sha256": "4c566b78abf61591e70c8be5735e405179aacbfc0e46b2bf6060fe810c77ee3a"
+    },
+    {
+      "file": "raw/committed_b2ec222/BFL_Common_defaults.t3d",
+      "bytes": 204,
+      "sha256": "6a919941ae072f8236705b9165e9cec16256bd50b1fe90c193575520e3ff234f"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_Agent.t3d",
+      "bytes": 4066192,
+      "sha256": "c7614b1b1d44821d5f53cf3aff0d12d983702c27a24e400c251a621981d8ae82"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_Agent_defaults.t3d",
+      "bytes": 10318,
+      "sha256": "f3db5f5baaeaf21137f96a5708e2e8273cede865c148d9d222c55d029c895132"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_AgentInteractor.t3d",
+      "bytes": 1532550,
+      "sha256": "e83c01c75c3cc0d1550a3e8f7df0813745917bc550e96654ba6e1082feb1cb88"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_AgentInteractor_defaults.t3d",
+      "bytes": 283,
+      "sha256": "aadbbd000547630cc7bf85e7d180a200e17ac6ddf6e3d356e50d5d441024b943"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_AgentManager.t3d",
+      "bytes": 766645,
+      "sha256": "b3d52dbc64aaa5c8f8eed9fdfb7c443227a9aaba5fbbc1b159c2b30429651088"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_AgentManager_defaults.t3d",
+      "bytes": 5990,
+      "sha256": "68882dc1a02a0cefd777b50a83c4d29681fc5cc287000a245629d77cd09daa27"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_AgentTrainingEnv.t3d",
+      "bytes": 2975860,
+      "sha256": "1f4d7198d44886fb1c1d3181b37a90ce257cb935891f8de62bd9f33373d47996"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_AgentTrainingEnv_defaults.t3d",
+      "bytes": 506,
+      "sha256": "b02bcf47d68b6a2dc31542bc6376290ad5d64d801a1be5262f4db2d60450ad72"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_GameMode.t3d",
+      "bytes": 5946713,
+      "sha256": "7dcb60987d71ebf9101237a8567567519464fa63f9a095f69275820b0a5d172b"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_GameMode_defaults.t3d",
+      "bytes": 5192,
+      "sha256": "86347ccbe0ea429f4a2ac637fdd4a82941753134876e4cb2db2daa48db92100c"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_Resource.t3d",
+      "bytes": 615438,
+      "sha256": "6cbda6fdfbccd9b0ad703347cfebe02a5abce56bd7c39e846df44544825b01ba"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_Resource_defaults.t3d",
+      "bytes": 3355,
+      "sha256": "6a3c07e61b9b8e1f70acf124554e1327b01c3f06f9dfd738685634667172f8e0"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_ResourceSpawner.t3d",
+      "bytes": 1243139,
+      "sha256": "dd2c325e1b7d468a1f77ac35c7094c45d195eb72128581a801220bd5692b4c49"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_ResourceSpawner_defaults.t3d",
+      "bytes": 3193,
+      "sha256": "75dafad100b10e4f650f7b0f573daa538dd733029c3bc55903a521ec9376825b"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_Tile.t3d",
+      "bytes": 666859,
+      "sha256": "be885a859fdbde280de3114c5bd1deb8eaef48264deb349a209df6175591cb25"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_Tile_defaults.t3d",
+      "bytes": 3312,
+      "sha256": "f9e65e7554861c32ef24fbfd352bbca12c3a3da1bba83b6374781619d0d1e568"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_TileSpawner.t3d",
+      "bytes": 640331,
+      "sha256": "1ce5e90260a7031fca731c7f88f3e93151009b186f53632e0d50323e2b7c72d1"
+    },
+    {
+      "file": "raw/committed_b2ec222/BP_TileSpawner_defaults.t3d",
+      "bytes": 3137,
+      "sha256": "e14d044129bfe351e266961c4d63714750691948f1ee5eed671510f9e85f61e6"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentCritic.bin",
+      "bytes": 105752,
+      "sha256": "f5062e8af08e068fae02a1a72aa7fb757977de6913be138ff714762a0bb4bf9e"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentCritic.t3d",
+      "bytes": 2799514,
+      "sha256": "8b0ddc8e87656ff8a87e5fbaf99ac2e67817298616918af8778d55775b51e0fe"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentDecoder.bin",
+      "bytes": 288,
+      "sha256": "c8c7b4cedaa7c327782c890cb48123df1e2d4cf8395630dd07442220253766b5"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentDecoder.t3d",
+      "bytes": 7299,
+      "sha256": "6515ed6e43534db6cbfb83b6561a4d3efac1bd3c8c8eeb7a646918738f065019"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentEncoder.bin",
+      "bytes": 924,
+      "sha256": "96a5c42cab44e1bf4610c49a3fb8453ca852de6b3688b00d6f0e0cb5ab336410"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentEncoder.t3d",
+      "bytes": 21969,
+      "sha256": "4034606b0cce63eaa6fbc5952c39d1ce0695a23afe6b732169556af6cdaae3ca"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentPolicy.bin",
+      "bytes": 470056,
+      "sha256": "fd00345a1bbadf1be3c2159f5dda5e98be8be58c06a7b974d2fee79268b42492"
+    },
+    {
+      "file": "raw/committed_b2ec222/DA_AgentPolicy.t3d",
+      "bytes": 12834697,
+      "sha256": "cce8d01074fb73baf493374d3c89773de88763d905b1eea24bfe11f5e00d0d6f"
+    },
+    {
+      "file": "raw/committed_b2ec222/export_report.json",
+      "bytes": 8080,
+      "sha256": "ea2974d08fa2daab7a3bce8a6fc6963de07171657d0c244eb0ffa742ecabe188"
+    },
+    {
+      "file": "raw/committed_b2ec222/Landscape_actor_004_BP_ResourceSpawner_C.t3d",
+      "bytes": 1201,
+      "sha256": "cd64f28b1b2b1b39b03f573ec4b687f6a309224eb14a02a009cea13f8977b277"
+    },
+    {
+      "file": "raw/committed_b2ec222/Landscape_actor_005_BP_WallSpline_C.t3d",
+      "bytes": 15750,
+      "sha256": "5adc8da26e08d0654f87c19f31bb2aec9384148487063aa99f5bd642724e0b2f"
+    },
+    {
+      "file": "raw/committed_b2ec222/Landscape_actor_006_BP_TileSpawner_C.t3d",
+      "bytes": 1208,
+      "sha256": "654f1cb80fd4573bdba7c359abde2830e905969d56540cdfabd2f1741afa8ac5"
+    },
+    {
+      "file": "raw/committed_b2ec222/Landscape_actor_013_BP_AgentManager_C.t3d",
+      "bytes": 2061,
+      "sha256": "192798906360ba8baef61606c33be7ae4b2841f7b03ac954deace75a92d40a81"
+    },
+    {
+      "file": "raw/committed_b2ec222/Landscape_WorldSettings.t3d",
+      "bytes": 10502,
+      "sha256": "0c3dfd221c7e39ddf82d8f4c71bb367eca8341f09022935c0439ee9e9e2de1d0"
+    },
+    {
+      "file": "raw/current/BFL_Common.t3d",
+      "bytes": 379890,
+      "sha256": "a4cef0ec5b75711c38f7b2515ddf683a310165ef11d445e0fcd163f3af60f891"
+    },
+    {
+      "file": "raw/current/BFL_Common_defaults.t3d",
+      "bytes": 204,
+      "sha256": "6a919941ae072f8236705b9165e9cec16256bd50b1fe90c193575520e3ff234f"
+    },
+    {
+      "file": "raw/current/BP_Agent.t3d",
+      "bytes": 4066192,
+      "sha256": "fd015a42fd4f4e66135efe5ed96d57a4ae47eb962abe3dda2ffaa07ef74d1eda"
+    },
+    {
+      "file": "raw/current/BP_Agent_defaults.t3d",
+      "bytes": 10318,
+      "sha256": "f3db5f5baaeaf21137f96a5708e2e8273cede865c148d9d222c55d029c895132"
+    },
+    {
+      "file": "raw/current/BP_AgentInteractor.t3d",
+      "bytes": 1532550,
+      "sha256": "36d0d14f293dcfc80ff47b4099a33639354440d89d9e2120d9e808da9573c284"
+    },
+    {
+      "file": "raw/current/BP_AgentInteractor_defaults.t3d",
+      "bytes": 283,
+      "sha256": "aadbbd000547630cc7bf85e7d180a200e17ac6ddf6e3d356e50d5d441024b943"
+    },
+    {
+      "file": "raw/current/BP_AgentManager.t3d",
+      "bytes": 766643,
+      "sha256": "cea528167e5fed30688f6f5ca0279ceb0012fd5f2635d146a283441bba9374b3"
+    },
+    {
+      "file": "raw/current/BP_AgentManager_defaults.t3d",
+      "bytes": 5991,
+      "sha256": "44c93103d7934d4b9eb70e1d0ad88f2e716eb52b3cec334d54bb857cc3b2c559"
+    },
+    {
+      "file": "raw/current/BP_AgentTrainingEnv.t3d",
+      "bytes": 2975860,
+      "sha256": "7bdc1ece57ea7e14d09f911a2599f7d758c3132dbc07127c95354cbd0637af87"
+    },
+    {
+      "file": "raw/current/BP_AgentTrainingEnv_defaults.t3d",
+      "bytes": 506,
+      "sha256": "b02bcf47d68b6a2dc31542bc6376290ad5d64d801a1be5262f4db2d60450ad72"
+    },
+    {
+      "file": "raw/current/BP_GameMode.t3d",
+      "bytes": 5946712,
+      "sha256": "e9720d0d8b3048eeaa31a27264037c1b70306f3b5d43ea639071b7dd05a59f14"
+    },
+    {
+      "file": "raw/current/BP_GameMode_defaults.t3d",
+      "bytes": 5192,
+      "sha256": "0371fa921ef1635dbd62d038492ead4ece4a27854ccdd369f38f8ad87b9f3551"
+    },
+    {
+      "file": "raw/current/BP_Resource.t3d",
+      "bytes": 615438,
+      "sha256": "ec590cc4d276003716c7ce30f1fbbc2cc5547ca5200e03801619152730b3c186"
+    },
+    {
+      "file": "raw/current/BP_Resource_defaults.t3d",
+      "bytes": 3355,
+      "sha256": "6a3c07e61b9b8e1f70acf124554e1327b01c3f06f9dfd738685634667172f8e0"
+    },
+    {
+      "file": "raw/current/BP_ResourceSpawner.t3d",
+      "bytes": 1243139,
+      "sha256": "c02e2379b382545ab4135e7f571d68c87d459932901318921b97c911118c5683"
+    },
+    {
+      "file": "raw/current/BP_ResourceSpawner_defaults.t3d",
+      "bytes": 3193,
+      "sha256": "75dafad100b10e4f650f7b0f573daa538dd733029c3bc55903a521ec9376825b"
+    },
+    {
+      "file": "raw/current/BP_Tile.t3d",
+      "bytes": 666859,
+      "sha256": "86d6d900ef8d2e1e3f85a919f1091e42a22b84ee3af379929a63a6b8e4ac4761"
+    },
+    {
+      "file": "raw/current/BP_Tile_defaults.t3d",
+      "bytes": 3312,
+      "sha256": "f9e65e7554861c32ef24fbfd352bbca12c3a3da1bba83b6374781619d0d1e568"
+    },
+    {
+      "file": "raw/current/BP_TileSpawner.t3d",
+      "bytes": 640331,
+      "sha256": "61a7628b942dfe46ce31d62fd6aa845c9a50e08fd59c6597206faa4e8ce20e72"
+    },
+    {
+      "file": "raw/current/BP_TileSpawner_defaults.t3d",
+      "bytes": 3137,
+      "sha256": "e14d044129bfe351e266961c4d63714750691948f1ee5eed671510f9e85f61e6"
+    },
+    {
+      "file": "raw/current/DA_AgentCritic.bin",
+      "bytes": 105752,
+      "sha256": "f5062e8af08e068fae02a1a72aa7fb757977de6913be138ff714762a0bb4bf9e"
+    },
+    {
+      "file": "raw/current/DA_AgentCritic.t3d",
+      "bytes": 2799514,
+      "sha256": "8b0ddc8e87656ff8a87e5fbaf99ac2e67817298616918af8778d55775b51e0fe"
+    },
+    {
+      "file": "raw/current/DA_AgentDecoder.bin",
+      "bytes": 288,
+      "sha256": "c8c7b4cedaa7c327782c890cb48123df1e2d4cf8395630dd07442220253766b5"
+    },
+    {
+      "file": "raw/current/DA_AgentDecoder.t3d",
+      "bytes": 7299,
+      "sha256": "6515ed6e43534db6cbfb83b6561a4d3efac1bd3c8c8eeb7a646918738f065019"
+    },
+    {
+      "file": "raw/current/DA_AgentEncoder.bin",
+      "bytes": 924,
+      "sha256": "96a5c42cab44e1bf4610c49a3fb8453ca852de6b3688b00d6f0e0cb5ab336410"
+    },
+    {
+      "file": "raw/current/DA_AgentEncoder.t3d",
+      "bytes": 21969,
+      "sha256": "4034606b0cce63eaa6fbc5952c39d1ce0695a23afe6b732169556af6cdaae3ca"
+    },
+    {
+      "file": "raw/current/DA_AgentPolicy.bin",
+      "bytes": 470056,
+      "sha256": "fd00345a1bbadf1be3c2159f5dda5e98be8be58c06a7b974d2fee79268b42492"
+    },
+    {
+      "file": "raw/current/DA_AgentPolicy.t3d",
+      "bytes": 12834697,
+      "sha256": "cce8d01074fb73baf493374d3c89773de88763d905b1eea24bfe11f5e00d0d6f"
+    },
+    {
+      "file": "raw/current/export_report.json",
+      "bytes": 8080,
+      "sha256": "ea2974d08fa2daab7a3bce8a6fc6963de07171657d0c244eb0ffa742ecabe188"
+    },
+    {
+      "file": "raw/current/Landscape_actor_004_BP_ResourceSpawner_C.t3d",
+      "bytes": 1201,
+      "sha256": "cd64f28b1b2b1b39b03f573ec4b687f6a309224eb14a02a009cea13f8977b277"
+    },
+    {
+      "file": "raw/current/Landscape_actor_005_BP_WallSpline_C.t3d",
+      "bytes": 15750,
+      "sha256": "5adc8da26e08d0654f87c19f31bb2aec9384148487063aa99f5bd642724e0b2f"
+    },
+    {
+      "file": "raw/current/Landscape_actor_006_BP_TileSpawner_C.t3d",
+      "bytes": 1208,
+      "sha256": "654f1cb80fd4573bdba7c359abde2830e905969d56540cdfabd2f1741afa8ac5"
+    },
+    {
+      "file": "raw/current/Landscape_actor_013_BP_AgentManager_C.t3d",
+      "bytes": 2139,
+      "sha256": "100eeeaa89cefb758b30e02d5604693e2e4b825698897842fc4f4875cfb2cd39"
+    },
+    {
+      "file": "raw/current/Landscape_WorldSettings.t3d",
+      "bytes": 10502,
+      "sha256": "0c3dfd221c7e39ddf82d8f4c71bb367eca8341f09022935c0439ee9e9e2de1d0"
+    },
+    {
+      "file": "raw/project_config_current/DefaultEditor.ini",
+      "bytes": 33976,
+      "sha256": "2e61e735c90d28f535092f168f5e1e88967b9d2aea057d64e7ba6b5f941de583"
+    },
+    {
+      "file": "raw/project_config_current/DefaultEditorPerProjectUserSettings.ini",
+      "bytes": 69,
+      "sha256": "9d721c9b4792dbd5dfb3f69780d28c66ee68d552318c84d998ae754a5a56b506"
+    },
+    {
+      "file": "raw/project_config_current/DefaultEngine.ini",
+      "bytes": 17156,
+      "sha256": "4a63049b90d8db6a7ec9f1d0a4cf3c0dadc8794b035c3e1043e1b30949e9c301"
+    },
+    {
+      "file": "raw/project_config_current/DefaultGame.ini",
+      "bytes": 133,
+      "sha256": "0eb36a3b74cb12bf52cd607e3a02fe6f8b36c232837ac96b07943e011fe11e5f"
+    },
+    {
+      "file": "raw/project_config_current/DefaultInput.ini",
+      "bytes": 13725,
+      "sha256": "187fa02b1c41b14c1873614e9456373305e617b6135e66eeb981637d8f902e74"
+    },
+    {
+      "file": "raw/project_config_current/ue_canalization.uproject",
+      "bytes": 912,
+      "sha256": "ca21466508f8c41fb7ae467ac874a2e1477d234a664197706a01c5415a9e14ca"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BFL_Common.t3d",
+      "bytes": 379890,
+      "sha256": "11da308339bc140858daac9d3f93c61e710dd95b84927b2e40fd27206da09b87"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BFL_Common_defaults.t3d",
+      "bytes": 204,
+      "sha256": "6a919941ae072f8236705b9165e9cec16256bd50b1fe90c193575520e3ff234f"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_Agent.t3d",
+      "bytes": 4066195,
+      "sha256": "b6bb8289a51a9d47d21085a1573da599e4f9c0e495164d76df70052844a67b82"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_Agent_defaults.t3d",
+      "bytes": 10318,
+      "sha256": "f3db5f5baaeaf21137f96a5708e2e8273cede865c148d9d222c55d029c895132"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_AgentInteractor.t3d",
+      "bytes": 1532550,
+      "sha256": "15294cc0079317bbe0e721d974edc5bf71010a7597575fb924f53029e6ab902d"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_AgentInteractor_defaults.t3d",
+      "bytes": 283,
+      "sha256": "aadbbd000547630cc7bf85e7d180a200e17ac6ddf6e3d356e50d5d441024b943"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_AgentManager.t3d",
+      "bytes": 766645,
+      "sha256": "73da7b110b8269658963caebcf84d692c185c0c774abd769af01fbd06c02446d"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_AgentManager_defaults.t3d",
+      "bytes": 5990,
+      "sha256": "68882dc1a02a0cefd777b50a83c4d29681fc5cc287000a245629d77cd09daa27"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_AgentTrainingEnv.t3d",
+      "bytes": 2975860,
+      "sha256": "e50aa08b2dd026975462b5a21fbf0a918a3b29793eb446653484ff33d2cc00ef"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_AgentTrainingEnv_defaults.t3d",
+      "bytes": 506,
+      "sha256": "b02bcf47d68b6a2dc31542bc6376290ad5d64d801a1be5262f4db2d60450ad72"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_GameMode.t3d",
+      "bytes": 5946713,
+      "sha256": "9203261b44868fe514c73710f780c5db8a4f322f829bf5feaabb93d408321978"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_GameMode_defaults.t3d",
+      "bytes": 5192,
+      "sha256": "e0a1a3653edd6d6780a3386fe1590fb595a6acecd64d8e9109dd306a5959009d"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_Resource.t3d",
+      "bytes": 615438,
+      "sha256": "4f8b8e33ff5a1223f693c3c6b7f6dc26004685539b23d8bc661c8182b52bc7f2"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_Resource_defaults.t3d",
+      "bytes": 3355,
+      "sha256": "6a3c07e61b9b8e1f70acf124554e1327b01c3f06f9dfd738685634667172f8e0"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_ResourceSpawner.t3d",
+      "bytes": 1243139,
+      "sha256": "ba3848de699b7a59118a2c36e6d5db0d54be7271f032d2c782190ab9428c8f2f"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_ResourceSpawner_defaults.t3d",
+      "bytes": 3193,
+      "sha256": "75dafad100b10e4f650f7b0f573daa538dd733029c3bc55903a521ec9376825b"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_Tile.t3d",
+      "bytes": 666859,
+      "sha256": "f5d9f33ba6e8d8008b893ef379de4c2a6e4415f28e12f17b8fa4f6f694430724"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_Tile_defaults.t3d",
+      "bytes": 3312,
+      "sha256": "f9e65e7554861c32ef24fbfd352bbca12c3a3da1bba83b6374781619d0d1e568"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_TileSpawner.t3d",
+      "bytes": 640331,
+      "sha256": "6be1c0688178e3f59627e5665d5f9c5cf6cb94ecdfb82a83ac74ce97bb91220e"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/BP_TileSpawner_defaults.t3d",
+      "bytes": 3137,
+      "sha256": "e14d044129bfe351e266961c4d63714750691948f1ee5eed671510f9e85f61e6"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentCritic.bin",
+      "bytes": 105752,
+      "sha256": "f5062e8af08e068fae02a1a72aa7fb757977de6913be138ff714762a0bb4bf9e"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentCritic.t3d",
+      "bytes": 2799514,
+      "sha256": "8b0ddc8e87656ff8a87e5fbaf99ac2e67817298616918af8778d55775b51e0fe"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentDecoder.bin",
+      "bytes": 288,
+      "sha256": "a0189ef17669e49a854e53b4ab94c88258ca5b644420a37c9c9ae8d1a5fd083e"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentDecoder.t3d",
+      "bytes": 7297,
+      "sha256": "d4d19ddc7700d5c6adf2408766489155ac82dd9ae8bf28ee7d8088a974615757"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentEncoder.bin",
+      "bytes": 924,
+      "sha256": "109164c0c12ca3b5e568b5dc7c3c7829e327fb036ab1afe07b52be7f743dbcc5"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentEncoder.t3d",
+      "bytes": 21965,
+      "sha256": "3d0225a78e47334c33464990c725b56d9b0ce3868d70a9380fad06070df49480"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentPolicy.bin",
+      "bytes": 470056,
+      "sha256": "194bf3f14bc7c78059bd338a602a254ad7231ebe3b5f65048f5f001116998cae"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/DA_AgentPolicy.t3d",
+      "bytes": 12835046,
+      "sha256": "5e84e33e24f1d3990a491430c5c0f3889eb952736a87d535e5f2375d71ff99d0"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/export_report.json",
+      "bytes": 8080,
+      "sha256": "ea2974d08fa2daab7a3bce8a6fc6963de07171657d0c244eb0ffa742ecabe188"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/Landscape_actor_004_BP_ResourceSpawner_C.t3d",
+      "bytes": 1201,
+      "sha256": "cd64f28b1b2b1b39b03f573ec4b687f6a309224eb14a02a009cea13f8977b277"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/Landscape_actor_005_BP_WallSpline_C.t3d",
+      "bytes": 15750,
+      "sha256": "5adc8da26e08d0654f87c19f31bb2aec9384148487063aa99f5bd642724e0b2f"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/Landscape_actor_006_BP_TileSpawner_C.t3d",
+      "bytes": 1208,
+      "sha256": "654f1cb80fd4573bdba7c359abde2830e905969d56540cdfabd2f1741afa8ac5"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/Landscape_actor_013_BP_AgentManager_C.t3d",
+      "bytes": 2061,
+      "sha256": "192798906360ba8baef61606c33be7ae4b2841f7b03ac954deace75a92d40a81"
+    },
+    {
+      "file": "raw/study_candidate_5e508dd/Landscape_WorldSettings.t3d",
+      "bytes": 10502,
+      "sha256": "0c3dfd221c7e39ddf82d8f4c71bb367eca8341f09022935c0439ee9e9e2de1d0"
+    },
+    {
+      "file": "raw/trainer_configs/Training_train_ppo_SharedMemory_2025-05-25_19-45-04.json",
+      "bytes": 5267,
+      "sha256": "9e2331ddc32502ad47e84fbc661c7c13a06a87f03dd851cd3b3a0581b4634b49"
+    },
+    {
+      "file": "raw/trainer_configs/Training_train_ppo_SharedMemory_2025-05-25_20-27-19.json",
+      "bytes": 5267,
+      "sha256": "30da392d3e2a14eaebdf6b2e6e5275e4d6c128b934cd22699723c59da4b29ec4"
+    },
+    {
+      "file": "README.md",
+      "bytes": 25529,
+      "sha256": "8614cf1af27c7f131296e418bf92b8d3c856e6a44fc8b36618a9eb7982274504"
+    },
+    {
+      "file": "representative_training_dashboard.png",
+      "bytes": 146099,
+      "sha256": "a4f7df3fc665b66cc5839197e9758427d80ca28a732ef18bad26785643ca28b6"
+    },
+    {
+      "file": "run_exports.ps1",
+      "bytes": 1213,
+      "sha256": "2ae48ea8104a771f7a74ce5e51eea29941cee228141176393020a4ad5a23511e"
+    },
+    {
+      "file": "settings.json",
+      "bytes": 77697,
+      "sha256": "ebb925062fb8548bef6737691fdfe15be1cb9f8d1b1f955678e0381b2653bf22"
+    },
+    {
+      "file": "source_manifest.json",
+      "bytes": 41491,
+      "sha256": "aee773053399e018a2ffe0d6176bf8bf6ce69e5aaa58a313d16565aaa30d8290"
+    },
+    {
+      "file": "summarize_blueprints.py",
+      "bytes": 3155,
+      "sha256": "454c6c88d9b4a8b4c066cf0bcb92da3d44e442d37e1f1c60930080ff641256be"
+    },
+    {
+      "file": "training_configs.json",
+      "bytes": 745740,
+      "sha256": "f9492de9ebfe3a388f90f297fe820c935ba8f4240a0a5f0f7886326c71b47379"
+    },
+    {
+      "file": "training_event_summary.json",
+      "bytes": 8559,
+      "sha256": "4992295ccf0e62865b4c5d8c201100a2d6675fa3f76345948eae57fc78994fda"
+    }
+  ]
+}

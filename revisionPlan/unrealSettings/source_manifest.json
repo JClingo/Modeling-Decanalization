@@ -1,0 +1,1007 @@
+{
+  "project": "C:\\Users\\jingo\\Documents\\Unreal Projects\\decanalization",
+  "commit": "b2ec222f86543e1a6473265c3a2260c911ec9d60",
+  "status": "M Content/Agent/BP_Agent.uasset\n M Content/Agent/BP_GameMode.uasset\n M Content/Learning/BP_AgentManager.uasset\n M Content/__ExternalActors__/Level/Landscape/E/OC/47RXQXA54PZRMOUO7PJBGB.uasset\n M ue_canalization.uproject\n?? screen-captures/MultipleRewardsMovementCostMinimizeCost.mkv\n?? \"screen-captures/No learning (just movement) example.png\"\n?? screen-captures/NoRewardMovementCostMinimizeCost.mkv\n?? \"screen-captures/SingleRewardNoMovementCostHRL_plus and anticipation.mkv\"\n?? screen-captures/SingleRewardNoMovementCostRewardMaximization.mp4\n?? screen-captures/hopalong-trained.mp4\n?? screen-captures/training.mp4",
+  "assets": [
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/3D/WUDEX8PR2CL3YIHAECT5GU.uasset",
+      "bytes": 78956,
+      "sha256": "0c9d1e4aea97ae0196205ea089a7b3dc5c94e984fcb4b9c09f7e0eca7b27da97"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/6F/RYAXUBNPD2FOUDS67S8N9U.uasset",
+      "bytes": 70494,
+      "sha256": "5749aad4cd4678dd3b06292a3d9877f194d2dd5fbb99763203a678d3813cb1d9"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/F4/OHNUQY6R3CUUXX0LBDAKAO.uasset",
+      "bytes": 70494,
+      "sha256": "3510771369210acd629fb63504978cd650a4a8126a9a1532113f32c604b3f988"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/IB/653M3J39DLYCOFDBSJIBWV.uasset",
+      "bytes": 70378,
+      "sha256": "f0e00ac2bde27253bc43e32a80a63406b59b723826876b83c0d22e71a04a699c"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/JT/OHZ9IB2Y5HVC5LKITMSAVZ.uasset",
+      "bytes": 4708,
+      "sha256": "46a1808040f8b19cbb5e88757d1ff8da6d4b48f7d32cc39f1ced774cdce8f221"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/MO/U1GYNI0B9FCMYB8DZ0052Q.uasset",
+      "bytes": 5190,
+      "sha256": "d1554ed63d2a839753d1ef0c46f3362467b553a86b33a32337a3d6264d1fba95"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/0/Z9/A0CY82SGMHV2NYOQ16KAFV.uasset",
+      "bytes": 3815,
+      "sha256": "a6df052713ec33751a5b6cf66255b94c25f08a8a0c8905c46223d3d54ab0aaf4"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/2/5B/09Z30U9CAIBFOECAWL6T89.uasset",
+      "bytes": 77690,
+      "sha256": "58dd169581d15b874c9aa9ac15dce539b48fe727e3ecd2f420e6d5bd64fb2f55"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/3/Q1/IHGQ7UWR3Q9J0W6JZ36H8R.uasset",
+      "bytes": 70494,
+      "sha256": "d206661285412042aef5240f03ccfeb0e67027f82769f63bbe62494fc615ba93"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/4/ML/MQBSI1EWKWZ2T6BOUO7P00.uasset",
+      "bytes": 70378,
+      "sha256": "987ab03c0b57ad8aa7cbc6038e7f27db5a64e2593cea6c1c2dbd08b4960a4f09"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/5/ZJ/NJQN2M0CZQDB5S8LGSV2FM.uasset",
+      "bytes": 3809,
+      "sha256": "91bf567b6b7a8e8a9ff61381962a917999d4332494649cbcdb9ce056a336ba4c"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/6/XZ/5VMQIZASG891Z1JUQM6WSX.uasset",
+      "bytes": 4033,
+      "sha256": "b49626eed1c4ec7fd38057ca7de2ae24ca2ae5168cac915c4ecd5f941debdfed"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/7/8U/FW8IKUHNY1D755ZDGFFARI.uasset",
+      "bytes": 70378,
+      "sha256": "c6ad6ef81f0aff35eacaa0053c7456bf9d23c1924637cd046f0a6ace86feae5d"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/7/ZP/W0RHB82RU3JZJDHNC88DJ8.uasset",
+      "bytes": 6533,
+      "sha256": "14763b427f48ecb3142dbd78c90f1a364a05db56135960f8da429ef25881382f"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/8/6H/V7M90AH75V9KANG118F3OM.uasset",
+      "bytes": 2650,
+      "sha256": "3ea2a9c66a9bccf2172c3cba0e703a4a5699f643f8ecf4fbe574cc117580bfcc"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/8/MU/WSDQWI4EUUV42MXQ0SJ6LN.uasset",
+      "bytes": 70101,
+      "sha256": "c87fdfbac131f14f70cea1ff3cb6dde717fbfe9aec46a3cf90b0aa4aa9acec79"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/8/QY/YI2S84PUNJ20PQQ27KPGQD.uasset",
+      "bytes": 70378,
+      "sha256": "aa42095ab48d44313298587579137bd1880c30633a93bb2fef7a595699a8eaf2"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/9/1C/PSWHJE5QO0939FKPH8QBBF.uasset",
+      "bytes": 70494,
+      "sha256": "d97a5e5370524453efc3257ae956d97b9c424f59eb43286895c5b2f5f3dfc7dd"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/9/O0/MQD9F3LO29724JI7K0SN5K.uasset",
+      "bytes": 4426,
+      "sha256": "7c1971c69b84537f2a34314bddea9a5afeb1a38c77a59c0d1c6a45af462daeac"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/9/S0/X4A1OH6RMK1U5FN8828V2E.uasset",
+      "bytes": 2602,
+      "sha256": "2b9206d47f4854916d0e7633393befff05db5fa8554560ff679e01011bbbd43a"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/A/M7/F3AOXYES1ORQME62M5W4TJ.uasset",
+      "bytes": 81495,
+      "sha256": "0e8ca35fe6df6193696ffcbdfccf11b06ab003af0ad38572b4358e975265d5a8"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/B/P6/DGXTRLWSXZ3JV3YBNXCNQP.uasset",
+      "bytes": 12828,
+      "sha256": "d674a797ba3ccddf4ab1387591d33e9585679491eb0e913666ef1c1add419d51"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/C/1D/UJLO2QXN92MFRFXPJQQ01Y.uasset",
+      "bytes": 70494,
+      "sha256": "d8db2cce94198c943a9741d0ded299d845c67c5c0942466f914a59c25aa43162"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/C/Y1/UFH6IY5NJSFG2MQ4ACSA5T.uasset",
+      "bytes": 70378,
+      "sha256": "fa35dcea317c12ab5959ccc0cd39b2836f07a549b35c2c46888aa49f436f7ecf"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/D/7B/R9CZPS3LJW0LZFXN608U1P.uasset",
+      "bytes": 3919,
+      "sha256": "21b48e46ba04d8cf798e8b8d29655fce37f5d14a7d89d96ccbfbb2e39364c012"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/E/4P/09ZRYS12FND7GY13E3Y3B4.uasset",
+      "bytes": 70378,
+      "sha256": "4c28a36fe2c67292d76c6ee655be2e1a90646a23ad789d69667639b917ff5828"
+    },
+    {
+      "file": "Content/__ExternalActors__/Character/Maps/FirstPersonMap/E/VJ/PH1WBO2O68JLZMRAQW528Z.uasset",
+      "bytes": 81822,
+      "sha256": "226e8c1b9adf3de68fd4ec68729042d6e79952380a8b97d8bfb9785b3ef856dc"
+    },
+    {
+      "file": "Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/E/V3/ICWLYCF62EJ63XTK5ZSZWV.uasset",
+      "bytes": 849,
+      "sha256": "af19e53ef86b1bd5dd3d646c9afe7ffe91e4f01d6f862230824247e28ba553e7"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/0/PY/X2LI2G9C5ZLPJN4M69FZXQ.uasset",
+      "bytes": 4420,
+      "sha256": "bee2317cd8004a6c3ae4509fde0e65ee711ddc89bd40bde2a1a89d88e8685224"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/1/9J/DG3IKH623IT0GOZ9VCIQER.uasset",
+      "bytes": 3743,
+      "sha256": "3c6eac394ec245d828851fba502634f27d62c046ccbafcb09dd24651667840ae"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/1/OI/9LWRNA9LAH3RRJT0PGU86I.uasset",
+      "bytes": 3898,
+      "sha256": "5a9111b08d59188d0abaf4f256b99812ee8562e92bb2c4be7d100d7a5f1076ff"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/1/P2/DY4OPP5LBKC71MT5EPUTU7.uasset",
+      "bytes": 4414,
+      "sha256": "1a77efc61415b4ef914c30b26a5f506d2b543fb8af57a27bb37f6b83a90e2f9b"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/2/VY/13AD6SJDH9IIGUOZMBVM54.uasset",
+      "bytes": 4443,
+      "sha256": "d368afd9ba594c70b49d9bcc310938a67d4b069f40855c545eeaa96630556fd0"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/3/8F/ZUJBU9RPGLR3II0G6VIK6R.uasset",
+      "bytes": 2584,
+      "sha256": "bc69b76489b0d5df8a4a8ffb713d520ea3bb1a23dd2e344f03c81aa6c5cf8896"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/3/L4/9CWN7B1BNBQKP2XTQBLVNN.uasset",
+      "bytes": 4420,
+      "sha256": "2d159c0128707625e4dad686b25029e81a846caea06114828820f826e877ea19"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/4/1K/VT3PC9APSN1A4WOZUAUB4B.uasset",
+      "bytes": 4341,
+      "sha256": "0626b4bc544eac4d16a72e160ab8a1d5d89624718a56560e2682d66ffeee7273"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/7/9S/LFJU9GLNIMKDH33J8HHN2X.uasset",
+      "bytes": 2536,
+      "sha256": "c1b78aa0f6db0172400afc562952b1ee2d0a07b311d32c359531621d0aecfbad"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/7/CU/5EYD2V1GC2U238AVQDFIBC.uasset",
+      "bytes": 4420,
+      "sha256": "e6474753f9e03307f3ea79b5dada3c4a9a65d8ee323519cfe09a3dde11c17054"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/7/LY/BC6SL0OSLV4TEZ8FMI3UWL.uasset",
+      "bytes": 5169,
+      "sha256": "477bf61b63c604a8a16df048caea2537198b085bc7903b16d02cc28e83ac88a3"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/7/SM/619YWE95WNKEHTEBT8YV11.uasset",
+      "bytes": 4550,
+      "sha256": "5773c876c6bbb2a5192916e2bdd9810970b7bbc725ed94b22d68feeb82f12614"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/9/EP/RJGEA3PYPUQY35VXG7QVJI.uasset",
+      "bytes": 4420,
+      "sha256": "3307a2e3b8b6378f0fdb16a5c10badbce2b704a093394b71938c3e4cae8a7792"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/A/3T/2MEA02AFDKSJK1TG2RRAF7.uasset",
+      "bytes": 3749,
+      "sha256": "ca27326a8b669b8b4fdf2dec6f1eafac34675183aec8900083d515cf744cd133"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/A/KO/E6N2EY0QKVHXC5IWDYFZOJ.uasset",
+      "bytes": 4420,
+      "sha256": "5ab62803254b652f0f749e8321f82ca1fa142816a48aea7a9ba22454ab96924f"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/A/TM/DX4SYI8PJLFIJK6VU50DNU.uasset",
+      "bytes": 4420,
+      "sha256": "c5b35e04c128cd9efdfca64379b4fa01ee33913936e3f53f48cfc958c48a4a05"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/B/Q7/VMNA78VJ9OMDOAAJDL1B72.uasset",
+      "bytes": 20539,
+      "sha256": "9e78fb2d1dae3e991d8d7828f67274e32289840c159875a14d32c2a104f2825b"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/D/03/D4O3QQ1K2QHHJ99XVRWEBF.uasset",
+      "bytes": 4420,
+      "sha256": "5318685f378d8f5ed2c55f52510765372c2fb32230c7fd91cec8bae56f5fb81d"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/E/SO/2DYIIQNA752RFNPHRM9TYF.uasset",
+      "bytes": 3806,
+      "sha256": "e11003c860f22a5d5481a997c1e4c79ea65e0120f941fb8c0513f6e6e174d468"
+    },
+    {
+      "file": "Content/__ExternalActors__/GridOfRewards/E/WR/3FQ1J5HSWKFOGNYHIH5D8V.uasset",
+      "bytes": 6096,
+      "sha256": "46e9ea598199c916f75758b043e6c2af2ee8473132e2ba449d875fddc67b43a6"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/1/0N/8O5G51RSK0JR25U0N7KGXD.uasset",
+      "bytes": 5169,
+      "sha256": "70754824983beffc5e886b75fc6bdbc8c21797acb64f85c932c1e632456bc2a8"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/2/IZ/KPQTEG4JAKOXRK9DLRANAK.uasset",
+      "bytes": 3898,
+      "sha256": "d0074bfe346bc7f83b78c7d5f8662f02d06b206df82c0f4516ee66516e1d63b7"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/3/HV/HTEYXXK0QN18MY3H0505WL.uasset",
+      "bytes": 2536,
+      "sha256": "491799ab7812f061dc3fa6bd10270fafb7312723fc689654cae457f60aad1a27"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/3/K4/NQX9D64ZOAR7V7JE54MOW1.uasset",
+      "bytes": 3749,
+      "sha256": "ff07b7dcc6f46fe14a2f6e3a19e9c6c9e348d94d6eaa0d1a385daf3c95c8f50c"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/3/QV/B3JIYLG8ZVNM90B1TA4RWX.uasset",
+      "bytes": 3723,
+      "sha256": "1afd1190f3f453b5180a485709f2356ecb00dde36f6573cea97701e8f2d91ea9"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/3/TY/TB8C9N9VUKYCB4Q1NIWBHH.uasset",
+      "bytes": 20268,
+      "sha256": "db50939c4e24d77c78098663b022dcb99315833c8ffba922ae63d5cf34f86583"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/4/U7/5185E3FEUFW9X33Z4DW2ON.uasset",
+      "bytes": 3806,
+      "sha256": "5d600615d5c1f75c44bbff12f6ed6f4cd87c64de3086055687a03542e1d35f57"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/9/7X/NOAD7JTAO5DQ5F9PPA7AZ8.uasset",
+      "bytes": 2584,
+      "sha256": "d0c12e7774bd6c3f3caa69d0d08b995b31c435bbfb403cb5b781d3d1b7eabc7f"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/9/SR/YZXGTH9IEL7MAOIP0B87U2.uasset",
+      "bytes": 3680,
+      "sha256": "aa342f8927297ab9619eb1a928d7f2faebf032fe9138da533d63e42d723d66d8"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/9/UC/ETA6HX8V3SRJH58EEKK2BY.uasset",
+      "bytes": 6094,
+      "sha256": "f4ea8923f82b368242f3eae58c01dc6401d4eb275ea65896bfe4216530494c6b"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/A/HO/QMA01XJ9AY373AR1MGFO4U.uasset",
+      "bytes": 4550,
+      "sha256": "26a312f927fc6ad6915ac81e286234a911149b0485ef7b00d1612eb5839b199a"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/A/YN/9TVCT4TZ9IKI06QZ9TSINI.uasset",
+      "bytes": 3743,
+      "sha256": "b725cf639bd0129d1cddd4c10d0b153a3e631801a9ef962d73d9065ea7b77d7f"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/C/85/CIAY3Z9YV0A8H2S3ZWBWM9.uasset",
+      "bytes": 4443,
+      "sha256": "7e789fd9e87ddbc11395b506fa04d25e87260afb255dabfcadce8e5d67453cff"
+    },
+    {
+      "file": "Content/__ExternalActors__/Level/Landscape/E/OC/47RXQXA54PZRMOUO7PJBGB.uasset",
+      "bytes": 4208,
+      "sha256": "050a9853661ec40eef6ebf5e8329a96d67ff99f5930f4db8bb09abe59e635bdd"
+    },
+    {
+      "file": "Content/__ExternalObjects__/Character/Maps/FirstPersonMap/2/BG/A958BXYPFNDL88XCWL4RKZ.uasset",
+      "bytes": 2298,
+      "sha256": "f6a7910daa54b481634220bfa28cde883398b44751065eca21bdce436750e47d"
+    },
+    {
+      "file": "Content/__ExternalObjects__/Character/Maps/FirstPersonMap/B/7Y/LOZALH1QU3YYRQTWCLFHIY.uasset",
+      "bytes": 2286,
+      "sha256": "84e7cda18c5457a86ef027849bcd2468e0410393607c72a7615b26df114fa7c8"
+    },
+    {
+      "file": "Content/__ExternalObjects__/GridOfRewards/2/PI/QA589R3HMJLU9N412NIS8W.uasset",
+      "bytes": 2197,
+      "sha256": "684ec697c4693bbe874bfb49f3fce1d5486449264d77733ce9873509ae619669"
+    },
+    {
+      "file": "Content/__ExternalObjects__/GridOfRewards/D/NU/JQ2ZYLDLWMYKWEOA9TJ4ZP.uasset",
+      "bytes": 2203,
+      "sha256": "46e5c5937d826d4459da08176c5619c33346e609bb01c20eed7e09b72a3f0b39"
+    },
+    {
+      "file": "Content/__ExternalObjects__/GridOfRewards/E/YT/JO15GX4KEP6X620BCE4MH2.uasset",
+      "bytes": 2201,
+      "sha256": "f7f5b67779d5ceb6f99a842a515faf32bdc51b0008d82d158bf4d58b4dfeab64"
+    },
+    {
+      "file": "Content/__ExternalObjects__/Level/Landscape/3/LP/7YB94NJBT9ESPQJ1D2FSAG.uasset",
+      "bytes": 2201,
+      "sha256": "691821ba9f74de492375b82bef270556fccb3c2bb3eaeca15e8ca808879b1b0d"
+    },
+    {
+      "file": "Content/__ExternalObjects__/Level/Landscape/5/Y8/ZVZJVFZT9ZMX8E5HJN98C9.uasset",
+      "bytes": 2195,
+      "sha256": "937e63d142248a6edb697816215a6bd2ab17ed956c64ac71dff9c5d525144e5c"
+    },
+    {
+      "file": "Content/Agent/BP_Agent.uasset",
+      "bytes": 1106537,
+      "sha256": "e9a2fda3a04160eb3976b8003f6a610da9da6f656a58a14fc1bf9e4077ebc02e"
+    },
+    {
+      "file": "Content/Agent/BP_GameMode.uasset",
+      "bytes": 1623277,
+      "sha256": "e9e0ff909642d97d32955a1debad910970bcd683d4099a0f64478d7d05353473"
+    },
+    {
+      "file": "Content/Character/Blueprints/BP_Agent.uasset",
+      "bytes": 2409,
+      "sha256": "86db3b86493993e1b7d112b285ad4c8cd15e5db374f937b9d01650ca4f0f1a17"
+    },
+    {
+      "file": "Content/Character/Blueprints/BP_FirstPersonGameMode.uasset",
+      "bytes": 2653,
+      "sha256": "f21e89603a76003f461b0686cc1bd84300d3fee9adca5cc704593d542f42d15c"
+    },
+    {
+      "file": "Content/Character/Blueprints/BP_GameMode.uasset",
+      "bytes": 2384,
+      "sha256": "c6522e2398354173b7e809cf4cca9c6fdfb4ab0acaf3c91f0a7b0da0c1994803"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_Jump.uasset",
+      "bytes": 1894,
+      "sha256": "edebdaca094aa9e5bdcd22431cc4ca123717bd2edbf06812dc26e7301bc6bf51"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_Look.uasset",
+      "bytes": 1584,
+      "sha256": "67c08274289f073f06f8f92a40c44fb890605e4cd99bc9754cb47720ca8fd8b1"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_Move.uasset",
+      "bytes": 1584,
+      "sha256": "141ff504ae899379afb72dfddd11233e158f24894a50d7c302a5ee69a5a7be67"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_Reset.uasset",
+      "bytes": 1702,
+      "sha256": "5e20ff80c2d77999795ec66df6e04956b73f509e46ca4e355ad7070c74c0fbc8"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_Shoot.uasset",
+      "bytes": 1697,
+      "sha256": "98d68ef70da106f396d2ff8100a4714b32d5f4e6f68d9bf84fc76439f01fb445"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_ToggleCamera.uasset",
+      "bytes": 1428,
+      "sha256": "f3ae3c39c018ea2c6ece9baae3aa7b549375e7440fb25afc9180dc920b4adec0"
+    },
+    {
+      "file": "Content/Character/Input/Actions/IA_ToggleCanalization.uasset",
+      "bytes": 1458,
+      "sha256": "0e03d9448ff32bb5775c2812543783d38b30119fc767c1a4a90494b7e4acdf83"
+    },
+    {
+      "file": "Content/Character/Input/IMC_Default.uasset",
+      "bytes": 15949,
+      "sha256": "57a3fda752160fa93b75bf761ce17582cdce2fb271f1033973db833a859bc6e2"
+    },
+    {
+      "file": "Content/Character/Input/IMC_Weapons.uasset",
+      "bytes": 3654,
+      "sha256": "16b0045e43a62369e61c8fee33a221e9357f92d30778e460f23e441dc0fd59f2"
+    },
+    {
+      "file": "Content/Character/Input/MobileControls.uasset",
+      "bytes": 4724,
+      "sha256": "1d1d85775051de9a6f498d4f6a8362777f4db26712fd6a1b24184c77f9eb88ce"
+    },
+    {
+      "file": "Content/Character/Maps/FirstPersonMap.umap",
+      "bytes": 28966,
+      "sha256": "545999b05974ccf18dacd90f7f9a3c77a69502db0efd1445fc90d420a2400862"
+    },
+    {
+      "file": "Content/Character/Maps/FirstPersonMap_BuiltData.uasset",
+      "bytes": 9621788,
+      "sha256": "7a0fb8bec07823eb312ff3cad66e349e74a481f53ed51451e36542cecfbc2887"
+    },
+    {
+      "file": "Content/FirstPerson/Blueprints/BP_Agent.uasset",
+      "bytes": 2328,
+      "sha256": "3d06d09846d4f6017da00699a300e722ba79c89463c3fdbf909cf8b84eec095f"
+    },
+    {
+      "file": "Content/FirstPerson/Blueprints/BP_FirstPersonGameMode.uasset",
+      "bytes": 2683,
+      "sha256": "0ab17deea6587a347bd99ff1e0db0a264d11892bf82d682e81379a4ded99e3cd"
+    },
+    {
+      "file": "Content/FirstPerson/Input/MobileControls.uasset",
+      "bytes": 1531,
+      "sha256": "d1fb5bc4eb2b93d929446adc8f3203fbb73f28c5132d6a1ada2f8c6a375d29e6"
+    },
+    {
+      "file": "Content/FirstPerson/Maps/FirstPersonMap.umap",
+      "bytes": 2473,
+      "sha256": "94ff5b7b0300eca8c3e13f8da4d26eb070bdfe4bf8117ed1bf2548d302f02c58"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FirstPerson_AnimBP.uasset",
+      "bytes": 437257,
+      "sha256": "096f09c72ee93a5a008e973acaf1ff996c8be46b16fa0636e9b53047c07e2d71"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Falling.uasset",
+      "bytes": 635462,
+      "sha256": "87975eda54f3723994ebeab0c962a1eedd0449d78b0f064be40040385ca7100b"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Idle.uasset",
+      "bytes": 1231790,
+      "sha256": "447cd2f8901f668cc516c01d6c3da3ea58f65d6518a0b1989e38d22444433e29"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Jump.uasset",
+      "bytes": 448652,
+      "sha256": "f1e56a44cd1c36d17e837f36238071f9eadc739e216193d2c4cdd19295e7b14a"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Land.uasset",
+      "bytes": 444422,
+      "sha256": "6aa3ecc61f36f6ce5099c50d2a3f972d08a2df2e652d9ebb8a7302de1af65359"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Falling.uasset",
+      "bytes": 290495,
+      "sha256": "fcef492feeb88eda0a736a544f478ee7d2618fa129b33305d4d025a9d99e5fcd"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Fire.uasset",
+      "bytes": 255326,
+      "sha256": "282d228443faf917799e345728aa35c16075f3adba8c1d8a053980830aa91520"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Idle.uasset",
+      "bytes": 360496,
+      "sha256": "1b424a7420c3944a939cab5a9c4d11caab73d2b4c1e425a686811167d25aa137"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Jump.uasset",
+      "bytes": 232907,
+      "sha256": "e9e3c27ebcb12bf25e26d7ed31ca030729d9ad24beebb2ba99bfc98e46c3b9a2"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Land.uasset",
+      "bytes": 260345,
+      "sha256": "b14c0837a8b669bb78f5e3d823aeeda0959492fa2b770c1b74384461ca807ead"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Run.uasset",
+      "bytes": 277215,
+      "sha256": "4f0ab0f6ca0ad51dce7e99a6366cc54d2c73e440aff855d68de713120a0bce41"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Rifle_Shoot_Montage.uasset",
+      "bytes": 8708,
+      "sha256": "7bda8eef76f360add3289953e83141a8c4b35153f90a57fe885a09feb333dd5e"
+    },
+    {
+      "file": "Content/FirstPersonArms/Animations/FP_Run_Fwd.uasset",
+      "bytes": 672062,
+      "sha256": "9744758789302373252898ca644b48cab5ea08051883b6e7eca530c7835fff10"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Functions/CA_Mannequin.uasset",
+      "bytes": 4993,
+      "sha256": "605d489233046411f00be5f2c09350fdfb91edb9f03524c2a8f42ed8319869fe"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Functions/ChromaticCurve.uasset",
+      "bytes": 6431,
+      "sha256": "4296cdb3448f0b9aaa97c1353ab396a86d5773e64c57bf9c23adf263eab0358a"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Functions/MF_Diffraction.uasset",
+      "bytes": 32047,
+      "sha256": "fb1afd20d9bb7bf0c84ee7156bc2770739e64165d7a2593d6a9d8ae25a37726d"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Functions/MF_logo3layers.uasset",
+      "bytes": 55143,
+      "sha256": "c7c13c21b6204d56a627ddc6f83545163ef00719e7a1d87e46d751aba58ed28c"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Functions/ML_BaseColorFallOff.uasset",
+      "bytes": 13735,
+      "sha256": "ee857404829a4669200755f4f6fdf9b6f55b83b0a098587357c5efa4c9930c51"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Instances/Manny/MI_Manny_01.uasset",
+      "bytes": 13997,
+      "sha256": "595c4b10ef147137f1d0659c227da985b7d5e4f36c1f96e447dfb860f944286c"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/Instances/Manny/MI_Manny_02.uasset",
+      "bytes": 15267,
+      "sha256": "c59112fda95389cdafddcbe0cdac787305fea3e1639e419910d7cb9e7f279b9c"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Materials/M_Mannequin.uasset",
+      "bytes": 83174,
+      "sha256": "a868106dfabb9b0a75df6f1ec139bdad5817901a5dc39f7f055c1b2b827bd67d"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Mesh/SK_Mannequin_Arms.uasset",
+      "bytes": 5588863,
+      "sha256": "3fbe96e7805b23aeef9d72ace79a4d313a702b2db5dd6d5cd126a5dbcbcbc46f"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Mesh/SK_Mannequin_Arms_PhysicsAsset.uasset",
+      "bytes": 17332,
+      "sha256": "4729a3b26a1a17c341dce18e24596dc5041fbea62aeea5574fdf0eabfb996c97"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Mesh/SK_Mannequin_Arms_Skeleton.uasset",
+      "bytes": 158181,
+      "sha256": "5fcb271d5232986490232866de153ab5989bd267bc4143dbc978922ac80e8b16"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_ASAOPMASK_MSK.uasset",
+      "bytes": 3612738,
+      "sha256": "9a93245681179aba1f6f7eb39e5ba28bdbf1a073b64683806c4eefc9aa31b175"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_BN.uasset",
+      "bytes": 18514290,
+      "sha256": "69046fa6644bdb06076bd726d790c553aa722d72dad4875c8f08e53aec759225"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_CCRCCPlastic_MSK.uasset",
+      "bytes": 10272108,
+      "sha256": "23811f2f68fb05e4f9c01d52b3d5798b088f318f95a30042baa403c13078530f"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_D.uasset",
+      "bytes": 5740476,
+      "sha256": "ba4e77274674994db38335afdb4560fe7efaa0429f8626449b2588db0f58c0e1"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_MSR_MSK.uasset",
+      "bytes": 11038311,
+      "sha256": "336eae14e85c2c0e6150d549636d33eb7868cdb19a0a307dff90c4b5141fe5b1"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_N.uasset",
+      "bytes": 7198372,
+      "sha256": "593a9b2b32f0a7bb413aea86360e4090813c180d4d6066febd064213f787dc06"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_01_Tan.uasset",
+      "bytes": 1357893,
+      "sha256": "2e50b18b9f6375b84974935ac40d88244c9577509526040f07d6d46039bb005b"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_ASAOPMASK_MSK.uasset",
+      "bytes": 8341514,
+      "sha256": "2320ee9b7854f0e7fb918cde77727f24b68f0902114539427cd69aa1f638abc7"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_BN.uasset",
+      "bytes": 21139649,
+      "sha256": "d9a08176c305730ec184e81f7e0f550d8a46f2e8b0c6f02ebf170c8686a887dd"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_CCRCCPlastic_MSK.uasset",
+      "bytes": 13144179,
+      "sha256": "38579a2120c10edff036b9d2411969c7cb4bb0899e68c307a834f6774b77b3d5"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_D.uasset",
+      "bytes": 9033644,
+      "sha256": "fba8e88799b48163ff9e9f3b5c7281d62824f69116229ac3bf2495fa03587ca3"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_MSR_MSK.uasset",
+      "bytes": 13677737,
+      "sha256": "623482b5fb92bafaf72c7976aa38c077d9b12be436b512f102a4b33d197972c4"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_N.uasset",
+      "bytes": 7269456,
+      "sha256": "7ef77131bc4919c79a66bd383582cd1e900fa308c6721d95cbb314b04c142267"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Manny/T_Manny_02_Tan.uasset",
+      "bytes": 2153913,
+      "sha256": "1b9cd9a461b8c266f3347dc26ae50dab508c5295269ff96849dab3f47a1a9228"
+    },
+    {
+      "file": "Content/FirstPersonArms/Character/Textures/Shared/T_UE_Logo_M.uasset",
+      "bytes": 70081,
+      "sha256": "4a018522f58fa7e0ff7ffe520a38668aa04155b9d11eedef0094e5b550aff819"
+    },
+    {
+      "file": "Content/FPWeapon/Audio/FirstPersonTemplateWeaponFire02.uasset",
+      "bytes": 306457,
+      "sha256": "a79553601bdadcb7f7430150268f8250e0a846feb8e1a9214c7a281dcbd2ec95"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/BaseMaterial.uasset",
+      "bytes": 113203,
+      "sha256": "e915f808df8bc86369f178331f86f43a1ffdb2820c831996506f4bee98281122"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/FirstPersonProjectileMaterial.uasset",
+      "bytes": 98384,
+      "sha256": "1cf7b9bf1990888fc38fbef38e2c1c4685ac2ff49082131f6de23260af0a7273"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/M_FPGun.uasset",
+      "bytes": 135198,
+      "sha256": "fe7d865c29d4a9b393413e2b06ac07d18db5c73180321829cb8f147a03044540"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/M_FPPistol.uasset",
+      "bytes": 31719,
+      "sha256": "57f7eea6c75079a6647624c76b5811dcecd46b2fe8258b522f0f74f4f64684ee"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/ML_GlossyBlack_Latex_UE4.uasset",
+      "bytes": 116110,
+      "sha256": "a9e17524241935882b3c7d3b40f8497b555eca64cbbc419d2dfcd3ab3eb4baa2"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/ML_Plastic_Shiny_Beige.uasset",
+      "bytes": 99007,
+      "sha256": "56815475b3e4755609990348b2678c22ebfc5e85ae884e3e609c82b0f92d4d4f"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/ML_Screen.uasset",
+      "bytes": 96590,
+      "sha256": "84f8ab6e7c2117ee8f7a6f9c20f3bb1d9d44ed4b2f8c95b84d50d7069ea57637"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/ML_SoftMetal_UE4.uasset",
+      "bytes": 116886,
+      "sha256": "e598fff8f159d48b1f8febc143616bbeef44fd51331487d652a1c776114025ee"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/T_ML_Aluminum01.uasset",
+      "bytes": 8753839,
+      "sha256": "fda38b7222415bde3a7b44e711c78feaf8f1a75bca0645c3ae4101c983a13216"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/T_ML_Aluminum01_N.uasset",
+      "bytes": 4448460,
+      "sha256": "fb297b2d2966af5cd4c4c019e3c65a81b55f31ac33657dcbc772851e35ea62c6"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/T_ML_FineRubber.uasset",
+      "bytes": 6357504,
+      "sha256": "0beafa8dc8fc41f7c027397c4706ab6d03176032a3539202b0f9ee094bd468be"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/T_ML_Rubber_Blue_01_D.uasset",
+      "bytes": 5504250,
+      "sha256": "5729fdd2f679bde8db97927a11052d7df6bd6282508ce082076f2d09b04d1c40"
+    },
+    {
+      "file": "Content/FPWeapon/Materials/MaterialLayers/T_ML_Rubber_Blue_01_N.uasset",
+      "bytes": 4902831,
+      "sha256": "edbfb81b6f0a67e846e3ea0c707f1e727041828192efa42590ee6aebeebb3db9"
+    },
+    {
+      "file": "Content/FPWeapon/Mesh/FirstPersonProjectileMesh.uasset",
+      "bytes": 32063,
+      "sha256": "df7570d958e52a68e48b3bcd93739ca93d4ec9897c997ef98e43eee7b063725d"
+    },
+    {
+      "file": "Content/FPWeapon/Mesh/SK_FPGun.uasset",
+      "bytes": 2162660,
+      "sha256": "67c8259a243d5c66d35b91458da2dd7e9e860224052098ba554eba470cee4a2a"
+    },
+    {
+      "file": "Content/FPWeapon/Mesh/SK_FPGun_Physics.uasset",
+      "bytes": 9248,
+      "sha256": "ca07f36fcb88f5a7ed10ba1ab173d7640447340e153369a1f62f8fc4a6e1cc40"
+    },
+    {
+      "file": "Content/FPWeapon/Mesh/SK_FPGun_PhysicsAsset.uasset",
+      "bytes": 9268,
+      "sha256": "1efc2cbafdefc34bd01ba68891b4e257b3fab2f87eb7e3d0f47cb2a4e7ef80eb"
+    },
+    {
+      "file": "Content/FPWeapon/Mesh/SK_FPGun_Skeleton.uasset",
+      "bytes": 8000,
+      "sha256": "eec8c05a75e7932e3834cbc1cd1b112f29171212b871fa1552f458ceb1b65948"
+    },
+    {
+      "file": "Content/FPWeapon/Mesh/SM_Pistol.uasset",
+      "bytes": 186727,
+      "sha256": "52159016d404e7bc16a1955f76c98a1a185bad944fbda3318cbfb1c201b8afc4"
+    },
+    {
+      "file": "Content/FPWeapon/Textures/T_FPGun_M.uasset",
+      "bytes": 266945,
+      "sha256": "88ff19857498031c943afcb0e715a6b5c0ef521cec80a9fc8b7666ead7254ecd"
+    },
+    {
+      "file": "Content/FPWeapon/Textures/T_FPGun_N.uasset",
+      "bytes": 1616497,
+      "sha256": "991fc740b71c3fccc1b2a3ba021a0c297eeb400f9fb71dd76eb9215fb99cbb99"
+    },
+    {
+      "file": "Content/FPWeapon/Textures/T_Pistol_Masks.uasset",
+      "bytes": 242034,
+      "sha256": "c3f9c0782ff7572b4d9996b484fae3e68b7a168d60e7ca3532ea7734a84039b8"
+    },
+    {
+      "file": "Content/FPWeapon/Textures/T_Pistol_N.uasset",
+      "bytes": 4428290,
+      "sha256": "5d24e86ff10080631479b048e3df2e37c4c76663b637b804568d36c6c4cfb41b"
+    },
+    {
+      "file": "Content/GridOfRewards.umap",
+      "bytes": 28051,
+      "sha256": "21ac1e002783af238eb176e553b38c1288dcf67af38fcc47e4591760eddf0b98"
+    },
+    {
+      "file": "Content/Learning/BP_AgentInteractor.uasset",
+      "bytes": 457385,
+      "sha256": "424fe7164f646b664195c8cdb10f97949acfbda59e82985a7c6975e015aaaf6f"
+    },
+    {
+      "file": "Content/Learning/BP_AgentManager.uasset",
+      "bytes": 327038,
+      "sha256": "e8fe145a36a39eb71295f7918e1c90edb4dffc13466daa402c448c5e5c0208d0"
+    },
+    {
+      "file": "Content/Learning/BP_AgentTrainingEnv.uasset",
+      "bytes": 949719,
+      "sha256": "c2517bc781e5339ed328540de4aa90dfa4ef1b2d632d1b963045dd2b42d631e1"
+    },
+    {
+      "file": "Content/Learning/DA_AgentCritic.uasset",
+      "bytes": 213857,
+      "sha256": "9002bf209b659e8d194ce53a37bb64918a14f755ec5ded7022734e69ee17b483"
+    },
+    {
+      "file": "Content/Learning/DA_AgentDecoder.uasset",
+      "bytes": 2934,
+      "sha256": "3c7171ec5182171309fde560ee0afc73acd0480146d5a9b5ce5ca73356ae29c4"
+    },
+    {
+      "file": "Content/Learning/DA_AgentEncoder.uasset",
+      "bytes": 4206,
+      "sha256": "690299372f057e2d1a6e29bab9ac6fe9b5b6e65d938a58a35e0e886b692ab23c"
+    },
+    {
+      "file": "Content/Learning/DA_AgentPolicy.uasset",
+      "bytes": 942465,
+      "sha256": "8ea5a327d7d3e0fa81d851523ab7ff0d64c938985358775442286a6a740edc09"
+    },
+    {
+      "file": "Content/Level/_GENERATED/jingo/Sphere_1013E250.uasset",
+      "bytes": 80988,
+      "sha256": "fabe6c76d06209d716659802684a0e1df2b129007f079ed5962f82488f04007d"
+    },
+    {
+      "file": "Content/Level/BP_Tile.uasset",
+      "bytes": 244064,
+      "sha256": "5bc49b494c3c674102fe56c93fa0d6e83abe1851f5700180418ad11f99c9c0d3"
+    },
+    {
+      "file": "Content/Level/BP_TileSpawner.uasset",
+      "bytes": 178686,
+      "sha256": "e43037be8473326f37337eba37f7e2dccacd085811d1df4447768b9290ca206f"
+    },
+    {
+      "file": "Content/Level/BP_WallSpline.uasset",
+      "bytes": 411404,
+      "sha256": "d43b8d5d609744b9dc913dc3cd165beb3367be90448a047688dc8255429dadef"
+    },
+    {
+      "file": "Content/Level/Landscape.umap",
+      "bytes": 28016,
+      "sha256": "3f9216a23e2676971dace768b1a2a32b13eca2db400f4240b6d9743ba095fabf"
+    },
+    {
+      "file": "Content/Level/M_Agent.uasset",
+      "bytes": 11485,
+      "sha256": "a23bbd171bdf3b53efeedb5991401b5c72e1d22777d05652e2fb66463ab078b3"
+    },
+    {
+      "file": "Content/Level/M_Level.uasset",
+      "bytes": 11287,
+      "sha256": "3b8571609466af8fdfba37565eaa1946fab39466c9bd616711ffce74cf576933"
+    },
+    {
+      "file": "Content/Level/M_Procedural_Sky_Night.uasset",
+      "bytes": 13070,
+      "sha256": "97a39d4afc65abfd277d03974b720f9cd93ea82b57492d837b167b9aafed20a7"
+    },
+    {
+      "file": "Content/Level/M_Sky.uasset",
+      "bytes": 56055,
+      "sha256": "f12e394d918431e5d630c6cc335bd98d858b92394d57311cd8a4322eaf789116"
+    },
+    {
+      "file": "Content/Level/M_SkySphere.uasset",
+      "bytes": 154985,
+      "sha256": "80b3d13d0787ff431d2838901e2944f6a537e9f056fc540369f05bfdb0221b8e"
+    },
+    {
+      "file": "Content/Level/M_Tile.uasset",
+      "bytes": 12624,
+      "sha256": "8322796082ba0c9b27169db4dc5bbb6f5cb65fc5e020f88c6512bc1674dda9ef"
+    },
+    {
+      "file": "Content/Level/M_Wall.uasset",
+      "bytes": 16032,
+      "sha256": "4d79d9f8630f243b63677f80b3768e17feff6b0907e041effe0bb26f86fb2396"
+    },
+    {
+      "file": "Content/Level/Sky.uasset",
+      "bytes": 90147,
+      "sha256": "5127bec27277b1d8f4b8ca81d003c37248e942e6be078410c4aa5bef461482dd"
+    },
+    {
+      "file": "Content/Level/SM_Wall.uasset",
+      "bytes": 57091,
+      "sha256": "67ac6adddee8c1de5f22e4ca94ede28cefe51333a523fad182dbb1500d0085fd"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/M_PrototypeGrid.uasset",
+      "bytes": 40328,
+      "sha256": "f1a5b000cfbe3030ff6f0bb67a2e4cc4bb803769d74ebd88d54f98918616d2d1"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/M_Solid.uasset",
+      "bytes": 9609,
+      "sha256": "d754d45a7f34228c043d5389af994f3f6c9d6e4bd579bba6c65f11813db11662"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/MF_ProcGrid.uasset",
+      "bytes": 48741,
+      "sha256": "fa5d22837af536b9690ed2f790e288a59ca659c63e669fca99685afc2364ce82"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/MI_PrototypeGrid_Gray.uasset",
+      "bytes": 12785,
+      "sha256": "65022a590b73953153898dfd370aa8c2609a84670cdb06dd205d813712d1c1a4"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/MI_PrototypeGrid_Gray_02.uasset",
+      "bytes": 11922,
+      "sha256": "fa0f2a06a7d937127d7d737c13bacb3f8fe88c8e0479f5e6b7cda81fd225d077"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/MI_PrototypeGrid_TopDark.uasset",
+      "bytes": 11957,
+      "sha256": "838034e5afc7ab3a70bfff6de2e1237aa02337fb423e95c1b536b3e30c61c982"
+    },
+    {
+      "file": "Content/LevelPrototyping/Materials/MI_Solid_Blue.uasset",
+      "bytes": 8669,
+      "sha256": "417952e4c6986a99f1bc3fb25ebceb1308806028bd2b602501b66b874aa87cc6"
+    },
+    {
+      "file": "Content/LevelPrototyping/Meshes/SM_ChamferCube.uasset",
+      "bytes": 22332,
+      "sha256": "6301fc4690ae3dbdc0b77203c6e5f662561351252c7df36c334fb72f6ffe2205"
+    },
+    {
+      "file": "Content/LevelPrototyping/Meshes/SM_Cube.uasset",
+      "bytes": 17034,
+      "sha256": "79cf9bb71346c1f0386362238aef3e01400be06211e6813dc1ce9bbae969fb07"
+    },
+    {
+      "file": "Content/LevelPrototyping/Meshes/SM_Cylinder.uasset",
+      "bytes": 20348,
+      "sha256": "a59270c4e29b708c93c0872970bd7f8cc2a9db0e898ba6792605364b25fee585"
+    },
+    {
+      "file": "Content/LevelPrototyping/Meshes/SM_QuarterCylinder.uasset",
+      "bytes": 17827,
+      "sha256": "8da43997ae75f32c7fba7047ca3f34ca88d68613845d556072b74c93de74e6a5"
+    },
+    {
+      "file": "Content/LevelPrototyping/Meshes/SM_Ramp.uasset",
+      "bytes": 17169,
+      "sha256": "81a46d90c20408e4246e37c4c00bf764b5a05d3752eadd1c3b10e8946a79ffbe"
+    },
+    {
+      "file": "Content/LevelPrototyping/Meshes/SM_Vehicle.uasset",
+      "bytes": 17486,
+      "sha256": "101d6cb6ec963285f4294399e6aa74e425111ebc4d58a3e5e06b3b64c3cca7c0"
+    },
+    {
+      "file": "Content/LevelPrototyping/PhysicalMaterial.uasset",
+      "bytes": 1498,
+      "sha256": "dc8d9eedbe0b36369e6b76569cd2a018aa2749fe9ba0706b4fb45ee4a39642f3"
+    },
+    {
+      "file": "Content/LevelPrototyping/Textures/T_GridChecker_A.uasset",
+      "bytes": 9600,
+      "sha256": "bb8334767064b107ec4f4407ef1365e8b9e2dfeff5984e66d4a6232254ddd02a"
+    },
+    {
+      "file": "Content/Libraries/BFL_Common.uasset",
+      "bytes": 77706,
+      "sha256": "6234694b311124a9c34c72b13974d174d636760a3b473f2a4f763d4c289abb90"
+    },
+    {
+      "file": "Content/Resource/BP_Resource.uasset",
+      "bytes": 232037,
+      "sha256": "b94f1ac59d973066f203acb898865e73bc3ebd9e39dfdac4bc5d64d9d362dd08"
+    },
+    {
+      "file": "Content/Resource/BP_ResourceSpawner.uasset",
+      "bytes": 310075,
+      "sha256": "15fb4dbb2cd28d48e53ff25a59746b83a7821f27ca09ed439b94dadda66782a3"
+    },
+    {
+      "file": "Content/Resource/M_Resource.uasset",
+      "bytes": 13301,
+      "sha256": "692c7cff7ad11dab13c54e522a8644d606b97e3ae62603b26d8f4e69ad68679c"
+    },
+    {
+      "file": "Content/Reward/BP_Reward.uasset",
+      "bytes": 2422,
+      "sha256": "9af7f5dad6ea7c6208a1269ba65bf63fd447eb5d239be16010f29ac12cbb2a54"
+    },
+    {
+      "file": "Content/Reward/BP_RewardManager.uasset",
+      "bytes": 2583,
+      "sha256": "905b9acb33ea292a7b7d9fb25e6d0900582ae6815503d277121139de5fba4cec"
+    },
+    {
+      "file": "Content/Reward/BP_RewardSpawner.uasset",
+      "bytes": 2625,
+      "sha256": "68a6a8b55e7965f62af5210e49498da06b7f359f610ce0747c6d60ae2cb18b1f"
+    },
+    {
+      "file": "Content/Reward/M_Reward.uasset",
+      "bytes": 1460,
+      "sha256": "27138005fe1847f4fe31511ef55d125a16869b5bd951a0b8e956815965d9f852"
+    },
+    {
+      "file": "Content/standardSurface1.uasset",
+      "bytes": 46857,
+      "sha256": "8c16f0dd231e3b1603bf965937cfc5c8323bf66499d7b9a03ae017f397a6a428"
+    },
+    {
+      "file": "Content/UI/BP_UI.uasset",
+      "bytes": 331363,
+      "sha256": "5f8135d021f543170ce6d6a6bc48d4456c909b371355977cdb70a1e2654d674f"
+    }
+  ]
+}

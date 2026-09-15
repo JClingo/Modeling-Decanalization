@@ -1,0 +1,86 @@
+[
+  {
+    "analysis_file": "analysis/data/HRL-CCC-prelim.yml",
+    "sha256": "f2daebe0e6128dc204d2d567862629668af43052b816c34f7272b20987e3d343",
+    "byte_identical_logs": [
+      "logs/trials/HRL-CCC at 2025-5-23 at 13.4.36.yml"
+    ],
+    "trial_count": 100,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/HRL-CCC.yml",
+    "sha256": "28c7d69ed16c8a83896ab0f7e2b69eae4393076ef768db6f72e7643eb1e1208e",
+    "byte_identical_logs": [
+      "logs/trials/HRL-CCC at 2025-5-26 at 15.10.11.yml"
+    ],
+    "trial_count": 50,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/HRL-CDR-prelim.yml",
+    "sha256": "7316244c04ee0d07fc0f26ef8572265cf03e363133978fbff761144c1d9571b0",
+    "byte_identical_logs": [
+      "logs/trials/HRL-CDR at 2025-5-23 at 11.44.18.yml"
+    ],
+    "trial_count": 100,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/HRL-CDR.yml",
+    "sha256": "14284156c146c862ec7dd6e16658934d5588794d096332bc7995d26ce4d241cb",
+    "byte_identical_logs": [
+      "logs/trials/HRL-CDR at 2025-5-26 at 13.0.55.yml"
+    ],
+    "trial_count": 50,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/NF-CCC-prelim.yml",
+    "sha256": "3f8fbbb80a1eb407b1f3fde0f73cac79f08adba9f8203d9109c80b281e3c44b3",
+    "byte_identical_logs": [],
+    "trial_count": 100,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/NF-CCC.yml",
+    "sha256": "5b2fe82ce129b7e531fe019997804762b431d918162da11890ea70e06747f9cf",
+    "byte_identical_logs": [
+      "logs/trials/NF-CCC at 2025-5-26 at 20.25.20.yml"
+    ],
+    "trial_count": 50,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/NF-CDR-prelim.yml",
+    "sha256": "aa66dc9c5e55bea55913227e83b97ece7bfc6e4bdf6e5a82c52a02b3313e5afa",
+    "byte_identical_logs": [],
+    "trial_count": 100,
+    "durations": [
+      "3000"
+    ]
+  },
+  {
+    "analysis_file": "analysis/data/NF-CDR.yml",
+    "sha256": "bfbf1f6de4745581cd996106f39d49368177f2d6a050c2dfebba007504d0e9db",
+    "byte_identical_logs": [
+      "logs/trials/NF-CDR at 2025-5-26 at 17.52.52.yml"
+    ],
+    "trial_count": 50,
+    "durations": [
+      "3000"
+    ]
+  }
+]

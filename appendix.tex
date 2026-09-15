@@ -1,2 +1,124 @@
 % !TEX root = ./main.tex
 
+\subsection{Neural-network architecture and implementation settings}
+\label{app:implementation-settings}
+
+The implementation settings below follow the recovered Unreal Engine Blueprint graphs, class defaults, Landscape actors, original Learning Agents trainer configurations, and serialized networks. For environment values that changed between saved versions, we use the May 25, 2025 study-era revision (\texttt{5e508dd8b782}), the nearest retained commit before the May 26 evaluation logs. The source archive retains later versions for comparison. The extraction used Unreal Engine 5.5.4; source locations, full snapshot filenames, and file hashes are provided in the accompanying \texttt{revisionPlan/unrealSettings} evidence package.
+
+The final NF and HRL trials used the same settings in \texttt{BP\_AgentManager} and the environment Blueprints. Between NF and HRL, the only changes were the encoder, policy, and decoder snapshots loaded for inference, generated during their respective training runs.
+
+\subsubsection{Observation encoding and network architecture}
+
+The recovered policy takes an 11-dimensional observation vector: one pellet-collision indicator, seven resource-ray proportions, perceived gain and perceived loss, and the current setpoint distance. Position, orientation, and velocity are used by the simulation to construct these observations; they are not additional input-vector fields. The Blueprint specifies a scale of 100 for the setpoint, gain, and loss observations. The seven ray angles in the connected observation graph are $-45^\circ$, $-22.5^\circ$, $-11.7^\circ$, $0^\circ$, $11.7^\circ$, $22.5^\circ$, and $45^\circ$, with a horizon parameter of 10,000 Unreal units.
+
+Both recovered policy/critic configurations specify \texttt{HiddenLayerNum=1}, width 128, and ELU activation; the policy also enables a 64-dimensional recurrent memory. The serialized topology resolves the meaning of that setting. The policy applies two 128-unit ELU layers to the encoded observation, followed by the Learning Agents memory cell with 128 input features, 128 output features, and 64 memory values. A further 128-unit ELU layer maps to two continuous-action distribution parameters. The critic receives the 11 encoded observations and 64 policy-memory values, and has topology $75\rightarrow128\rightarrow128\rightarrow1$, with ELU activations between linear layers. The encoder and decoder include learned affine transformations, and the seven ray inputs share their encoder transform.
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabular}{@{}lr@{}}
+    \toprule
+    \textbf{Network component} & \textbf{Trainable parameters} \\
+    \midrule
+    Observation encoder & 10 \\
+    Recurrent policy, including affine output scaling & 117,254 \\
+    Action decoder & 4 \\
+    Critic & 26,369 \\
+    \midrule
+    Complete training network set, shared encoder counted once & 143,637 \\
+    Inference network set: encoder, policy, and decoder & 117,268 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Parameter counts decoded from the saved networks. Counts include the trainable affine mean/scale parameters defined by the Learning Agents PyTorch backend. The policy alone contains 117,250 linear weights and biases.}
+  \label{tab:network-parameters}
+\end{table}
+
+The action schema contains one continuous scalar, \texttt{Look}, with scale 1. This scale multiplies the decoded action; it does not impose a $[-1,1]$ bound. Learning Agents represents the continuous-action distribution by a mean and log standard deviation. During inference, \texttt{RunInference} uses action-noise scale 0, selecting the mean without updating weights. Neither the continuous-action sampler nor the connected path from \texttt{GetFloatAction} to \texttt{AddControllerYawInput} imposes an action clamp. The training action-regularization weight of 0.001 penalizes the magnitudes of the mean and log standard deviation; it is a soft penalty, not a maximum steering command.
+
+The project enables legacy controller input scaling, with a runtime yaw scale of 2.5. A command $a_t$ contributes $2.5a_t$ degrees to the accumulated yaw input; this input addition does not multiply by frame delta. The agent enables controller yaw rotation. The continuous action is not explicitly clamped, so no maximum turn per tick is specified by this action path.
+
+Yaw input is accumulated when the action node executes, applied during the PlayerController's rotation update, and cleared at the end of its tick. Each call to \texttt{RunInference} gathers observations, evaluates the policy, decodes and samples the action, and invokes the interactor's action function.
+
+\subsubsection{PPO settings and training records}
+
+The original trainer configurations for runs \texttt{2025-05-25\_19-45-04} and \texttt{2025-05-25\_20-27-19} contain identical PPO settings and network schemas. The backend uses AdamW with AMSGrad enabled. The policy optimizer includes the policy, encoder, and decoder parameters; the critic optimizer includes the critic and the shared encoder.
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabularx}{\linewidth}{@{}Xl@{}}
+    \toprule
+    \textbf{Training parameter} & \textbf{Recovered value} \\
+    \midrule
+    Policy / critic learning rate & $10^{-4}$ / $10^{-3}$ \\
+    Learning-rate decay multiplier & 1 \\
+    Weight decay & $10^{-4}$ \\
+    Policy / critic minibatch size & 2056 / 4096 \\
+    Recurrent training window & 16 steps \\
+    Updates per gather / critic warmup updates & 32 / 8 \\
+    PPO clipping parameter & 0.2 \\
+    Discount factor $\gamma$ / GAE parameter $\lambda$ & 0.99 / 0.95 \\
+    Advantage normalization; minimum / maximum & Enabled; 0 / 10 \\
+    Action surrogate / regularization / entropy weights & 1 / 0.001 / 0 \\
+    Return regularization weight & $10^{-4}$ \\
+    Gradient-norm clipping & Disabled \\
+    Steps trimmed at episode start / end & 1 / 0 \\
+    PPO seed; policy / critic initialization seeds & 1234; 1234 / 1234 \\
+    Replay capacity: episodes / steps & 1000 / 10,000 \\
+    Per-agent episode-buffer cap & 1028 steps \\
+    Configured optimization-iteration limit & 1,000,000 \\
+    Training timestep & 0.05 s (20 Hz) \\
+    Training device & GPU \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Recovered trainer settings. The gradient-clipping threshold stored as 0.5 is inactive. The configured iteration limit is distinct from the amount of training actually completed.}
+  \label{tab:ppo-settings}
+\end{table}
+
+The training game settings enable a fixed 20 Hz timestep, set the maximum physics step to that interval, and disable maximum-FPS and vertical-synchronization limits. The connected training call resets agents at training start and after trainer updates. The recovered training-environment Blueprint specifies termination when $|h|>150$ and time truncation when episode time exceeds 100 simulation seconds. Independently, the Learning Agents trainer truncates an episode at the 1028-step buffer cap, corresponding to 51.4 simulation seconds when one trainer step is recorded per fixed frame. The reset graph assigns $h_0=-15$.
+
+The recovered model identifiers are HRL snapshot 1000 from run \texttt{2025-05-25\_19-45-04} and NF snapshot 4000 from run \texttt{2025-05-25\_20-27-19}. In each case the retained encoder, policy, and decoder match those snapshots byte-for-byte. At least 50 parameter variations were attempted for each reward family through manual exploration of reward and punishment magnitudes, resource reward size, movement cost, and related settings. Candidate selection used average training reward. A snapshot of the best-performing candidate was selected near a visually identified plateau in average reward, with the intention of limiting overfitting. The plateau criterion did not specify a numerical slope threshold. Final evaluation began after selection and compared one selected policy per reward family.
+
+Retained TensorBoard records extend through optimization index 5055 for the HRL run and 4287 for the NF run. These records include training after the labels of the selected snapshots and are not the amount of training represented by those snapshots. Snapshot suffixes are optimization labels, not counts of environment transitions; snapshots are written while logging a completed batch of updates. The configured one-million-iteration limit was a ceiling rather than the selection criterion. Exact cumulative environment-transition counts up to the selected snapshots, and total training exposure across the exploratory parameter search, were not recovered. We therefore report the selection rule, snapshot identifiers, and available optimizer records without assigning unsupported environment-step totals.
+
+\subsubsection{Environment and evaluation settings}
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabularx}{\linewidth}{@{}Xl@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} \\
+    \midrule
+    Grid-width parameter & 25 \\
+    Grid spacing, Unreal units & 1000 \\
+    Pellet spawn probability per candidate location & 0.05 \\
+    Pellet impact range & $[1,20]$ \\
+    Pellet impact during decanalization & 20 \\
+    Pellet respawn timer, s & 0.01 \\
+    Base passive-loss parameter & 0.05 \\
+    Base tile-impact parameter & 10 \\
+    Normal / decanalization visit increment & 1 / 3 \\
+    Visit-count update on recanalization & $\lfloor n/2\rfloor$ \\
+    HRL positive / negative scales & 0.005 / 0.0001 \\
+    NF scale & 50 \\
+    Environment seed set at BeginPlay & 1 \\
+    Inference initial $h$ range & $[-15,15]$ \\
+    Initial yaw-input randomization & $[0,180]$ \\
+    Base speed parameter & 1000 \\
+    Capsule-trace radius, Unreal units & 75 \\
+    Configured trials per condition & 50 \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Shared environment settings reported from the recovered study-era implementation. The grid-width parameter is not a count of realized pellets. The base speed parameter is used in the frame-dependent movement formula below.}
+  \label{tab:environment-settings}
+\end{table}
+
+The game mode explicitly seeds the shared environment random stream with 1 at BeginPlay, overriding its serialized initial seed of 7. Random initial $h$ and spatial draws use this stream; the trial identifier is not itself a recorded RNG seed. The agent class's stored $h=-25$ is also superseded by the game-mode reset logic. Tile-impact updates contain the factor $10/(n+1)$ multiplied by stored frame delta. During decanalization the implementation changes the resource's collected impact to 20 and sets tile impact and passive loss to zero, as well as changing observations and visit counts.
+
+The final analysis inputs match the original May 26 evaluation logs byte-for-byte and contain 50 trials for each of HRL--CDR, HRL--CCC, NF--CDR, and NF--CCC. In the trial graph, phase transitions occur at cumulative tick counts 6000, 12,000, and 18,000. The YAML field \texttt{duration: 3000} is a fixed logging value rather than a measurement of elapsed time. Periodic game-mode summaries are sampled every fifth tick. The training-only fixed timestep does not establish the evaluation timestep.
+
+The movement graph updates \texttt{MaxWalkSpeed} when frame delta changes, using $v_{\max}=B\,\Delta t\,k\,m$, where $B=1000$. The training branch uses $k=1$ and the non-training branch uses $k=1080$. In the Landscape map, $m=1$ when inference is enabled and $m=0.33$ otherwise; outside that map the additional multiplier is absent. This is a maximum walking-speed setting, not a measurement of instantaneous velocity. Evaluation duration is therefore reported in ticks, with no seconds conversion inferred from the training-only fixed timestep. Initial yaw randomization likewise supplies a value in $[0,180]$ to \texttt{AddControllerYawInput}, before controller scaling.
+
+Policy memory is initialized to zero when an agent is registered and reset through Learning Agents' training reset notifications. The custom evaluation phase/trial reset routines reset homeostatic and environment variables without sending those policy reset notifications. They therefore preserve recurrent memory for the registered agent across phases and trials within the running evaluation session. The policy's recurrent state continues to evolve while its weights remain fixed.
+

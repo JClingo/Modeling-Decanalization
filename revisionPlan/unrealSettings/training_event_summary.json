@@ -1,0 +1,264 @@
+[
+  {
+    "run": "Training_ppo_sharedmemory_2025-05-25_19-45-04",
+    "folder": "Training_ppo_sharedmemory_2025-05-25_19-45-04",
+    "present": true,
+    "folder_match_basis": "Exact run name",
+    "files": [
+      "C:\\Users\\jingo\\Documents\\Unreal Projects\\decanalization\\Intermediate\\LearningAgents\\Tensorboard\\runs\\Training_ppo_sharedmemory_2025-05-25_19-45-04\\events.out.tfevents.1748227507.Jingos11.49764.0"
+    ],
+    "scalars": {
+      "experience/avg_reward": {
+        "count": 158,
+        "first_step": 0,
+        "last_step": 5024,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1443017,
+        "last_value": -0.0036928323097527027
+      },
+      "experience/avg_reward_sum": {
+        "count": 158,
+        "first_step": 0,
+        "last_step": 5024,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1443017,
+        "last_value": -1.3828483819961548
+      },
+      "experience/avg_return": {
+        "count": 158,
+        "first_step": 0,
+        "last_step": 5024,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1443017,
+        "last_value": -0.23471125960350037
+      },
+      "experience/avg_episode_length": {
+        "count": 158,
+        "first_step": 0,
+        "last_step": 5024,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1443017,
+        "last_value": 713.2857055664062
+      },
+      "grads/encoder": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.11669653654098511
+      },
+      "grads/decoder": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.05413488298654556
+      },
+      "grads/policy": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.19320234656333923
+      },
+      "grads/critic": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.08970066905021667
+      },
+      "loss/critic_ret": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.11723503470420837
+      },
+      "loss/critic_reg": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 2.6949928724206984e-05
+      },
+      "loss/critic": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.11726198345422745
+      },
+      "loss/policy_surr": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": -0.001309841638430953
+      },
+      "loss/policy_reg": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.0027384792920202017
+      },
+      "loss/policy_ent": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.0
+      },
+      "loss/policy": {
+        "count": 5056,
+        "first_step": 0,
+        "last_step": 5055,
+        "first_wall_time": 1748227519.2759402,
+        "last_wall_time": 1748229727.1473062,
+        "last_value": 0.0014286376535892487
+      }
+    }
+  },
+  {
+    "run": "Training_ppo_sharedmemory_2025-05-25_20-27-19",
+    "folder": "NF-Final",
+    "present": true,
+    "folder_match_basis": "NF-Final folder; event file creation epoch is 3 seconds after the matching trainer timestamp (local PDT)",
+    "files": [
+      "C:\\Users\\jingo\\Documents\\Unreal Projects\\decanalization\\Intermediate\\LearningAgents\\Tensorboard\\runs\\NF-Final\\events.out.tfevents.1748230042.Jingos11.24584.0"
+    ],
+    "scalars": {
+      "experience/avg_reward": {
+        "count": 134,
+        "first_step": 0,
+        "last_step": 4256,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7433565,
+        "last_value": 5.832738876342773
+      },
+      "experience/avg_reward_sum": {
+        "count": 134,
+        "first_step": 0,
+        "last_step": 4256,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7433565,
+        "last_value": 4368.79345703125
+      },
+      "experience/avg_return": {
+        "count": 134,
+        "first_step": 0,
+        "last_step": 4256,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7433565,
+        "last_value": 441.8757629394531
+      },
+      "experience/avg_episode_length": {
+        "count": 134,
+        "first_step": 0,
+        "last_step": 4256,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7433565,
+        "last_value": 713.2857055664062
+      },
+      "grads/encoder": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 30.043054580688477
+      },
+      "grads/decoder": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 0.08889345824718475
+      },
+      "grads/policy": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 0.24347111582756042
+      },
+      "grads/critic": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 25.877565383911133
+      },
+      "loss/critic_ret": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 102.30905151367188
+      },
+      "loss/critic_reg": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 0.041083093732595444
+      },
+      "loss/critic": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 102.35013580322266
+      },
+      "loss/policy_surr": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": -0.00012624103692360222
+      },
+      "loss/policy_reg": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 0.00197339104488492
+      },
+      "loss/policy_ent": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 0.0
+      },
+      "loss/policy": {
+        "count": 4288,
+        "first_step": 0,
+        "last_step": 4287,
+        "first_wall_time": 1748230054.763044,
+        "last_wall_time": 1748231954.7453678,
+        "last_value": 0.0018471500370651484
+      }
+    }
+  }
+]

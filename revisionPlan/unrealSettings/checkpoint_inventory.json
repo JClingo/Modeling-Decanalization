@@ -1,0 +1,826 @@
+[
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_critic_1000.bin",
+    "sha256": "9193e394917d39f736c6ffba2b46207a1c0a79641b2c66cfe67f8497363a41bc",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_critic_2000.bin",
+    "sha256": "c2764b4df061490d97fe6ed2e332413d37ccc9b31167a86b15c0024e9e0b878d",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_critic_3000.bin",
+    "sha256": "b1d235925cd3ee4d6ab878372ee9f817f25ef5c9061af24e26dce30856bf9613",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_critic_4000.bin",
+    "sha256": "7a25bb3f54ae6c8bb5c199515090f96750853fd262af1db62dfcc05058514fb0",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_critic_5000.bin",
+    "sha256": "3f9f645be51615a66d4b9221617d6dc546a75cfe94a71c3f85517b3948f1caa9",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_decoder_1000.bin",
+    "sha256": "c4180efa3a05754afafab7f8bff825e2d78eff07289c84d186cd77c0dfb37d30",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_decoder_2000.bin",
+    "sha256": "5739e870a8afd73a53220184dd52ed5c3018f5c0af9ad75bc496d0bccf7fa4df",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_decoder_3000.bin",
+    "sha256": "4b1bdeb7c4016dbf7c6a9d1c00c6c5d19cff84b124d8d40f24057aa5fc05148f",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_decoder_4000.bin",
+    "sha256": "3f5bac88b485ea667b466da85b97561747c1d27248dbbf7fcfc93bedb7fff159",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_decoder_5000.bin",
+    "sha256": "801e85c9652e030bd0d0909c1009badcfe474a4933b3f1aa907287753c8a15fe",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_encoder_1000.bin",
+    "sha256": "90e83a80475af9b9229d13e33e0f57bc1472b9c6db9f8e9d8c07d54bb7d3a792",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_encoder_2000.bin",
+    "sha256": "63a7932fdd4af53a4977bce297219267e9cb9e08063c958c9440861ef33e82ba",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_encoder_3000.bin",
+    "sha256": "e239fe512a497868aa2adef29aa6e46d6c46afbfae6ed5af681b2ac3e7cbc7bd",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_encoder_4000.bin",
+    "sha256": "22163dabfbea0be6780977297232779ccc775df947d75c9483cf3edf30e2b5db",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_encoder_5000.bin",
+    "sha256": "cc9bfaa2bd36a686cd70a0a382680116a031142bab23eb85f78e29e6688fb92c",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_policy_1000.bin",
+    "sha256": "f724a7e3358e51594755c567304a886619c338b7cc6908cceb891bc541d06c65",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_policy_2000.bin",
+    "sha256": "7a60ad6fc2518d4591f1fd8edadcb6e02a2b8e1e316e287ea9be1b8655aea417",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_policy_3000.bin",
+    "sha256": "3eb0e81b11f426d88dbf04d9313817f5cb26db9c577866d186023f9336df2d92",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_policy_4000.bin",
+    "sha256": "bee34409b11472ac319b67d0c2e0e7cfa46f6e06442487f51668dd3cc5678fe7",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision/Training_ppo_sharedmemory_2025-05-22_16-34-31_policy_5000.bin",
+    "sha256": "90dc1aeca46524c56b8392460b83e9b59aaef3cce9df3353d509e8bce471f03f",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_critic_2000.bin",
+    "sha256": "31a434dc28d389172857e8f3c66125bd590e3dbc599585306ced0523b7ab84af",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_critic_3000.bin",
+    "sha256": "9cf098790add99ca35fc76a6269465dda912ef58d64600b3faf939f82b93ae9e",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_critic_4000.bin",
+    "sha256": "d0977d5aa6af5bbfcf0b34d810b5f848398c0e984e16f7847b03f3b25c4b2677",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_critic_5000.bin",
+    "sha256": "25c91dab9451efe77a40db25d910927c5164ffea470ca6ea1579d7e91d08060f",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_decoder_2000.bin",
+    "sha256": "ccce594956292cd00e52e43fc2dc9c6169fdf280a91ef4729f2db7d7302902f7",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_decoder_3000.bin",
+    "sha256": "c4cb846e2e633987178e68103985b52d49578518084fa95ef527c26edca4931e",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_decoder_4000.bin",
+    "sha256": "82add2f92e51fa3fd2bb58cb8ee092f40532e66c3232eba3813f9fd4ed99bf6d",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_decoder_5000.bin",
+    "sha256": "d4f3270f60bc3ed200168324d567004ceb4701d2e23947f76e9a2133ba2d6a62",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_encoder_2000.bin",
+    "sha256": "c98897b91973db88c49a48f83ab6680110748485e32f7ef117b9a502c120e589",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_encoder_3000.bin",
+    "sha256": "84db655a9a3d53cac8b7e12974e46d7fd6ef75ae1a83c5fb9a25482d910e8ba9",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_encoder_4000.bin",
+    "sha256": "1ebefd66fa0fbcd79790e97e9650056ebb4fc53f600526dece6013df406d35df",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_encoder_5000.bin",
+    "sha256": "5fdf046e93d1c9140659f9e99297ce69f8570a63a7062398d11c378a35c905b4",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_policy_2000.bin",
+    "sha256": "26503a65c41231324eb23ecb091f543597a743a43d990ef6d3a14d30c52c6cf3",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_policy_3000.bin",
+    "sha256": "827aaace4f5cf4a1f7142a5f028ff333114c19e238a417811f848f4768deefeb",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_policy_4000.bin",
+    "sha256": "e347adcf91ec20c2bd740822006d8f36e5d5669bdef5cfaac0ab3b2d02239068",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_09-46-01_policy_5000.bin",
+    "sha256": "52727c830a68f3dce7829b3fc6224d0a7a008fa2383b7198cc4f43976fefc2ef",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_critic_1000.bin",
+    "sha256": "85d1701801e3a3f713ce1a558369510d4cc5bdee43132da26047459ea0352dbd",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_critic_2000.bin",
+    "sha256": "ca768165f3fa1c29c0ebe2cd88ca9b6d2f6725bf4c24f515b7f19bcffde5e5a4",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_critic_3000.bin",
+    "sha256": "18f8772234cb76f78aa68624788e79f4a91256dcf13825d3e21e7bb5c9d8c40b",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_critic_4000.bin",
+    "sha256": "d71aa7e02851ce40773f026f7a36f698c2bc5d8903a86626651fe3f6ac637954",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_critic_5000.bin",
+    "sha256": "f3398124af0bde061baec412502aa77e29db634b1abb572f7dea1effc2db2800",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_decoder_1000.bin",
+    "sha256": "c8c7b4cedaa7c327782c890cb48123df1e2d4cf8395630dd07442220253766b5",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_decoder_2000.bin",
+    "sha256": "3b47aa7c72e564ccdb67a0e9f8eb1227752234caf87e90f82ac4347a2d304528",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_decoder_3000.bin",
+    "sha256": "a2ed0092bd7d5cb2852cd2bfd5f904b880ecaaa9fe5fd9e557a52b86e7c65593",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_decoder_4000.bin",
+    "sha256": "9003fc621b6ac583d8f990bec7220c0852bfb324c59b6e8e056ca37d397d23b9",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_decoder_5000.bin",
+    "sha256": "1129c2c952b66b6bdd826f6875cf8e6fb84542498e71946f38a9b2be4bf46d4c",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_encoder_1000.bin",
+    "sha256": "96a5c42cab44e1bf4610c49a3fb8453ca852de6b3688b00d6f0e0cb5ab336410",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_encoder_2000.bin",
+    "sha256": "b1f50bbb0e237ce53b3fd0c6dc0d2d92470600b1f900814c59de3901045ea6fb",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_encoder_3000.bin",
+    "sha256": "ef7adf223a70756e4da3b490e3f0104dd56de7e36277e26e2189a02524cb8b3e",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_encoder_4000.bin",
+    "sha256": "61d1da7169807969d74afc2ec58455ef27fbf0d986c6979cba405f6041d14561",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_encoder_5000.bin",
+    "sha256": "b8dfcc937782500bf651d503eee371c7e5e9b921a1ec517d09ba08e1e01e3380",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_policy_1000.bin",
+    "sha256": "fd00345a1bbadf1be3c2159f5dda5e98be8be58c06a7b974d2fee79268b42492",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_policy_2000.bin",
+    "sha256": "ec6788a65da47e9c59bbfba7d077dc07745d6ee7f41efee584e45a0bb620034e",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_policy_3000.bin",
+    "sha256": "71ad70f41de2a5e980470cb69c61fc1a843536f58e8d078b00cdbe3a5675ba42",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_policy_4000.bin",
+    "sha256": "fc5beee9d4beacd5cae79635bab56e4b98775464a9117e8e95173d0328bff323",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/HRL-limit (1000 is best)/Training_ppo_sharedmemory_2025-05-25_19-45-04_policy_5000.bin",
+    "sha256": "1fd311634b37ede9dbadff9a223616708f8909b5c2916267c9835186ed095b73",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_critic_1000.bin",
+    "sha256": "cc9156ee0128d41775303addcaeae347b8f5d4021ada1ef50a39ba61660ad701",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_critic_2000.bin",
+    "sha256": "46cfcf8e66df3604af06f184f431cd8495d2c4040265dcdbe25ebde31f45d73f",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_critic_3000.bin",
+    "sha256": "762c7e25cd27106ece44d1e5fef32ece806507751f3761d839c135d90e0e0fa3",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_decoder_1000.bin",
+    "sha256": "68794b4c0130cd8482d9a1bf1c863be7241e8ce66b01220acc5108d6a5e06b45",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_decoder_2000.bin",
+    "sha256": "9c9c99d596bcfc91e99aab8f52c1eaaabacc45403c174cae55f0d75748071b7c",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_decoder_3000.bin",
+    "sha256": "68be46785177f5e293541aadc213a44d804e0a44cfa54e7fed341e2d5efb877b",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_encoder_1000.bin",
+    "sha256": "959368e8d0082108cbace1fbe22e9de4803b55e426a45b8b915cb831ec19a13c",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_encoder_2000.bin",
+    "sha256": "d2a33ab58c32bf0b8d96751e869db5ff9c61bebb6d27088f53251bbf710e7933",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_encoder_3000.bin",
+    "sha256": "3306cf97b9eb35f0c5f648ba43041eb0009d7a1ff59616a87345ac60ed2b61ca",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_policy_1000.bin",
+    "sha256": "9fa6fdd172a181c02289d00872708fbf77041cd5db4fbecceea0d5e46889aa39",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_policy_2000.bin",
+    "sha256": "60a77ad727d5c7d3c05b1be6803ef59ed3225a8cf6c604cd3b943042bd6a4a4e",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision/Training_ppo_sharedmemory_2025-05-22_20-41-44_policy_3000.bin",
+    "sha256": "e62e56fc421353d4656e3b4703b8ff02651ae6ac0ebead3fc0f7349c9a184998",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_critic_1000.bin",
+    "sha256": "23a0aa287f206d9735903a0a9244e7e799eedf9245915e323bf619e4997c384f",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_critic_2000.bin",
+    "sha256": "31a434dc28d389172857e8f3c66125bd590e3dbc599585306ced0523b7ab84af",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_critic_3000.bin",
+    "sha256": "9cf098790add99ca35fc76a6269465dda912ef58d64600b3faf939f82b93ae9e",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_critic_4000.bin",
+    "sha256": "d0977d5aa6af5bbfcf0b34d810b5f848398c0e984e16f7847b03f3b25c4b2677",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_decoder_1000.bin",
+    "sha256": "bb31381e14f45ed645c7ab2ea8bae77aafddbb6ad339c4968b00b9fbb8bfaa89",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_decoder_2000.bin",
+    "sha256": "ccce594956292cd00e52e43fc2dc9c6169fdf280a91ef4729f2db7d7302902f7",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_decoder_3000.bin",
+    "sha256": "c4cb846e2e633987178e68103985b52d49578518084fa95ef527c26edca4931e",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_decoder_4000.bin",
+    "sha256": "82add2f92e51fa3fd2bb58cb8ee092f40532e66c3232eba3813f9fd4ed99bf6d",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_encoder_1000.bin",
+    "sha256": "8aadd4f5af69277003dd5f2bfaf5a7fb7e9495547d584c7f3de85e59511c5eb9",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_encoder_2000.bin",
+    "sha256": "c98897b91973db88c49a48f83ab6680110748485e32f7ef117b9a502c120e589",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_encoder_3000.bin",
+    "sha256": "84db655a9a3d53cac8b7e12974e46d7fd6ef75ae1a83c5fb9a25482d910e8ba9",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_encoder_4000.bin",
+    "sha256": "1ebefd66fa0fbcd79790e97e9650056ebb4fc53f600526dece6013df406d35df",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_policy_1000.bin",
+    "sha256": "b55e4ce858e2e9c477310d5404a5d66db5efc8ef0f2720bdb14f7e8dea926eaa",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_policy_2000.bin",
+    "sha256": "26503a65c41231324eb23ecb091f543597a743a43d990ef6d3a14d30c52c6cf3",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_policy_3000.bin",
+    "sha256": "827aaace4f5cf4a1f7142a5f028ff333114c19e238a417811f848f4768deefeb",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Collision-More density and range/Training_ppo_sharedmemory_2025-05-23_13-26-37_policy_4000.bin",
+    "sha256": "e347adcf91ec20c2bd740822006d8f36e5d5669bdef5cfaac0ab3b2d02239068",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_critic_1000.bin",
+    "sha256": "5af02fcfb4e864d0a28d6b87717d81b284afe5f85c15021450f7c9ddc05db83c",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_critic_2000.bin",
+    "sha256": "b3d18ef59ae9e1b0f86ab85c5a65066f4ac498dbcefa0b56cc9136f189f25c35",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_critic_3000.bin",
+    "sha256": "d85b81cd009e57aa0adb3f9f7931b7b17ba83173af75a265326ac0cc7d872f87",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_critic_4000.bin",
+    "sha256": "3c96ec2ea0b8e6e7e26ff58624b9c57a0c7cb29f1acc22a364bd9b969e65dc9a",
+    "bytes": 105752,
+    "input_size": 75,
+    "output_size": 1,
+    "compatibility_hash": 4157276580
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_decoder_0.bin",
+    "sha256": "e0fcbfd568c0e0c142d10abaecedc06c4d4a56e3a957fe87f9623bec5e01c60a",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_decoder_1000.bin",
+    "sha256": "17ef535ba4b727097de6cb6d41a2345a79ebe7b40875977857013276258bdb3e",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_decoder_2000.bin",
+    "sha256": "2696ddfd23a04cc3cfcb9593bb3b32a8ada7434b35e47e717bc366fc180f5df1",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_decoder_3000.bin",
+    "sha256": "500fe7dce460d9de7d40d940b331022b9362d05f09a53d23d57515af726e29ec",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_decoder_4000.bin",
+    "sha256": "a0189ef17669e49a854e53b4ab94c88258ca5b644420a37c9c9ae8d1a5fd083e",
+    "bytes": 288,
+    "input_size": 2,
+    "output_size": 2,
+    "compatibility_hash": 1335517736
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_encoder_0.bin",
+    "sha256": "c58bec704601616fcd22e60c0a5d29f976d21fa2d9faa5e33d198bb8be38df82",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_encoder_1000.bin",
+    "sha256": "21faa75a89bc6d0426c4aadc8e9ddf0fe1d18cf744f8a5016241c87e2c91a21d",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_encoder_2000.bin",
+    "sha256": "6f3f10a9565577e9ae238eb89555070664cb2036ba4f843c6abc8d35963e7ef2",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_encoder_3000.bin",
+    "sha256": "a41df5b232cc997962f1250aad82b4c2607693829fe18c4456312cb15ec92abb",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_encoder_4000.bin",
+    "sha256": "109164c0c12ca3b5e568b5dc7c3c7829e327fb036ab1afe07b52be7f743dbcc5",
+    "bytes": 924,
+    "input_size": 11,
+    "output_size": 11,
+    "compatibility_hash": 1242083165
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_policy_0.bin",
+    "sha256": "6586d2342ecd6eb436b0ac4aee40c1e35367ef57ec2d0994f81a5b04179c6f06",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_policy_1000.bin",
+    "sha256": "3f33354c84bd56491bbe61cf7355841409c4bb8d1301f0a2aaa8ece81e18749b",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_policy_2000.bin",
+    "sha256": "d1d1ae3f2da480714ddabc8a85b1c4e914776f96b8a8568fa98c3f1cf0b29c1a",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_policy_3000.bin",
+    "sha256": "6f1f477a05421a36d43592e32c819930db4a7c844bacf2a471f1246edc6e0658",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  },
+  {
+    "file": "Intermediate/LearningAgents/Snapshots/NF-Final/Training_ppo_sharedmemory_2025-05-25_20-27-19_policy_4000.bin",
+    "sha256": "194bf3f14bc7c78059bd338a602a254ad7231ebe3b5f65048f5f001116998cae",
+    "bytes": 470056,
+    "input_size": 75,
+    "output_size": 66,
+    "compatibility_hash": 1081280044
+  }
+]
