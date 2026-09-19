@@ -3,15 +3,24 @@ REVIEWER 1
 General Comments
 My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. The manuscript describes a complex reward function in which the traversal cost of a tile decays each time the agent enters the tile. I see how this will induce a rigid behavioral policy within an agent and penalize it for exploration. What is not well explained is WHY THIS IS AN ECOLOGICALLY VALID REWARD FUNCTION IN THIS CASE. As the manuscript notes, the typical source of canalization is from the training process adjusting the parameters of the model itself, not from the external reward function. RL algorithms tend to naturally produce greedy policies, and much of the research in the field over its history has been devoted to designing algorithms which optimally balance exploration and exploitation throughout the training process. My recommendation would be to FOCUS ON CANALIZATION THAT IS CONNECTED TO THE INTRINSIC DYNAMICS OF LEARNING ITSELF. IF, HOWEVER, THE FOCUS REMAINS ON THE DESIGN OF THE REWARD FUNCTION, THEN THAT CHOICE SHOULD BE THOROUGHLY JUSTIFIED AND DEFENDED WITHIN THE PAPER. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one. This could make more clear the pathological nature of the canalized policies by having a “healthy” policy to compare against.
 
-> TODO. Clingo. Some things we can do here. (1) describe with citations how it is rewarding for animals to follow the same path. Perhaps skilled performance literature. Less costly to do something the same way again. (2) more importantly, discuss what happened when we did NOT have the path penalty. In that case it hyperfixates and only learns the strategy of spiraling and hypercanalizing immediately on its first source of reward and does not explore.
-    - Suggest really thinking about the ref's comments here. ARe there ways we could have gotten this type of thing using simpler reward and other exploitation params in an RL algorithm
+> PARTLY DONE. Clingo. 
+
+Added some things:
+
+- Short appeal to niche construction
+- Explanation that without this pressure, the agent hypercanalized too quickly
+- Discussion now talks about alternatives we could have taken (think it's just missing a straight up "oh, we could have just messed around with our parameters and probably done this without it, but we did like niche construction and it seemed more realistic when we're talking about HRL and foraging about for rewards")
+
+
+Some things we can do here. (1) describe with citations how it is rewarding for animals to follow the same path. Perhaps skilled performance literature. Less costly to do something the same way again. (2) more importantly, discuss what happened when we did NOT have the path penalty. In that case it hyperfixates and only learns the strategy of spiraling and hypercanalizing immediately on its first source of reward and does not explore.
+    - Suggest really thinking about the ref's comments here. Are there ways we could have gotten this type of thing using simpler reward and other exploitation params in an RL algorithm?
     - We could have added environmental constraints where it's just harder to move up a groove, but that is effectively the same as traversal cost
 
 EACH OF US THINK / DISCUSS
 
 Specific Comments
 
-TODO. Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
+Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
 
 > Done. Removed footnote in included direct distinction between models in the main text.
 
@@ -79,7 +88,7 @@ A related question is: “why did this need to be simulated at all?” Are the r
 
 Page 19: The authors provide “niche-construction” as a motivation for the reward function in the discussion. This should be expanded upon and presented much earlier in the paper. It again gets to the question of justifying the design of the simulation.
 
-> Clingo. Maybe pull from older stuff.
+> Done. Small intro section and now explained as being expressed in traversal costs.
 
 Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment. It would be helpful to know why this was the case. Could it be that the correct learning parameters were not used, or is there something more intrinsic to the design of the environment that prevented an optimal policy from being learned?
 

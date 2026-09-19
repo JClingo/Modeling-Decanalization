@@ -110,7 +110,7 @@ In these frameworks, hypercanalized behaviors such as depression, anxiety, PTSD,
 
 \cite{lepow_critical_2021} posit that psychedelics can precipitate critical period plasticity similar to plasticity in early development, leading to “exquisite sensitivity to environmental input.” This mirrors Juliani et al.'s (2024) description of acute shifts to inference, which, when supported by heightened metaplasticity, result in learning and relearning of the environment and actions that can manipulate it—made even stronger when the environment itself shifts during these critical periods.
 
-For the most part, these ideas have remained metaphorical.Existing conceptualizations are often suggestive, but they rarely model their assumptions directly. Without a quantitative foundation, their explanatory value is limited. To address this gap, we developed a simulation that translates these assumptions into observable behavior. The aim is to render earlier conceptualizations into formal structures that can be quantified and compared, thereby sharpening the concepts, demonstrating their applicability to simulated agents, and exposing open questions that become visible only once the informal ideas are turned into a behavioral model.
+For the most part, these ideas have remained metaphorical. Existing conceptualizations are often suggestive, but they rarely model their assumptions directly. Without a quantitative foundation, their explanatory value is limited. To address this gap, we developed a simulation that translates these assumptions into observable behavior. The aim is to render earlier conceptualizations into formal structures that can be quantified and compared, thereby sharpening the concepts, demonstrating their applicability to simulated agents, and exposing open questions that become visible only once the informal ideas are turned into a behavioral model.
 
 % SUGGESTED EDIT [03]: R1-G1: Replace the following paragraph to distinguish environmental history from changes in network weights.
 % Several accounts motivate this model. These include the entropic brain \cite{carhart-harris_entropic_2018}, pattern breaking \cite{hipolito_pattern_2023}, and the distinction between inference and learning in Deep CANALs \cite{juliani_deep_2024}. We distinguish changes in the policy during training from changes in the environment during evaluation. The trained policy is held fixed during evaluation; the intervention alters observations and the environment's record of past traversal. Consequently, our implementation does not directly test recovery from neural-network plasticity loss. Its correspondence to increased metaplasticity is an analogy involving environmental change, rather than an increase in the network's learning rate.
@@ -124,7 +124,15 @@ Our model of decanalization is inspired by work on the entropic brain \cite{carh
 %
 % We assess the hypothesis that a temporary, composite perturbation of perception and traversal history improves subsequent setpoint regulation under HRL, compared with continued canalization. A second question is whether the same perturbation has comparable consequences under a reward rule that responds only to deficits below the setpoint (NF). The decisive comparison is after ordinary perceptual settings have been restored, rather than during the manipulated phase. The reported phase summaries favor HRL following the intervention, whereas the corresponding NF comparisons do not reach the same significance threshold. These comparisons motivate examination of a reward-rule-by-intervention interaction; separate significance tests alone do not establish that interaction.
 % END SUGGESTED EDIT [04]
-In this paper we test the hypothesis that decanalization and recanalization of a homeostatic agent will improve its performance in an environment relative to matched controls whose undergo continuous canalization.  To model decanalization and recanalization, we use homeostatic reinforcement learning (HRL). This approach links movement, planning, and reward-seeking to the minimization of setpoint deviation. Specifically, we predict that a decanalizing intervention on an HRL agent, followed by recanalizing, will lead the agent  to maintain a smaller mean absolute distance from a homeostatic setpoint. Our results suggest that structured interventions like this can succeed in breaking an agent out of the ruts and grooves of a sub-optimal behavioral patterns. Following \cite{keramati_homeostatic_2014}, we also compare HRL's performance with the behavior of agents trained using a reward function inspired by classical negative-feedback (NF) models. 
+
+Although hypercanalization is expressly maladaptive, it is more modestly rooted in  behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. We represent one aspect of this mechanism through traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
+
+In this paper, we test the hypothesis that a homeostatic reforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization. Alongside this and as a simple contrast, we examine the effects of the same decanalization intervention on an agent trained with a negative-feedback reward function. The negative-feedback agent is expected to be less sensitive to the decanalization intervention, and therefore less able to improve its post-intervention performance.
+
+To model decanalization and recanalization, we employ homeostatic reinforcement learning (HRL). This approach links movement, planning, and reward-seeking to the minimization of setpoint deviation. 
+
+Our results suggest that structured interventions like this can succeed in breaking an agent out of the ruts and grooves of a sub-optimal behavioral patterns. Following \cite{keramati_homeostatic_2014}, we also compare HRL's performance with the behavior of agents trained using a reward function inspired by classical negative-feedback (NF) models, which gives negative reward (i.e., punishes the agent) in proportion to negative distance from the setpoint.
+
 % A well-adapted agent should be able to perform these functions effectively. Yet, as seen in many mental pathologies, even basic homeostatic regulation can break down when behavior becomes distorted. Agents may hypercanalize around a few sources of reward, fail to adapt to new surroundings, and repeat minimally rewarding actions while discounting alternatives. In short, they become trapped in entrenched behavioral patterns. Our simulation is designed to capture these dynamics, and show that structured interventions can break an agent out of the ruts and grooves of a sub-optimal behavioral patterns.
 
 \section{Methods}
@@ -199,7 +207,7 @@ The environment used a grid-width parameter of 25 Unreal units, grid spacing of 
 
 We represented different aspects of canalization in this simulation: canalization through learning to optimize internal setpoints with perception, and canalization through shaping the environment to improve predictability and reduce uncertainty. Agent training is itself a form of canalization, where the agent is shaped both by reinforcement and by the environment in which it learned. Although we do not presently explore actively updating agent behavior during or after decanalization, the training environment could be said to be partially constitutive of the agent, in the sense that the agent's canalization of the world alters the environment, such that it must use its formal learning to effectively learn novel behaviors in its new environment, without the agent having to alter itself internally. Of course, this form of environmental knowledge does not persist when the environment is altered.
 
-To represent different degrees of canalization throughout the world, we created a grid of tiles that reduced \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile was tracked individually, with a base impact parameter of 10 and an overlap count \(n\). The tile-impact update contained the factor $10/(n+1)$, multiplied by stored frame delta. The count increased on entry rather than on every tick of continued overlap, so the agent had to leave and return for another increment.
+To represent different degrees of canalization throughout the world, we created a grid of tiles that reduced \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile was tracked individually, with a base impact parameter of 10 and an overlap count \(n\). The tile-impact update contained the factor $10/(n+1)$, multiplied by stored frame delta. The count increased on entry rather than on every tick of continued overlap, so the agent had to leave and return for another increment. This mechanism represents the persistence of activity-dependent environmental changes--a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
 
 Each tile's traversal count was tracked individually. As the agent moved within the bounding box of an overlapping tile, the negative effect of the traversal cost was applied to \(h_{t+1}\). The agent also used this value to approximate future losses due to tile traversal. Total loss due to traversal was estimated after each action as the total loss from tiles that intersected with the agent's raycast, assuming \(n+1\) (i.e., that traversal would be discounted upon agent overlap). Performing a perfect prediction of future tile traversal-caused losses is computationally expensive, but we approximated this by gathering the future cost of each tile that collided with the raycast at time \(t\), then calculating the total number of movement timesteps (and therefore homeostatic loss) the agent would take to bisect these tiles through the hypotenuse (dividing the cost of the first and last tile that collide with the raycast by \(2\), as an average of the distance that remains to be covered), factoring in current velocity.
 
@@ -264,6 +272,7 @@ As noted above, neural-network policies were trained using model-free reinforcem
 Training used a fixed timestep of 0.05 simulation seconds (20 Hz) \footnote{The translation of simulation ``seconds'' to ticks was done using a fixed conversion factor.}. The environment terminated episodes when $|h_t|>150$ or after the episode timer exceeded 100 simulation seconds. Independently, the trainer capped each agent's episode buffer at 1028 steps, corresponding to 51.4 simulation seconds at one step per fixed frame; this cap could end an episode before the Blueprint timer. The trainer distinguished truncation, for which value estimates were bootstrapped, from termination. Agent resets occurred at episode completion, training start, and trainer updates. The reset procedure cleared tile traversal counts, randomized the starting transform, and restored $h_0=-15$.\footnote{The value of \(-15\) was chosen because the HRL reward function was found to benefit from early punishment during training. With a negative starting value, each agent was immediately pressured to find pellets, making shorter training cycles possible, thus improving the learning rate. This is just a practical implementation consideration for training efficiency, however; HRL lets agents learn with different starting \(h_0\) values, although extreme positive or negative initial values greatly limit practical learning performance.}
 
 For each reward function, we attempted to train at least 50 parameter variations, changing reward and punishment magnitudes, resource reward size, movement cost, and related settings through trial and error. We selected the candidate with the highest average training reward within each reward family and retained a snapshot near the point where improvement in that average reward appeared to level off. This was a visual plateau criterion, intended to limit overfitting, rather than a fixed numerical slope threshold. Selection was completed before the evaluation trials. The final comparison used one selected NF policy and one selected HRL policy.
+
 
 % SUGGESTED EDIT [13]: R1-G1, R1-09, R1-11, R1-16: Proposed comparisons and implementation checks, not completed experiments.
 % Compare visit-dependent costs with fixed costs, conventional resource reward, and a one-sided rule with matched shaping.
@@ -599,6 +608,14 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock URL \url{https://books.google.com/books?id=zMhqAAAAMAAJ}.
   \newblock Number: v. 1 tex.lccn: 73004297.
 
+  \bibitem[Bochynek et~al., 2019]{bochynek_infrastructure_2019}
+  Thomas Bochynek, Martin Burd, Christoph Kleineidam, and Bernd Meyer.
+  \newblock Infrastructure construction without information exchange: the trail
+  clearing mechanism in \emph{Atta} leafcutter ants.
+  \newblock \emph{Proceedings of the Royal Society B: Biological Sciences},
+  286(1895):20182539, 2019.
+  \newblock \doi{10.1098/rspb.2018.2539}.
+
 % SUGGESTED EDIT [23]: Proposed supporting reference: brouwer_pivotal_2021.
 %   \bibitem[Brouwer and Carhart-Harris, 2021]{brouwer_pivotal_2021}
 %   Ari Brouwer and Robin Lester Carhart-Harris.
@@ -653,6 +670,13 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock \doi{10.1016/j.neuropharm.2018.03.010}.
   \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0028390818301175}.
+
+  \bibitem[Davies and Blackwell, 2007]{davies_energy_2007}
+  Mark~S. Davies and Janine Blackwell.
+  \newblock Energy saving through trail following in a marine snail.
+  \newblock \emph{Proceedings of the Royal Society B: Biological Sciences},
+  274(1614):1233--1236, 2007.
+  \newblock \doi{10.1098/rspb.2007.0046}.
 
   \bibitem[Girn et~al., 2023]{girn_complex_2023}
   Manesh Girn, Fernando~E. Rosas, Richard~E. Daws, Courtney~L. Gallen, Adam
@@ -717,13 +741,12 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock URL \url{https://doi.org/10.7554/eLife.04811}.
   \newblock Publisher: {eLife} Sciences Publications, Ltd.
 
-% SUGGESTED EDIT [25]: Proposed supporting reference: laland_niche_2016.
-%   \bibitem[Laland et~al., 2016]{laland_niche_2016}
-%   Kevin Laland, Blake Matthews, and Marcus W. Feldman.
-%   \newblock An introduction to niche construction theory.
-%   \newblock \emph{Evolutionary Ecology}, 30:191--202, 2016.
-%   \newblock \doi{10.1007/s10682-016-9821-z}.
-% END SUGGESTED EDIT [25]
+  \bibitem[Laland et~al., 2016]{laland_niche_2016}
+  Kevin Laland, Blake Matthews, and Marcus W. Feldman.
+  \newblock An introduction to niche construction theory.
+  \newblock \emph{Evolutionary Ecology}, 30:191--202, 2016.
+  \newblock \doi{10.1007/s10682-016-9821-z}.
+
   \bibitem[Lepow et~al., 2021]{lepow_critical_2021}
   Lauren Lepow, Hirofumi Morishita, and Rachel Yehuda.
   \newblock Critical period plasticity as a framework for psychedelic-assisted
