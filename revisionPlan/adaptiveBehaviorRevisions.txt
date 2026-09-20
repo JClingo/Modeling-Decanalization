@@ -54,7 +54,7 @@ Page 10: It is claimed that positive reinforcement is more effective than negati
 
 Page 11: The choice of the Negative Feedback agent as a baseline should be better justified. For example, why shouldn’t a Positive Feedback agent also be used as a baseline? Or why shouldn’t a more traditional non-homeostatic RL agent be included as a baseline? Currently it feels quite arbitrary, and given the nature of the reward function, it is not surprising that this agent suffers the pathologies that it does.
 
-> TODO. Clingo. Add citations to Keramati and Gutkin (and others as necessary) backs this up. This is how thermostats work and so we get a simple model from this. 
+> Done. Added more explanation after introducing Negative Feedback as a contrast (also more clearly described as a contrast--a grounding sanity check--vs a primary measure)
 
 Page 12: It is not clear what “60 seconds” means in this context, as wall clock time is arbitrarily related to timesteps within an RL simulation.
 
@@ -80,11 +80,11 @@ REVIEWER 1 (DISCUSSION SECTION)
 
 Page 19: Having a stronger hypothesis being tested would help make the summary section more clear. Right now it reads as a list of various findings, and it is not clear as a reader what to make of them, or what their relevance is to the larger conversations the paper is positioning itself as contributing to. 
 
-> Clingo. We already made progress on this and this might be enough but Joshua has more ideas.
+> Done. (or being done in general w/ other revisions)
 
 A related question is: “why did this need to be simulated at all?” Are the results predictable given the algorithms and reward functions? It is important for the authors to demonstrate that they discovered something that wouldn’t have been known beforehand.
 
-> Clingo
+> Mostly done. Added more detail in discussion. Still remaining: Are the results predictable, given the conditions
 
 Page 19: The authors provide “niche-construction” as a motivation for the reward function in the discussion. This should be expanded upon and presented much earlier in the paper. It again gets to the question of justifying the design of the simulation.
 
@@ -96,7 +96,7 @@ Page 20: The authors state that the HRL agent did not achieve an optimal policy 
 
 Page 20: The discussion is a place for engaging with the wider literature and positioning the results of the paper within that literature. Right now the discussion is mostly a reflection on the results. It would be valuable to expand it.
 
-> Clingo. Do this using Saffron as guidance
+> Mostly done. Added some Saffron. Might want to nod to Pivotal Mental States too.
 
 Page 28 and 29: These figures are difficult to read. It would be helpful to significantly increase the font size of the figures. Another suggestion would be to have a single “hero figure” in which the most important result of the paper is plainly visually presented to the reader in an intuitive manner. Right now these figures require significant parsing to make sense of.
 
@@ -137,8 +137,6 @@ The Temporal Trajectory of the Psychedelic Mushroom Experience Mimics the Narrat
 > TODO: add to discussion
 
 OTHER
-
-- Upate all descriptions of reward prediction. Reward predicted given the current orientation and what the agent perceives looking forward. If following the trajectory through the space what would be passive loss, pellets added, etc. Anticipated future state. It is actually rewarded based on these anticipations. It is rewarded based on this anticipated setpoint. Inspired by how K and G do things. 
 
 - If all you do is turn the ac or heater on, and not both, you won't do as well as if you have.
 
