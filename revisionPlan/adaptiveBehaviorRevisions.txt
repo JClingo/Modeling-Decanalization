@@ -114,19 +114,19 @@ This is a very well-written and we-reasoned manuscript, and would be a valuable 
 
 Integrating Cybernetic Big Five Theory with the free energy principle: A new strategy for modeling personalities as complex systems
 
-> TODO: Add citations
+> Done.
 
 Towards Understanding Persons and Their Personalities with Cybernetic Big 5 Theory and the Free Energy Principle and Active Inference (FEP-AI) Framework
 
 Robin is not incorrect in pointing out the dangers of excessive rigidity via maladaptive canalization. However, it would be more accurate (even if less satisfying/aggrandizing) to refer to this as the “second principal component” of psychopathology.
 
-> TODO: make appropriate change.
+> Done. Should be clear we're not treating excessive rigidity as the principal component.
 
 While we’re attempting to correct for overly simplified (over-reaching) models, in discussing altered beliefs under psychedelics, it could be worth mentioning this work which suggests we ought to expect combinations of both directly and indirectly relaxed and strengthened beliefs at different levels of neural hierarchies:
 
 On the varieties of conscious experiences: Altered Beliefs Under Psychedelics (ALBUS) | Neuroscience of Consciousness
 
-> TODO: Cite
+> Done.
 
 Another question I had in reading this manuscript was the extent to which these findings could be used to understand the natural/normative functioning of psychedelic-like transformative experiences as described in the excellent work of Ari Brouwer:
 
