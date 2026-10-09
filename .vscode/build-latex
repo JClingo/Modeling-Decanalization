@@ -8,4 +8,4 @@ exec /Library/TeX/texbin/latexmk \
   -file-line-error \
   -pdf \
   -outdir=out \
-  main.tex
+  modelingDecanalization.tex
