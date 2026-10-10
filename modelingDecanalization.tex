@@ -95,7 +95,6 @@
 \noindent\textbf{Keywords:} canalization, decanalization, homeostatic reinforcement learning, foraging, psychedelics, altered states
 
 % Jeff comments:
-% - I think we should try to reduce some of the paren madness. Parens within parens and adjoining each other etc.
 % - I think we should explicitly define canalization and recanalization at some point
 \section{Introduction}
 
@@ -136,37 +135,6 @@ Our results suggest that structured interventions like this can succeed in break
 % A well-adapted agent should be able to perform these functions effectively. Yet, as seen in many mental pathologies, even basic homeostatic regulation can break down when behavior becomes distorted. Agents may hypercanalize around a few sources of reward, fail to adapt to new surroundings, and repeat minimally rewarding actions while discounting alternatives. In short, they become trapped in entrenched behavioral patterns. Our simulation is designed to capture these dynamics, and show that structured interventions can break an agent out of the ruts and grooves of a sub-optimal behavioral patterns.
 
 \section{Methods}
-% TODO (Jeff): Methods reorganization and signposting. Not yet implemented.
-%
-% 1. ORDER. Reorganize so each fact is stated once. Possible order:
-%    environment -> agent (observations, actions, \hat{h} prediction) -> tiles and traversal cost
-%    -> reward functions (HRL, NF) -> training (PPO) -> canalization/decanalization protocol and evaluation -> statistics.
-%
-% 2. ROADMAP. Add orchestrating text at the end of the Methods intro (after the Unreal/Learning Agents paragraph) so readers know what's coming
-%    and that the reward functions come later. Suggested text (adjust to the final order and add \ref's):
-%    "The remainder of this section is organized as follows. We first describe the agent: what it observes, how it acts,
-%    and how it predicts the homeostatic consequences of its current heading. We then describe the tiles and traversal costs
-%    that allow the environment to be canalized, the two reward functions we compare (HRL and NF), and how agents were trained
-%    using PPO. Finally, we describe the canalization, decanalization, and recanalization protocol used to evaluate trained agents,
-%    and the statistical analysis."
-%    Short one-sentence lead-ins at the start of each subsection would also help (e.g., "This subsection defines the reward
-%    function used by HRL agents.").
-%
-% 3. REPETITIONS to remove:
-%    - How h changes: opening agent paragraph, "Model Details", start of HRL reward subsection.
-%    - Tile tracking: "Each tile is tracked individually" and "Each tile's traversal count is tracked individually" in consecutive paragraphs.
-%    - Decanalization settings: end of tile paragraphs, and twice at start of "Canalization and Decanalization".
-%    - Training h_0 = -15: environment-settings paragraph and PPO subsection.
-%    - \hat{h} is explained after its equation instead of before (see TODO at the \hat{h} equation).
-%
-% 4. REWARD FUNCTIONS need signposting. Currently the only numbered equations in Methods are \hat{h} (a prediction, not a reward)
-%    and Keramati & Gutkin's drive D (background, not what we implemented). Both actual rewards use unnumbered equation*,
-%    so they look secondary, and a reviewer could assume D is our reward.
-%    - Number r^HRL and r^NF and label them (eq:reward-hrl, eq:reward-nf); add \label's to the HRL and NF subsections.
-%    - Before r^HRL, bridge from D, e.g.: "Keramati and Gutkin define reward as the reduction in drive,
-%      $r_t = D(H_t) - D(H_{t+1})$. We use a shaped variant of this idea:" (consistent with the Methods intro's
-%      "a variation of the homeostatic reinforcement learning drive reduction formula"). Commented-out Suggested Edit [08]
-%      below r^HRL already starts to draw this distinction.
 
 We built a simulation sandbox in Unreal Engine to directly explore canalization and decanalization dynamics. Entrenched behavioral patterns—often visualized as gravitational wells—are represented as variable-cost pathways through which an agent traverses a simulated world of homeostatic state-altering resources. Using reinforcement learning, the agent was trained to behave rationally, according to a set reward function, reducing the discrepancy between the outcome the model predicted and what was actually observed. In each training cycle, the agent observes a state, chooses an action, and receives a reward based on that action. We used a variation of the homeostatic reinforcement learning drive reduction formula as the primary reward function, contrasting it with negative feedback in the analysis. This was a purely computational study using simulated agents in a simulated environment; no human participants, nonhuman animals, biological specimens, or clinical records were used.
 
@@ -196,12 +164,36 @@ We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer 
   \caption{First-person view from the agent's field of view (FOV). Within this FOV, the agent detects objects and estimates the future value of \(h\) from the current state, given the pellets and tiles along its projected trajectory. During decanalization, these estimates are altered so that all pellets are perceived as having equal homeostatic value and all tiles are treated as having zero traversal cost.}
 \end{figure}
 
-\subsection{Model Details}
+\subsection{Model Details}\label{sec:model}
+
+The agent's internal homeostatic variable \(h\) increases when the agent collects a resource pellet and decreases through the traversal cost \(c_t(\tau)\) of the currently overlapping tile \(\tau\) and a constant passive loss, \(l\). Time \(t\) denotes simulation ticks. At each tick,
+\begin{equation}\label{eq:h}
+  h_{t+1} = h_t + o - c_t(\tau) - l
+\end{equation}
+where \(o\) is the \(h\)-value of the pellet collected at time \(t\), or 0 if none. Most ticks have a small impact on \(h\); when the agent overlaps a resource pellet, however, \(h_{t+1} \gg h_t\).
+
+The agent also receives a short-horizon prediction \(\hat{h}\) of \(h\): the value \(h\) would reach at time \(t+\kappa\) if the agent continued straight ahead, without steering, to the end of its central (0°) raycast. Let \(\mathbf{O}\) and \(\mathbf{T}\) be the sets of pellets and tiles intersected by the central raycast at time \(t\). Then
+\begin{equation}\label{eq:h-hat}
+  \hat{h}_t = h_t + \sum_{o \in \mathbf{O}} o - \sum_{\tau \in \mathbf{T}} \hat{c}_t(\tau) - l(\kappa)
+\end{equation}
+where \(\hat{c}_t(\tau)\) is the predicted traversal cost of tile \(\tau\) (estimated as described below), \(\kappa\) is the time the agent would take to reach the end of the raycast at its current velocity, and \(l(\kappa)\) is the passive loss over that time.
+
+Simulated resource pellet instances (\(o_i\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. Each tile instance (\(\tau_i\)) produces a negative effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects.
+
+To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). The tile-impact update contains the factor $10/(n+1)$, multiplied by stored frame delta. The count increases on entry rather than on every tick of continued overlap, so the agent has to leave and return for another increment. As the agent moves within the bounding box of an overlapping tile, the negative effect of the traversal cost is applied to \(h_{t+1}\). This mechanism represents the persistence of activity-dependent environmental changes--a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
+
+Total loss due to traversal is estimated after each action as the total loss from tiles that intersected with the agent's raycast, assuming \(n+1\) (i.e., that traversal would be discounted upon agent overlap). Performing a perfect prediction of future tile traversal-caused losses is computationally expensive, but we approximate this by gathering the future cost of each tile that collided with the raycast at time \(t\), then calculating the total number of movement timesteps (and therefore homeostatic loss) the agent would take to bisect these tiles through the hypotenuse (dividing the cost of the first and last tile that collide with the raycast by \(2\), as an average of the distance that remains to be covered), factoring in current velocity.
+
+The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$. The agent's starting position and orientation are randomized. Evaluation draws $h_0$ uniformly from $[-15,15]$. The random generation procedure provides varied initial conditions without imposing an identical realized pellet count in every environment.
 
 % TODO (Jeff): Check with co-author what the seven ray values measure (code calls them "resource-ray proportions") and state it precisely.
-At each tick, the policy receives 11 observations: whether the agent currently overlaps a pellet; seven resource values, one from each raycast in its field of view (described below); the predicted homeostatic gain and loss along its path; and its current distance from the setpoint. These observations are derived from the agent's position, heading, and velocity, which the policy does not receive directly. Time $t$ denotes simulation ticks.
+At each tick, the policy, a neural network trained with PPO (Section~\ref{sec:ppo}), receives 11 observations as its input layer: whether the agent currently overlaps a pellet; seven resource values, one from each raycast in its field of view (described below); the predicted homeostatic gain and loss along its path; and its current distance from the setpoint. These observations are derived from the agent's position, heading, and velocity, which the policy does not receive directly.
 
-The observation code detects nearby pellets and tiles through raycasts and registers pellet overlap. It uses the agent's current heading and movement variables to estimate potential homeostatic gain and loss along its projected path, contributing to the short-horizon prediction $\hat{h}$ of its future homeostatic value $h_{t+\kappa}$.
+The observation code detects nearby pellets and tiles through raycasts and registers pellet overlap. The agent's perceptual field spans 90 degrees, using seven raycasts at $-45^\circ$, $-22.5^\circ$, $-11.7^\circ$, $0^\circ$, $11.7^\circ$, $22.5^\circ$, and $45^\circ$ relative to its heading. The horizon parameter is 10,000 Unreal units\footnote{An ``Unreal unit'' is the basic unit of measurement in the Unreal Engine but does not translate to real-world distances.} and the capsule-trace radius is 75 Unreal units.
+
+% TODO (Jeff, discuss with Clingo): Possible additions to the following paragraph:
+% The observation code uses the agent's current heading and movement variables to estimate potential homeostatic gain and loss from the pellets and tiles intersected by this raycast. These estimates are the predicted gain and loss in the observation vector. They are hand-computed (feature-engineered) inputs to the policy, computed from the pellets' actual impacts and the tiles' current costs, rather than predictions the policy learns. In this respect they idealize the cue-based estimates of homeostatic outcomes assumed in HRL \cite{keramati_homeostatic_2014}. \(\hat{h}\) is not a reward; rewards are computed from actual changes in \(h_t\) (Sections~\ref{sec:hrl} and \ref{sec:nf}).
+The central 0° raycast is also used for predicting potential homeostatic impact. The agent perceives both potential gain and loss to \(h\) through the central raycast's  overlap with \(o\) and \(\tau\) objects. This is the potential \(h_{t+\kappa}\) value \(\hat{h}\) in Equation~\ref{eq:h-hat}. The agent uses this information to help make action decisions during and after training.
 
 % IMPLEMENTED EDIT [07]: R1-06: Continuous steering without an explicit action clamp; runtime yaw multiplier 2.5 confirmed by the author.
 At each tick, the agent moves forward automatically and selects a single continuous steering command $a_t$, which turns it by $2.5a_t$ degrees (Appendix~\ref{app:implementation-settings}).
@@ -210,75 +202,34 @@ The agent is unaware of anything beyond these values and the actions it takes ov
 
 % No minimum heading-reversal duration is inferred from the action schema; neither a one-degree cap nor the resulting 180-tick claim is supported by the recovered implementation.
 
-% TODO (Jeff): Signpost this equation. It is NOT a reward function. \hat{h}_t is the agent's predicted homeostatic value if it keeps going straight (a = \varnothing, i.e., no steering) to the end of its central raycast: current h, plus pellets ahead, minus cost of tiles ahead, minus passive loss on the way.
-% The pellet and tile sums are the "predicted homeostatic gain and loss" in the observation vector, i.e., inputs to the policy. Rewards (r^HRL, r^NF) are computed from actual changes in h_t, not from \hat{h}.
-% Suggested text to put before "Let O ...": "In addition to the raycast values, the agent receives a short-horizon prediction of its homeostatic state: how $h$ would change if it continued straight ahead to the end of its central raycast. This prediction is an input to the policy, not a reward; rewards are computed from actual changes in $h_t$ (Sections~\ref{...})." Needs \label's added to the HRL and NF subsections.
-% Also: the paragraph below beginning "The central 0° raycast is also used for predicting potential homeostatic impact" re-explains \hat{h} after the equation. Cut it or merge it into the signpost.
-Let \(\mathbf{O} = \left\{ o_1,o_2,\ldots,o_{n} \right\}\) denote the pellet \(h\)-values intersected by the central 0° raycast at time \(t\), and let \(\mathbf{T} = \left\{\tau_1,\tau_2,\ldots,\tau_{m}\right\}\) denote the tiles intersected by that raycast at time \(t\). Then
-\begin{equation}
-  \begin{aligned}
-    \hat{h}_t & = h_{t+\kappa}|(a_{[t, t+\kappa]}= \varnothing)                                                        \\
-              & = h_t + \sum_{o_i \in \mathbf{O}} o_{i} - \sum_{\tau_j \in \mathbf{T}} \hat{c}_{t}(\tau_j) - l(\kappa)
-  \end{aligned}
-\end{equation}
-where
-\begin{align*}
-  o_{j}             & \quad\text{ is the }h \text{ value of a pellet}                               \\
-  \hat{c}_{i}       & \quad\text{the predicted cost of moving through tile }i\text{ at time }t      \\
-  \hat{h}_t         & \quad\text{ is the predicted value of } h\text{ at time } t                   \\
-  a_{[t, t+\kappa]} & \quad\text{ are actions taken from time } t\text{ to } t+\kappa               \\
-  \kappa            & \quad\text{ is the time it would take the agent to travel to the end }        \\
-                    & \quad\text{of the raycast at the current velocity}                            \\
-  l(\kappa)         & \quad\text{ is the sum of passive homeostatic loss over } \kappa \text{ time} \\
-\end{align*}
-
-Simulated resource pellet instances (\(o_i\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. Each tile instance (\(\tau_i\)) produces a negative effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects.
-
-The agent's perceptual field spans 90 degrees, using seven raycasts at $-45^\circ$, $-22.5^\circ$, $-11.7^\circ$, $0^\circ$, $11.7^\circ$, $22.5^\circ$, and $45^\circ$ relative to its heading. The horizon parameter is 10,000 Unreal units\footnote{An ``Unreal unit'' is the basic unit of measurement in the Unreal Engine but does not translate to real-world distances.} and the capsule-trace radius is 75 Unreal units.
-
-The central 0° raycast is also used for predicting potential homeostatic impact. The agent perceives both potential gain and loss to \(h\) through the central raycast's  overlap with \(o\) and \(\tau\) objects. We denote this potential \(h_{t+\kappa}\) value by \(\hat{h}\). The agent uses this information to help make action decisions during and after training.
-
-The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$; during decanalization, the collected and perceived impacts are set to 20. The agent's starting position and orientation are randomized. Training initializes $h_0=-15$, while evaluation draws $h_0$ uniformly from $[-15,15]$. The random generation procedure provides varied initial conditions without imposing an identical realized pellet count in every environment.
-
-We represent different aspects of canalization in this simulation: canalization through learning to optimize internal setpoints with perception, and canalization through shaping the environment to improve predictability and reduce uncertainty. Agent training is itself a form of canalization, where the agent is shaped both by reinforcement and by the environment in which it learns. Although we do not presently explore actively updating agent behavior during or after decanalization, the training environment could be said to be partially constitutive of the agent, in the sense that the agent's canalization of the world alters the environment, such that it must use its formal learning to effectively learn novel behaviors in its new environment, without the agent having to alter itself internally. Of course, this form of environmental knowledge does not persist when the environment is altered.
-
-To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). The tile-impact update contains the factor $10/(n+1)$, multiplied by stored frame delta. The count increases on entry rather than on every tick of continued overlap, so the agent has to leave and return for another increment. This mechanism represents the persistence of activity-dependent environmental changes--a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
-
-Each tile's traversal count is tracked individually. As the agent moves within the bounding box of an overlapping tile, the negative effect of the traversal cost is applied to \(h_{t+1}\). The agent also uses this value to approximate future losses due to tile traversal. Total loss due to traversal is estimated after each action as the total loss from tiles that intersected with the agent's raycast, assuming \(n+1\) (i.e., that traversal would be discounted upon agent overlap). Performing a perfect prediction of future tile traversal-caused losses is computationally expensive, but we approximate this by gathering the future cost of each tile that collided with the raycast at time \(t\), then calculating the total number of movement timesteps (and therefore homeostatic loss) the agent would take to bisect these tiles through the hypotenuse (dividing the cost of the first and last tile that collide with the raycast by \(2\), as an average of the distance that remains to be covered), factoring in current velocity.
-
-During decanalization, agent overlap \(n\) is incremented at a higher rate (3x the canalized rate). Post-decanalization, all tile overlap counts are reduced by a constant factor, resulting in \(n^{post} = \lfloor n^{pre} \cdot 0.5 \rfloor\) for each tile.
-
-\subsection{Homeostatic Reinforcement Learning (HRL)}
+\subsection{Homeostatic Reinforcement Learning (HRL)}\label{sec:hrl}
 
 Homeostatic Reinforcement Learning (HRL) models an agent that manages a set of internal physiological or cognitive variables (e.g., energy, temperature, hunger, curiosity). The agent's goal is to reduce drive $D$ by keeping these values close to a set of preferred setpoints \cite{keramati_homeostatic_2014}:
 
 \begin{equation}\label{eq:model-drive}
   D\left(H_t\right)=\sqrt[m]{\sum_{i=1}^N\left|h_i^*-h_{i, t}\right|^n}
 \end{equation}
-\(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). Note that for the case of $m = n = 1$, which is assumed here, $D$ is a sum of absolute values between the setpoints and the actual physiological states. We focus on the case of a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\). This makes it easy to interpret $h$ values as either above or below the desired setpoint: if $h$ is food-satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger. HRL rewards actions that increase or reduce $h$ over time in Goldilocks fashion, taking actions that make $h$ larger when it is below \(h^*\) and taking actions that make $h$ smaller when it is above \(h^*\).
+\(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). Note that for the case of $m = n = 1$, which is assumed here, $D$ is a sum of absolute values between the setpoints and the actual physiological states. We focus on the case of a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\). This makes it easy to interpret $h$ values as either above or below the desired setpoint: if $h$ is food-satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger. Drive therefore reduces to \(D(h_t)=|h_t|\). HRL rewards actions that increase or reduce $h$ over time in Goldilocks fashion, taking actions that make $h$ larger when it is below \(h^*\) and taking actions that make $h$ smaller when it is above \(h^*\).
 
-Rewards are calculated based on the effect of the last action on \(h_t\). Most actions have a small impact on \(h_t\), being simply the sum of movement cost through the currently overlapping tile (\(\tau_i
-\)) and constant decremental loss (\(l\)). When the agent overlaps a resource pellet at time \(t\), however, \(h_{t} \gg h_{t-1}\).
-
-We implemented the HRL reward function as
-\begin{equation*}
+Rewards are calculated based on the effect of the last action on \(h_t\) (Equation~\ref{eq:h}). Keramati and Gutkin (2014) define reward as the reduction in drive, \(r_t = D(H_t) - D(H_{t+1})\). We implemented a variation of this drive-reduction formula as the HRL reward function:
+\begin{equation}\label{eq:reward-hrl}
   r^{HRL}_t =
   \begin{cases}
     \exp(-\alpha|h_t|),   & \text{if } |h_{t-1}| > |h_t| \\
     1 - \exp(\beta|h_t|), & \text{otherwise}             \\
   \end{cases} \\
-\end{equation*}
+\end{equation}
 % SUGGESTED EDIT [08]: R1-07: Replace the following reward explanation; verify parameter values and the executed formula.
 % where \(\alpha\) and \(\beta\) are positive scaling parameters. This is a task-specific reward-shaping choice. When an action decreases \(|h|\), its positive reward increases toward 1 as the resulting state approaches the setpoint. Otherwise, the nonpositive term penalizes the remaining distance, with magnitude increasing with \(|h_t|\). Thus an unchanged nonzero distance also receives a penalty. Unlike the preceding drive-reduction expression, this rule depends on both whether distance decreased and the resulting distance; no policy-equivalence claim is made. Reaching \(h^*=0\) does not itself terminate the episode, and continuing movement and passive loss require ongoing regulation.
 % END SUGGESTED EDIT [08]
-where \(\alpha\) and \(\beta\) are scaling parameters. The agent is rewarded for decreasing \(|h|\) between timesteps, thereby approaching the \(h^*=0\) setpoint. The agent is punished for increasing its distance from the setpoint. The agent receives disproportionately more reward the closer it gets to a target. (This is a common practice when reinforcing behavior that approaches but never achieves the ideal state.)
+where \(\alpha\) and \(\beta\) are scaling parameters. The agent is rewarded for decreasing \(|h|\) between timesteps, thereby approaching the \(h^*=0\) setpoint. The agent is punished for increasing its distance from the setpoint. The agent receives more reward the closer it gets to a target. (This is a common practice when reinforcing behavior that approaches but never achieves the ideal state.)
 
-\subsection{Homeostatic Negative Feedback (NF)}
+\subsection{Homeostatic Negative Feedback (NF)}\label{sec:nf}
 
 % SUGGESTED EDIT [10]: R1-09: Replace the following paragraph to distinguish the NF reward rule from the actions available.
 % We also trained agents with a homeostatic negative-feedback (NF) reward function that responds to deficits below \(h^*=0\). A heating thermostat illustrates the one-sided regulatory target: it responds to temperatures below its setting without actively correcting temperatures above it. In our simulation this analogy concerns the reward rule. The agent continues to move and select steering actions above the setpoint, even when those transitions produce zero immediate reward.
 % END SUGGESTED EDIT [10]
-We also trained and measured the performance of agents that used a negative feedback (NF) reward function, which only rewards or punishes changes in \(h_t\) when \(h_t\) is \emph{less} than the ideal setpoint \(h^*\). A heater thermostat provides a classic example: if the thermostat is set to $68^\circ\ \mathrm{F}$, the heater will only come on when the temperature falls below that. The system never turns on the air conditioner to deal with the case when the temperature is above that setting.
+We also trained and measured the performance of agents that used a negative feedback (NF) reward function, which only rewards or punishes changes in \(h_t\) when \(h_t\) is \emph{less} than the ideal setpoint \(h^*\). A heater thermostat provides a classic example: if the thermostat is set to $68^\circ\ \mathrm{F}$, the heater will only come on when the temperature falls below that. The system never turns on the air conditioner to deal with the case where the temperature is above that setting.
 
 We chose NF as a contrast to HRL because, unlike HRL, agents that rely on NF will not take anticipatory actions, as such actions are not rewarded. Without being able to anticipate changes to their environments as a consequence of their actions, NF agents should see significantly greater deviation from the ideal setpoint, \(h^*\). Keramati and Gutkin (2014) argued that HRL, unlike classical negative-feedback accounts, explains anticipatory responding, for example, learned cue-triggered responses that reduce deviations from a temperature setpoint. Decanalization might therefore have little to no effect on NF agent performance. The point of this comparison is contrastive rather than exhaustive: NF is included as a deliberately simpler control architecture that should not provide the possibility of sophisticated reward discounting. 
 
@@ -286,7 +237,7 @@ NF was also chosen because it is a well-known and widely used reward function th
 
 The NF reward function rewards actions that increase \(h_t\) and punishes actions that decrease \(h_t\) when \(h_t < 0\). In contrast to HRL, when \(h_t > 0\), it provides neither punishment nor reward for actions.
 
-\begin{equation*}
+\begin{equation}\label{eq:reward-nf}
   r^{NF}_t =
   \begin{cases}
     0,                       & \text{if } h_{t-1} >= 0 \text{ and } h_t >= 0                                   \\
@@ -295,18 +246,17 @@ The NF reward function rewards actions that increase \(h_t\) and punishes action
     \alpha(|h_t|-|h_{t-1}|), & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| >= 0 \\
     \beta(|h_t|-|h_{t-1}|),  & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| < 0
   \end{cases} \\
-\end{equation*}
+\end{equation}
 where \(\alpha\) and \(\beta\) are scaling values. The first case captures the difference from HRL: no rewards are given above the setpoint. The second case applies a penalty for falling below the setpoint that is proportional to how far below the agent falls. The third case rewards recovery. The fourth case rewards getting closer to the setpoint when below it. The final case penalizes moving farther from the setpoint when below it.
 
 % IMPLEMENTED EDIT [12]: R1-05, R1-10 / A4: Recovered implementation is authoritative for numerical settings. Author-confirmed manual selection and one evaluated policy per reward family are documented below. Exact training-transition totals were not recovered.
-\subsection{Learning via Proximal Policy Optimization (PPO)}
+\subsection{Learning via Proximal Policy Optimization (PPO)}\label{sec:ppo}
 
 As noted above, neural-network policies were trained using model-free reinforcement learning to optimize their respective reward functions (HRL or NF). We used the PPO implementation \cite{schulman_proximal_2017} included with the PyTorch backend of Unreal Engine's Learning Agents interface. The network architecture, training hyperparameters, environment settings, and checkpoint provenance are detailed in Appendix \ref{app:implementation-settings}.
 
 Training used a fixed timestep of 0.05 simulation seconds (20 Hz) \footnote{The translation of simulation ``seconds'' to ticks was done using a fixed conversion factor.}. The environment terminates episodes when $|h_t|>150$ or after the episode timer exceeds 100 simulation seconds. Independently, the trainer caps each agent's episode buffer at 1028 steps, corresponding to 51.4 simulation seconds at one step per fixed frame; this cap can end an episode before the Blueprint timer. The trainer distinguishes truncation, for which value estimates are bootstrapped, from termination. Agent resets occur at episode completion, training start, and trainer updates. The reset procedure clears tile traversal counts, randomizes the agent's starting position and orientation, and restores $h_0=-15$.\footnote{The value of \(-15\) was chosen because the HRL reward function was found to benefit from early punishment during training. With a negative starting value, each agent was immediately pressured to find pellets, making shorter training cycles possible, thus improving the learning rate. This is just a practical implementation consideration for training efficiency, however; HRL lets agents learn with different starting \(h_0\) values, although extreme positive or negative initial values greatly limit practical learning performance.}
 
 For each reward function, we attempted to train at least 50 parameter variations, changing reward and punishment magnitudes, resource reward size, movement cost, and related settings through trial and error. We selected the candidate with the highest average training reward within each reward family and retained a snapshot near the point where improvement in that average reward appeared to level off. This was a visual plateau criterion, intended to limit overfitting, rather than a fixed numerical slope threshold. Selection was completed before the evaluation trials. The final comparison used one selected NF policy and one selected HRL policy.
-
 
 % SUGGESTED EDIT [13]: R1-G1, R1-09, R1-11, R1-16: Proposed comparisons and implementation checks, not completed experiments.
 % Compare visit-dependent costs with fixed costs, conventional resource reward, and a one-sided rule with matched shaping.
@@ -315,7 +265,9 @@ For each reward function, we attempted to train at least 50 parameter variations
 % Verify the NF equation signs, reward constants, actual versus perceived gains/costs, pellet relocation and phase resets.
 % Prespecify outcomes and sample-size/precision criteria before examining new simulation results.
 % END SUGGESTED EDIT [13]
-\subsection{Canalization and Decanalization}
+\subsection{Canalization and Decanalization}\label{sec:protocol}
+
+We represent different aspects of canalization in this simulation: canalization through learning to optimize internal setpoints with perception, and canalization through shaping the environment to improve predictability and reduce uncertainty. Agent training is itself a form of canalization, where the agent is shaped both by reinforcement and by the environment in which it learns. Although we do not presently explore actively updating agent behavior during or after decanalization, the training environment could be said to be partially constitutive of the agent, in the sense that the agent's canalization of the world alters the environment, such that it must use its formal learning to effectively learn novel behaviors in its new environment, without the agent having to alter itself internally. Of course, this form of environmental knowledge does not persist when the environment is altered.
 
 During each trial, the agent first canalizes the tiles, carving out low-cost pathways. Decanalization then changes resource impacts, traversal and passive losses, the observations derived from those quantities, and the accumulation of tile-visit history. Ordinary resource and cost settings are restored for recanalization.
 
@@ -365,7 +317,7 @@ These choices were inspired by Juliani et al. (2024), who distinguish canalizati
 % Audit source: /Users/jingo/Work/PhD/Dissertation Project/decanalization/analysis.
 % The four main YAML files contain 50 records per condition; this does not establish 50 independent trained agents.
 % END SUGGESTED EDIT [15]
-\subsection{Statistical Analysis and Reproducibility}
+\subsection{Statistical Analysis and Reproducibility}\label{sec:stats}
 
 % TODO (statistical tests): analysis/sandbox.py uses scipy.stats.ttest_ind and pooled-variance Cohen's d, whereas the text describes paired tests. Identify the analysis that generated the reported results and verify trial pairing; reconcile the methods, Results terminology, effect-size definition, and numerical results as needed.
 After selecting one policy per reward function using training reward, evaluation consisted of matched comparisons between decanalization (CDR) and no-decanalization (CCC) conditions. Reported summary measures were captured at the end of each phase. CDR-CCC condition differences were evaluated with paired two-sided $t$-tests, using matched environment instances as the unit of pairing. We report mean differences, $p$-values, and Cohen's $d$ as compact summaries of these paired condition comparisons.
