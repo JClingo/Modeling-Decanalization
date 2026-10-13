@@ -3,22 +3,17 @@ REVIEWER 1
 General Comments
 My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. The manuscript describes a complex reward function in which the traversal cost of a tile decays each time the agent enters the tile. I see how this will induce a rigid behavioral policy within an agent and penalize it for exploration. What is not well explained is WHY THIS IS AN ECOLOGICALLY VALID REWARD FUNCTION IN THIS CASE. As the manuscript notes, the typical source of canalization is from the training process adjusting the parameters of the model itself, not from the external reward function. RL algorithms tend to naturally produce greedy policies, and much of the research in the field over its history has been devoted to designing algorithms which optimally balance exploration and exploitation throughout the training process. My recommendation would be to FOCUS ON CANALIZATION THAT IS CONNECTED TO THE INTRINSIC DYNAMICS OF LEARNING ITSELF. IF, HOWEVER, THE FOCUS REMAINS ON THE DESIGN OF THE REWARD FUNCTION, THEN THAT CHOICE SHOULD BE THOROUGHLY JUSTIFIED AND DEFENDED WITHIN THE PAPER. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one. This could make more clear the pathological nature of the canalized policies by having a “healthy” policy to compare against.
 
-> PARTLY DONE. Clingo. 
+> This has been addressed primarily in the discussion
 
-Added some things:
-
-- Short appeal to niche construction
+- Niche construction is now briefly discussed.
 - Explanation that without this pressure, the agent hypercanalized too quickly
-- Discussion now talks about alternatives we could have taken (think it's just missing a straight up "oh, we could have just messed around with our parameters and probably done this without it, but we did like niche construction and it seemed more realistic when we're talking about HRL and foraging about for rewards")
+- Discussion now talks about alternatives we could have taken (think it's just missing a straight up "oh, we could have just messed around with our parameters and probably done this without it, but we did like niche construction and it seemed more realistic when we're talking about HRL and foraging about for rewards") *
 
 
 Some things we can do here. (1) describe with citations how it is rewarding for animals to follow the same path. Perhaps skilled performance literature. Less costly to do something the same way again. (2) more importantly, discuss what happened when we did NOT have the path penalty. In that case it hyperfixates and only learns the strategy of spiraling and hypercanalizing immediately on its first source of reward and does not explore.
     - Suggest really thinking about the ref's comments here. Are there ways we could have gotten this type of thing using simpler reward and other exploitation params in an RL algorithm?
     - We could have added environmental constraints where it's just harder to move up a groove, but that is effectively the same as traversal cost
 
-EACH OF US THINK / DISCUSS
-
-Specific Comments
 
 Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
 
@@ -26,7 +21,7 @@ Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL i
 
 Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are. More generally, the paper is lacking a clear hypothesis that is being evaluated. Is the hypothesis that the decanalization procedure will produce specific improvements in model performance? If so, that should be stated explicitly. 
 
-> Done. The final  paragraph of the intro has been revised in accordance with this suggestion. 
+> Done. The final paragraph of the intro has been revised in accordance with this suggestion. 
 
 Page 4: Why was a 3D environment chosen? All of the experiments take place on a 2D plane, so it would seem that height is not relevant.
 
@@ -42,12 +37,12 @@ Page 5: There is no description of the architecture of the model itself. It is n
 
 Page 7: I am not clear on the action space available to the agent. Presumably the agent moves around the environment, yet movement actions are not described. In fact, it sounds based on the current wording of the paper that the agent can only ever take a single action, which is to rotate its angle of view by a single degree? This cannot be the case, as then there would be nothing for the agent to learn. Please clarify this.
 
-> Done. The main text now describes one continuous steering dimension with automatic forward movement. The action is not explicitly clamped; the confirmed runtime yaw multiplier is 2.5. Forward speed follows the recovered frame-delta formula in the appendix.
+> Done. The main text now describes one continuous steering dimension with automatic forward movement. The action is not explicitly clamped; the confirmed runtime yaw multiplier is 2.5. Forward movement is automatic, with top speed rescaled each frame according to frame duration (see appendix).
 
 Page 10: It is claimed that it is a normal practice to provide “disproportionally more reward the closer it gets to the target.” There should be a citation for this claim and the claim itself should be better justified or made more specific, because as currently stated it is not true. In cases where reaching the target induces a terminal state, a pathological policy in which the agent gets ever closer but never reaches the target can be learned.
 
-> TODO. Clingo thinks this was done and will check.
-
+> TODO. Clingo thinks this was done and will check. * (AFAIK I don't think it's been done)
+    
 Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement. Please provide a citation for this claim.
 
 > Done. Went ahead and removed comment, as it's not pertinent.
@@ -62,7 +57,7 @@ Page 12: It is not clear what “60 seconds” means in this context, as wall cl
 
 Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. Why, for example, was the “rate of canalization increased threefold” in the intervention? Why not twofold, or not at all? It would be valuable to see how adjusting this parameter influences the results of the simulations.
 
-> TODO: May need a sensitivity analysis where we try a few different parameters and show they are all directionally similar. 
+> TODO: May need a sensitivity analysis where we try a few different parameters and show they are all directionally similar.  *
 
 Page 15: The tables are somewhat difficult to interpret. It would be helpful if the different metrics were more clearly explained beforehand. 
 
@@ -70,21 +65,21 @@ Page 15: The tables are somewhat difficult to interpret. It would be helpful if 
 
 Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition. To what extent do they learn the task? What pathologies of behavior arise? How much might the agents be in need of decanalization?
 
-> Jeff. They hypercanalize on the rewards. Because of that they are not very good at maximizing rewards. They hypercanalize too quickly. Jeff will add some signposted version of this in the analysis.
+> Jeff. They hypercanalize on the rewards. Because of that they are not very good at maximizing rewards. They hypercanalize too quickly. Jeff will add some signposted version of this in the analysis. *
 
 Page 16: The authors find differences in the performance of the control conditions which they describe as a “false positive.” This may suggest that the study is underpowered in some way.
 
-> TODO. Clingo. Will run more sims in case these go away. If not change how characterized.
+> TODO. Clingo. Will run more sims in case these go away. If not change how characterized. *
 
 REVIEWER 1 (DISCUSSION SECTION)
 
 Page 19: Having a stronger hypothesis being tested would help make the summary section more clear. Right now it reads as a list of various findings, and it is not clear as a reader what to make of them, or what their relevance is to the larger conversations the paper is positioning itself as contributing to. 
 
-> Done. (or being done in general w/ other revisions)
+> Done. (or being done in general w/ other revisions).  * Looking back I don't see the hypothesis clearly
 
 A related question is: “why did this need to be simulated at all?” Are the results predictable given the algorithms and reward functions? It is important for the authors to demonstrate that they discovered something that wouldn’t have been known beforehand.
 
-> Mostly done. Added more detail in discussion. Still remaining: Are the results predictable, given the conditions
+> Mostly done. Added more detail in discussion. Still remaining: Are the results predictable, given the conditions *
 
 Page 19: The authors provide “niche-construction” as a motivation for the reward function in the discussion. This should be expanded upon and presented much earlier in the paper. It again gets to the question of justifying the design of the simulation.
 
@@ -92,11 +87,11 @@ Page 19: The authors provide “niche-construction” as a motivation for the re
 
 Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment. It would be helpful to know why this was the case. Could it be that the correct learning parameters were not used, or is there something more intrinsic to the design of the environment that prevented an optimal policy from being learned?
 
-> Clingo. The environment is just so complex.  In informal study human actors manually controlling the agent have produced better performance (author 1 has done it). Our goal was comparative rather than to maximally fine tune the RL. In principle an agent could do much better. We are not using state of the art industrial RL on a cluster. Cite atari results, which required large computers and teams of expert engineers and still did not outperform huamns. What we did was out of the box RL which was fine relative to our goals.
+> Clingo. The environment is just so complex.  In informal study human actors manually controlling the agent have produced better performance (author 1 has done it). Our goal was comparative rather than to maximally fine tune the RL. In principle an agent could do much better. We are not using state of the art industrial RL on a cluster. Cite atari results, which required large computers and teams of expert engineers and still did not outperform huamns. What we did was out of the box RL which was fine relative to our goals. *
 
 Page 20: The discussion is a place for engaging with the wider literature and positioning the results of the paper within that literature. Right now the discussion is mostly a reflection on the results. It would be valuable to expand it.
 
-> Mostly done. Added some Saffron. Might want to nod to Pivotal Mental States too.
+> Mostly done. Added some Saffron. Might want to nod to Pivotal Mental States too. *
 
 Page 28 and 29: These figures are difficult to read. It would be helpful to significantly increase the font size of the figures. Another suggestion would be to have a single “hero figure” in which the most important result of the paper is plainly visually presented to the reader in an intuitive manner. Right now these figures require significant parsing to make sense of.
 
@@ -136,12 +131,13 @@ The Temporal Trajectory of the Psychedelic Mushroom Experience Mimics the Narrat
 
 > Done. Added to discussion.
 
-OTHER
+OTHER NOTES
 
-- If all you do is turn the ac or heater on, and not both, you won't do as well as if you have.
 
-- Clarity on unique pellets. Non-unique of circling around and getting it again.  Value as an indirect indicator of exploration. If low it finds reward and circles back. Add this to interpretation of unique pellet.s
+- If the agent’s homeostatic variable is above the setpoint, a decrement in ht will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent’s current state.
+    - This is worht our discussion briefly 
 
-- Collapse h lost and h gained into one
+- For Discussion section?
+    - Future ablation study to see which predicted features matter
 
-- Figure 4 make clear it's just a baseline comparison. Either improve the figures so it's clear how to get the table numbers by looking at the graph, or just remove these figures altogether.
+- Final AI check be done against the simulation code, once the paper and code are more finalized
