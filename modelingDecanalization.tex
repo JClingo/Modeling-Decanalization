@@ -166,7 +166,7 @@ We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer 
 
 \subsection{Model Details}\label{sec:model}
 
-The agent's internal homeostatic variable \(h\) increases when the agent collects a resource pellet and decreases through the traversal cost \(c_t(\tau)\) of the currently overlapping tile \(\tau\) and a constant passive loss, \(l\). Time \(t\) denotes simulation ticks. At each tick,
+The agent's internal homeostatic variable \(h\) increases when the agent collects a resource pellet and decreases through the traversal cost \(c_t(\tau)\) of the currently overlapping tile \(\tau\) and a constant passive loss, \(l\). Time \(t\) denotes simulation ticks; during training, each tick advances the simulation clock by 0.05 seconds (Section~\ref{sec:ppo}). At each tick,
 \begin{equation}\label{eq:h}
   h_{t+1} = h_t + o - c_t(\tau) - l
 \end{equation}
@@ -178,9 +178,9 @@ The agent also receives a short-horizon prediction \(\hat{h}\) of \(h\): the val
 \end{equation}
 where \(\hat{c}_t(\tau)\) is the predicted traversal cost of tile \(\tau\) (estimated as described below), \(\kappa\) is the time the agent would take to reach the end of the raycast at its current velocity, and \(l(\kappa)\) is the passive loss over that time.
 
-Simulated resource pellet instances (\(o_i\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects.The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$. The agent's starting position and orientation are randomized. Evaluation draws $h_0$ uniformly from $[-15,15]$. 
+Simulated resource pellet instances (\(o_i\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects. The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$. The agent's starting position and orientation are randomized. Evaluation draws $h_0$ uniformly from $[-15,15]$. 
 
-To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). While the agent overlaps a tile (\tau), its traversal cost (c_t(\tau)) is (10/(n+1)) per simulated second, where (n) counts the agent's entries into the tile (not ticks spent on it). Traversal cost therefore decreases with visit count, making familiar paths less costly. This mechanism represents the persistence of activity-dependent environmental changes---a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
+To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). While the agent overlaps a tile \(\tau\), its traversal cost \(c_t(\tau)\) is \(10/(n+1)\) per simulation second, where \(n\) counts the agent's entries into the tile (not ticks spent on it). Traversal cost therefore decreases with visit count, making familiar paths less costly. This mechanism represents the persistence of activity-dependent environmental changes---a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
 
 % TODO (Jeff): Check with co-author what the seven ray values measure (code calls them "resource-ray proportions") and state it precisely.
 At each tick, the policy, a neural network trained with PPO (Section~\ref{sec:ppo}), receives 11 observations as its input layer: whether the agent currently overlaps a pellet; seven resource values, one from each raycast in its field of view (described below); the predicted homeostatic gain and loss along its path; and its current distance from the setpoint. These observations are derived from the agent's position, heading, and velocity, which the policy does not receive directly.
@@ -233,19 +233,27 @@ We chose NF as a contrast to HRL because, unlike HRL, agents that rely on NF wil
 
 NF was also chosen because it is a well-known and widely used reward function that neatly maps to homeostatic regulation. A non-homeostatic agent could be trained with a reward function that is not homeostatic, but the choice of homeostatic reward functions is better suited to the goals of this study---to explore the effects of decanalization on agents that are trained to regulate their internal states, which are homeostatic in reality.
 
-The NF reward function rewards actions that increase \(h_t\) and punishes actions that decrease \(h_t\) when \(h_t < 0\). In contrast to HRL, when \(h_t > 0\), it provides neither punishment nor reward for actions.
+The NF reward function rewards actions that increase \(h_t\) and punishes actions that decrease \(h_t\) when \(h_t < 0\). In contrast to HRL, when \(h_t > 0\), it provides neither punishment nor reward for actions. NF thus depends only on the distance below the setpoint, \(d(h_t)=\max(0,-h_t)\), and rewards reductions in this distance, as in the drive-reduction formula above:
 
+% TODO (Clingo): This two-case form replaces the original five-case equation (kept below for comparison). It matches cases 1--3; cases 4 and 5 had their signs flipped relative to the text. Confirm against the implementation.
+% \begin{equation}
+%   r^{NF}_t =
+%   \begin{cases}
+%     0,                       & \text{if } h_{t-1} >= 0 \text{ and } h_t >= 0                                   \\
+%     \beta \cdot h_t,         & \text{if } h_{t-1} >= 0 \text{ and } h_t < 0                                    \\
+%     \alpha|h_{t-1}|,         & \text{if } h_{t-1} < 0 \text{ and } h_t >= 0                                    \\
+%     \alpha(|h_t|-|h_{t-1}|), & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| >= 0 \\
+%     \beta(|h_t|-|h_{t-1}|),  & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| < 0
+%   \end{cases} \\
+% \end{equation}
 \begin{equation}\label{eq:reward-nf}
   r^{NF}_t =
   \begin{cases}
-    0,                       & \text{if } h_{t-1} >= 0 \text{ and } h_t >= 0                                   \\
-    \beta \cdot h_t,         & \text{if } h_{t-1} >= 0 \text{ and } h_t < 0                                    \\
-    \alpha|h_{t-1}|,         & \text{if } h_{t-1} < 0 \text{ and } h_t >= 0                                    \\
-    \alpha(|h_t|-|h_{t-1}|), & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| >= 0 \\
-    \beta(|h_t|-|h_{t-1}|),  & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| < 0
-  \end{cases} \\
+    \alpha\left(d(h_{t-1}) - d(h_t)\right), & \text{if } d(h_{t-1}) \ge d(h_t) \\
+    \beta\left(d(h_{t-1}) - d(h_t)\right),  & \text{otherwise}                 \\
+  \end{cases}
 \end{equation}
-where \(\alpha\) and \(\beta\) are scaling values. The first case captures the difference from HRL: no rewards are given above the setpoint. The second case applies a penalty for falling below the setpoint that is proportional to how far below the agent falls. The third case rewards recovery. The fourth case rewards getting closer to the setpoint when below it. The final case penalizes moving farther from the setpoint when below it.
+where \(\alpha\) and \(\beta\) are scaling values. The first case rewards getting closer to the setpoint when below it, including recovery. The second case penalizes moving farther from the setpoint when below it, including falling below the setpoint, in proportion to how far below the agent falls. Above the setpoint \(d(h_t)=0\), which captures the difference from HRL: no rewards are given above the setpoint.
 
 % IMPLEMENTED EDIT [12]: R1-05, R1-10 / A4: Recovered implementation is authoritative for numerical settings. Author-confirmed manual selection and one evaluated policy per reward family are documented below. Exact training-transition totals were not recovered.
 \subsection{Learning via Proximal Policy Optimization (PPO)}\label{sec:ppo}
