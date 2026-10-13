@@ -174,11 +174,11 @@ where \(o\) is the \(h\)-value of the pellet collected at time \(t\), or 0 if no
 
 The agent also receives a short-horizon prediction \(\hat{h}\) of \(h\): the value \(h\) would reach at time \(t+\kappa\) if the agent continued straight ahead, without steering, to the end of its central (0°) raycast. Let \(\mathbf{O}\) and \(\mathbf{T}\) be the sets of pellets and tiles intersected by the central raycast at time \(t\). Then
 \begin{equation}\label{eq:h-hat}
-  \hat{h}_t = h_t + \sum_{o \in \mathbf{O}} o - \sum_{\tau \in \mathbf{T}} \hat{c}_t(\tau) - l(\kappa)
+  \hat{h}_{t+\kappa} = h_t + \sum_{o \in \mathbf{O}} o - \sum_{\tau \in \mathbf{T}} \hat{c}_t(\tau) - \kappa l
 \end{equation}
-where \(\hat{c}_t(\tau)\) is the predicted traversal cost of tile \(\tau\) (estimated as described below), \(\kappa\) is the time the agent would take to reach the end of the raycast at its current velocity, and \(l(\kappa)\) is the passive loss over that time.
+where \(\hat{c}_t(\tau)\) is the predicted traversal cost of tile \(\tau\) (estimated as described below), \(\kappa\) is the number of ticks the agent would take to reach the end of the raycast at its current velocity, and \(\kappa l\) is the passive loss over that time.
 
-Simulated resource pellet instances (\(o_i\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects. The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$. The agent's starting position and orientation are randomized. Evaluation draws $h_0$ uniformly from $[-15,15]$. 
+Simulated resource pellet instances (\(o\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects. The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$. The agent's starting position and orientation are randomized. Evaluation draws $h_0$ uniformly from $[-15,15]$. 
 
 To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). While the agent overlaps a tile \(\tau\), its traversal cost \(c_t(\tau)\) is \(10/(n+1)\) per simulation second, where \(n\) counts the agent's entries into the tile (not ticks spent on it). Traversal cost therefore decreases with visit count, making familiar paths less costly. This mechanism represents the persistence of activity-dependent environmental changes---a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
 
@@ -207,14 +207,14 @@ Homeostatic Reinforcement Learning (HRL) models an agent that manages a set of i
 \begin{equation}\label{eq:model-drive}
   D\left(H_t\right)=\sqrt[m]{\sum_{i=1}^N\left|h_i^*-h_{i, t}\right|^n}
 \end{equation}
-\(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). Note that for the case of $m = n = 1$, which is assumed here, $D$ is a sum of absolute values between the setpoints and the actual physiological states. We focus on the case of a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\). This makes it easy to interpret $h$ values as either above or below the desired setpoint: if $h$ is food-satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger. Drive therefore reduces to \(D(h_t)=|h_t|\). HRL rewards actions that increase or reduce $h$ over time in Goldilocks fashion, taking actions that make $h$ larger when it is below \(h^*\) and taking actions that make $h$ smaller when it is above \(h^*\).
+\(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). Note that for the case of $m = n = 1$, which is assumed here, $D$ is a sum of absolute values between the setpoints and the actual physiological states. We focus on the case of a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\). Thus, in our model, drive reduces to the absolute value of $h$: \(D(h_t)=|h_t|\). A setpoint of 0 makes it easy to interpret $h$ values as either above or below the desired setpoint. If $h$ is food-satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger. HRL rewards actions that increase or reduce $h$ over time, and tends to produce these changes in Goldilocks fashion, taking actions that make $h$ larger when it is below \(h^*\) and taking actions that make $h$ smaller when it is above \(h^*\).
 
-Keramati and Gutkin (2014) define reward as the reduction in drive, \(r_t = D(H_t) - D(H_{t+1})\). We implemented a variation of this drive-reduction formula as the HRL reward function. Rewards depend on whether \(|h|\) decreased over the last tick, i.e., whether \(h\) moved toward the setpoint, and on the resulting distance \(|h_t|\), giving two cases:
+Keramati and Gutkin (2014) define reward as reduction in drive: \(r_t = D(H_t) - D(H_{t+1})\). We implemented a variation of this drive-reduction formula using an HRL reward function. Rewards depend on whether \(|h|\) decreased from \(t\) to \(t+1\), i.e., whether \(h\) moved toward the setpoint, and on the resulting distance \(|h_{t+1}|\), giving two cases:
 \begin{equation}\label{eq:reward-hrl}
   r^{HRL}_t =
   \begin{cases}
-    \exp(-\alpha|h_t|),   & \text{if } |h_{t-1}| > |h_t| \\
-    1 - \exp(\beta|h_t|), & \text{otherwise}             \\
+    \exp(-\alpha|h_{t+1}|),   & \text{if } |h_{t+1}| < |h_t| \\
+    1 - \exp(\beta|h_{t+1}|), & \text{otherwise}                 \\
   \end{cases} \\
 \end{equation}
 % SUGGESTED EDIT [08]: R1-07: Replace the following reward explanation; verify parameter values and the executed formula.
@@ -249,11 +249,11 @@ The NF reward function rewards actions that increase \(h_t\) and punishes action
 \begin{equation}\label{eq:reward-nf}
   r^{NF}_t =
   \begin{cases}
-    \alpha\left(d(h_{t-1}) - d(h_t)\right), & \text{if } d(h_{t-1}) \ge d(h_t) \\
-    \beta\left(d(h_{t-1}) - d(h_t)\right),  & \text{otherwise}                 \\
+    \alpha\left(d(h_t) - d(h_{t+1})\right), & \text{if } d(h_{t+1}) \le d(h_t) \\
+    \beta\left(d(h_t) - d(h_{t+1})\right),  & \text{otherwise}                 \\
   \end{cases}
 \end{equation}
-where \(\alpha\) and \(\beta\) are scaling values. The first case rewards getting closer to the setpoint when below it, including recovery. The second case penalizes moving farther from the setpoint when below it, including falling below the setpoint, in proportion to how far below the agent falls. Above the setpoint \(d(h_t)=0\), which captures the difference from HRL: no rewards are given above the setpoint.
+where \(\alpha\) and \(\beta\) are scaling parameters. The first case rewards getting closer to the setpoint when below it, including recovery. The second case penalizes moving farther from the setpoint when below it, including falling below the setpoint, in proportion to how far below the agent falls. Above the setpoint, \(d(h_t)=0\), which captures the difference from HRL: no rewards are given above the setpoint.
 
 % IMPLEMENTED EDIT [12]: R1-05, R1-10 / A4: Recovered implementation is authoritative for numerical settings. Author-confirmed manual selection and one evaluated policy per reward family are documented below. Exact training-transition totals were not recovered.
 \subsection{Learning via Proximal Policy Optimization (PPO)}\label{sec:ppo}
