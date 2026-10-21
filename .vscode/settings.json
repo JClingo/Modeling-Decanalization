@@ -25,6 +25,9 @@
     "*.synctex.gz"
   ],
   "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.synctex.path": "/Library/TeX/texbin/synctex",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
   "latex-workshop.latex.tools": [
     {
       "name": "latexmk",

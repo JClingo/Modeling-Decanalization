@@ -1,116 +1,91 @@
 % !TEX root = ./modelingDecanalization.tex
+\subsection{Additional comparisons}
 
-\subsection{Neural-network architecture and implementation settings}
-\label{app:implementation-settings}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/rerun-regulation-results.png}
+\caption{Additional trial outcomes. Points show means and bars represent unadjusted 95\% confidence intervals. Signed mean $h$, RMS deviation, and the fraction of recorded samples within $\pm5$ describe event/update history.}
+\label{fig:rerun-regulation}
+\end{figure}
 
-The implementation settings below follow the Unreal Engine Blueprint graphs, class defaults, Landscape actors, original Learning Agents trainer configurations. Between NF and HRL, the only differences are the encoder, policy, and decoder snapshots loaded for inference, which were generated during their respective training runs.
+\subsection{Network, training, and evaluation settings}\label{app:implementation-settings}
 
-\subsubsection{Observation encoding and network architecture}
+Agents have access to one continuous steering action, 64 recurrent memory values, and 11 observations, including pellet collision, seven resource-ray values, predicted gain and loss, and the current homeostatic state. Position, heading, and velocity are embedded into these features. The configured hidden layer width is 128 and used ELU activation.
 
-The recovered policy takes an 11-dimensional observation vector: one pellet-collision indicator, seven resource-ray proportions, perceived gain and perceived loss, and the current setpoint distance. Position, orientation, and velocity are used by the simulation to construct these observations.
+The action schema contains one scalar, \texttt{Look}. Evaluation uses zero action noise and selects the decoded mean. The connected steering path has no explicit action clamp, which is scaled at runtime by 2.5 degrees per unit action. Each decision gathers observations, evaluates the recurrent policy, decodes its action, and applies steering. Recurrent state evolves within each trial while weights remain fixed, and is cleared at full trial resets.
 
-Both policy/critic configurations specify \texttt{HiddenLayerNum=1}, width of 128, and ELU activation; the policy also enables a 64-dimensional recurrent memory. The policy applies two 128-unit ELU layers to the encoded observation, followed by the Learning Agents memory cell with 128 input features, 128 output features, and 64 memory values. A further 128-unit ELU layer maps to two continuous-action distribution parameters. The critic receives the 11 encoded observations and 64 policy-memory values, and has topology $75\rightarrow128\rightarrow128\rightarrow1$, with ELU activations between linear layers. The encoder and decoder include learned affine transformations, and the seven ray inputs share their encoder transform.
+\subsubsection{Effective PPO settings}
 
-\begin{table}[H]
-  \centering
-  \small
-  \begin{tabular}{@{}lr@{}}
-    \toprule
-    \textbf{Network component} & \textbf{Trainable parameters} \\
-    \midrule
-    Observation encoder & 10 \\
-    Recurrent policy, including affine output scaling & 117,254 \\
-    Action decoder & 4 \\
-    Critic & 26,369 \\
-    \midrule
-    Complete training network set, shared encoder counted once & 143,637 \\
-    Inference network set: encoder, policy, and decoder & 117,268 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Parameter counts from the saved networks. Counts include the trainable affine mean/scale parameters defined by the Learning Agents PyTorch backend. The policy alone contains 117,250 linear weights and biases.}
-  \label{tab:network-parameters}
+The common backend uses AdamW with AMSGrad and separate policy and critic optimizers. For NF, the the configured common settings in Python are overwritten. The critic updates the shared encoder under HRL and NF detaches encoder features for critic updates.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xll@{}}
+\toprule
+Parameter & HRL & NF\\
+\midrule
+Policy / critic learning rate & $10^{-4}/10^{-3}$ & $3\times10^{-5}/3\times10^{-4}$\\
+Learning-rate multiplier & 1 & 1\\
+Weight decay & $10^{-4}$ & $10^{-4}$\\
+Policy / critic minibatch & 2056 / 4096 & 2056 / 4096\\
+Recurrent window (steps) & 16 & 16\\
+Updates per gather / critic warmup & 32 / 8 & 8 / 0\\
+PPO clipping parameter & 0.2 & 0.1\\
+Discount / GAE parameter & 0.99 / 0.95 & 0.99 / 0.95\\
+Normalized advantage range & $[-10,10]$ & $[-10,10]$\\
+Action surrogate weight & 1 & 1\\
+Action regularization / entropy weight & 0.001 / 0.001 & 0 / 0\\
+Return regularization & $10^{-4}$ & $10^{-4}$\\
+Gradient-norm clipping & 0.5 & 0.25\\
+Start / end steps trimmed & 0 / 0 & 0 / 0\\
+Exploration SD & Learned & Fixed, 0.15\\
+Sampled approximate KL guard & None specified & 0.015\\
+PPO seed & 1234 & 1234\\
+Configured iteration limit & 1,000,000 & 1,000,000\\
+Selected checkpoint label & 10000 & 5000\\
+\bottomrule
+\end{tabularx}
+\caption{Effective training settings for the selected policies.}
+\label{tab:ppo-settings}
 \end{table}
 
-The action schema contains one continuous scalar, \texttt{Look}. The Learning Agents implementation represents the continuous-action distribution by a mean and log standard deviation. During inference, \texttt{RunInference} uses action-noise scaling of 0, selecting the mean without updating weights. Neither the continuous-action sampler nor the connected path from \texttt{GetFloatAction} to \texttt{AddControllerYawInput} imposes an action clamp. The training action-regularization weight of 0.001 penalizes the magnitudes of the mean and log standard deviation.
+NF skips actor updates when the sampled approximate KL exceeds 0.015 and discards its initial legacy-variance rollout before publishing its bounded decoder. The common adapter preserves terminal-transition credit and episode boundaries, bootstraps time-limit truncations, centers advantages, corrects negative-advantage clipping, and rejects nonfinite losses, gradients, and weights. These implementation changes are made to compensate for NF's poor and inconsistent learning performance. 
 
-The project has a runtime yaw scale of 2.5, or 2.5 degrees per unit action. A command $a_t$ contributes $2.5a_t$ degrees to the accumulated yaw input. The continuous action is not explicitly clamped, so no maximum turn per tick is specified by this action path.
-
-Yaw input is accumulated when the action node executes, applied during the PlayerController's rotation update, and cleared at the end of its tick. Each call to \texttt{RunInference} gathers observations, evaluates the policy, decodes and samples the action, and invokes the interactor's action function.
-
-\subsubsection{PPO settings and training records}
-
-The trials used identical PPO settings and network schemas. The backend uses AdamW with AMSGrad enabled. The policy optimizer includes the policy, encoder, and decoder parameters; the critic optimizer includes the critic and the shared encoder.
-
-\begin{table}[H]
-  \centering
-  \small
-  \begin{tabularx}{\linewidth}{@{}Xl@{}}
-    \toprule
-    \textbf{Training parameter} & \textbf{Recovered value} \\
-    \midrule
-    Policy / critic learning rate & $10^{-4}$ / $10^{-3}$ \\
-    Learning-rate decay multiplier & 1 \\
-    Weight decay & $10^{-4}$ \\
-    Policy / critic minibatch size & 2056 / 4096 \\
-    Recurrent training window & 16 steps \\
-    Updates per gather / critic warmup updates & 32 / 8 \\
-    PPO clipping parameter & 0.2 \\
-    Discount factor $\gamma$ / GAE parameter $\lambda$ & 0.99 / 0.95 \\
-    Advantage normalization; minimum / maximum & Enabled; 0 / 10 \\
-    Action surrogate / regularization / entropy weights & 1 / 0.001 / 0 \\
-    Return regularization weight & $10^{-4}$ \\
-    Gradient-norm clipping & Disabled \\
-    Steps trimmed at episode start / end & 1 / 0 \\
-    PPO seed; policy / critic initialization seeds & 1234; 1234 / 1234 \\
-    Replay capacity: episodes / steps & 1000 / 10,000 \\
-    Per-agent episode-buffer cap & 1028 steps \\
-    Configured optimization-iteration limit & 1,000,000 \\
-    Training timestep & 0.05 s (20 Hz) \\
-    Training device & GPU \\
-    \bottomrule
-  \end{tabularx}
-  \caption{Training settings. The configured iteration limit is distinct from the amount of training actually completed.}
-  \label{tab:ppo-settings}
-\end{table}
-
-The training game settings enable a fixed 20 Hz timestep, set the maximum physics step to that interval, and disable maximum-FPS and vertical-synchronization limits. The connected training call resets agents at training start and after trainer updates. Termination occurs when $|h|>150$. Time truncation occurs when episode time exceeds 100 simulation seconds. Independently, the Learning Agents trainer truncates an episode at the 1028-step buffer cap, corresponding to 51.4 simulation seconds when one trainer step is recorded per fixed frame. The reset graph assigns $-15$ to $h_0$.
-
-At least 50 parameter variations were attempted for HRL and NF through manual exploration of reward and punishment magnitudes, resource reward size, movement cost, and related settings. Candidate selection used average training reward as the selection criterion. A snapshot of the best-performing candidate was selected near a visually identified plateau in average reward, with the intention of limiting overfitting. The plateau criterion did not specify a numerical slope threshold. Final evaluation began after selection and compared one selected policy per reward family.
+Training terminates at $|h|>100$ (terminal reward $-1$ for HRL, zero for NF) and time-truncates when its timer exceeds 100s. Training and evaluation both use a fixed timestep of 0.05s. The HRL snapshot was selected based on the mean distance of $h$ from zero, which also favored the snapshot with the highest mean reward. The NF snapshot was selected based on the highest mean reward for NF.
 
 \subsubsection{Environment and evaluation settings}
 
-\begin{table}[H]
-  \centering
-  \small
-  \begin{tabularx}{\linewidth}{@{}Xl@{}}
-    \toprule
-    \textbf{Parameter} & \textbf{Value} \\
-    \midrule
-    Grid-width parameter & 25 \\
-    Grid spacing, Unreal units & 1000 \\
-    Pellet spawn probability per candidate location & 0.05 \\
-    Pellet impact range & $[1,20]$ \\
-    Pellet impact during decanalization & 20 \\
-    Pellet respawn timer, s & 0.01 \\
-    Base passive-loss parameter & 0.05 \\
-    Base tile-impact parameter & 10 \\
-    Normal / decanalization visit increment & 1 / 3 \\
-    Visit-count update on recanalization & $\lfloor n/2\rfloor$ \\
-    HRL positive / negative scales & 0.005 / 0.0001 \\
-    NF scale & 50 \\
-    Environment random seed & 1 \\
-    Inference initial $h$ range & $[-15,15]$ \\
-    Initial yaw-input randomization & $[0,180]$ \\
-    Base speed parameter & 1000 \\
-    Capsule-trace radius, Unreal units & 75 \\
-    Configured trials per condition & 50 \\
-    \bottomrule
-  \end{tabularx}
-  \caption{Shared environment settings. The base speed parameter sets the agent's top speed, which is rescaled each frame according to frame duration.}
-  \label{tab:environment-settings}
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xl@{}}
+\toprule
+Parameter & Value\\
+\midrule
+Tile grid / spacing (Unreal units) & $50\times50$ / 1000\\
+Resource-spawn probability per cell & 0.05\\
+Ordinary / decanalized pellet impact & $[5,35]$ / 35\\
+Pellet respawn interval & 0.01 s\\
+Passive-loss parameter / update interval & 0.5 / 0.25 s\\
+Tile base impact parameter & 10\\
+Normal / decanalized counted visits per entry & 1 / 0\\
+Recanalization count update & $\lfloor n/2\rfloor$\\
+Training / trial environment seed & 1 / 10001\\
+Training initial $h$ / trial initial $h$ & $-15$ / uniform $[-15,15]$\\
+Native movement-speed setting & 5,000 cm/s\\
+Ray horizon / trace radius (Unreal units) & 10,000 / 75\\
+Decision interval / decisions per phase & 0.05 s / 2000\\
+Phase duration / trials per condition & 100 s / 250\\
+Inference action noise & 0\\
+\bottomrule
+\end{tabularx}
+\caption{Shared evaluation environment and primary intervention.}
+\label{tab:environment-settings}
 \end{table}
 
-The game mode explicitly seeds the shared environment random stream. Random initial $h$ and spatial draws use this stream. Tile-impact updates contain the factor $10/(n+1)$, multiplied by stored frame delta. During decanalization the implementation changes the resource's collected impact to 20 and sets tile impact and passive loss to zero, as well as changing observations and visit counts.
+During decanalization, actual collected pellet impact is 35 and tile and passive losses are zero. At recanalization, ordinary settings return and traversal counts are halved and floored. The environment stream progresses across resets. Full trial resets clear memory and environmental and reward bookkeeping; phase boundaries restore the trial's initial $h$ while retaining memory and scene history except for the intervention.
 
-Policy memory is initialized to zero when an agent is registered and is reset through Learning Agents' training reset notifications. The custom evaluation phase/trial reset routines reset homeostatic and environment variables without sending those policy reset notifications. They therefore preserve recurrent memory for the registered agent across phases and trials within the running evaluation session. The policy's recurrent state continues to evolve while its weights remain fixed.
-% I think this is good?
+\subsubsection{Selected run provenance}
+
+The accepted runs are \texttt{HRL-CDR-6C224C4240886C1BAEB3EF9EFCE7DE7E}, \texttt{HRL-CCC-A137EBFA4FB0CC61D2F3D6AD20FCE332}, \texttt{NF-CDR-530BED5D490A8446975BA4A62D01FF8B}, and \texttt{NF-CCC-231FD6EC46C680D5E2717183D5BA294C}. Loaded encoder, policy, and decoder hashes match HRL checkpoint 10000 or NF checkpoint 5000, respectively. Each complete batch contains 250 trials and 750 phase records. Sidecars capture runtime parameters, logger and asset hashes, phase-start scenes, RNG state, and recurrent memory. These records support identity and consistency checks without constituting a complete engine replay.
+
+The interrupted NF-CDR batch and two earlier NF-labeled batches with HRL weights are excluded at batch selection, as documented in the analysis package. No trials are removed from the four accepted batches. Homeostatic history lengths range from 2,401 to 2,731 samples per phase across accepted runs; these samples are distinct from the 2,000 reward decisions. Population SD uses division by the within-phase sample count, unlike the root-summed-square quantity in legacy archives.

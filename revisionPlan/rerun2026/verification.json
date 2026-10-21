@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "complete_trials": 1000,
+  "phase_records": 3000,
+  "scene_hashes_verified": 3000,
+  "loaded_snapshot_hashes_verified": 12,
+  "descriptive_rows_verified": 108,
+  "contrasts_verified": 144,
+  "statistics": "independent stdlib Welch/paired t, 95% intervals, Holm; matches frozen scipy output",
+  "exact_initial_scene_pairs": {
+    "HRL": 230,
+    "NF": 226
+  }
+}

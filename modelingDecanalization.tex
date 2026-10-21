@@ -88,7 +88,13 @@
 \pagenumbering{arabic}
 
 \begin{abstract}
-  Living organisms continuously manage their homeostatic setpoints but sometimes fall into the ruts and grooves of an entrenched or canalized behavioral repertoire. This manifests in a wide variety of ways, from overconsumption of scarce resources to repetitive unhealthy behavior, in cases of depression or anxiety. Clinicians are increasingly employing interventions, from psychoactive drugs to targeted stimulus regimes, to transiently decanalize entrenched behaviors and recanalize them into more adaptive patterns. These metaphors are long-standing, but have not been formally studied in explicit computational models. We present the first such model to our knowledge, a computational model of canalization, decanalization, and recanalization in a homeostatic navigation task. We compared homeostatic reinforcement learning (HRL) with a negative feedback (NF) reward function under matched canalization and decanalization conditions. In this setting, HRL agents showed improved post-decanalization homeostatic performance, relative to matched no-decanalization controls, whereas NF agents did not. We offer the model as a formal instantiation of a candidate mechanism by which temporary destabilization can produce more optimal behaviors in a constrained environment.
+
+  Living organisms continuously manage their homeostatic setpoints but sometimes fall into the ruts and grooves of an entrenched or canalized behavioral repertoire. This manifests in a wide variety of ways, from overconsumption of scarce resources to repetitive unhealthy behavior, in cases of depression or anxiety. Clinicians are increasingly employing interventions, from psychoactive drugs to targeted stimulus regimes, to transiently decanalize entrenched behaviors and recanalize them into more adaptive patterns. These metaphors are long-standing, but have not been formally studied in explicit computational models. We present the first such model to our knowledge, a computational model of canalization, decanalization, and recanalization in a homeostatic navigation task. We ran simulations with two policies, one trained with a homeostatic reinforcement learning (HRL) objective and the other with a one-sided negative-feedback (NF) objective. These were evaluated under matched canalization and decanalization conditions. In this setting, HRL agents showed improved post-decanalization homeostatic performance, relative to matched no-decanalization controls, whereas NF agents did not. We present the model as a formal instantiation of a candidate mechanism by which temporary destabilization can produce more optimal behaviors in a constrained environment.
+  TODO: Integrate better
+
+
+  Living organisms continuously manage their homeostatic setpoints but sometimes fall into the ruts and grooves of an entrenched or canalized behavioral repertoire. Clinicians employ interventions, from psychoactive drugs to targeted stimulus regimes, to transiently decanalize entrenched behaviors and support more adaptive patterns. We present a computational model of canalization, decanalization, and recanalization in a homeostatic navigation task. Two selected policies, trained with a homeostatic reinforcement learning (HRL) objective or a one-sided negative-feedback (NF) objective, were each evaluated in 250 intervention and 250 control trials. Following a temporary perturbation of resource impacts, costs, and traversal history, the HRL policy showed lower mean absolute homeostatic deviation than its control (difference $-7.36$, 95\% CI $[-10.59,-4.14]$) and higher objective reward. The NF policy also earned higher reward, but its absolute-deviation contrast was uncertain and fewer samples were near the setpoint. The model demonstrates how temporary environmental perturbation can improve subsequent regulation in a selected policy.
+
 \end{abstract}
 
 \vspace{0.5em}
@@ -126,19 +132,21 @@ Our model of decanalization is inspired by work on the entropic brain \cite{carh
 
 Although hypercanalization is expressly maladaptive, it is more modestly rooted in behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. We represent one aspect of this mechanism through traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
 
-In this paper, we test the hypothesis that a homeostatic reinforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization. As a simple contrast, and following Keramati and Gutkin (2014), we examine the effects of the same decanalization intervention on an agent trained with a negative-feedback (NF) reward function, which penalizes only deficits below the setpoint. The negative-feedback agent is expected to be less sensitive to the decanalization intervention, and therefore less able to improve its post-intervention performance. Intuitively, we are comparing the case of adaptively using a heater and air conditioner to get a stable temperature in a changing environment with the case of using only a heater.
+In this paper, we test the hypothesis that a homeostatic reinforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization.
+
+As a contrast and sanity check, we also examine the same intervention in an agent trained with a one-sided negative-feedback (NF) objective, which rewards reductions in absolute deviation only when the resulting state remains below the setpoint. Intuitively, we can think of HRL as an adaptive heating and air conditioning system that maintains a stable temperature. In contrast, NF functions as a simple heater would; it only activates when the temperature goes below a single fixed setpoint. We predicted that NF agents would not benefit from decanalization, based on the assumption that NF is fundamentally reactive and, in its simplest form, is not well-suited to proactively adjusting to altered environments. This assumption was drawn from with Keramati and Gutkin's (2014) work on homeostatic reinforcement learning, which saw simple HRL models demonstrate temporal discounting, resulting in more rapid adaptations to altered environmental conditions. 
 
 To model decanalization and recanalization, we employ homeostatic reinforcement learning (HRL). This approach links movement, planning, and reward-seeking to the minimization of setpoint deviation. 
 
-Our results suggest that structured interventions like this can succeed in breaking an agent out of the ruts and grooves of sub-optimal behavioral patterns.
+Our results suggest that structured interventions like this can succeed in breaking an agent out of the ruts and grooves of sub-optimal behavioral patterns, without the need for top-down control. Altered environments can result in spontaneous, short-term bursts of exploration that benefit homeostatic stability. In short, short-term chaos helps agents discover patterns that result in longer-term improvements. Canalization and decanalization are not just metaphors; they can be formalized and modeled in a way that allows for the testing of hypotheses about their effects on behavior. And, in this present study, we show that decanalization can improve homeostatic regulation in a simulated agent.
 
 % A well-adapted agent should be able to perform these functions effectively. Yet, as seen in many mental pathologies, even basic homeostatic regulation can break down when behavior becomes distorted. Agents may hypercanalize around a few sources of reward, fail to adapt to new surroundings, and repeat minimally rewarding actions while discounting alternatives. In short, they become trapped in entrenched behavioral patterns. Our simulation is designed to capture these dynamics, and show that structured interventions can break an agent out of the ruts and grooves of a sub-optimal behavioral patterns.
 
 \section{Methods}
 
-We built a simulation sandbox in Unreal Engine to directly explore canalization and decanalization dynamics. Entrenched behavioral patterns---often visualized as gravitational wells---are represented as variable-cost pathways through which an agent traverses a simulated world of homeostatic state-altering resources. Using reinforcement learning, the agent was trained to behave rationally, according to a set reward function, reducing the discrepancy between the outcome the model predicted and what was actually observed. In each training cycle, the agent observes a state, chooses an action, and receives a reward based on that action. We used a variation of the homeostatic reinforcement learning drive reduction formula as the primary reward function, contrasting it with negative feedback in the analysis. This was a purely computational study using simulated agents in a simulated environment; no human participants, nonhuman animals, biological specimens, or clinical records were used.
+We built a simulation sandbox in Unreal Engine to directly explore canalization and decanalization dynamics. Entrenched behavioral patterns---often visualized as gravitational wells---are represented as variable-cost pathways through which an agent traverses a simulated world of homeostatic state-altering resources. Using reinforcement learning, the agent was trained to behave rationally, according to a set reward function, reducing the discrepancy between the outcome the model predicted and what was actually observed. In each training cycle, the agent observes a state, chooses an action, and receives a reward based on that action. We used an ongoing reward for proximity to the homeostatic setpoint as the primary objective, contrasting it with a one-sided deficit-reduction objective. This was a purely computational study using simulated agents in a simulated environment; no human participants, nonhuman animals, biological specimens, or clinical records were used.
 
-The agent is modeled as a cube that moves forward automatically, with a top speed that is rescaled each frame according to frame duration (Appendix~\ref{app:implementation-settings}). Its internal homeostatic variable, $h_t$, decreases through passive loss and tile traversal costs, and increases when the agent overlaps cylindrical resource pellets. Repeated traversals are tracked by partitioning the planar environment into tiles with a memory of past visits. Traversal cost decreases with this visit count, making familiar paths less costly. The arena is enclosed by a rectangular boundary. When the agent crosses this boundary, its position is wrapped\footnote{This design choice prevents edge effects that would otherwise require the agent to manage the boundary as an additional environmental factor and potentially introduce edge-induced artifacts into the behavioral data.} to the opposite side, resulting in a toroidal, arcade-style world.
+The agent is modeled as a cube that moves forward automatically at a constant speed (Appendix~\ref{app:implementation-settings}). Its internal homeostatic variable, $h_t$, decreases through passive loss and tile traversal costs, and increases when the agent overlaps cylindrical resource pellets. Repeated traversals are tracked by partitioning the planar environment into tiles with a memory of past visits. Traversal cost decreases with this visit count, making familiar paths less costly. The arena is enclosed by a rectangular boundary. When the agent crosses this boundary, its position is wrapped\footnote{This design choice prevents edge effects that would otherwise require the agent to manage the boundary as an additional environmental factor and potentially introduce edge-induced artifacts into the behavioral data.} to the opposite side, resulting in a toroidal, arcade-style world.
 
 % SUGGESTED EDIT [05]: R1-04: Replace the following paragraph with a concise PPO description and citation.
 % We trained neural-network policies using proximal policy optimization (PPO), a model-free reinforcement learning algorithm \cite{schulman_proximal_2017}. Both reward conditions used PPO; HRL and NF denote their reward rules, rather than different optimization algorithms.
@@ -150,40 +158,40 @@ To train the agent, we used proximal policy optimization (PPO), a model-free rei
 % SUGGESTED EDIT [06]: R1-03, R1-05: Replace the following paragraph to explain the planar task and implementation.
 % We implemented the environment in Unreal Engine 5.5 (Epic Games), using its physics, rendering, and state-management facilities together with the Learning Agents plugin. The task itself is planar: movement and resource locations vary in the horizontal plane, and height is not an experimental variable. A two-dimensional implementation could express the same task. Unreal's three-dimensional representation provided an implementation and visualization environment. The plugin transmitted configuration and state information to Python 3.11.8, with training implemented in PyTorch 2.4.0+cu121 through the Learning Agents PPO backend. After training, the policy was loaded for evaluation without further weight updates.
 % END SUGGESTED EDIT [06]
-We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer graphics game engine that performs physics simulation, rendering, and state management. Although Unreal is a 3D tool, the task itself is essentially planar. To implement reinforcement learning, we used Unreal Engine's Learning Agents plugin, which trains policies in Python 3.11.8 using PyTorch 2.4.0. After training, we loaded the trained model and observed and measured agent behavior in a variety of scenarios.
+We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer graphics game engine that performs physics simulation, rendering, and state management. Although Unreal is a 3D tool, the task itself is essentially planar. To implement reinforcement learning, we used Unreal Engine's Learning Agents plugin, which trains policies in Python 3.11.8 using PyTorch 2.4.0. After training, we loaded selected encoder, decoder, and policy snapshots for evaluation.
 
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{./figures/canalization-phases.jpg}
-  \caption{Top-down views of a trained HRL agent across four stages: pre-canalization, canalization, decanalization, and post-canalization. The small yellow square marks the agent, and the white line indicates its orientation and forward raycast. Darker ``well-traveled'' tiles cost less to cross.  Pellets are shown in green, with shading proportional to reward value. The yellow-tinted panel marks the decanalization phase and its altered perceptual properties.}
+  \caption{Illustrative views of a trained HRL agent across four stages: pre-canalization, canalization, decanalization, and post-canalization. The small yellow square marks the agent, and the white line indicates its orientation and forward raycast. Darker ``well-traveled'' tiles cost less to cross.  Pellets are shown in green, with shading proportional to reward value. The yellow-tinted panel marks the decanalization phase and its altered perceptual properties.}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{figures/first-person.jpg}
-  \caption{First-person view from the agent's field of view (FOV). Within this FOV, the agent detects objects and estimates the future value of \(h\) from the current state, given the pellets and tiles along its projected trajectory. During decanalization, these estimates are altered so that all pellets are perceived as having equal homeostatic value and all tiles are treated as having zero traversal cost.}
+  \caption{Illustrative first-person view from the agent's field of view (FOV). Within this FOV, the agent detects objects and estimates the future value of \(h\) from the current state, given the pellets and tiles along its projected trajectory. During decanalization, these estimates are altered so that all pellets are perceived as having equal homeostatic value and all tiles are treated as having zero traversal cost.}
 \end{figure}
 
 \subsection{Model Details}\label{sec:model}
 
-The agent's internal homeostatic variable \(h\) increases when the agent collects a resource pellet and decreases through the traversal cost \(c_t(\tau)\) of the currently overlapping tile \(\tau\) and a constant passive loss, \(l\). Time \(t\) denotes simulation ticks; during training, each tick advances the simulation clock by 0.05 seconds (Section~\ref{sec:ppo}). At each tick,
+The agent's internal homeostatic variable $h$ increases on resource collection and decreases through tile traversal and passive loss. Each decision advances the simulation by 0.05s in both training and evaluation. Over decision interval $t$,
 \begin{equation}\label{eq:h}
-  h_{t+1} = h_t + o - c_t(\tau) - l
+  h_{t+1}=h_t+o_t-c_t(\tau)-l_t,
 \end{equation}
-where \(o\) is the \(h\)-value of the pellet collected at time \(t\), or 0 if none. Most ticks have a small impact on \(h\). However, when the agent overlaps a resource pellet, \(h_{t+1} \gg h_t\).
+where $o_t$ is the resource impact collected in that interval, $c_t(\tau)$ is the applied traversal loss, and $l_t$ is the applied passive loss. The passive-loss parameter is applied every five decisions.
 
-The agent also receives a short-horizon prediction \(\hat{h}\) of \(h\): the value \(h\) would reach at time \(t+\kappa\) if the agent continued straight ahead, without steering, to the end of its central (0°) raycast. Let \(\mathbf{O}\) and \(\mathbf{T}\) be the sets of pellets and tiles intersected by the central raycast at time \(t\). Then
+The policy also receives estimates of potential homeostatic gain and loss along its central raycast. If $\mathbf{O}$ and $\mathbf{T}$ denote the objects intersected by that ray, the corresponding short-horizon state estimate can be expressed as
 \begin{equation}\label{eq:h-hat}
-  \hat{h}_{t+\kappa} = h_t + \sum_{o \in \mathbf{O}} o - \sum_{\tau \in \mathbf{T}} \hat{c}_t(\tau) - \kappa l
+  \hat h_{t+\kappa}=h_t+\sum_{o\in\mathbf{O}}o-\sum_{\tau\in\mathbf{T}}\hat c_t(\tau)-\hat L_{t,\kappa},
 \end{equation}
-where \(\hat{c}_t(\tau)\) is the predicted traversal cost of tile \(\tau\) (estimated as described below), \(\kappa\) is the number of ticks the agent would take to reach the end of the raycast at its current velocity, and \(\kappa l\) is the passive loss over that time.
+where $\hat c_t(\tau)$ estimates traversal loss and $\hat L_{t,\kappa}$ estimates passive loss over the projected path. These observations inform steering actions.
 
-Simulated resource pellet instances (\(o\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects. The environment uses a grid-width parameter of 25 Unreal units, grid spacing of 1000 Unreal units, and a pellet-spawn probability of 0.05 per candidate location. The base passive-loss parameter is 0.05. The environment's random number generator is seeded with 1 when the simulation starts. Ordinary pellet impacts are drawn from a uniform distribution on $[1,20]$. The agent's starting position and orientation are randomized. Evaluation draws $h_0$ uniformly from $[-15,15]$. 
+Simulated resource pellet instances (\(o\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects. The environment has a $50\times50$ tile grid with spacing of 1,000 Unreal units and a pellet-spawn probability of 0.05 per cell. Ordinary pellet impact values are drawn uniformly from $[5,35]$. The environment random stream uses different seeds for training and evaluation. Starting position and orientation are randomized from these. Evaluation samples $h_0$ once per trial from $[-15,15]$.
 
-To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) each tick during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). While the agent overlaps a tile \(\tau\), its traversal cost \(c_t(\tau)\) is \(10/(n+1)\) per simulation second, where \(n\) counts the agent's entries into the tile (not ticks spent on it). Traversal cost therefore decreases with visit count, making familiar paths less costly. This mechanism represents the persistence of activity-dependent environmental changes---a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent's homeostatic variable is above the setpoint, a decrement in \(h_t\) will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent's current state.
+To represent different degrees of canalization throughout the world, we created a grid of tiles that reduce \(h\) during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). Outside decanalization, the tile-impact calculation uses \(10/(n+1)\) multiplied by the stored frame delta, where \(n\) counts the agent's entries into the tile (not ticks spent on it). Traversal cost therefore decreases with visit count, making familiar paths less costly. This mechanism represents the persistence of activity-dependent environmental changes---a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency. It should be noted that cost to traversal is not equivalent to punishment. If the agent is above the setpoint, traversal loss can bring it closer to zero and increase subsequent HRL reward. More costly tiles can therefore bring greater reward, depending on the current state.
 
 % TODO (Jeff): Check with co-author what the seven ray values measure (code calls them "resource-ray proportions") and state it precisely.
-At each tick, the policy, a neural network trained with PPO (Section~\ref{sec:ppo}), receives 11 observations as its input layer: whether the agent currently overlaps a pellet; seven resource values, one from each raycast in its field of view (described below); the predicted homeostatic gain and loss along its path; and its current distance from the setpoint. These observations are derived from the agent's position, heading, and velocity, which the policy does not receive directly.
+At each tick, the policy, a neural network trained with PPO (Section~\ref{sec:ppo}), receives 11 observations as its input layer: whether the agent currently overlaps a pellet; seven resource values, one from each raycast in its field of view (described below); the predicted homeostatic gain and loss along its current path; and its current distance from the setpoint. These observations are derived from the agent's position, heading, and velocity.
 
 The observation code detects nearby pellets and tiles through raycasts and registers pellet overlap. The agent's perceptual field spans 90 degrees, using seven raycasts at $-45^\circ$, $-22.5^\circ$, $-11.7^\circ$, $0^\circ$, $11.7^\circ$, $22.5^\circ$, and $45^\circ$ relative to its heading. The horizon parameter is 10,000 Unreal units\footnote{An ``Unreal unit'' is the basic unit of measurement in the Unreal Engine but does not translate to real-world distances.} and the capsule-trace radius is 75 Unreal units.
 
@@ -194,7 +202,7 @@ The central 0° raycast is also used for predicting potential homeostatic impact
 Total loss due to traversal is estimated after each action as the total loss from tiles that intersected with the agent's raycast, assuming \(n+1\) (i.e., that traversal would be discounted upon agent overlap). Performing a perfect prediction of future tile traversal-caused losses is computationally expensive, but we approximate this by gathering the future cost of each tile that collided with the raycast at time \(t\), then calculating the total number of movement timesteps (and therefore homeostatic loss) the agent would take to bisect these tiles through the hypotenuse (dividing the cost of the first and last tile that collide with the raycast by \(2\), as an average of the distance that remains to be covered), factoring in current velocity.
 
 % IMPLEMENTED EDIT [07]: R1-06: Continuous steering without an explicit action clamp; runtime yaw multiplier 2.5 confirmed by the author.
-At each tick, the agent moves forward automatically and selects a single continuous steering command $a_t$, which turns it by $2.5a_t$ degrees (Appendix~\ref{app:implementation-settings}).
+At each tick, the agent moves forward automatically and selects a single continuous steering command $a_t$, which turns it by a scaled value (Appendix~\ref{app:implementation-settings}).
 
 The agent is unaware of anything beyond these values and the actions it takes over time (a floating-point steering command at each tick), so its learning is contingent on finding useful interactions between the action (\(a\)) it takes at time \(t\) and the resulting future state at \(\mathbf{S}_{t+1}|a_t\).
 
@@ -209,306 +217,194 @@ Homeostatic Reinforcement Learning (HRL) models an agent that manages a set of i
 \end{equation}
 \(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). Note that for the case of $m = n = 1$, which is assumed here, $D$ is a sum of absolute values between the setpoints and the actual physiological states. We focus on the case of a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\). Thus, in our model, drive reduces to the absolute value of $h$: \(D(h_t)=|h_t|\). A setpoint of 0 makes it easy to interpret $h$ values as either above or below the desired setpoint. If $h$ is food-satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger. HRL rewards actions that increase or reduce $h$ over time, and tends to produce these changes in Goldilocks fashion, taking actions that make $h$ larger when it is below \(h^*\) and taking actions that make $h$ smaller when it is above \(h^*\).
 
-Keramati and Gutkin (2014) define reward as reduction in drive: \(r_t = D(H_t) - D(H_{t+1})\). We implemented a variation of this drive-reduction formula using an HRL reward function. Rewards depend on whether \(|h|\) decreased from \(t\) to \(t+1\), i.e., whether \(h\) moved toward the setpoint, and on the resulting distance \(|h_{t+1}|\), giving two cases:
+Keramati and Gutkin (2014) define reward as reduction in drive, $r_t=D(H_t)-D(H_{t+1})$. Our executed HRL objective adapts this to a reward function that provides an ongoing reward for proximity to a single setpoint:
 \begin{equation}\label{eq:reward-hrl}
-  r^{HRL}_t =
-  \begin{cases}
-    \exp(-\alpha|h_{t+1}|),   & \text{if } |h_{t+1}| < |h_t| \\
-    1 - \exp(\beta|h_{t+1}|), & \text{otherwise}                 \\
-  \end{cases} \\
+  r_t^{HRL}=\frac{\Delta t\,R}{1+(h_t/S)^2},\qquad \Delta t=0.05,\ R=1,\ S=25.
 \end{equation}
-% SUGGESTED EDIT [08]: R1-07: Replace the following reward explanation; verify parameter values and the executed formula.
-% where \(\alpha\) and \(\beta\) are positive scaling parameters. This is a task-specific reward-shaping choice. When an action decreases \(|h|\), its positive reward increases toward 1 as the resulting state approaches the setpoint. Otherwise, the nonpositive term penalizes the remaining distance, with magnitude increasing with \(|h_t|\). Thus an unchanged nonzero distance also receives a penalty. Unlike the preceding drive-reduction expression, this rule depends on both whether distance decreased and the resulting distance; no policy-equivalence claim is made. Reaching \(h^*=0\) does not itself terminate the episode, and continuing movement and passive loss require ongoing regulation.
-% END SUGGESTED EDIT [08]
-where \(\alpha\) and \(\beta\) are scaling parameters. The agent is rewarded for decreasing \(|h|\) between timesteps, thereby approaching the \(h^*=0\) setpoint, and punished otherwise. It receives more reward the closer it gets to the setpoint, and more punishment the farther it is from it; \(\alpha\) and \(\beta\) scale these two effects separately.
+Here, $h_t$ is the live homeostatic state at the reward decision time $t$. Reward is maximal at zero and decreases smoothly with absolute deviation on either side. During training, failure at $|h_t|>100$ produces a terminal reward of $-1$. Evaluation uses the ongoing objective over a fixed horizon, without cutoff. $R$ and $S$ are scaling parameters that set the reward magnitude and the width of the reward curve. These were selected to improve agent performance, which was grounded effective minimization of mean setpoint distance. The timestep multiplier $\Delta t$ ensures that reward is proportional to the time spent in a given state.
 
 \subsection{Homeostatic Negative Feedback (NF)}\label{sec:nf}
 
-% SUGGESTED EDIT [10]: R1-09: Replace the following paragraph to distinguish the NF reward rule from the actions available.
-% We also trained agents with a homeostatic negative-feedback (NF) reward function that responds to deficits below \(h^*=0\). A heating thermostat illustrates the one-sided regulatory target: it responds to temperatures below its setting without actively correcting temperatures above it. In our simulation this analogy concerns the reward rule. The agent continues to move and select steering actions above the setpoint, even when those transitions produce zero immediate reward.
-% END SUGGESTED EDIT [10]
+The NF objective rewards reductions in absolute deviation only while the resulting state remains below the setpoint:
+\begin{equation}\label{eq:reward-nf}
+  r_t^{NF}=\begin{cases}
+    \max\bigl(|h_{t-1}|-|h_t|,0\bigr)\,R/S,& h_t<0,\\
+    0,& h_t\geq0,
+  \end{cases}
+  \qquad R=1,\ S=25.
+\end{equation}
+As with HRL, $h_t$ is the live homeostatic state at the reward decision time $t$ and $R$ and $S$ are scaling parameters. Reaching or crossing zero earns zero under the strict $h_t<0$ condition. Training failure ($|h_t|>100$) produces zero terminal reward. 
+
 We also trained and measured the performance of agents that used a negative feedback (NF) reward function, which only rewards or punishes changes in \(h_t\) when \(h_t\) is \emph{less} than the ideal setpoint \(h^*\). A heater thermostat provides a classic example: if the thermostat is set to $68^\circ\ \mathrm{F}$, the heater will only come on when the temperature falls below that. The system never turns on the air conditioner to deal with the case where the temperature is above that setting.
 
-We chose NF as a contrast to HRL because, unlike HRL, agents that rely on NF will not take anticipatory actions, as such actions are not rewarded. Without being able to anticipate changes to their environments as a consequence of their actions, NF agents should see significantly greater deviation from the ideal setpoint, \(h^*\). Keramati and Gutkin (2014) argued that HRL, unlike classical negative-feedback accounts, explains anticipatory responding, for example, learned cue-triggered responses that reduce deviations from a temperature setpoint. Decanalization might therefore have little to no effect on NF agent performance. The point of this comparison is contrastive rather than exhaustive: NF is included as a deliberately simpler control architecture that should not provide the possibility of sophisticated reward discounting. 
+We chose NF as a contrast to HRL because, unlike HRL, agents that rely on NF will not take anticipatory actions, as such actions are not rewarded. Without being able to anticipate changes to their environments as a consequence of their actions, NF agents should see significantly greater deviation from the ideal setpoint, \(h^*\). Keramati and Gutkin (2014) argued that HRL, unlike classical negative-feedback accounts, explains anticipatory responding, for example, learned cue-triggered responses that reduce deviations from a temperature setpoint. We predict that decanalization might therefore have little to no effect on NF agent performance. The point of this comparison is contrastive rather than exhaustive: NF is included as a deliberately simpler control architecture that should not provide the same sophisticated reward discounting. 
 
-NF was also chosen because it is a well-known and widely used reward function that neatly maps to homeostatic regulation. A non-homeostatic agent could be trained with a reward function that is not homeostatic, but the choice of homeostatic reward functions is better suited to the goals of this study---to explore the effects of decanalization on agents that are trained to regulate their internal states, which are homeostatic in reality.
+NF was also chosen because it is a well-known and widely used reward function that neatly maps to homeostatic regulation. A non-homeostatic agent could be trained with a reward function that is not homeostatic, but the choice of homeostatic reward functions is better suited to the goals of this study---to explore the effects of decanalization on agents that are trained to regulate their internal states, which are homeostatic in practice.
 
-The NF reward function rewards actions that increase \(h_t\) and punishes actions that decrease \(h_t\) when \(h_t < 0\). In contrast to HRL, when \(h_t > 0\), it provides neither punishment nor reward for actions. NF thus depends only on the distance below the setpoint, \(d(h_t)=\max(0,-h_t)\), and rewards reductions in this distance, as in the drive-reduction formula above:
-
-% TODO (Clingo): This two-case form replaces the original five-case equation (kept below for comparison). It matches cases 1--3; cases 4 and 5 had their signs flipped relative to the text. Confirm against the implementation.
-% \begin{equation}
-%   r^{NF}_t =
-%   \begin{cases}
-%     0,                       & \text{if } h_{t-1} >= 0 \text{ and } h_t >= 0                                   \\
-%     \beta \cdot h_t,         & \text{if } h_{t-1} >= 0 \text{ and } h_t < 0                                    \\
-%     \alpha|h_{t-1}|,         & \text{if } h_{t-1} < 0 \text{ and } h_t >= 0                                    \\
-%     \alpha(|h_t|-|h_{t-1}|), & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| >= 0 \\
-%     \beta(|h_t|-|h_{t-1}|),  & \text{if } h_{t-1} < 0 \text{ and } h_t < 0 \text{ and } |h_{t-1}| - |h_t| < 0
-%   \end{cases} \\
-% \end{equation}
-\begin{equation}\label{eq:reward-nf}
-  r^{NF}_t =
-  \begin{cases}
-    \alpha\left(d(h_t) - d(h_{t+1})\right), & \text{if } d(h_{t+1}) \le d(h_t) \\
-    \beta\left(d(h_t) - d(h_{t+1})\right),  & \text{otherwise}                 \\
-  \end{cases}
-\end{equation}
-where \(\alpha\) and \(\beta\) are scaling parameters. The first case rewards getting closer to the setpoint when below it. The second case penalizes moving farther below the setpoint, in proportion to how far the agent falls. No rewards are given when the agent remains above the setpoint.
-
-% IMPLEMENTED EDIT [12]: R1-05, R1-10 / A4: Recovered implementation is authoritative for numerical settings. Author-confirmed manual selection and one evaluated policy per reward family are documented below. Exact training-transition totals were not recovered.
 \subsection{Learning via Proximal Policy Optimization (PPO)}\label{sec:ppo}
 
-As noted above, neural-network policies were trained using model-free reinforcement learning to optimize their respective reward functions (HRL or NF). We used the PPO implementation \cite{schulman_proximal_2017} included with the PyTorch backend of Unreal Engine's Learning Agents interface. The network architecture, training hyperparameters, environment settings, and snapshot selection procedure are described in Appendix \ref{app:implementation-settings}.
+Neural-network policies were trained with proximal policy optimization \cite{schulman_proximal_2017} through Unreal Engine's Learning Agents interface and project-local Python adapters. HRL and NF use different hyperparameters, as NF required fine-tuning to effectively learn. These are reported in Appendix~\ref{app:implementation-settings}.
 
-Training used a fixed timestep of 0.05 simulation seconds (20 Hz).\footnote{The translation of simulation ``seconds'' to ticks was done using a fixed conversion factor.} The environment terminates episodes when $|h_t|>150$ or after the episode timer exceeds 100 simulation seconds. Independently, the trainer caps each agent's episode buffer at 1028 steps, corresponding to 51.4 simulation seconds at one step per fixed frame; this cap can end an episode before the Blueprint timer. The trainer distinguishes truncation, for which value estimates are bootstrapped, from termination. Agent resets occur at episode completion, training start, and trainer updates. The reset procedure clears tile traversal counts, randomizes the agent's starting position and orientation, and restores $h_0=-15$.\footnote{The value of \(-15\) was chosen because the HRL reward function was found to benefit from early punishment during training. With a negative starting value, each agent was immediately pressured to find pellets, making shorter training cycles possible, thus improving the learning rate. This is just a practical implementation consideration for training efficiency, however; HRL lets agents learn with different starting \(h_0\) values, although extreme positive or negative initial values greatly limit practical learning performance.}
+Training used a fixed timestep of 0.05s (20 Hz). Episodes terminate if $|h_t|>100$ and truncate when the episode timer exceeds 100s. Full resets restore $h_0=-15$, clear recurrent memory and custom reward/termination bookkeeping, reset perception and tile history, restore resources and their respawn timers, and clear stale movement input.
 
-For each reward function, we attempted to train at least 50 parameter variations, changing reward and punishment magnitudes, resource reward size, movement cost, and related settings through trial and error. We selected the candidate with the highest average training reward within each reward family and retained a snapshot near the point where improvement in that average reward appeared to level off. This was a visual plateau criterion, intended to limit overfitting, rather than a fixed numerical slope threshold. Selection was completed before the evaluation trials. The final comparison used one selected NF policy and one selected HRL policy.
+Encoder/policy/decoder triplets--post-training snapshots used for inference during trials--were chosen by relative performance across candidates. HRL selection favored mean $h$ closer to zero and highest mean reward; NF selection favored highest mean reward.
 
-% SUGGESTED EDIT [13]: R1-G1, R1-09, R1-11, R1-16: Proposed comparisons and implementation checks, not completed experiments.
-% Compare visit-dependent costs with fixed costs, conventional resource reward, and a one-sided rule with matched shaping.
-% Evaluate traversal-count multipliers 1x, 2x and 3x, remove individual intervention components, and vary retained history.
-% Use feasible benchmark policies and multiple training seeds/settings to distinguish entrenchment from optimization limitations.
-% Verify the NF equation signs, reward constants, actual versus perceived gains/costs, pellet relocation and phase resets.
-% Prespecify outcomes and sample-size/precision criteria before examining new simulation results.
-% END SUGGESTED EDIT [13]
 \subsection{Canalization and Decanalization}\label{sec:protocol}
 
-We represent different aspects of canalization in this simulation: canalization through learning to optimize internal setpoints with perception, and canalization through shaping the environment to improve predictability and reduce uncertainty. Agent training is itself a form of canalization, where the agent is shaped both by reinforcement and by the environment in which it learns. Although we do not presently explore actively updating agent behavior during or after decanalization, the training environment could be said to be partially constitutive of the agent, in the sense that the agent's canalization of the world alters the environment, such that it must use its formal learning to effectively learn novel behaviors in its new environment, without the agent having to alter itself internally. Of course, this form of environmental knowledge does not persist when the environment is altered.
+We represent canalization both through policy training and through the environmental history left by repeated traversal. Once training ends, the policy's weights remain fixed, but its behavior still depends on observations, recurrent state, and the paths made less costly by earlier visits. This simluation translates selected ideas about canalization in inference and learning \cite{juliani_deep_2024} into environmental alterations.
 
-During each trial, the agent first canalizes the tiles, carving out low-cost pathways. Decanalization then changes resource impacts, traversal and passive losses, the observations derived from those quantities, and the accumulation of tile-visit history. Ordinary resource and cost settings are restored for recanalization.
+Each selected policy was evaluated in 250 canalization--decanalization--recanalization (CDR) trials and 250 canalization--canalization--canalization (CCC) trials. Each phase comprised 2,000 decisions at 0.05s intervals, or 100s; phase boundaries occurred at 2000, 4000, and 6000 cumulative decisions. CCC retained ordinary resource and cost settings throughout. In CDR, the second phase set collected pellet impacts to the maximum of 35 and removed actual tile and passive losses, also changing observations derived from those quantities. This intervention was designed to simulate a temporary decanalization of the agent's perception and environmental history. The third phase restored ordinary resource and cost settings but halved the visit counts to represent the flattening of the behavioral landscape, returning the agent to a canalizing perceptual and environmental state. In both conditions, the value of $h$ was reset between phases.
 
-Decanalization is simulated by temporarily altering several environment parameters and the observations derived from them. Pellet impacts on collection are set to 20, and tile impacts and passive homeostatic loss are set to zero. The agent consequently perceives uniformly maximal pellet impacts and zero traversal cost. Each tile entry increases its visitation count by 3 rather than 1. At recanalization, tile counts are updated to $\lfloor n/2\rfloor$. These choices were motivated by the characterization of decanalization by Juliani et al. (2024). They form a composite intervention affecting actual homeostatic gains and losses as well as perception and traversal history; the study does not isolate the contribution of any single component. Policy weights remained fixed throughout evaluation.
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Condition & Phase 1: 0--100s & Phase 2: 100--200s & Phase 3: 200--300s\\
+\midrule
+CDR & Canalization & Decanalization & Recanalization\\
+CCC & Canalization & Canalization & Canalization\\
+\bottomrule
+\end{tabular}
+\caption{Evaluation phases for each selected policy. Phase boundaries restore the trial's initial $h$ but otherwise preserve traversal history, movement speed, and heading.}
+\label{tab:trial-phases}
+\end{table}
 
-Each condition comprised 50 evaluation trials, with three 6,000-tick phases and transitions at cumulative ticks 6,000, 12,000, and 18,000. The logged \texttt{duration: 3000} field is a fixed logging constant, so phase duration is defined by the executed trial graph. Evaluation ticks are not converted to seconds using the training timestep. The phases are named after the initials of their three phases. CDR for Canalization, Decanalization, Recanalization and CCC for Canalization, Canalization, Canalization.
-{\scriptsize
-\[
-  \begin{array}{|c||c|c|c|}
-    \hline
-     & \text{Phase 1}        & \text{Phase 2}   & \text{Phase 3}    \\
-     & \text{Pre-intervention} & \text{During intervention} & \text{Post-intervention} \\
-     & t\in[0,6000]          & t\in(6000,12000] & t\in(12000,18000] \\
-    \hline
-    \text{Decanalization condition (CDR)}
-     & \text{Canalization}
-     & \text{Decanalization}
-     & \text{Recanalization}                                        \\
-    \hline
-    \text{No-decanalization condition (CCC)}
-     & \text{Canalization}
-     & \text{Canalization}
-     & \text{Canalization}                                          \\
-    \hline
-  \end{array}
-\]
-}
+At a full trial reset, recurrent memory, reward caches, perception, tile history, resource availability and timers, and pending movement input are cleared. The initial $h$ sampled once for that trial is restored at both later phase boundaries. These within-trial boundaries retain recurrent memory, position and orientation, resource state and timers, and environmental history except for the specified changes during decanalization.
 
-Final NF and HRL trials shared the same manager and environment settings. Each condition loaded its corresponding trained encoder, policy, and decoder snapshots. The 50 trials per condition repeatedly evaluated the selected NF or HRL policy with different starting conditions; they were not separate training replicates. Model identifiers and the available training records are given in Appendix~\ref{app:implementation-settings}.
-
-Between phases, the agent's homeostatic state \(h\) is reset to a random value in \([-15,15]\). The evaluation phase and trial reset routines do not reset the registered agent's recurrent policy memory. Thus, resetting \(h\) does not reinitialize all internal state: recurrent memory carries across these resets within a running evaluation session, while policy weights remain fixed.
-
-Across matched comparisons between the decanalization (CDR) and no-decanalization (CCC) conditions, agents were evaluated on identical environment instances. Within each paired comparison, the same pellet arrangement and starting position and orientation were used in both conditions, with the phase-specific decanalization manipulation as the only intended difference. Each trial presented a different environment instance, drawn from the same generation procedure.
-
-% SUGGESTED EDIT [14]: R1-11: Replace the following paragraph to qualify intervention magnitude and metaplasticity claims.
-% The intervention translates selected features of Deep CANALs \cite{juliani_deep_2024} into environmental operations: reduced perceptual differentiation, reduced perceived costs, faster accumulation of traversal history, and partial reduction of that history afterward. The multiplier of three and the retained fraction of one half specify the tested configuration. Neither value is established here as biologically calibrated or optimal. In particular, accelerated traversal-count accumulation changes environmental memory while policy weights remain fixed. Component ablations and sensitivity analyses are necessary to determine whether the observed effects depend on these numerical choices.
-% END SUGGESTED EDIT [14]
-These choices were inspired by Juliani et al. (2024), who distinguish canalization in inference and learning. Our implementation translates these ideas into uniform resource impacts, removal of traversal and passive losses, faster accumulation of tile-visit history, and partial reduction of that history afterward. The threefold visit increment changes environmental memory; the policy's weights and optimization settings are unchanged during evaluation.
-% TODO: Un-LLM this^
-% SUGGESTED EDIT [15]: R1-12, R1-13 / A1-A3: Verify metrics and analysis before revising the results.
-% The local analysis computes abs(setpoint-avg), not timestep mean(abs(h)); confirm the Unreal aggregation.
-% Both available scripts use independent-sample t-tests, whereas the committed Methods describes paired tests.
-% Recover trained-agent identities, environment seeds and matching information before selecting the final analysis.
-% The HRL reward row mixes normalized mean differences with p/d values from raw rewards; NF uses separately normalized rewards.
-% Use a consistent reward scale and rebuild tables, loss signs and cross-agent differences from one verified pipeline.
-% Define setpoint-dev and whether gains-harvested counts distinct pellets; do not infer formulas from field names.
-% Report justified confidence intervals, handle multiplicity, and directly assess the reward-rule-by-intervention interaction.
-% Audit source: /Users/jingo/Work/PhD/Dissertation Project/decanalization/analysis.
-% The four main YAML files contain 50 records per condition; this does not establish 50 independent trained agents.
-% END SUGGESTED EDIT [15]
 \subsection{Statistical Analysis and Reproducibility}\label{sec:stats}
 
-% TODO (statistical tests): analysis/sandbox.py uses scipy.stats.ttest_ind and pooled-variance Cohen's d, whereas the text describes paired tests. Identify the analysis that generated the reported results and verify trial pairing; reconcile the methods, Results terminology, effect-size definition, and numerical results as needed.
-After selecting one policy per reward function using training reward, evaluation consisted of matched comparisons between decanalization (CDR) and no-decanalization (CCC) conditions. Reported summary measures were captured at the end of each phase. CDR-CCC condition differences were evaluated with paired two-sided $t$-tests, using matched environment instances as the unit of pairing. We report mean differences, $p$-values, and Cohen's $d$ as compact summaries of these paired condition comparisons.
+All 250 trials in each of the four selected complete batches were logged. The primary analysis reports CDR minus CCC mean differences, two-sided Welch tests, and unadjusted 95\% confidence intervals. Paired comparisons were performed across all trial IDs and restricted to exactly matching initial scenes. 
 
-All completed matched CDR-CCC trial pairs were retained for analysis, and no agents or trial pairs were excluded post hoc. The training termination threshold of $|h_t|>150$, the 1028-step episode cap, and the 100-second timer were training procedures rather than evaluation attrition. Outcome measures were extracted automatically from logged simulation variables, so no manual scoring or investigator blinding was involved. Because the study used simulated agents rather than biological subjects, sex, age, weight, and other subject demographic variables were not applicable. There were 50 evaluation trials per condition; this count is separate from the number of independently trained policies. No formal a priori power analysis was performed. The recovered trainer and environment seeds are reported in Appendix~\ref{app:implementation-settings}.
+Homeostatic summaries describe the recorded event/update history, including the seeded starting state. Reward is the sum of actual rewards across all 2,000 decisions in a phase. No formal a priori power analysis was performed.
 
 \subsection{Code and Data Availability}
 
-The Unreal Engine source code, evaluation data, and analysis materials used in this study are available in the project repository at \url{https://github.com/JClingo/decanalization}.
+The Unreal Engine source code, evaluation data, and analysis materials are available at \url{https://github.com/JClingo/decanalization}. The repository includes a README with instructions for reproducing the results. The code is released under the MIT license, and the data are released under the CC BY 4.0 license. 
 
-% Because several outcome measures are related and the present study is primarily a proof-of-principle computational analysis, the inferential statistics should be read as descriptive support for broader behavioral patterns rather than as the sole basis for the paper's claims. We therefore emphasize consistency across matched trials, effect sizes, and convergence across trials, and we do not treat any single threshold-crossing \(p\)-value as dispositive. All stochastic elements of training and evaluation were seed-controlled so that environment generation, starting positions and orientations, and condition matching could be reproduced from the recorded parameter settings.
 
 \section{Results}\label{model-results}
 
-We compared two different versions of the trained agents (HRL and NF) under two conditions: decanalization and no-decanalization. The four experimental conditions were therefore: HRL with decanalization, HRL without decanalization, NF with decanalization, and NF without decanalization. Condition comparisons were conducted on matched environment seeds so that differences between CDR and CCC reflect the decanalization manipulation rather than differences in pellet layout or starting position.
+Two HRL and two NF policies were evaluated under both CDR and CCC. Main tables report post-intervention condition differences.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.75\linewidth]{figures/modeling-process.jpg}
-  \caption{Evaluation design. Within each matched CDR-CCC comparison, agents were evaluated on the same pellet arrangement and starting position and orientation, with the phase-2 decanalization manipulation as the only intended difference.}
-\end{figure}
-
-We evaluated our models using the measures shown in Table \ref{tab:outcome-measures}. 
-
-% TODO (reward meaning): Inspect BP_GameMode's EstimateReward and its connection to the logged reward-total in the decanalization repository. Blueprint names/comments mention estimated reward and anticipated paths, but binary-string inspection does not establish whether the logged metric scores observed changes, anticipated outcomes, or a learned return estimate. Confirm before revising the definition, interpretation, and metric name throughout the paper.
-% TODO (reward aggregation/normalization): analysis/sandbox.py reads phase-level reward-total and min-max normalizes it separately within each dataset and reward function, pooling phases. Confirm that this script/version generated the reported tables and figures, verify how the Blueprint accumulates reward-total, and document the calculation. Check whether separately scaling CDR and CCC is appropriate for the intended comparison; the existing prose alternates between total and average reward.
-% TODO (h deviation): BP_GameMode contains GetStandardDev and LearningSetpointStdDev, and BFL_Common contains GetStandardDeviation, Variance, and Sqrt. These suggest standard deviation, but inspect the Blueprint calculation and logged setpoint-dev connection before specifying the statistic and units consistently throughout the paper.
+% TODO: Determine which items in Table 2 are needed (AI suggested this table, but it's a bit much. Also, the formatting is bad.)
 
 \begin{table}[H]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption{Outcome measures}
-  \label{tab:outcome-measures}
-  \begin{tabularx}{\linewidth}{@{}p{0.19\linewidth}XX@{}}
-    \toprule
-    \textbf{Measure} & \textbf{Definition} & \textbf{Interpretation} \\
-    \midrule
-    Mean distance & Mean absolute distance of \(h_t\) from \(h^*\) over timesteps within a phase. & Lower values indicate closer setpoint regulation, regardless of whether deviations are above or below the setpoint; a negative intervention--control difference favors intervention. \\
-    \(h\) deviation & Variability of \(h_t\) over timesteps within a phase. & Lower values indicate a more stable homeostatic state; a negative intervention--control difference favors intervention. \\
-    Reward prediction & Reward calculated during evaluation under the agent's reward function (HRL or NF), without updating its learned weights. & Scores behavior under the training reward rule during evaluation; higher values indicate better performance under that rule. \\
-    \(h\) lost & Homeostatic loss from tile traversal costs and baseline depletion during a phase. & \\
-    \(h\) gained & Total increase in \(h\) from resource pellets during a phase. & \\
-    Unique pellets & Number of distinct pellets consumed during a phase. & \\
-    \bottomrule
-  \end{tabularx}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}p{0.29\linewidth}X@{}}
+\toprule
+Measure & Definition\\
+\midrule
+Mean absolute $h$ (MAE) & $N^{-1}\sum_{j=1}^N |h_j|$, with setpoint zero.\\
+Population SD of $h$ & $\sqrt{N^{-1}\sum_{j=1}^N(h_j-\bar h)^2}$ within a phase.\\
+Total objective reward & Sum of actual reward-callback outputs over 2,000 decisions; scales differ between objectives.\\
+Fraction within $\pm5$ & Fraction of recorded homeostatic samples satisfying $|h_j|\leq5$.\\
+RMS $h$ & $\sqrt{N^{-1}\sum_{j=1}^N h_j^2}$.\\
+Signed mean $h$ & $\bar h=N^{-1}\sum_{j=1}^N h_j$; cancellation means this is not absolute error.\\
+Logged $h$ loss and gain & Phase-level loss accumulator and resource-impact sum from the evaluation logger.\\
+Harvested resource count & Logger's resource-count field (\texttt{gains-harvested}); distinct resource references in the recorded harvest map.\\
+\bottomrule
+\end{tabularx}
+\caption{Outcome definitions. Homeostatic summaries use $N$ event/update samples.}
+\label{tab:outcome-measures}
 \end{table}
 
-Control agents were observed over the corresponding periods without receiving the intervention. For within-architecture comparisons, \(\Delta M\) denotes the difference in condition means, calculated as intervention minus control within the same observation period. It is not a change from pre-intervention to post-intervention. The main tables report post-intervention differences; pre-intervention and during-intervention comparisons are reported in Appendix \ref{app:early-comparisons}.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/rerun-primary-results.png}
+\caption{Phase-level outcomes for 250 trials per condition. Points show means across trials and bars show unadjusted 95\% confidence intervals. CDR comprises canalization, decanalization, and recanalization; CCC remains canalized. Reward is accumulated once per decision and reward scales differ by objective. Homeostatic state is restored at phase boundaries, so connected phase means do not depict an uninterrupted state trajectory.}
+\label{fig:rerun-primary}
+\end{figure}
+% TODO: Discuss this figure--we'll have to see whether it makes sense to include the 'during' part.
 
 \subsection{HRL: decanalization vs. no-decanalization}
 
+The selected HRL policy had lower post-intervention mean absolute deviation under CDR than CCC (22.744 vs. 30.109; $\Delta M=-7.365$, 95\% CI $[-10.594,-4.135]$). Population SD was also lower ($\Delta M=-4.046$, 95\% CI $[-6.451,-1.641]$), while objective reward was higher ($\Delta M=5.094$, 95\% CI $[2.639,7.549]$). These comparisons remained below 0.05 after Holm adjustment. The fraction of samples within $\pm5$ rose from 0.139 to 0.153 (difference 0.015, calculated from unrounded means), and RMS deviation decreased. Together, these measures support improved regulation in the post-intervention phase for this policy (Table~\ref{model-analysis-hrl}).
+
 \begin{table}[htbp]
-  \centering
-  \small
-  \begin{tabular}{@{}lrrr@{}}
-    \toprule
-    \textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
-    \midrule
-    Mean distance & -42.77 & 0.0000*** & -1.0640 \\
-    \(h\) deviation & -1847.65 & 0.0000*** & -0.9336 \\
-    Reward prediction & 0.2400 & 0.0114* & 0.5160 \\
-    \(h\) lost & 39.77 & 0.0001*** & 0.8255 \\
-    \(h\) gained & -45.75 & 0.0020** & -0.6341 \\
-    Unique pellets & 0.84 & 0.6223 & 0.0988 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Post-intervention comparisons of dependent measures for HRL agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}.}
-  \label{model-analysis-hrl}
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Measure & CDR & CCC & $\Delta M$ & 95\% CI & Holm $p$\\
+\midrule
+Mean absolute $h$ & 22.744 & 30.109 & -7.365 & [-10.594, -4.135] & $0.00011$ \\
+Population SD of $h$ & 24.655 & 28.701 & -4.046 & [-6.451, -1.641] & 0.0061 \\
+Total objective reward & 65.666 & 60.572 & 5.094 & [2.639, 7.549] & $0.00043$ \\
+Fraction within $\pm5$ & 0.153 & 0.139 & 0.015 & [0.004, 0.025] & 0.0252 \\
+RMS $h$ & 28.765 & 37.888 & -9.122 & [-13.153, -5.092] & $0.00011$ \\
+Signed mean $h$ & 8.597 & 20.227 & -11.630 & [-15.613, -7.647] & $2.2\times10^{-7}$ \\
+Logged $h$ loss & -492.697 & -423.412 & -69.285 & [-72.566, -66.005] & $<10^{-12}$ \\
+Logged $h$ gain & 709.277 & 650.579 & 58.698 & [50.662, 66.733] & $<10^{-12}$ \\
+Harvested resource count & 27.940 & 26.216 & 1.724 & [1.134, 2.314] & $2.2\times10^{-7}$ \\
+\bottomrule
+\end{tabular}
+\caption{Post-intervention outcomes for the selected HRL policy ($n=250$ per condition). Means and differences use the recorded metric scales. $\Delta M$ is CDR minus CCC; confidence intervals are unadjusted. Holm $p$ values adjust the 18 comparisons across both policies within this phase.}
+\label{model-analysis-hrl}
 \end{table}
-
-Table \ref{model-analysis-hrl} compares the six post-intervention outcome measures between intervention and control conditions for HRL agents.
-
-The post-intervention comparison (recanalization vs. continued canalization) was vital because it directly compared agents that did or did not undergo a decanalization phase. The agent in the recanalization condition managed mean \(h\) more effectively. The $\Delta M$ of -42.77 indicates that agents that went through decanalization and recanalization maintained $h$ 42.77 units closer on average to the ideal setpoint than agents in the canalization only condition. Intervention agents also showed much lower setpoint deviation than the control agents, meaning that they constrained $h$ to a narrower range (smaller standard deviation over all timesteps in the phase). Additionally, intervention agents predicted more average reward than control agents. The intervention agents experienced more loss in \(h\) than control agents. This increased loss was accompanied by lower \(h\) gain through pellet consumption, while pellet diversity did not differ significantly.
-
-% SUGGESTED EDIT [16]: R1-13: Replace the following interpretation of pre-intervention differences.
-% The HRL conditions already differed before the intervention in the reported distance measure (\(p=0.0085\)) and total \(h\) gained (\(p=0.0186\)). These differences cannot be consequences of a phase-2 intervention. Matching an environment does not by itself establish identical trained policies, action sequences, or initial internal states. The imbalance therefore warrants examination of trial matching, stochastic variation, and the analysis pipeline. It cannot be identified as a false positive from these results alone, and it limits an unadjusted interpretation of phase-3 differences.
-% END SUGGESTED EDIT [16]
-Pre-intervention differences (Table \ref{model-analysis-hrl-early}) were minimal, as expected, since the phases were identical. There was a small but significant difference in mean \(h\) and total \(h\) gained. Because the environments were matched, we interpret this residual stochastic variation in learned behavior as a false positive. The other measures did not change significantly, as expected.
-
-During intervention, we observed significant differences in all measures tested (Table \ref{model-analysis-hrl-early}). The intervention directly changed pellet impacts, traversal and passive costs, their perceived values, and the accumulation of visit counts. The decanalized agent obtained 159.35 more \(h\) gain on average and consumed 10.52 more unique pellets on average. Because each collected pellet also supplied the maximal impact during intervention, the difference in \(h\) gain cannot be attributed solely to a change in collection behavior.
-
-These results suggest that decanalization can lead to spontaneous exploration of new pathways, resulting in improved homeostatic performance.
 
 \subsection{NF: decanalization vs. no-decanalization}
 
-The effects of decanalization on the NF-trained agent were much more mixed.
+The selected NF policy earned higher post-intervention objective reward under CDR (18.621 vs. 15.770; $\Delta M=2.851$, 95\% CI $[2.170,3.532]$). Its absolute-error contrast was uncertain (39.483 vs. 37.846; $\Delta M=1.637$, 95\% CI $[-22.806,26.080]$), as were its SD and RMS contrasts. The fraction of samples within $\pm5$ decreased from 0.133 to 0.114 ($\Delta M=-0.019$, Holm $p<0.001$). Thus, higher NF reward was not accompanied by clear improvement in absolute setpoint regulation (Table~\ref{model-analysis-nf}).
+
 \begin{table}[htbp]
-  \centering
-  \small
-  \begin{tabular}{@{}lrrr@{}}
-    \toprule
-    \textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
-    \midrule
-    Mean distance & -14.42 & 0.0976 & -0.3345 \\
-    \(h\) deviation & -595.34 & 0.1552 & -0.2865 \\
-    Reward prediction & -0.1702 & 0.0000*** & -1.1767 \\
-    \(h\) lost & 31.600 & 0.0003*** & 0.7499 \\
-    \(h\) gained & -2.636 & 0.8457 & -0.0390 \\
-    Unique pellets & 1.680 & 0.2666 & 0.2234 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Post-intervention comparisons of dependent measures for NF agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}.}
-  \label{model-analysis-nf}
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Measure & CDR & CCC & $\Delta M$ & 95\% CI & Holm $p$\\
+\midrule
+Mean absolute $h$ & 39.483 & 37.846 & 1.637 & [-22.806, 26.080] & 1.0000 \\
+Population SD of $h$ & 20.764 & 24.746 & -3.982 & [-15.579, 7.615] & 1.0000 \\
+Total objective reward & 18.621 & 15.770 & 2.851 & [2.170, 3.532] & $<10^{-12}$ \\
+Fraction within $\pm5$ & 0.114 & 0.133 & -0.019 & [-0.026, -0.013] & $2.2\times10^{-7}$ \\
+RMS $h$ & 44.279 & 45.649 & -1.369 & [-28.346, 25.607] & 1.0000 \\
+Signed mean $h$ & 3.375 & 6.946 & -3.571 & [-28.847, 21.705] & 1.0000 \\
+Logged $h$ loss & -483.560 & -412.138 & -71.422 & [-83.764, -59.081] & $<10^{-12}$ \\
+Logged $h$ gain & 689.383 & 638.381 & 51.002 & [22.324, 79.681] & 0.0037 \\
+Harvested resource count & 30.268 & 28.176 & 2.092 & [1.118, 3.066] & $0.00026$ \\
+\bottomrule
+\end{tabular}
+\caption{Post-intervention outcomes for the selected NF policy ($n=250$ per condition). Means and differences use the recorded metric scales. $\Delta M$ is CDR minus CCC; confidence intervals are unadjusted. Holm $p$ values adjust the 18 comparisons across both policies within this phase.}
+\label{model-analysis-nf}
 \end{table}
 
-Post-intervention performance of the intervention versus control agent was strikingly different from what we saw with HRL. Mean distance from the ideal setpoint was not significantly different across conditions, and most of the other results were flat across conditions, with the strong exceptions of reward prediction and \(h\) lost, where the decanalized agent saw a significantly lower reward prediction and a higher loss in \(h\). As with HRL, this could suggest that decanalization can result in pushing the agent into a less-explored region of the landscape. However, unlike HRL, NF-trained agents do not appear to benefit in the homeostatic sense discussed here. They were pushed outside their trajectories, but they did not spontaneously identify pathways that could improve their homeostatic performance by keeping their \(h\) value above zero, nor did they increase their rewards received.
+\subsection{Sensitivity and interpretation}
 
-% SUGGESTED EDIT [17]: R1-13: Replace the following interpretation of NF baseline differences.
-% The NF conditions also differed before intervention on the normalized reward measure. This should be investigated alongside the HRL baseline imbalance, rather than treated as evidence that the conditions were equivalent before intervention. Nonsignificant comparisons on the remaining measures do not establish equivalence or adequate statistical power.
-% END SUGGESTED EDIT [17]
-As with HRL, and as expected, pre-intervention performance was flat (Table \ref{model-analysis-nf-early}), even flatter with NF, possibly due to the simplicity of its reward function. We again observed a small unexpected pre-intervention difference, here in reward prediction, which we interpret as residual stochastic variation rather than as evidence of a systematic condition effect.
-
-During-intervention performance (Table \ref{model-analysis-nf-early}) was similar to that of HRL, with the decanalized agent showing increased deviation from the setpoint as it greedily pursued pellets. However, it did not increase pellet diversity; instead, it tended to exploit the same pellets. We also saw a modest effect on reward prediction. Given the opposite effect before intervention, this suggests that reward prediction may have been sensitive to randomness in agent actions and/or to poor reward prediction.
-
-\subsection{HRL vs. NF after decanalization}
-
-
-%\begin{table}[htbp]
-%  \centering
-%  \small
-%  \begin{tabular}{@{}lr@{}}
-%    \toprule
-%    \textbf{Measure} & \(\boldsymbol{\Delta M_{\mathrm{HRL}}-\Delta M_{\mathrm{NF}}}\) \\
-%    \midrule
-%    Mean distance & -28.35 \\
-%    \(h\) deviation & -1252.21 \\
-%    Reward prediction & 0.41 \\
-%    \(h\) lost & 8.17 \\
-%    \(h\) gained & -43.11 \\
-%    Unique pellets & -0.84 \\
-%    \bottomrule
-%  \end{tabular}
-%  \caption{Post-intervention differences in mean differences for HRL and NF agents. Negative values favor HRL for mean distance and \(h\) deviation; positive values favor HRL for reward prediction.}
-%  \label{model-analysis-hrl-vs-nf}
-%\end{table}
-
-Despite the shared series of trial configurations, only HRL-trained agents saw homeostatic performance benefits from decanalization.
-
-Comparing the effects of decanalization across both agents, HRL-trained agents showed lower \(h\)-mean deviation in the pre-intervention and post-intervention periods, staying closer to the ideal homeostatic setpoint, \(h_*\). During intervention, the HRL-trained agent also showed a stronger exploratory preference, pursuing and consuming a greater diversity of pellets.
-
-Focusing on the post-decanalization results, only HRL agents were able to improve their reward prediction. HRL-trained agents did this with fewer unique pellets and a lower per-pellet gain, suggesting that they zeroed in on pellets that could reduce their deviation from the setpoint, which was greatly reduced from the initial value. This was accompanied by a higher \(h\) loss rate, demonstrating that the HRL-trained agents pursued low-payout pellets in less-exploited regions. In contrast, NF-trained agents did not improve their performance, including worse performance in reward prediction, where they greedily and erratically consumed pellets. In summary, decanalization greatly improved the homeostatic performance of HRL-trained agents and did not improve the performance of NF-trained agents.
-
-% SUGGESTED EDIT [18]: R1-14: Align the Summary, Abstract and Conclusions with the corrected outcomes.
-% Distinguish acute effects implied by the manipulation from post-intervention changes.
-% Do not infer an absent NF effect from a nonsignificant test or a reward-rule interaction from separate significance thresholds.
-% END SUGGESTED EDIT [18]
-\subsection{Summary}
-
-The results of our experiments support the hypothesis that simulated decanalization can improve the performance of a homeostatic reinforcement learning agent. The HRL-trained agent showed significant improvements in mean setpoint distance, setpoint deviation, and reward prediction after undergoing decanalization, relative to the baseline control. The contrasting NF-trained agent did not show significant improvements in these measures.
-
-We observed that decanalization had a strong effect on agent behavior, especially for the HRL-trained agent. Temporary changes in perception were sufficient to nudge the agent toward regions and rewards that reduced both the average setpoint distance and the deviation of setpoint distance. Performance with the NF-trained agent was more mixed. Although the NF agent stayed above the setpoint during recanalization, it showed increased \(h\) variation. It also greedily consumed pellets to the point that it received fewer rewards, since its \(h_t\) rose well above \(h_*\) and could no longer be rewarded. For NF, decanalization increased exploitation. For HRL, the effect was markedly different: post-decanalization, the agent decreased its mean ideal setpoint distance, reduced pellet consumption, increased homeostatic loss and decreased homeostatic gain, and decreased variation in \(h\).
+Paired analyses across all trial IDs, restrictions to exactly matching initial scenes (230 HRL pairs and 226 NF pairs), and comparisons of changes from baseline retained the main pattern: improved HRL absolute regulation, higher NF reward with uncertain NF absolute-error change, and a reduced near-setpoint fraction for NF. Complete contrasts are supplied with the analysis.
 
 \section{Discussion}\label{model-discussion}
 
+Using HRL and NF objectives with PPO, we simulated a canalization--decanalization--recanalization process in which repeated traversal makes familiar pathways less costly. This represents a limited form of niche construction: activity changes the environment, which then shapes subsequent behavior \cite{pio-lopez_scale-free_2025, lyon_reframing_2021}. Efficient routes can support stable behavior while also reducing the incentive to explore alternatives.
 
-% Integrate: In this paper, we test the hypothesis that a homeostatic reinforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization. Alongside this and as a simple contrast, we examine the effects of the same decanalization intervention on an agent trained with a negative-feedback reward function. The negative-feedback agent is expected to be less sensitive to the decanalization intervention, and therefore less able to improve its post-intervention performance.
+For the selected HRL policy, a temporary environmental perturbation was followed by lower absolute homeostatic deviation and dispersion, higher objective reward, and a greater fraction of recorded samples near the setpoint. These findings show that altered environmental conditions and retained within-trial state can change subsequent behavior, without additional weight optimization.
 
+The selected NF policy also earned more reward after the intervention, but its absolute-error contrast was uncertain and its near-setpoint fraction decreased. The distinction follows from the objectives: HRL rewards sustained proximity to zero, whereas NF rewards reductions in absolute deviation while the resulting state remains negative. Repeated deficit reduction can earn NF reward without maintaining a narrow range around zero. Both policies can anticipate through discounted PPO, but NF required more training and fine-tuning and its behavior was less consistent in practice, translating to an agent that does not respond to decanalization in terms of improved homeostatic regulation. 
 
-Using HRL and NF as comparative reward functions and PPO for optimization, we simulated a canalization-decanalization-recanalization process. Agents were trained to either minimize distance from the setpoint (HRL) or to return to the setpoint once they fell below it (NF). To further entrench agents and simulate learning under stress and uncertainty, we made repeated traversal less costly. This loosely aligns with the notion of ‘niche construction’, which suggests that organisms actively modify their environments to be better suited to their short and long-term needs \cite{pio-lopez_scale-free_2025}. In doing so, organisms can effectively cultivate sources of homeostatic gain and loss \cite{lyon_reframing_2021}. However, such behavior can also be interpreted as ecological canalization, which, alongside physiological canalization, leads to long-term exploitation that may or may not be optimal for overall flourishing, even though it might increase predictability and therefore decrease short-term risk.
+The intervention changed collected resource impacts, actual costs, observations, and retained traversal history together. It was therefore more than a perceptual shift. 
+% TODO: Verify the below claim bc I'm not sure this is true. I was under the impression that visit counts were not affected by decanalization... 
 
-Discounted repeated movement, passive costs, and homeostatic rewards canalized agent behavior. Although these behaviors were locally effective at maximizing rewards and minimizing punishments, they were far from the best behaviors available in the world, both for reward maximization and for setpoint-distance minimization. By introducing a temporary state of decanalization---altering perception and canalization rate---agents entered a more exploratory mode, escaping hypercanalized regions of the world and forming new paths in less-canalized regions. Thus, decanalization assisted agents in pursuing their homeostatic goals, shifting agents from exploitative to exploratory behavior without requiring explicit relearning. This improved performance was measured by distance from a homeostatic setpoint.
+In the primary runs, visit counts did not increase during decanalization and were halved at recanalization. 
+% TODO: Un-AI
+The archived experiments with higher counted visits further illustrate sensitivity to environmental history, but their legacy scores cannot quantify changes in the corrected primary objective. Component ablations would be needed to determine which part of the intervention accounts for the primary effect.
 
-% SUGGESTED EDIT [19]: R1-16: Replace the following optimal-policy claim with a qualified benchmark discussion.
-% The reported post-intervention comparison is consistent with improved HRL performance on the selected summaries, but it does not establish a globally optimal policy. Repeatedly harvesting a low-payout pellet along a low-cost loop is a candidate strategy, whose performance depends on route length, turning limits, passive loss, and resource availability. Zero average displacement and zero within-phase variability are different objectives, and neither is established here as an attainable joint optimum. An explicit benchmark and training-parameter comparisons are needed to distinguish environmental constraints, optimization limitations, and effects of the learned policy.
-% END SUGGESTED EDIT [19]
-The introduction of a decanalization phase improved HRL performance but did not directly improve NF performance. Neither agent performed optimally at the strategic level, although HRL came closer. In this environment, the optimal strategy for minimizing \(h\) mean and setpoint deviation would have been to identify one or a few minimal-payout pellets through exploration and then repeatedly harvest them by looping around those regions. The HRL agent captured part of this strategy, correctly identifying that low-payout pellets reduce \(h\) variance. It did not fully optimize its behavior, however, since \(h\) mean and variance were not close to the theoretical ideal of zero. Even so, they were significantly closer to zero than in the control condition and in either NF condition. We therefore interpret the model as showing that decanalization can help under some reward structures, not that it is uniformly beneficial across control architectures.
+Cybernetic accounts of personality place goal regulation at the center of individual differences \cite{safron_deyoung_2021}, and recent work develops this program using active inference \cite{safron_sheikhbahaee_2024}. Our model makes a narrower distinction between stable behavior under ordinary conditions and behavior after a temporary perturbation.
 
-NF-trained agents did not show significant performance improvements with decanalization. With NF, the agent is rewarded only when \(h < 0\) and it consumes a pellet, so over-consumption carries only an imperceptible opportunity cost. This differs from HRL, where actions that increase distance from \(h_*\) are directly punished. NF is therefore easier to satisfy and does not directly punish poor performance. Although decanalization was implemented in the same way for both reward functions, its immediate effect on NF agents was extreme exploitation: they indiscriminately pursued nearby rewards. HRL-trained agents, by contrast, shifted from local canalization to broader exploration. When decanalization ended, they benefited from the new world knowledge and pathways they had acquired, allowing them to more effectively balance positive and negative homeostatic forces.
+Safron et al. propose that psychedelic effects can involve both strengthened and relaxed beliefs, depending on representational level, dose, and context \cite{safron_albus_2025}. Uniform resource impacts and removal of costs loosely represent reduced differentiation, but the model does not implement a hierarchy of beliefs or strengthened beliefs. Accelerated environmental counting in the archived experiments is not a measurement of neural metaplasticity.
+% TODO: Fix above paragraph -- AI got way too uppity about the metaphor
 
-Cybernetic accounts of personality place goal regulation at the center of individual differences \cite{safron_deyoung_2021}. Recent work develops this modeling program using active inference \cite{safron_sheikhbahaee_2024}. These accounts motivate distinguishing an inflexible maladaptive pattern from a well-configured stable adaptation. In the present work, we do not represent a general psychopathology factor and thus do not determine whether rigidity or insufficient adaptive stability best explains their structure. However, the ecological manipulation employed in our model is compatible with accounts of maladaptive regulation.
+Temporary perturbation also has a loose parallel with simulated annealing, where destabilization can facilitate movement between regions of a solution space \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}. This contribution is a concrete example of improved subsequent regulation in one selected policy, with a contrasting case in which reward gains and regulation diverge. This provides a constrained computational starting point for studying behavioral transformation \cite{clingoDisintegrationReintegrationModelPsychological2025}.
+% TODO: Fix this too
 
-Our model also samples only a limited part of the space of altered cognition. Safron et al. propose that psychedelic effects can involve both strengthened and relaxed beliefs, depending on the level of the representational hierarchy, dose, and context \cite{safron_albus_2025}. Equalizing perceived pellet values and eliminating the perception of traversal costs and passive energy costs loosely represented relaxed beliefs. There was no equivalent representation of strengthened beliefs. Moreover, to fully represent belief changes, the model would need to alter the weights of the agent's policy network, which was not done here.
-
-This model is a proof-of-principle demonstration of how decanalization can improve performance in a homeostatic reinforcement learning agent. Even though the model is simple, it is complex enough to demonstrate that decanalization as represented by perceptual shifts can improve performance. The model also demonstrates that the effects of decanalization depend on the structure of the agent's reward function and on how destabilization is implemented. In that sense, rather than merely redescribing canalization in metaphorical terms, this model helps to demonstrate that simply altering perception for some time period can produce spontaneous improvements in performance. This loosely parallels what has been demonstrated by \emph{simulated annealing} \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}. With simulated annealing, a system is temporarily destabilized to allow it to escape local minima and explore the solution space more broadly. Similarly, in our model, decanalization temporarily destabilizes the agent's perception and behavior, allowing it to explore new strategies that can lead to improved performance. Safron and DeYoung (2021) suggest that destabilization can lead to positive/adaptive canalization, depending on the underlying personality and psychopathological profile. By holding agent policies constant and varying the environment in strategic ways, our model provides a concrete demonstration of how this process can occur in a controlled environment. This effectively connects the emerging research and ongoing debate on the behavioral function of altered states---in this limited example, it appears that temporary shifts into altered (or emph{pivotal}, per Brouer and Carhart-Harris (2021)) states can facilitate behavioral transformation \cite{clingoDisintegrationReintegrationModelPsychological2025}.
 
 \subsection{Limitations}
 
-The evaluation compared one selected policy per reward function. Repeated trials characterize these policies across environments but do not measure variation across independently trained policies. The exploratory parameter search also changed reward magnitudes and movement costs, so differences in average training reward could reflect those settings, as well as differences in behavior. Snapshot selection at a visually identified reward plateau was intended to limit overfitting; the plateau alone does not demonstrate that overfitting was prevented. The reported comparison therefore concerns the two selected policies, rather than the distribution of policies that NF and HRL training might produce. Moreover, the primary comparison was not between NF and HRL, but between decanalization and no-decanalization within each reward function. The NF-HRL comparison is therefore secondary and should be interpreted more as contrastive than declarative.
+The evaluation compared one selected policy per objective. Repeated trials characterize these policies across starting conditions but do not measure variation across independent training seeds. Snapshot selection used relative performance, and the NF policy used a different effective PPO configuration. Cross-policy differences therefore cannot isolate the effect of reward design from training settings. The principal comparisons remain CDR versus CCC within each selected policy.
 
-% SUGGESTED EDIT [21]: R1-16: Replace the following paragraph; benchmark and training sensitivity remain to be established.
-% We have not quantified the performance gap to an optimal controller. The hand-designed reward functions, limited observations, constant forward movement, and turning constraint all shape the policies that can be learned. Without a benchmark and a training-parameter sensitivity analysis, the present results cannot identify which of these factors accounts for residual setpoint error. A controlled comparison should include a feasible low-payout-loop policy and policies trained without visit-dependent movement costs.
-% END SUGGESTED EDIT [21]
-With decanalization, HRL-trained agents improved their performance, although the resulting improvements fell short of their consistently identifying the optimal solution for the environment. The optimal solution was to explore the space until you found the pellet with the lowest \(h\), then canalize and exploit that pellet with cyclical loops through tiles that perfectly offset the net positive effect of the pellet on \(h_t\). Agents that discovered this solution would have effectively minimized setpoint distance and received exponentially greater rewards as a result. Some agents discovered this solution, but most did not. Those that did not identified a sub-optimal solution that they then exploited.
+At phase boundaries, $h$ was restored to the trial's initial value while other within-trial state was retained. Post-intervention performance is consequently not uninterrupted physiological recovery. This decision was made intentionally, as the perception of homeostatic deviation during decanalization was meant to be perceptual and not actual; radical deviations from the setpoint would be dangerous to the agent. However, this came at the cost of our being unable to measure the effect of decanalization on uninterrupted homeostatic recovery. 
+
+Some initial-scene captures also differed in timer, visibility, or overlap state despite identical baseline outcomes and matching RNG and memory records. The paired sensitivity analyses address the recorded differences; the general significance or direction of results do not meaningfully change, even with after compensating for these factors.
+
+Homeostatic summaries are based on event/update samples rather than uniformly timed samples. The near-setpoint fraction should therefore not be interpreted as the fraction of elapsed time near zero. Related outcome measures share information, confidence intervals are unadjusted, and no optimal controller or independent training-seed benchmark was evaluated; the residual gap to attainable performance is therefore unknown.
 
 Another limitation is that this model only explores the management of a single setpoint. Living organisms coordinate around the management of many different setpoints, presenting constant pressure for organisms to effectively juggle these, allowing some to stray far from the ideal range so that others may be satisfied. In such cases, the far-from-ideal setpoint(s) exert disproportionate influence on the organism's behavior (e.g., when we are extremely thirsty, all we can think about is quenching that thirst).
 
@@ -518,16 +414,18 @@ Like most scientific models, ours is a simplified approximation of a much more c
 
 A fuller treatment of between-trial differences, robustness to hyperparameter choices, and ablations of the composite decanalization manipulation would strengthen future work.
 
-An area that we did not address---but could support long-term behavioral shifts---is intentional reintegration. Psychedelic-assisted therapy is characterized by acute alterations in experience, but this is followed by active reintegration practices \cite{bathje_psychedelic_2022}. The discrete canalization \(\rightarrow\) decanalization \(\rightarrow\) recanalization phases did not directly interact with agent behavior, but real-world patients are interacted with before, during, and after the process. The effects of behavioral nudging on decanalized and recanalized agents could help to demonstrate the dynamics more clearly. We also could have explored repeated cycles between canalization and decanalization both during training and during trials.
+An area that we did not address---but could support long-term behavioral shifts---is intentional reintegration driven by top-down processes. Psychedelic-assisted therapy is characterized by acute alterations in experience, but this is followed by active reintegration practices \cite{bathje_psychedelic_2022}. The present intervention changes environmental conditions without a separate reintegration procedure, whereas real-world patients receive support before, during, and after treatment. The effects of behavioral nudging on decanalized and recanalized agents could help to demonstrate the dynamics more clearly. We also could have explored repeated cycles between canalization and decanalization both during training and during trials.
 
 
 \section{Conclusions}
 
 Research on canalization and decanalization often moves between clinical, dynamical, and mechanistic vocabularies without making the underlying computational assumptions explicit. Our aim was to formalize one such set of assumptions in a simple model that could be inspected, perturbed, and compared across conditions.
 
-Within this constrained setting, temporary decanalization improved subsequent performance for HRL agents but not for NF agents. This suggests that the consequences of decanalization depend on the structure of the agent's reward function and on how destabilization is implemented. In that sense, the model helps distinguish among candidate computational mechanisms, rather than merely redescribing canalization in metaphorical terms.
+Within this constrained setting, temporary decanalization improved subsequent absolute setpoint regulation for the selected HRL policy. The selected NF policy earned more objective reward without a clear improvement in absolute error and with fewer recorded samples near zero.
 
 The model remains deliberately simple: it uses a single homeostatic variable, a hand-constructed environment, and a composite decanalization intervention. It should therefore be read as a proof-of-principle computational framework, not as a direct model of psychiatric disorders or psychedelic therapy. Its value is in making assumptions explicit, generating testable distinctions, and providing a starting point for more realistic multi-variable, multi-agent, and empirically constrained models of canalization and behavioral change.
+
+%TODO: Add a proactive set of claims. All this hedging is cool and all but we need to be careful not to overdo it. The model is simple, but it is also a concrete demonstration of a mechanism that can be explored in future work.
 
 \section*{Declarations}
 
@@ -541,7 +439,7 @@ The authors declare that there is no conflict of interest.
 
 \subsection*{Use of AI}
 
-The authors used AI agents to assist with generating and improving analysis code. AI was not used to generate or draft the scientific content of the manuscript nor with designing or running experiments. During revision, AI assisted with organizing reviewer requests, checking analysis, identifying literature, and reviewing manuscript text.
+The authors used AI agents to assist with analysis code, implementation audits, and manuscript revision. During revision, AI assisted with checking the source repository and evaluation records, regenerating tables, integrating revised methods and results, and providing suggestions for manuscript text.
 
 \subsection*{Ethics approval}
 Not applicable. This study used only simulated agents in a simulated environment; no human participants, nonhuman animals, biological specimens, or clinical records were involved.
@@ -923,53 +821,8 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
 
   \input{appendix}
 
-  \subsection{Pre-intervention and during-intervention comparisons}\label{app:early-comparisons}
 
-  Tables \ref{model-analysis-hrl-early} and \ref{model-analysis-nf-early} report intervention--control differences before and during the intervention for HRL and NF agents, respectively. 
 
-\begin{table}[H]
-  \centering
-  \small
-  \setlength{\tabcolsep}{2pt}
-  \begin{tabular}{@{}lrrrrrr@{}}
-    \toprule
-     & \multicolumn{3}{c}{\textbf{Pre-intervention}} & \multicolumn{3}{c}{\textbf{During intervention}} \\
-    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
-\textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
-    \midrule
-    Mean distance & -19.60 & 0.0085** & -0.5368 & 262.57 & 0.0000*** & 6.2267 \\
-    \(h\) deviation & -742.02 & 0.0529 & -0.3918 & 12927.72 & 0.0000*** & 6.2509 \\
-    Reward prediction & 0.2121 & 0.9623 & 0.0095 & -0.0728 & 0.0000*** & -5.3206 \\
-    \(h\) lost & -6.97 & 0.3262 & 0.1973 & 122.64 & --- & --- \\
-    \(h\) gained & -34.43 & 0.0186* & -0.4788 & 159.35 & 0.0000*** & 2.0970 \\
-    Unique pellets & -1.30 & 0.3868 & -0.1739 & 10.52 & 0.0000*** & 1.3959 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Pre-intervention and during-intervention comparisons of dependent measures for HRL agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}. The \(p\)- and \(d\)-values for \(h\) lost during intervention are omitted because the absence of perceived \(h\) loss was part of the decanalization manipulation.}
-  \label{model-analysis-hrl-early}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \small
-  \setlength{\tabcolsep}{2pt}
-  \begin{tabular}{@{}lrrrrrr@{}}
-    \toprule
-     & \multicolumn{3}{c}{\textbf{Pre-intervention}} & \multicolumn{3}{c}{\textbf{During intervention}} \\
-    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
-\textbf{Measure} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} & \textbf{\(\Delta M\)} & \textbf{\(p\)} & \textbf{\(d\)} \\
-    \midrule
-    Mean distance & -3.562 & 0.3687 & -0.1806 & 241.13 & 0.0000*** & 4.9965 \\
-    \(h\) deviation & -92.90 & 0.6706 & -0.0853 & 11629.61 & 0.0000*** & 5.0702 \\
-    Reward prediction & -0.1404 & 0.0000*** & -1.0695 & 0.131 & 0.0063** & 0.5587 \\
-    \(h\) lost & 3.302 & 0.3779 & 0.1772 & 163.4 & --- & --- \\
-    \(h\) gained & -12.93 & 0.2211 & -0.2463 & 100.65 & 0.0000*** & 1.2309 \\
-    Unique pellets & 1.020 & 0.3370 & 0.1930 & 1.500 & 0.2260 & 0.2437 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Pre-intervention and during-intervention comparisons of dependent measures for NF agents. \(\Delta M\) denotes the mean difference (intervention minus control) within the same observation period; \(d\) denotes Cohen\textquotesingle s \(d\). Measures and their interpretation are given in Table \ref{tab:outcome-measures}. The \(p\)- and \(d\)-values for \(h\) lost during intervention are omitted because the absence of perceived \(h\) loss was part of the decanalization manipulation.}
-  \label{model-analysis-nf-early}
-\end{table}
 
 
 \end{appendices}

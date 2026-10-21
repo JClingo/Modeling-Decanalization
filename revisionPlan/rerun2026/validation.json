@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "conditions": [
+    {
+      "run": "HRL-CDR-6C224C4240886C1BAEB3EF9EFCE7DE7E",
+      "family": "HRL",
+      "order": "cdr",
+      "trials": 250,
+      "phases": 750,
+      "loaded_snapshot_family": "HRL",
+      "snapshot_update": 10000,
+      "tile_rate_factors": [
+        0.0
+      ],
+      "sample_count_min": 2402,
+      "sample_count_max": 2447,
+      "yaml_sha256": "efb44a933ceab1f3123ab0f027b883664387366826235f2d142724a2a43997ad",
+      "metrics_sha256": "dcda4c9c08ccf13bcdd7c8b2b3dbe8f921a82f98a33be4277f942e368b3f18d9",
+      "all_scene_hashes_verified": true
+    },
+    {
+      "run": "HRL-CCC-A137EBFA4FB0CC61D2F3D6AD20FCE332",
+      "family": "HRL",
+      "order": "ccc",
+      "trials": 250,
+      "phases": 750,
+      "loaded_snapshot_family": "HRL",
+      "snapshot_update": 10000,
+      "tile_rate_factors": [
+        0.0
+      ],
+      "sample_count_min": 2425,
+      "sample_count_max": 2447,
+      "yaml_sha256": "e5ac1bb36f026f6dd6bd62a04d203a99bd0cf5650ca9242e74215d30934c563d",
+      "metrics_sha256": "583d091057be49b1eaf77972d6c5a9b729e56734ee55b3d59e447f4680ea8e82",
+      "all_scene_hashes_verified": true
+    },
+    {
+      "run": "NF-CDR-530BED5D490A8446975BA4A62D01FF8B",
+      "family": "NF",
+      "order": "cdr",
+      "trials": 250,
+      "phases": 750,
+      "loaded_snapshot_family": "NF",
+      "snapshot_update": 5000,
+      "tile_rate_factors": [
+        0.0
+      ],
+      "sample_count_min": 2401,
+      "sample_count_max": 2731,
+      "yaml_sha256": "92538e39ef45c576fcbd3274746d995ae6c629cd9d5499f61f26d7bfc9a46c63",
+      "metrics_sha256": "2c95636d38128268fea55f7439addbd86066e75eaadb317bf98153bd6d96fe42",
+      "all_scene_hashes_verified": true
+    },
+    {
+      "run": "NF-CCC-231FD6EC46C680D5E2717183D5BA294C",
+      "family": "NF",
+      "order": "ccc",
+      "trials": 250,
+      "phases": 750,
+      "loaded_snapshot_family": "NF",
+      "snapshot_update": 5000,
+      "tile_rate_factors": [
+        0.0
+      ],
+      "sample_count_min": 2401,
+      "sample_count_max": 2495,
+      "yaml_sha256": "97692dba11c5c9b75f91a4df46fd25a4ceb0fd7b699d3ce86a50d9392c1c0bb1",
+      "metrics_sha256": "6a69e0aa2ed0ad91cf719e06ff48c702a6aa826c8ffd746e38f18dff4ee1bce2",
+      "all_scene_hashes_verified": true
+    }
+  ],
+  "baseline_alignment": [
+    {
+      "family": "HRL",
+      "n": 250,
+      "exact_scene_matches": 230,
+      "other_start_matches": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      },
+      "scene_difference_fields": {
+        "respawn_timer_active": 21,
+        "respawn_timer_remaining": 21,
+        "OverlapCount": 6,
+        "hidden": 6
+      },
+      "identical_baseline_rows": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      }
+    },
+    {
+      "family": "NF",
+      "n": 250,
+      "exact_scene_matches": 226,
+      "other_start_matches": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      },
+      "scene_difference_fields": {
+        "OverlapCount": 9,
+        "hidden": 9,
+        "respawn_timer_active": 24,
+        "respawn_timer_remaining": 24
+      },
+      "identical_baseline_rows": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      }
+    }
+  ]
+}
