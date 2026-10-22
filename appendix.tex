@@ -1,22 +1,10 @@
 % !TEX root = ./modelingDecanalization.tex
-\subsection{Additional comparisons}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\linewidth]{figures/rerun-regulation-results.png}
-\caption{Additional trial outcomes. Points show means and bars represent unadjusted 95\% confidence intervals. Signed mean $h$, RMS deviation, and the fraction of recorded samples within $\pm5$ describe event/update history.}
-\label{fig:rerun-regulation}
-\end{figure}
-
-\subsection{Network, training, and evaluation settings}\label{app:implementation-settings}
-
-Agents have access to one continuous steering action, 64 recurrent memory values, and 11 observations, including pellet collision, seven resource-ray values, predicted gain and loss, and the current homeostatic state. Position, heading, and velocity are embedded into these features. The configured hidden layer width is 128 and used ELU activation.
-
-The action schema contains one scalar, \texttt{Look}. Evaluation uses zero action noise and selects the decoded mean. The connected steering path has no explicit action clamp, which is scaled at runtime by 2.5 degrees per unit action. Each decision gathers observations, evaluates the recurrent policy, decodes its action, and applies steering. Recurrent state evolves within each trial while weights remain fixed, and is cleared at full trial resets.
+All settings and analyses are available in the repository, but the following table summarizes them for convenience. The effective PPO settings for the selected policies are shown in Table~\ref{tab:ppo-settings}. The shared environment and evaluation settings are shown in Table~\ref{tab:environment-settings}.
 
 \subsubsection{Effective PPO settings}
 
-The common backend uses AdamW with AMSGrad and separate policy and critic optimizers. For NF, the the configured common settings in Python are overwritten. The critic updates the shared encoder under HRL and NF detaches encoder features for critic updates.
+
 
 \begin{table}[htbp]
 \centering\small
@@ -49,11 +37,9 @@ Selected checkpoint label & 10000 & 5000\\
 \label{tab:ppo-settings}
 \end{table}
 
-NF skips actor updates when the sampled approximate KL exceeds 0.015 and discards its initial legacy-variance rollout before publishing its bounded decoder. The common adapter preserves terminal-transition credit and episode boundaries, bootstraps time-limit truncations, centers advantages, corrects negative-advantage clipping, and rejects nonfinite losses, gradients, and weights. These implementation changes are made to compensate for NF's poor and inconsistent learning performance. 
-
-Training terminates at $|h|>100$ (terminal reward $-1$ for HRL, zero for NF) and time-truncates when its timer exceeds 100s. Training and evaluation both use a fixed timestep of 0.05s. The HRL snapshot was selected based on the mean distance of $h$ from zero, which also favored the snapshot with the highest mean reward. The NF snapshot was selected based on the highest mean reward for NF.
-
 \subsubsection{Environment and evaluation settings}
+
+The following table environment and evaluation settings are shared across all trials and conditions:
 
 \begin{table}[htbp]
 \centering\small
@@ -81,11 +67,3 @@ Inference action noise & 0\\
 \caption{Shared evaluation environment and primary intervention.}
 \label{tab:environment-settings}
 \end{table}
-
-During decanalization, actual collected pellet impact is 35 and tile and passive losses are zero. At recanalization, ordinary settings return and traversal counts are halved and floored. The environment stream progresses across resets. Full trial resets clear memory and environmental and reward bookkeeping; phase boundaries restore the trial's initial $h$ while retaining memory and scene history except for the intervention.
-
-\subsubsection{Selected run provenance}
-
-The accepted runs are \texttt{HRL-CDR-6C224C4240886C1BAEB3EF9EFCE7DE7E}, \texttt{HRL-CCC-A137EBFA4FB0CC61D2F3D6AD20FCE332}, \texttt{NF-CDR-530BED5D490A8446975BA4A62D01FF8B}, and \texttt{NF-CCC-231FD6EC46C680D5E2717183D5BA294C}. Loaded encoder, policy, and decoder hashes match HRL checkpoint 10000 or NF checkpoint 5000, respectively. Each complete batch contains 250 trials and 750 phase records. Sidecars capture runtime parameters, logger and asset hashes, phase-start scenes, RNG state, and recurrent memory. These records support identity and consistency checks without constituting a complete engine replay.
-
-The interrupted NF-CDR batch and two earlier NF-labeled batches with HRL weights are excluded at batch selection, as documented in the analysis package. No trials are removed from the four accepted batches. Homeostatic history lengths range from 2,401 to 2,731 samples per phase across accepted runs; these samples are distinct from the 2,000 reward decisions. Population SD uses division by the within-phase sample count, unlike the root-summed-square quantity in legacy archives.
