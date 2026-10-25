@@ -41,11 +41,11 @@ Page 7: I am not clear on the action space available to the agent. Presumably th
 
 Page 10: It is claimed that it is a normal practice to provide “disproportionally more reward the closer it gets to the target.” There should be a citation for this claim and the claim itself should be better justified or made more specific, because as currently stated it is not true. In cases where reaching the target induces a terminal state, a pathological policy in which the agent gets ever closer but never reaches the target can be learned.
 
-> TODO. Clingo thinks this was done and will check. * (AFAIK I don't think it's been done)
+> Done. This statement has been removed.
     
 Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement. Please provide a citation for this claim.
 
-> Done. Went ahead and removed comment, as it's not pertinent.
+> Done. Removed this comment as well.
 
 Page 11: The choice of the Negative Feedback agent as a baseline should be better justified. For example, why shouldn’t a Positive Feedback agent also be used as a baseline? Or why shouldn’t a more traditional non-homeostatic RL agent be included as a baseline? Currently it feels quite arbitrary, and given the nature of the reward function, it is not surprising that this agent suffers the pathologies that it does.
 
@@ -135,9 +135,14 @@ OTHER NOTES
 
 
 - If the agent’s homeostatic variable is above the setpoint, a decrement in ht will be rewarded under HRL. Therefore, traversing more costly (less traversed) tiles can be more rewarding than less costly (more traversed) tiles, depending on the agent’s current state.
-    - This is worht our discussion briefly 
+    - This is worth our discussion briefly 
 
 - For Discussion section?
     - Future ablation study to see which predicted features matter
+    - Importance of perceived affordances
+
+- For the new appendix and pre and during, we should explain _why_ we included it
 
 - Final AI check be done against the simulation code, once the paper and code are more finalized
+
+- Will have to say we rewrote the sim
