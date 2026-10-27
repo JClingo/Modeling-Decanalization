@@ -1,0 +1,7 @@
+{
+  "stage": "comparison",
+  "updated_at": "2026-10-27T18:27:39.560980+00:00",
+  "experiment": "reward",
+  "condition": "absolute",
+  "training_seed": 3401
+}

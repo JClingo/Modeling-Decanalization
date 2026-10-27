@@ -1,0 +1,106 @@
+{
+  "validation": "Unreal 5.5 isolated standalone world, initial state and two LearningAgentsManager.reset_all_agents calls",
+  "training_runs_identical": true,
+  "trial_runs_identical": true,
+  "training_trial_transforms_differ": true,
+  "training_trial_pellets_differ": true,
+  "training_trial_counts_differ": true,
+  "unique_pellet_positions": true,
+  "successive_reset_positions_differ": true,
+  "training": {
+    "seed": 1,
+    "run_inference": false,
+    "states": [
+      {
+        "position": [
+          30540.388671875,
+          30435.0546875,
+          50.000011920928955
+        ],
+        "yaw": 77.31781005859372,
+        "pellet_count": 111,
+        "pellet_sha256": "5f2b5e4ffbfad3e302e11ed740d2ca0ba7056b853c17ad19f2dc033c38e9c23d",
+        "pellet_value_range": [
+          5.023932456970215,
+          34.79344940185547
+        ]
+      },
+      {
+        "position": [
+          39280.90234375,
+          28223.15625,
+          50.000011920928955
+        ],
+        "yaw": 79.96956634521484,
+        "pellet_count": 111,
+        "pellet_sha256": "741c94582c8d3e6cf3b04567ace93b0cbb82412e71fb6bec076ec7f222d423fb",
+        "pellet_value_range": [
+          5.3257951736450195,
+          34.96000671386719
+        ]
+      },
+      {
+        "position": [
+          5683.90478515625,
+          25985.5390625,
+          50.000011920928955
+        ],
+        "yaw": 20.337774276733406,
+        "pellet_count": 111,
+        "pellet_sha256": "0e79fe249ef1863419482a75a6c34aa9862dfb6de0dd26daad643ae02a245cff",
+        "pellet_value_range": [
+          5.335293769836426,
+          34.401248931884766
+        ]
+      }
+    ]
+  },
+  "trial": {
+    "seed": 10001,
+    "run_inference": true,
+    "states": [
+      {
+        "position": [
+          45425.625,
+          6217.5693359375,
+          50.000011920928955
+        ],
+        "yaw": 174.75985717773438,
+        "pellet_count": 127,
+        "pellet_sha256": "711c28d4d1d167195e98c57091a2de03e667604a49cf407aba3f9829d4d33b94",
+        "pellet_value_range": [
+          5.119147300720215,
+          34.704097747802734
+        ]
+      },
+      {
+        "position": [
+          17678.33203125,
+          42189.15625,
+          50.000011920928955
+        ],
+        "yaw": 32.61814880371095,
+        "pellet_count": 127,
+        "pellet_sha256": "d9832d25138823d26ccfa691ae305c2c39eef040467537466398be0d37e6d15c",
+        "pellet_value_range": [
+          5.36238431930542,
+          34.986209869384766
+        ]
+      },
+      {
+        "position": [
+          39283.77734375,
+          10030.4306640625,
+          50.000011920928955
+        ],
+        "yaw": 174.56991577148438,
+        "pellet_count": 127,
+        "pellet_sha256": "c0f13ef0c7a36fdb4ea694b0665d81c5841610cecf6df0f12dcde6a94e42a777",
+        "pellet_value_range": [
+          5.186034202575684,
+          34.98994064331055
+        ]
+      }
+    ]
+  }
+}

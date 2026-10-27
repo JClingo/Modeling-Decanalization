@@ -1,0 +1,21 @@
+{
+  "dependencies": [
+    {
+      "path": "source_manifest.json",
+      "sha256": "f8b9564d909b0e2e97f81bdea820cdc8aa4a47647227d259937ac2d600862e02"
+    },
+    {
+      "path": "plasticity/source_manifest.json",
+      "sha256": "7894dcae81c8a25dfdc214e50d7ef0afaed48851c1b51a6111a524eda90d74b4"
+    },
+    {
+      "path": "PRIMARY_DESIGN_CLARIFICATION.md",
+      "sha256": "42bbe82a412712b91612dd70a53d2b53321ac1e06d80ee12ade77c5dbe9e4ae5"
+    },
+    {
+      "path": "primary-factor1/selection.json",
+      "sha256": "70e6db0bc5def9d952a6bf8d91184170171590fa42ebe7c251e1954983427053"
+    }
+  ],
+  "raw_data": "Hashes and native provenance validated through the two source manifests"
+}

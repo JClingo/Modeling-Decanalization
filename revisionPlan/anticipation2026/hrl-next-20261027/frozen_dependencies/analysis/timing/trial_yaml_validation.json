@@ -1,0 +1,230 @@
+{
+  "passed": true,
+  "engine": "Unreal Engine 5.5",
+  "cases": [
+    {
+      "reward_function": "HRL",
+      "sequence_order": "cdr",
+      "completed_trials": 3,
+      "phases_per_trial": 3,
+      "every_checkpoint_parses": true,
+      "run_path_stable": true,
+      "logging_disabled_preserves_file": true,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "phase_counts": [
+            0
+          ]
+        },
+        {
+          "checkpoint": "trial0_tick6000",
+          "phase_counts": [
+            1
+          ]
+        },
+        {
+          "checkpoint": "trial0_tick12000",
+          "phase_counts": [
+            2
+          ]
+        },
+        {
+          "checkpoint": "trial0_tick18000",
+          "phase_counts": [
+            3
+          ]
+        },
+        {
+          "checkpoint": "trial0_reset",
+          "phase_counts": [
+            3,
+            0
+          ]
+        },
+        {
+          "checkpoint": "trial1_tick6000",
+          "phase_counts": [
+            3,
+            1
+          ]
+        },
+        {
+          "checkpoint": "trial1_tick12000",
+          "phase_counts": [
+            3,
+            2
+          ]
+        },
+        {
+          "checkpoint": "trial1_tick18000",
+          "phase_counts": [
+            3,
+            3
+          ]
+        },
+        {
+          "checkpoint": "trial1_reset",
+          "phase_counts": [
+            3,
+            3,
+            0
+          ]
+        },
+        {
+          "checkpoint": "trial2_tick6000",
+          "phase_counts": [
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "checkpoint": "trial2_tick12000",
+          "phase_counts": [
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "checkpoint": "trial2_tick18000",
+          "phase_counts": [
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "checkpoint": "trial2_reset",
+          "phase_counts": [
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "checkpoint": "final",
+          "phase_counts": [
+            3,
+            3,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "reward_function": "NF",
+      "sequence_order": "ccc",
+      "completed_trials": 3,
+      "phases_per_trial": 3,
+      "every_checkpoint_parses": true,
+      "run_path_stable": true,
+      "logging_disabled_preserves_file": true,
+      "checkpoints": [
+        {
+          "checkpoint": "initial",
+          "phase_counts": [
+            0
+          ]
+        },
+        {
+          "checkpoint": "trial0_tick6000",
+          "phase_counts": [
+            1
+          ]
+        },
+        {
+          "checkpoint": "trial0_tick12000",
+          "phase_counts": [
+            2
+          ]
+        },
+        {
+          "checkpoint": "trial0_tick18000",
+          "phase_counts": [
+            3
+          ]
+        },
+        {
+          "checkpoint": "trial0_reset",
+          "phase_counts": [
+            3,
+            0
+          ]
+        },
+        {
+          "checkpoint": "trial1_tick6000",
+          "phase_counts": [
+            3,
+            1
+          ]
+        },
+        {
+          "checkpoint": "trial1_tick12000",
+          "phase_counts": [
+            3,
+            2
+          ]
+        },
+        {
+          "checkpoint": "trial1_tick18000",
+          "phase_counts": [
+            3,
+            3
+          ]
+        },
+        {
+          "checkpoint": "trial1_reset",
+          "phase_counts": [
+            3,
+            3,
+            0
+          ]
+        },
+        {
+          "checkpoint": "trial2_tick6000",
+          "phase_counts": [
+            3,
+            3,
+            1
+          ]
+        },
+        {
+          "checkpoint": "trial2_tick12000",
+          "phase_counts": [
+            3,
+            3,
+            2
+          ]
+        },
+        {
+          "checkpoint": "trial2_tick18000",
+          "phase_counts": [
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "checkpoint": "trial2_reset",
+          "phase_counts": [
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "checkpoint": "final",
+          "phase_counts": [
+            3,
+            3,
+            3
+          ]
+        }
+      ]
+    }
+  ],
+  "trial_mode_off_creates_no_files": true,
+  "notes": "Boundary tests invoke real RunTrial callbacks at phase/end counters; no optimizer or long training run. Existing metric definitions and duration units preserved."
+}

@@ -1,0 +1,236 @@
+{
+  "passed": true,
+  "error": null,
+  "cases": [
+    {
+      "mode": false,
+      "previous": -40,
+      "current": -20,
+      "reward": 0.800000011920929,
+      "observed_homeostasis": -19.999998807907104,
+      "expected": 0.8,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.8
+    },
+    {
+      "mode": false,
+      "previous": -20,
+      "current": -40,
+      "reward": 0.0,
+      "observed_homeostasis": -39.99999761581421,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": -10,
+      "current": 30,
+      "reward": 0.0,
+      "observed_homeostasis": 29.999998211860657,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": -10,
+      "current": 0,
+      "reward": 0.0,
+      "observed_homeostasis": 0.0,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": 5,
+      "current": -2,
+      "reward": 0.11999999731779099,
+      "observed_homeostasis": -1.9999999552965164,
+      "expected": 0.12,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.12
+    },
+    {
+      "mode": false,
+      "previous": 50,
+      "current": 50,
+      "reward": 0.0,
+      "observed_homeostasis": 50.0,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": -50,
+      "current": -50,
+      "reward": 0.0,
+      "observed_homeostasis": -50.0,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": 0,
+      "current": 0,
+      "reward": 0.0,
+      "observed_homeostasis": 0.0,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": 0,
+      "current": 101,
+      "reward": 0.0,
+      "observed_homeostasis": 100.99999904632568,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": true,
+      "total": 0.0
+    },
+    {
+      "mode": false,
+      "previous": 0,
+      "current": -101,
+      "reward": 0.0,
+      "observed_homeostasis": -100.99999904632568,
+      "expected": 0.0,
+      "steps": 1,
+      "terminated": true,
+      "total": 0.0
+    },
+    {
+      "mode": true,
+      "previous": -40,
+      "current": -20,
+      "reward": 0.030487805604934692,
+      "observed_homeostasis": -19.999998807907104,
+      "expected": 0.03048780533235247,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.030487805332352475
+    },
+    {
+      "mode": true,
+      "previous": -20,
+      "current": -40,
+      "reward": 0.014044944196939468,
+      "observed_homeostasis": -39.99999761581421,
+      "expected": 0.01404494402951069,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.01404494402951069
+    },
+    {
+      "mode": true,
+      "previous": -10,
+      "current": 30,
+      "reward": 0.02049180306494236,
+      "observed_homeostasis": 29.999998211860657,
+      "expected": 0.020491803584040187,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.02049180358404019
+    },
+    {
+      "mode": true,
+      "previous": -10,
+      "current": 0,
+      "reward": 0.05000000074505806,
+      "observed_homeostasis": 0.0,
+      "expected": 0.05000000074505806,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.05000000074505806
+    },
+    {
+      "mode": true,
+      "previous": 5,
+      "current": -2,
+      "reward": 0.04968203604221344,
+      "observed_homeostasis": -1.9999999552965164,
+      "expected": 0.04968203571647264,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.04968203571647264
+    },
+    {
+      "mode": true,
+      "previous": 50,
+      "current": 50,
+      "reward": 0.009999999776482582,
+      "observed_homeostasis": 50.0,
+      "expected": 0.010000000149011612,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.010000000149011612
+    },
+    {
+      "mode": true,
+      "previous": -50,
+      "current": -50,
+      "reward": 0.009999999776482582,
+      "observed_homeostasis": -50.0,
+      "expected": 0.010000000149011612,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.010000000149011612
+    },
+    {
+      "mode": true,
+      "previous": 0,
+      "current": 0,
+      "reward": 0.05000000074505806,
+      "observed_homeostasis": 0.0,
+      "expected": 0.05000000074505806,
+      "steps": 1,
+      "terminated": false,
+      "total": 0.05000000074505806
+    },
+    {
+      "mode": true,
+      "previous": 0,
+      "current": 101,
+      "reward": -1.0,
+      "observed_homeostasis": 100.99999904632568,
+      "expected": -1.0,
+      "steps": 1,
+      "terminated": true,
+      "total": -1.0
+    },
+    {
+      "mode": true,
+      "previous": 0,
+      "current": -101,
+      "reward": -1.0,
+      "observed_homeostasis": -100.99999904632568,
+      "expected": -1.0,
+      "steps": 1,
+      "terminated": true,
+      "total": -1.0
+    },
+    {
+      "phase_switch": "HRL -> NF",
+      "reward": 0.4000000059604645,
+      "expected": 0.4
+    },
+    {
+      "trial_reset": "cache invalidated",
+      "reward": 0.20000000298023224,
+      "expected": 0.2
+    }
+  ]
+}

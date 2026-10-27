@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "archive_sha256": "64eae037ce902bc12cba22767f05b500e99faa6c68d66b80e7ae5011345ef428",
+  "check": "Fresh extraction of archived paper inputs; all eight regenerated CSVs are byte-identical.",
+  "tables": {
+    "trial_metrics.csv": "705a0eb51ec4f79a14eb4bc4db373ae1994b7b941eb12bea7347230a7ae66fa7",
+    "phase_summary.csv": "4d6b7e774680a40e1659766eef6fa008a176cbe0e96ad478d7d0699f739ab72a",
+    "interactions.csv": "d320dd33f19ae2570d0880d94125d4cd57affa3a59e58153cbd336e0ea5563cc",
+    "simple_rate_effects.csv": "f89f66045d2b61f3c0587209b3bd1b81db8ee2c9478d9563c83dcdbe2eb2cecf",
+    "ccc_contrasts.csv": "8ff47afc175fdc00033912e611cfdfa24e800da89cd7af5b2c6cce1cf474beb1",
+    "sensitivity.csv": "4444aa800a9c52d647c2425b4600f4381906e599b980abf36a09e9173a58efb9",
+    "baseline_matched_ids.csv": "042a11ab387e3e8fec81b52428d1232779a7e34c061ffc02a0805e1df887a2ce",
+    "landscape_counts.csv": "5d153eef1edb3ac83bf0f6e9a26439851c8999010802b70a8273e6ae7efb8951"
+  },
+  "reproduction_output": "PASS: factorial tables ready; all 1,750 trials retained."
+}

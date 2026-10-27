@@ -1,0 +1,74 @@
+{
+  "purpose": "Screen world-history and proposed HRL learning settings; no automatic policy promotion",
+  "raw_root": "/private/tmp/hrl-canalization-study-20261026",
+  "conditions": [
+    "baseline",
+    "canalization-300s",
+    "canalization-persistent",
+    "canalization-aware"
+  ],
+  "training_seeds": [
+    1201,
+    2301,
+    3401
+  ],
+  "training_environment_seeds": [
+    101201,
+    102301,
+    103401
+  ],
+  "maximum_transitions_per_policy": 2000000,
+  "minimum_gathers": 100,
+  "checkpoint_every_gathers": 20,
+  "plateau_patience": 4,
+  "selection_trials": 8,
+  "selection_environment_seed": 41001,
+  "comparison_trials": 16,
+  "comparison_environment_seed": 51001,
+  "reserved_final_environment_seed": 61001,
+  "metric": "Uniform decision-time MAE of h in continuous 300-second CCC evaluation",
+  "secondary": [
+    "fraction of time within \u00b15",
+    "extreme-error fraction",
+    "route reuse",
+    "tile wear",
+    "actual training episode duration"
+  ],
+  "replication_unit": "independently trained policy; evaluation trials are repeated measurements",
+  "count_increment": 1,
+  "causal_limit": "No noncanalizing environment control in this screen; cannot isolate the causal benefit of traversal-dependent costs",
+  "source_sha256": {
+    "metrics.py": "b069aa8d25f2a0b714e5bb59ecd84ce68db6c0ac4816485b866b194f60321913",
+    "run.py": "b59ec6e9073a8a3d2b8f413bf45437197ca566cc16c0ce1ff610feb0107b8af4",
+    "configure.py": "94d1f59276fa67c0018afc9b04090f118390f8a516b9f2c6689a6c065e6fa59c",
+    "runtime.py": "41fc2b6122b08be0bdaa5774028bf270220a572ea7575cfd26ae87aa2c40f4fd",
+    "validate_native.py": "a2b5e670224b598c730010143ddba37e1488b9c6548331ffe40908d3d16d35ee",
+    "test_learning.py": "3a2cc6465f79e83626bd49fe981e321a972bf1fd0b4acd4762e6775c6ebfd3b4",
+    "patch_manager.py": "eb61a633899e932a0c12edfb1a076199aca98a6ce866c3fa5c6d63851a799904",
+    "native_trainer.py": "53e158bd3e886eeafa590de040d8c464196a5dda26d7e11007752db8efd8cb9b",
+    "patch_asset.py": "a1cd1bce1d528b9f6d7a7b45c123fe7a12aa9a508f6a8fd4be72a8a1daa3091d",
+    "install.py": "8b0e554e03b73374566a8b7901ca6e18196476c8729f734787468e3ab0d5a573",
+    "trainer.py": "65fbb38ec587d9edad2cbfc4867bd53b039134fdf015eb3786a9b064dec3cf43",
+    "landscape.py": "412963eddfca1f3cc21368736b321ff0901440f8ead0367bc33f03ada2f537ee",
+    "profiles.py": "a37105b788b358427659c6fe5a5f824063f4d42adb2a77820c5bdb95ce1dad7e",
+    "add_variables.py": "cb9a6b3974dc885b152cecab4dd9a29ab6a93e53f968eac197c5a5fb50fd96bd",
+    "study.py": "92d77ad37483bd9dec024e92bf921ee067623a621ebe3ec06dcc0bdf18b3903b",
+    "trial_metrics_extension.py": "ef036f7cf497e4afba78239b1ac0712bbe5525ed59dc421d0571c48e4cfffc02"
+  },
+  "created_at": "2026-10-26T20:08:29.232169+00:00",
+  "execution": {
+    "workflows": 3,
+    "main_dispatcher": "baseline then canalization-300s; reuses completed later conditions",
+    "parallel_conditions": [
+      "canalization-persistent",
+      "canalization-aware"
+    ],
+    "socket_ports": [
+      48640,
+      48660,
+      48680
+    ],
+    "note": "Native process concurrency only; training and evaluation contracts remain fixed"
+  },
+  "evaluation_boundary_details": "h and tile counts carry between the three reporting windows; the inherited native phase-start forward-velocity initialization remains common to every evaluated policy. These are continuous-homeostasis CCC evaluations, not a claim of uninterrupted kinematics."
+}

@@ -1,0 +1,508 @@
+{
+  "checkpoint": "Training_ppo_sharedmemory_2026-10-14_16-11-38_*_6000.bin",
+  "fixed_step_seconds": 0.05,
+  "initial_scene_identical_across_processes": true,
+  "matched_scene_restoration_verified": true,
+  "comparisons": [
+    {
+      "left": "legacy_matched",
+      "right": "current_matched",
+      "samples_compared": 218,
+      "samples_different": 0,
+      "first_difference": null,
+      "different_samples_by_field": {
+        "position": 0,
+        "yaw": 0,
+        "control_yaw": 0,
+        "velocity": 0,
+        "memory": 0,
+        "homeostatic_state": 0,
+        "max_speed": 0,
+        "max_walk_speed": 0,
+        "anticipated_gain": 0,
+        "anticipated_loss": 0,
+        "observation": 0,
+        "action": 0,
+        "passive_loss": 0,
+        "decanalized": 0,
+        "tick": 0
+      },
+      "phase_metrics_identical": true
+    },
+    {
+      "left": "legacy_startup",
+      "right": "current_matched_velocity",
+      "samples_compared": 218,
+      "samples_different": 13,
+      "first_difference": {
+        "tick": 6001,
+        "fields": [
+          "yaw",
+          "control_yaw",
+          "memory",
+          "homeostatic_state",
+          "observation",
+          "action"
+        ]
+      },
+      "different_samples_by_field": {
+        "position": 12,
+        "yaw": 13,
+        "control_yaw": 13,
+        "velocity": 12,
+        "memory": 13,
+        "homeostatic_state": 13,
+        "max_speed": 0,
+        "max_walk_speed": 0,
+        "anticipated_gain": 6,
+        "anticipated_loss": 12,
+        "observation": 13,
+        "action": 13,
+        "passive_loss": 0,
+        "decanalized": 0,
+        "tick": 0
+      },
+      "phase_metrics_identical": false
+    },
+    {
+      "left": "legacy_startup",
+      "right": "current_matched_velocity_stream",
+      "samples_compared": 218,
+      "samples_different": 0,
+      "first_difference": null,
+      "different_samples_by_field": {
+        "position": 0,
+        "yaw": 0,
+        "control_yaw": 0,
+        "velocity": 0,
+        "memory": 0,
+        "homeostatic_state": 0,
+        "max_speed": 0,
+        "max_walk_speed": 0,
+        "anticipated_gain": 0,
+        "anticipated_loss": 0,
+        "observation": 0,
+        "action": 0,
+        "passive_loss": 0,
+        "decanalized": 0,
+        "tick": 0
+      },
+      "phase_metrics_identical": true
+    },
+    {
+      "left": "legacy_startup",
+      "right": "current_legacy_startup",
+      "samples_compared": 218,
+      "samples_different": 0,
+      "first_difference": null,
+      "different_samples_by_field": {
+        "position": 0,
+        "yaw": 0,
+        "control_yaw": 0,
+        "velocity": 0,
+        "memory": 0,
+        "homeostatic_state": 0,
+        "max_speed": 0,
+        "max_walk_speed": 0,
+        "anticipated_gain": 0,
+        "anticipated_loss": 0,
+        "observation": 0,
+        "action": 0,
+        "passive_loss": 0,
+        "decanalized": 0,
+        "tick": 0
+      },
+      "phase_metrics_identical": true
+    },
+    {
+      "left": "legacy_startup",
+      "right": "current_startup",
+      "samples_compared": 218,
+      "samples_different": 218,
+      "first_difference": {
+        "tick": 1,
+        "fields": [
+          "position",
+          "yaw",
+          "control_yaw",
+          "memory",
+          "homeostatic_state",
+          "anticipated_loss",
+          "observation",
+          "action"
+        ]
+      },
+      "different_samples_by_field": {
+        "position": 218,
+        "yaw": 218,
+        "control_yaw": 218,
+        "velocity": 217,
+        "memory": 218,
+        "homeostatic_state": 218,
+        "max_speed": 0,
+        "max_walk_speed": 0,
+        "anticipated_gain": 163,
+        "anticipated_loss": 198,
+        "observation": 218,
+        "action": 218,
+        "passive_loss": 0,
+        "decanalized": 0,
+        "tick": 0
+      },
+      "phase_metrics_identical": false
+    }
+  ],
+  "runs": {
+    "legacy_startup": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 91174.1560422532,
+          "absolute_sum": 94646.57298179693,
+          "square_sum": 2311599.10048292,
+          "within_5": 1129,
+          "distance": 3130978.674130674,
+          "mean": 15.198225711327423,
+          "mae": 15.777058340022824,
+          "rms": 19.62984305940599,
+          "fraction_within_5": 0.18819803300550092
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 6202176.263898708,
+          "absolute_sum": 6202176.263898708,
+          "square_sum": 8156650407.817663,
+          "within_5": 0,
+          "distance": 1947330.7567377163,
+          "mean": 1033.696043983118,
+          "mae": 1033.696043983118,
+          "rms": 1165.951000100895,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 622065.0369378546,
+          "absolute_sum": 631644.70900734,
+          "square_sum": 120797360.56966196,
+          "within_5": 549,
+          "distance": 3695631.154136523,
+          "mean": 103.60843386706439,
+          "mae": 105.20398217977015,
+          "rms": 141.84315436888772,
+          "fraction_within_5": 0.09143904063957362
+        }
+      },
+      "wall_seconds": 65.64000000001397,
+      "initial_velocity": [
+        1000.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    },
+    "legacy_matched": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 434128.37386944756,
+          "absolute_sum": 437156.0816700701,
+          "square_sum": 72277993.68714705,
+          "within_5": 741,
+          "distance": 3941486.7752780085,
+          "mean": 72.36679010992624,
+          "mae": 72.87149219371064,
+          "rms": 109.76493218653287,
+          "fraction_within_5": 0.12352058676446075
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 1668566.2457724735,
+          "absolute_sum": 1668566.2457724735,
+          "square_sum": 475276902.7544916,
+          "within_5": 0,
+          "distance": 1775714.9720483168,
+          "mean": 278.09437429541225,
+          "mae": 278.09437429541225,
+          "rms": 281.4477165047686,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 908077.7521806927,
+          "absolute_sum": 909322.0770554814,
+          "square_sum": 179724855.7635613,
+          "within_5": 257,
+          "distance": 3428252.2461693482,
+          "mean": 151.24546172230058,
+          "mae": 151.45271103522342,
+          "rms": 173.01498924348994,
+          "fraction_within_5": 0.04280479680213191
+        }
+      },
+      "wall_seconds": 65.73499999998603,
+      "initial_velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    },
+    "current_matched": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 434128.37386944756,
+          "absolute_sum": 437156.0816700701,
+          "square_sum": 72277993.68714705,
+          "within_5": 741,
+          "distance": 3941486.7752780085,
+          "mean": 72.36679010992624,
+          "mae": 72.87149219371064,
+          "rms": 109.76493218653287,
+          "fraction_within_5": 0.12352058676446075
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 1668566.2457724735,
+          "absolute_sum": 1668566.2457724735,
+          "square_sum": 475276902.7544916,
+          "within_5": 0,
+          "distance": 1775714.9720483168,
+          "mean": 278.09437429541225,
+          "mae": 278.09437429541225,
+          "rms": 281.4477165047686,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 908077.7521806927,
+          "absolute_sum": 909322.0770554814,
+          "square_sum": 179724855.7635613,
+          "within_5": 257,
+          "distance": 3428252.2461693482,
+          "mean": 151.24546172230058,
+          "mae": 151.45271103522342,
+          "rms": 173.01498924348994,
+          "fraction_within_5": 0.04280479680213191
+        }
+      },
+      "wall_seconds": 64.51499999995576,
+      "initial_velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    },
+    "current_matched_velocity": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 91174.1560422532,
+          "absolute_sum": 94646.57298179693,
+          "square_sum": 2311599.10048292,
+          "within_5": 1129,
+          "distance": 3130978.674130674,
+          "mean": 15.198225711327423,
+          "mae": 15.777058340022824,
+          "rms": 19.62984305940599,
+          "fraction_within_5": 0.18819803300550092
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 3918661.4322184096,
+          "absolute_sum": 3918661.4322184096,
+          "square_sum": 2964463859.353845,
+          "within_5": 0,
+          "distance": 1807725.547668575,
+          "mean": 653.1102387030683,
+          "mae": 653.1102387030683,
+          "rms": 702.906330809666,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 1032131.8496641379,
+          "absolute_sum": 1032838.0686524473,
+          "square_sum": 202534857.68924415,
+          "within_5": 3,
+          "distance": 4526960.050381917,
+          "mean": 171.9073700306692,
+          "mae": 172.02499477888864,
+          "rms": 183.66632988761015,
+          "fraction_within_5": 0.0004996668887408394
+        }
+      },
+      "wall_seconds": 66.28200000000652,
+      "initial_velocity": [
+        1000.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    },
+    "current_startup": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 867169.5689191676,
+          "absolute_sum": 869006.9538814115,
+          "square_sum": 167412250.65098462,
+          "within_5": 123,
+          "distance": 3805113.401681182,
+          "mean": 144.55235354545218,
+          "mae": 144.85863541947182,
+          "rms": 167.0529643276224,
+          "fraction_within_5": 0.020503417236206033
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 6458097.9628129285,
+          "absolute_sum": 6458097.9628129285,
+          "square_sum": 9029032509.950064,
+          "within_5": 0,
+          "distance": 11975598.303036982,
+          "mean": 1076.3496604688214,
+          "mae": 1076.3496604688214,
+          "rms": 1226.7186929603477,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 924180.8051324475,
+          "absolute_sum": 926851.4884692021,
+          "square_sum": 199575136.85566014,
+          "within_5": 275,
+          "distance": 4081735.7176062693,
+          "mean": 153.9275158448447,
+          "mae": 154.3723331894074,
+          "rms": 182.31939712374265,
+          "fraction_within_5": 0.045802798134576946
+        }
+      },
+      "wall_seconds": 66.875,
+      "initial_velocity": [
+        1000.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    },
+    "current_legacy_startup": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 91174.1560422532,
+          "absolute_sum": 94646.57298179693,
+          "square_sum": 2311599.10048292,
+          "within_5": 1129,
+          "distance": 3130978.674130674,
+          "mean": 15.198225711327423,
+          "mae": 15.777058340022824,
+          "rms": 19.62984305940599,
+          "fraction_within_5": 0.18819803300550092
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 6202176.263898708,
+          "absolute_sum": 6202176.263898708,
+          "square_sum": 8156650407.817663,
+          "within_5": 0,
+          "distance": 1947330.7567377163,
+          "mean": 1033.696043983118,
+          "mae": 1033.696043983118,
+          "rms": 1165.951000100895,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 622065.0369378546,
+          "absolute_sum": 631644.70900734,
+          "square_sum": 120797360.56966196,
+          "within_5": 549,
+          "distance": 3695631.154136523,
+          "mean": 103.60843386706439,
+          "mae": 105.20398217977015,
+          "rms": 141.84315436888772,
+          "fraction_within_5": 0.09143904063957362
+        }
+      },
+      "wall_seconds": 65.70400000002701,
+      "initial_velocity": [
+        1000.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    },
+    "current_matched_velocity_stream": {
+      "phases": {
+        "canalized": {
+          "steps": 5999,
+          "sum": 91174.1560422532,
+          "absolute_sum": 94646.57298179693,
+          "square_sum": 2311599.10048292,
+          "within_5": 1129,
+          "distance": 3130978.674130674,
+          "mean": 15.198225711327423,
+          "mae": 15.777058340022824,
+          "rms": 19.62984305940599,
+          "fraction_within_5": 0.18819803300550092
+        },
+        "decanalized": {
+          "steps": 6000,
+          "sum": 6202176.263898708,
+          "absolute_sum": 6202176.263898708,
+          "square_sum": 8156650407.817663,
+          "within_5": 0,
+          "distance": 1947330.7567377163,
+          "mean": 1033.696043983118,
+          "mae": 1033.696043983118,
+          "rms": 1165.951000100895,
+          "fraction_within_5": 0.0
+        },
+        "recanalized": {
+          "steps": 6004,
+          "sum": 622065.0369378546,
+          "absolute_sum": 631644.70900734,
+          "square_sum": 120797360.56966196,
+          "within_5": 549,
+          "distance": 3695631.154136523,
+          "mean": 103.60843386706439,
+          "mae": 105.20398217977015,
+          "rms": 141.84315436888772,
+          "fraction_within_5": 0.09143904063957362
+        }
+      },
+      "wall_seconds": 64.78200000000652,
+      "initial_velocity": [
+        1000.0,
+        0.0,
+        0.0
+      ],
+      "initial_memory_max": 0.0
+    }
+  },
+  "limitations": [
+    "One deterministic trial per condition; not a generalization benchmark.",
+    "Matched-scene restoration is an audit intervention, not production behavior.",
+    "Only reset-era assets were compared; older training/reward changes were held fixed."
+  ],
+  "snapshot_sha256": {
+    "encoder": "6eadb049a5dfae88ba5e62db66092b72dc894e1515ee5f5b2517c6a068566b23",
+    "policy": "f75f8381a5f8e320c463b8525de900bcc3f6b3288ddab7d62f9abb5dd24349a2",
+    "decoder": "1759eedbfa5cb58d4ef20bbb4541c8e3fd3487a219403614a9390fd60b5abb5f"
+  },
+  "phase_boundary_homeostatic_resampling": {
+    "present_in_legacy_and_current": true,
+    "range": [
+      -15.0,
+      15.0
+    ],
+    "graph": "BP_GameMode.RunTrial: clear Setpoints, add RandomFloatInRangeFromStream, broadcast SetpointsChanged",
+    "production_behavior_changed_by_audit": false,
+    "user_confirmed_intentional": true,
+    "implication": "Post-decanalization phase metrics are not recovery from the preceding homeostatic state."
+  },
+  "production_assets_unchanged": true
+}

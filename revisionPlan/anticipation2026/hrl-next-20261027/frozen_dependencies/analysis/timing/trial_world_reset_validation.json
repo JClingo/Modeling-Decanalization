@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "engine": "UE 5.5",
+  "trial_resets": 6,
+  "phase_transitions": 18,
+  "world_counts": {
+    "tiles": 2500,
+    "pellets": 127
+  },
+  "tile_observations_and_counters_cleared": true,
+  "pellets_visible_collision_and_overlap_enabled": true,
+  "respawn_timers_cancelled": true,
+  "recurrent_memory_and_movement_cleared": true,
+  "phase_continuity_preserved": true,
+  "next_frame_clean": true,
+  "notes": [
+    "Invoked real RunTrial callbacks at phase and end counters in an isolated frozen-policy world.",
+    "New spawn tile overlaps are legitimate; zero-state tile assertions exclude tiles currently overlapping the agent.",
+    "No policy-performance improvement or reduction in outcome variance is established by these reset-state tests."
+  ]
+}

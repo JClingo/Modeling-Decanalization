@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": [
+    "real Windows open-reader conflict resolves after release",
+    "persistent conflict raises after 20 attempts and preserves old target",
+    "other OS errors are not retried"
+  ]
+}

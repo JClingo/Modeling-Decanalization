@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "next-engineering-noise1-20261027",
+      "passed": true
+    },
+    {
+      "name": "next-engineering-noise0-20261027",
+      "passed": true
+    },
+    {
+      "name": "next-engineering-ratio-20261027",
+      "passed": true
+    },
+    {
+      "name": "next-engineering-curriculum-20261027-retry1",
+      "passed": true,
+      "initial_duration": 100.0
+    },
+    {
+      "name": "next-engineering-static-20261027",
+      "passed": true,
+      "checks": 35
+    },
+    {
+      "name": "next-engineering-static-trial-20261027",
+      "passed": true
+    }
+  ],
+  "production_preserved": true
+}

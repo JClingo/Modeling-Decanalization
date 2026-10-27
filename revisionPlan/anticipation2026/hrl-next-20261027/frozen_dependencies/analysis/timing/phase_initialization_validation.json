@@ -1,0 +1,248 @@
+{
+  "passed": true,
+  "velocity": "ActorForwardVector * BaseMaxSpeed; speed cap and cached MaxSpeed initialized together",
+  "homeostasis": "One inference draw per trial initialization, reused at every phase start; training starts unchanged",
+  "state_preservation": "Phase memory, pose, availability, timers and harvest state preserved; full resets clear memory",
+  "checks": [
+    {
+      "label": "BeginPlay",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.000000000001,
+      "homeostatic_state": 8.391654968261719,
+      "trial_start": 8.391654968261719
+    },
+    {
+      "label": "FullReset0",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -13.338661193847656,
+      "trial_start": -13.338661193847656
+    },
+    {
+      "label": "CCC0-6000",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -13.338661193847656,
+      "trial_start": -13.338661193847656
+    },
+    {
+      "label": "CCC0-12000",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -13.338661193847656,
+      "trial_start": -13.338661193847656
+    },
+    {
+      "label": "Direct0",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -13.338661193847656,
+      "trial_start": -13.338661193847656
+    },
+    {
+      "label": "FullReset1",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0000000000014,
+      "homeostatic_state": 4.7499237060546875,
+      "trial_start": 4.7499237060546875
+    },
+    {
+      "label": "CDR1-6000",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0000000000014,
+      "homeostatic_state": 4.7499237060546875,
+      "trial_start": 4.7499237060546875
+    },
+    {
+      "label": "CDR1-12000",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0000000000014,
+      "homeostatic_state": 4.7499237060546875,
+      "trial_start": 4.7499237060546875
+    },
+    {
+      "label": "Direct1",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0000000000014,
+      "homeostatic_state": 4.7499237060546875,
+      "trial_start": 4.7499237060546875
+    },
+    {
+      "label": "FullReset2",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -6.493782043457031,
+      "trial_start": -6.493782043457031
+    },
+    {
+      "label": "CCC2-6000",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -6.493782043457031,
+      "trial_start": -6.493782043457031
+    },
+    {
+      "label": "CCC2-12000",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -6.493782043457031,
+      "trial_start": -6.493782043457031
+    },
+    {
+      "label": "Direct2",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -6.493782043457031,
+      "trial_start": -6.493782043457031
+    },
+    {
+      "label": "FullReset3",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0,
+      "homeostatic_state": -7.950185775756836,
+      "trial_start": -7.950185775756836
+    },
+    {
+      "label": "CDR3-6000",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0,
+      "homeostatic_state": -7.950185775756836,
+      "trial_start": -7.950185775756836
+    },
+    {
+      "label": "CDR3-12000",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0,
+      "homeostatic_state": -7.950185775756836,
+      "trial_start": -7.950185775756836
+    },
+    {
+      "label": "Direct3",
+      "expected_speed": 2375.0,
+      "actual_speed": 2375.0,
+      "homeostatic_state": -7.950185775756836,
+      "trial_start": -7.950185775756836
+    },
+    {
+      "label": "FullReset4",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -15.0,
+      "trial_start": -15.0
+    },
+    {
+      "label": "CCC4-6000",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -15.0,
+      "trial_start": -15.0
+    },
+    {
+      "label": "CCC4-12000",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -15.0,
+      "trial_start": -15.0
+    },
+    {
+      "label": "Direct4",
+      "expected_speed": 5000.0,
+      "actual_speed": 5000.0,
+      "homeostatic_state": -15.0,
+      "trial_start": -15.0
+    }
+  ],
+  "independent_trial_starts": [
+    -13.338661193847656,
+    4.7499237060546875,
+    -6.493782043457031,
+    -7.950185775756836
+  ],
+  "natural_trial": {
+    "passed": true,
+    "samples": [
+      {
+        "phase": 0,
+        "tick": 1,
+        "speed": 5000.0,
+        "max_speed": 5000.0,
+        "trial_start": -13.338661193847656,
+        "first_homeostatic_value": -13.338661193847656
+      },
+      {
+        "phase": 1,
+        "tick": 6000,
+        "speed": 5000.000000000005,
+        "max_speed": 5000.0,
+        "trial_start": -13.338661193847656,
+        "first_homeostatic_value": -13.338661193847656
+      },
+      {
+        "phase": 2,
+        "tick": 12000,
+        "speed": 5000.000000000025,
+        "max_speed": 5000.0,
+        "trial_start": -13.338661193847656,
+        "first_homeostatic_value": -13.338661193847656
+      }
+    ],
+    "error": null,
+    "wall_seconds": 65.54700000002049
+  },
+  "spawn_placement": "Native collision-checked teleport and walking mode settle the floor before velocity assignment; fresh forward input prevents braking after reset clears previous input.",
+  "first_five_frame_speeds": [
+    5000.000000000044,
+    5000.000000000044,
+    5000.000000000044,
+    5000.000000000044,
+    5000.000000000044
+  ],
+  "unchanged_assets": [
+    {
+      "Algorithm": "SHA256",
+      "Hash": "E5B51EC13564523B26E01A30C5EA883BB44EF3FCEFC9E644CFC79EF67EE0581C",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\BP_AgentInteractor.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "5C40F2101465990426C681A1428FAC9C6E1C483DFC5F3C04E7EA5F0FFF070AA8",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\BP_AgentManager.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "E08A1E037392D727509120A7778EA4A3C46D41526D1E46174BDA339A5B4567F5",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\BP_AgentTrainingEnv.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "163B6F6408C1561A127BD1EA624DB69CE100748530AFC92995D4366D2FD9D156",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\DA_AgentCritic.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "EABEE25BD2D781DEBB17608BE52FF903874C005F0E9DFAEA427E9E3E7D966352",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\DA_AgentDecoder.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "67F57F50C9AD053D8AA8E907578414C6C0E9B09143D0498C754E9778A6B84448",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\DA_AgentEncoder.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "C411AA19DA48B29CB64F56C83028DB2C2544AA67F5AAA1200E45DD4E29BB762E",
+      "Path": "D:\\Dev\\decanalization\\Content\\Learning\\DA_AgentPolicy.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "A83BEADABC14EF73E1DBECD1DF28936E9A541BD250FEC3E95C1BE2A1E2CF3A1A",
+      "Path": "D:\\Dev\\decanalization\\Content\\Resource\\BP_Resource.uasset"
+    },
+    {
+      "Algorithm": "SHA256",
+      "Hash": "98575E817670AA4446D6C60503ECA86EFAC93859B3511A9D3AF2FE7E37F9CABD",
+      "Path": "D:\\Dev\\decanalization\\Content\\Level\\BP_Tile.uasset"
+    }
+  ],
+  "production_compile_success": true
+}

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "run": "NF-CCC-0DD39FAD450BDC97267AB08162E093F0.metrics",
+  "baseline_matches_running_cdr": true,
+  "phases": 3,
+  "trials": 1
+}

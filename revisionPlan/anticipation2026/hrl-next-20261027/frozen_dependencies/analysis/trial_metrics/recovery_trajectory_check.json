@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "phases_compared": 6,
+  "metrics": [
+    "reward-total",
+    "setpoint-avg",
+    "setpoint-dev",
+    "homeostatic-mae",
+    "homeostatic-rms",
+    "homeostatic-fraction-within-5"
+  ],
+  "comparison": "first completed recovery phases vs corresponding pre-failure phases; exact equality",
+  "excluded_failed_run": "NF-CDR-46379CD74E30DFBAC6A712BBC252E36A",
+  "recovery_run": "NF-CDR-530BED5D490A8446975BA4A62D01FF8B"
+}

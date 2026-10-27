@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "conditions": 7,
+  "trials": 1750,
+  "phases": 5250,
+  "decisions": 10500000,
+  "new_trials": 500,
+  "new_scene_hashes_verified": 1500,
+  "new_loaded_models_verified": 6,
+  "native_handler_checks": 30,
+  "all_source_hashes_verified": true,
+  "raw_json_yaml_agreement": true,
+  "baseline_alignment": [
+    {
+      "factor": 1,
+      "rule": "zero",
+      "reference": "half",
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "factor": 1,
+      "rule": "keep",
+      "reference": "half",
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "factor": 7,
+      "rule": "zero",
+      "reference": "half",
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "factor": 7,
+      "rule": "keep",
+      "reference": "half",
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    }
+  ],
+  "descriptive_rows": 189,
+  "interaction_contrasts": 12,
+  "simple_effects": 12,
+  "ccc_contrasts": 24,
+  "sensitivity_contrasts": 48
+}

@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "complete_trials": 1000,
+  "phase_records": 3000,
+  "decisions": 6000000,
+  "descriptive_rows": 108,
+  "primary_contrasts": 36,
+  "sensitivity_contrasts": 144,
+  "baseline_alignment": [
+    {
+      "family": "HRL",
+      "exact_initial_scene_pairs": 235,
+      "identical_baseline_metrics": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "matching_start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "family": "NF",
+      "exact_initial_scene_pairs": 235,
+      "identical_baseline_metrics": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "matching_start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    }
+  ],
+  "raw_json_yaml_agreement": true,
+  "all_frozen_input_hashes_verified": true
+}

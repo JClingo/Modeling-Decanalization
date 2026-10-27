@@ -1,0 +1,29 @@
+{
+  "decisions": 200,
+  "comparison": "rendered PIE vs -nullrhi PIE; frozen embedded networks; FixedSeed",
+  "max_absolute_errors": {
+    "delta": 0.0,
+    "sim_time": 0.0,
+    "max_walk_speed": 0.0,
+    "yaw": 0.0,
+    "control_yaw": 0.0,
+    "h": 0.0,
+    "period_count": 0,
+    "position": 0.0,
+    "velocity": 0.0,
+    "action": 0.0
+  },
+  "timestep": [
+    0.05000000074505806
+  ],
+  "speed_limit": [
+    1000.0
+  ],
+  "measured_max_speed": 1000.0000000000668,
+  "local_player_controller": true,
+  "mode_flags_consistent": true,
+  "period_count_at_200": 40,
+  "sim_time_at_200": 10.000000149011612,
+  "same_initial_state": true,
+  "exact_match": true
+}

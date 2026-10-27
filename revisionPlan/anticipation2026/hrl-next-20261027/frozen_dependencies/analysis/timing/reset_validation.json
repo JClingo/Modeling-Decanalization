@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "error": null,
+  "cases": [
+    {
+      "steps_before": 0,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pending_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "last_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 0,
+      "reward": 0.0,
+      "terminated": false,
+      "rotation": "<Struct 'Rotator' (0x0000017240C65140) {pitch: 0.000000, yaw: 18.293695, roll: 0.000000}>",
+      "actor_rotation": "<Struct 'Rotator' (0x0000017240C65140) {pitch: 0.000000, yaw: 18.293695, roll: 0.000000}>",
+      "tick_count": 0,
+      "last_resource_cleared": true,
+      "memory_size": 64,
+      "memory_max_absolute": 0.0
+    },
+    {
+      "steps_before": 1,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pending_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "last_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 0,
+      "reward": 0.0,
+      "terminated": false,
+      "rotation": "<Struct 'Rotator' (0x0000017240C651E0) {pitch: 0.000000, yaw: 6.789315, roll: 0.000000}>",
+      "actor_rotation": "<Struct 'Rotator' (0x0000017240C651E0) {pitch: 0.000000, yaw: 6.789315, roll: 0.000000}>",
+      "tick_count": 0,
+      "last_resource_cleared": true,
+      "memory_size": 64,
+      "memory_max_absolute": 0.0
+    },
+    {
+      "steps_before": 20,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pending_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "last_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 0,
+      "reward": 0.0,
+      "terminated": false,
+      "rotation": "<Struct 'Rotator' (0x0000017240C65190) {pitch: 0.000000, yaw: 4.098372, roll: 0.000000}>",
+      "actor_rotation": "<Struct 'Rotator' (0x0000017240C65190) {pitch: 0.000000, yaw: 4.098372, roll: 0.000000}>",
+      "tick_count": 0,
+      "last_resource_cleared": true,
+      "memory_size": 64,
+      "memory_max_absolute": 0.0
+    },
+    {
+      "steps_before": 0,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pending_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "last_input": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "steps": 0,
+      "reward": 0.0,
+      "terminated": false,
+      "rotation": "<Struct 'Rotator' (0x0000017240C65140) {pitch: 0.000000, yaw: 45.997997, roll: 0.000000}>",
+      "actor_rotation": "<Struct 'Rotator' (0x0000017240C65140) {pitch: 0.000000, yaw: 45.997997, roll: 0.000000}>",
+      "tick_count": 0,
+      "last_resource_cleared": true,
+      "memory_size": 64,
+      "memory_max_absolute": 0.0
+    }
+  ]
+}

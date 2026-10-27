@@ -1,0 +1,42 @@
+[
+  {
+    "file": "Saved\\TrialMetricsFix\\compile4.log",
+    "sha256": "86deb386910f6c4587575e7e84250d3e653ebf37f2d027d216830bbfd22ae5c7",
+    "markers": [
+      "[2026.10.17-13.02.15:171][  0]LogPython: TRIAL_METRICS_COMPILED"
+    ]
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\callback2.log",
+    "sha256": "51f160d6332e99877d4659322b156bdb1ca07dd07bc68f10cf9cc52ddb188b9d",
+    "markers": []
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\hrl3.log",
+    "sha256": "9f2d1b4a6cc5654d66125fe9d74504b1cd86a41a927cccb1f85a4c01a6f3b6d0",
+    "markers": [
+      "[2026.10.17-13.06.37:862][  5]LogPython: [TRIALS_COMPLETE] All 2/2 trials are complete.  Results saved to: D:\\Dev\\decanalization\\Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\HRL-CDR-E16CD11F4DAD008BB767EFBFA017E8CE.yml"
+    ]
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\nf.log",
+    "sha256": "9bedb04e61db7ce1e66ee92a86b90a7191ccc11e6ebadd3fec304a769b3244f6",
+    "markers": [
+      "[2026.10.17-13.07.43:320][  5]LogPython: [TRIALS_COMPLETE] All 2/2 trials are complete.  Results saved to: D:\\Dev\\decanalization\\Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\NF-CDR-9746E0A64D2B9F68FC28ACBEB5FA8FDC.yml"
+    ]
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\nf_ccc.log",
+    "sha256": "984d306f4558c89d4d4abc3760c3d9a2f835f94785052a8e8d4059c0aee6be00",
+    "markers": [
+      "[2026.10.17-13.09.05:635][  5]LogPython: [TRIALS_COMPLETE] All 2/2 trials are complete.  Results saved to: D:\\Dev\\decanalization\\Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\NF-CCC-6B31570A454459496D6DF0A5053A6D0E.yml"
+    ]
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\hrl_ccc.log",
+    "sha256": "dd83c1ca90f4f693422731d925d11c909b68aa02d71d0259fe246fc3f29a8d0c",
+    "markers": [
+      "[2026.10.17-13.11.06:643][  5]LogPython: [TRIALS_COMPLETE] All 2/2 trials are complete.  Results saved to: D:\\Dev\\decanalization\\Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\HRL-CCC-E2056D7B4D6D3A4B5F22B7B71EA5BBF1.yml"
+    ]
+  }
+]

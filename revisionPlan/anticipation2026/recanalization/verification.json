@@ -1,0 +1,383 @@
+{
+  "passed": true,
+  "conditions": 7,
+  "trials": 1750,
+  "phases": 5250,
+  "decisions": 10500000,
+  "new_trials": 1250,
+  "new_scene_hashes_verified": 3750,
+  "new_loaded_models_verified": 15,
+  "native_handler_checks": 75,
+  "source_hashes_verified": true,
+  "raw_json_yaml_agreement": true,
+  "baseline_alignment": [
+    {
+      "condition": "zero",
+      "reference": "CCC",
+      "baseline_matched_trials": 250,
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 0,
+        "setpoint-dev": 0,
+        "reward-total": 0,
+        "homeostatic-fraction-within-5": 3,
+        "homeostatic-rms": 0,
+        "setpoint-avg": 0,
+        "loss-total": 5,
+        "gain-total": 5,
+        "gains-harvested": 5
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "quarter-floor",
+      "reference": "CCC",
+      "baseline_matched_trials": 250,
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 0,
+        "setpoint-dev": 0,
+        "reward-total": 0,
+        "homeostatic-fraction-within-5": 3,
+        "homeostatic-rms": 0,
+        "setpoint-avg": 0,
+        "loss-total": 5,
+        "gain-total": 5,
+        "gains-harvested": 5
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "half-floor",
+      "reference": "CCC",
+      "baseline_matched_trials": 249,
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 0,
+        "setpoint-dev": 0,
+        "reward-total": 0,
+        "homeostatic-fraction-within-5": 3,
+        "homeostatic-rms": 0,
+        "setpoint-avg": 0,
+        "loss-total": 5,
+        "gain-total": 5,
+        "gains-harvested": 5
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "three-quarter-floor",
+      "reference": "CCC",
+      "baseline_matched_trials": 250,
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 0,
+        "setpoint-dev": 0,
+        "reward-total": 0,
+        "homeostatic-fraction-within-5": 3,
+        "homeostatic-rms": 0,
+        "setpoint-avg": 0,
+        "loss-total": 5,
+        "gain-total": 5,
+        "gains-harvested": 5
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "keep",
+      "reference": "CCC",
+      "baseline_matched_trials": 250,
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 0,
+        "setpoint-dev": 0,
+        "reward-total": 0,
+        "homeostatic-fraction-within-5": 3,
+        "homeostatic-rms": 0,
+        "setpoint-avg": 0,
+        "loss-total": 5,
+        "gain-total": 5,
+        "gains-harvested": 5
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "half-exact",
+      "reference": "CCC",
+      "baseline_matched_trials": 250,
+      "phase1_identical": {
+        "homeostatic-mae": 250,
+        "setpoint-dev": 250,
+        "reward-total": 250,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 250,
+        "setpoint-avg": 250,
+        "loss-total": 250,
+        "gain-total": 250,
+        "gains-harvested": 250
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 0,
+        "setpoint-dev": 0,
+        "reward-total": 0,
+        "homeostatic-fraction-within-5": 3,
+        "homeostatic-rms": 0,
+        "setpoint-avg": 0,
+        "loss-total": 5,
+        "gain-total": 5,
+        "gains-harvested": 5
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "zero",
+      "reference": "half-floor",
+      "baseline_matched_trials": 249,
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "quarter-floor",
+      "reference": "half-floor",
+      "baseline_matched_trials": 249,
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "three-quarter-floor",
+      "reference": "half-floor",
+      "baseline_matched_trials": 249,
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "keep",
+      "reference": "half-floor",
+      "baseline_matched_trials": 249,
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    },
+    {
+      "condition": "half-exact",
+      "reference": "half-floor",
+      "baseline_matched_trials": 249,
+      "phase1_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 249,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 249,
+        "gain-total": 249,
+        "gains-harvested": 249
+      },
+      "phase2_identical": {
+        "homeostatic-mae": 249,
+        "setpoint-dev": 249,
+        "reward-total": 249,
+        "homeostatic-fraction-within-5": 250,
+        "homeostatic-rms": 249,
+        "setpoint-avg": 249,
+        "loss-total": 250,
+        "gain-total": 249,
+        "gains-harvested": 250
+      },
+      "start_fields": {
+        "rng-start": 250,
+        "policy-memory-start": 250,
+        "initial-homeostatic-state": 250,
+        "observed-start-h": 250
+      }
+    }
+  ],
+  "descriptive_rows": 189,
+  "primary_contrasts": 24,
+  "versus_current_contrasts": 20,
+  "all_pairwise_contrasts": 60,
+  "sensitivity_contrasts": 176
+}

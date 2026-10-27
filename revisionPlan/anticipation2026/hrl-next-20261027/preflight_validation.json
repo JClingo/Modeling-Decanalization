@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "unit_tests": 25,
+  "analysis_checks": [
+    "Known-null paired statistics for 3 and 5 policies",
+    "Actual matched-noise initial environment audit",
+    "Pooled metrics and practical screening gates",
+    "Complete paired report and 18 checkpoint exports on temporary retained-data fixtures",
+    "Scientific PNG/SVG plotting"
+  ],
+  "logger_scope_regression": "Verified capture.settings is a free variable after renaming the shadowing local path",
+  "fixture_outputs_deleted": true,
+  "native_checks": [
+    {
+      "name": "next-engineering-noise1-20261027",
+      "passed": true
+    },
+    {
+      "name": "next-engineering-noise0-20261027",
+      "passed": true
+    },
+    {
+      "name": "next-engineering-ratio-20261027",
+      "passed": true
+    },
+    {
+      "name": "next-engineering-curriculum-20261027-retry1",
+      "passed": true,
+      "initial_duration": 100.0
+    },
+    {
+      "name": "next-engineering-static-20261027",
+      "passed": true,
+      "checks": 35
+    },
+    {
+      "name": "next-engineering-static-trial-20261027",
+      "passed": true
+    }
+  ],
+  "runner_matches_frozen_protocol": true,
+  "protocol_sha256": "4e4eae563bafb9bb220b6fb39f362e0b316f4b637335c3a27a7f013074d394b6",
+  "production_source_preserved": true
+}

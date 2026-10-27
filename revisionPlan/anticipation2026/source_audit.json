@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "scene_hashes_verified": 3000,
+  "model_files_verified": 20,
+  "conditions": [
+    {
+      "condition": "HRL-CDR",
+      "scene_hashes_verified": 750,
+      "traversal_rate_factors": [
+        0.0
+      ],
+      "phase1_total_tile_counts_min": 0.0,
+      "phase1_total_tile_counts_max": 4.0
+    },
+    {
+      "condition": "HRL-CCC",
+      "scene_hashes_verified": 750,
+      "traversal_rate_factors": [
+        0.0
+      ],
+      "phase1_total_tile_counts_min": 0.0,
+      "phase1_total_tile_counts_max": 4.0
+    },
+    {
+      "condition": "NF-CDR",
+      "scene_hashes_verified": 750,
+      "traversal_rate_factors": [
+        0.0
+      ],
+      "phase1_total_tile_counts_min": 0.0,
+      "phase1_total_tile_counts_max": 4.0
+    },
+    {
+      "condition": "NF-CCC",
+      "scene_hashes_verified": 750,
+      "traversal_rate_factors": [
+        0.0
+      ],
+      "phase1_total_tile_counts_min": 0.0,
+      "phase1_total_tile_counts_max": 4.0
+    }
+  ]
+}

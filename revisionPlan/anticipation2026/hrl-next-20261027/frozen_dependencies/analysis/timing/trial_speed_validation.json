@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "engine": "UE 5.5",
+  "mode": "frozen inference; IsTrialMode=true",
+  "matching_decisions": 200,
+  "movement_actions_homeostasis_identical": true,
+  "delta_seconds": 0.05000000074505806,
+  "real_time_baseline": {
+    "wall_seconds": 9.953000000008615,
+    "simulated_seconds": 10.000000149011612,
+    "speedup": 1.00472220928393
+  },
+  "accelerated_full_trial": {
+    "wall_seconds": 64.26600000000326,
+    "simulated_seconds": 900.1500134132802,
+    "speedup": 14.006628908182158
+  },
+  "trial_completed": true,
+  "yaml_saved": true,
+  "completion_receipt_written": true,
+  "desktop_test_dialog_suppressed": true
+}

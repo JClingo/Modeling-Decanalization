@@ -1,0 +1,34 @@
+[
+  {
+    "file": "Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\HRL-CDR-E16CD11F4DAD008BB767EFBFA017E8CE.metrics.json",
+    "family": "HRL",
+    "order": "cdr",
+    "trials": 2,
+    "phases": 6,
+    "passed": true
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\NF-CDR-9746E0A64D2B9F68FC28ACBEB5FA8FDC.metrics.json",
+    "family": "NF",
+    "order": "cdr",
+    "trials": 2,
+    "phases": 6,
+    "passed": true
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\NF-CCC-6B31570A454459496D6DF0A5053A6D0E.metrics.json",
+    "family": "NF",
+    "order": "ccc",
+    "trials": 2,
+    "phases": 6,
+    "passed": true
+  },
+  {
+    "file": "Saved\\TrialMetricsFix\\TestProject\\Saved\\TrialResults\\HRL-CCC-E2056D7B4D6D3A4B5F22B7B71EA5BBF1.metrics.json",
+    "family": "HRL",
+    "order": "ccc",
+    "trials": 2,
+    "phases": 6,
+    "passed": true
+  }
+]

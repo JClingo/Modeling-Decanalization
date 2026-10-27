@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "Frozen core hashes and protected production assets unchanged",
+    "Only profile name and reset_world_on_update differ",
+    "Completed baseline receipts and seeds verified",
+    "Existing matched seeds initialize all four networks identically across reset settings",
+    "Analysis exercised on retained raw evaluation data with known null pairs",
+    "Matched-environment audit, six policy exports and PNG/SVG rendering passed"
+  ],
+  "fixture_results": "Temporary test outputs deleted; no synthetic scientific results retained",
+  "protocol_sha256": "c2638e1caf22d982e25619922f25c4b0c0ca5d25868d98a7bd504a0e27959e3c",
+  "validated_at": "2026-10-27T07:44:36.481584+00:00"
+}

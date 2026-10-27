@@ -1,5 +1,10 @@
 # Incorporation of the corrected October 2026 trials
 
+**Historical analysis:** the subsequent anticipation repair and policy selection
+changed the primary findings. See [the corrected-anticipation analysis](../anticipation2026/README.md)
+and its proposed paper revisions. This folder retains the earlier implementation's
+results for comparison; the manuscript has not yet incorporated that later update.
+
 The manuscript and appendix now use the corrected primary analysis from source
 commit `018ccb4` of the decanalization repository. `source_manifest.json` records
 the full revision, source path, and hashes of copied analysis evidence.
