@@ -379,6 +379,8 @@ Some initial-scene captures also differed in timer, visibility, or overlap state
 
 Homeostatic summaries are based on event/update samples rather than uniformly timed samples. Related outcome measures share information, confidence intervals are unadjusted, and no optimal controller or independent training-seed benchmark was evaluated; the residual gap to attainable performance is therefore unknown.
 
+The HRL policy is not optimal. We used off-the-shelf PPO with limited tuning and no systematic hyperparameter search, and the task is partially observed (a 90-degree field of view reaching roughly ten tiles of a $50\times50$ arena) and non-stationary (tile costs change with visits and pellets respawn). Both training settings and the structure of the environment therefore likely contribute to the gap. Our aim was comparative rather than to maximize performance: in domains such as Atari games and language modeling, finding good working solutions has required very large amounts of compute and expert engineering, even where, as in language modeling, no zero-loss optimum exists \cite{mnih_human-level_2015, badia_agent57_2020, hoffmann_training_2022}.
+
 In the primary runs, visit counts did not increase during decanalization and were halved at recanalization.
 We explored sensitivity to changes in visit counts during decanalization but did not find that these significantly impacted the primary results. However, we did not explore sensitivity to other factors, such as the practice of halving visit counts after decanalization. There were many possible parameters that could have been adjusted and explored in detail. The chosen values were selected primarily for learning tractability and to capture some essential alterations present in decanalization as understood by psychedelic researchers and other researchers interested in pivotal behavioral changes, but they may not be optimal or inclusive of all relevant factors. Future work could explore the sensitivity of the results to these parameters. That said, the parameters and hyperparameters were selected independently of the evaluation data, and the main results were robust to the paired comparisons.
 
@@ -442,6 +444,14 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock \doi{10.1038/npp.2017.108}.
   \newblock URL \url{https://www.nature.com/articles/npp2017108}.
   \newblock Publisher: Nature Publishing Group.
+
+  \bibitem[Badia et~al., 2020]{badia_agent57_2020}
+  Adri\`a~Puigdom\`enech Badia, Bilal Piot, Steven Kapturowski, Pablo
+  Sprechmann, Alex Vitvitskyi, Daniel Guo, and Charles Blundell.
+  \newblock Agent57: Outperforming the {Atari} human benchmark.
+  \newblock In \emph{Proceedings of the 37th International Conference on
+  Machine Learning}, volume 119 of \emph{Proceedings of Machine Learning
+  Research}, pages 507--517, 2020.
 
   \bibitem[Barack and Platt, 2016]{barack_neurocomputational_2016}
   David~L. Barack and Michael~L. Platt.
@@ -592,6 +602,14 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock \doi{10.1093/nc/niad017}.
   \newblock URL \url{https://doi.org/10.1093/nc/niad017}.
 
+  \bibitem[Hoffmann et~al., 2022]{hoffmann_training_2022}
+  Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor
+  Cai, Eliza Rutherford, Diego de~Las~Casas, Lisa~Anne Hendricks, Johannes
+  Welbl, Aidan Clark, et~al.
+  \newblock Training compute-optimal large language models.
+  \newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~35, pages 30016--30030, 2022.
+
   \bibitem[Huys et~al., 2013]{huys_mapping_2013}
   Quentin~JM Huys, Diego~A. Pizzagalli, Ryan Bogdan, and Peter Dayan.
   \newblock Mapping anhedonia onto reinforcement learning: A behavioural
@@ -660,6 +678,14 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock URL
   \url{https://royalsocietypublishing.org/doi/10.1098/rstb.2019.0750}.
   \newblock Publisher: Royal Society.
+
+  \bibitem[Mnih et~al., 2015]{mnih_human-level_2015}
+  Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A. Rusu, Joel Veness,
+  Marc~G. Bellemare, Alex Graves, Martin Riedmiller, Andreas~K. Fidjeland,
+  Georg Ostrovski, et~al.
+  \newblock Human-level control through deep reinforcement learning.
+  \newblock \emph{Nature}, 518(7540):529--533, 2015.
+  \newblock \doi{10.1038/nature14236}.
 
   \bibitem[Paul, 2014]{paul_transformative_2014}
   L.~A. Paul.
