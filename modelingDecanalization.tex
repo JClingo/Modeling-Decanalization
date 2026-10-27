@@ -134,6 +134,7 @@ We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer 
   \centering
   \includegraphics[width=1\linewidth]{./figures/canalization-phases.jpg}
   \caption{Illustrative views of a trained HRL agent across four stages: pre-canalization, canalization, decanalization, and recanalization. The small yellow square marks the agent, and the white line indicates its orientation and forward raycast. Darker ``well-traveled'' tiles cost less to cross.  Pellets are shown in green, with shading proportional to reward value. The yellow-tinted panel marks the decanalization phase and its altered perceptual properties.}
+  \label{fig:canalization-phases}
 \end{figure}
 
 \begin{figure}
@@ -289,6 +290,8 @@ Unique pellet count & Number of different pellets harvested\\
 \end{figure}
 % TODO: Discuss this figure--we'll have to see whether it makes sense to include the 'during' part.
 
+Phase 1 is identical across conditions and shows how the trained policies behave in an ordinary canalizing environment. Both agents learned the basic task, harvesting roughly 28 (HRL) and 30 (NF) pellets per phase, but neither regulated tightly. The HRL agent's $h$ averaged 23.2 from the setpoint and was within $\pm5$ only 15\% of the time, and the NF agent did worse (32.9 and 11\%). The HRL agent also tended to overshoot the setpoint (mean $h$ = 8.2), consuming more than it needed. Qualitatively, both agents settled into a small region, circling among a few nearby pellets along increasingly cheap tiles rather than ranging across the arena (Figure~\ref{fig:canalization-phases}, canalization panel). TODO: ADD A COVERAGE METRIC FROM CLINGO (E.G., DISTINCT TILES VISITED PER PHASE OUT OF 2,500, PHASE 1 AND CDR VS.\ CCC IN PHASE 3) TO SUPPORT THE LOCALIZED-REGION CLAIM.
+
 \subsection{HRL: decanalization vs. no-decanalization}
 
 Decanalization improved the HRL agent's subsequent regulation (Table~\ref{model-analysis-hrl}). In the recanalization phase, the agent that had gone through decanalization (CDR) kept $h$ closer to the setpoint than the agent that had not (CCC): mean absolute $h$ was 22.7 vs. 30.1, and $h$ was also less variable and earned more total reward. These differences remained significant after correction for multiple comparisons (Holm adjustment). Both agents tended to stay above the setpoint, but the CCC agent much more so (mean $h$ 20.2 vs. 8.6).
@@ -353,6 +356,8 @@ We hypothesized that decanalization would improve post-intervention homeostatic 
 
 Using HRL and NF objectives with PPO, we simulated a canalization--decanalization--recanalization process in which repeated traversal makes familiar pathways less costly. This represents a limited form of niche construction: activity changes the environment, which then shapes subsequent behavior \cite{pio-lopez_scale-free_2025, lyon_reframing_2021}. Efficient routes can support stable behavior while also reducing the incentive to explore alternatives.
 
+The phase 1 behavior illustrates what we mean by hypercanalization. The agent over-exploits a local cluster of resources and stops exploring the larger space. Given what it can perceive, a 90-degree field reaching about ten tiles, the local loop is the best available option: distant pellets are invisible, and leaving the worn path means paying full traversal cost on unfamiliar tiles. In therapeutic terms, the policy behaves as if this is the best it can do. This is a form of the observational overfitting described above \cite{song_observational_2019}. Decanalization temporarily removes the cost of leaving the rut and makes every pellet equally attractive, which lets the agent reach routes and resources it would otherwise not try. The greater $h$ loss, $h$ gain, and pellet count of the HRL agent after decanalization are consistent with this wider ranging, and the 7.4-point reduction in mean absolute $h$ gives one estimate of how much the canalized agent stood to gain.
+
 The NF agent also earned more reward after the intervention, but its regulation did not clearly improve. The distinction could be attributed to the differences in objectives: HRL rewards sustained proximity to zero, whereas NF rewards reductions in absolute deviation while the resulting state remains negative. Repeated deficit reduction can earn NF reward without maintaining a narrow range around zero. Even though decanalization allowed the NF agent to earn more reward (and therefore significantly improve performance in some dimensions), it did not improve its ability to actually maintain homeostatic regulation around the setpoint. Comparing it back to a heater thermostat, merely activating the heater more often does not mean that the temperature will be maintained closer to the setpoint; it may still fluctuate widely above and below it.
 
 Both policies can anticipate through discounted PPO, but NF required more training and fine-tuning. 
@@ -383,7 +388,13 @@ In real-world environments, endlessly exploitable resources, perfect predictions
 
 A fuller treatment of between-trial differences, robustness to hyperparameter choices, and ablations of the composite decanalization manipulation would strengthen future work.
 
-An area that we did not address---but could support long-term behavioral shifts---is intentional reintegration driven by top-down processes. Psychedelic-assisted therapy is characterized by acute alterations in experience, but this is followed by active reintegration practices \cite{bathje_psychedelic_2022}. The present intervention changes environmental conditions without a separate reintegration procedure, whereas real-world patients receive support before, during, and after treatment. The effects of behavioral nudging on decanalized and recanalized agents could help to demonstrate the dynamics more clearly. We also could have explored repeated cycles between canalization and decanalization both during training and during trials.
+An area that we did not address---but could support long-term behavioral shifts---is intentional reintegration driven by top-down processes. Psychedelic-assisted therapy is characterized by acute alterations in experience, but this is followed by active reintegration practices \cite{bathje_psychedelic_2022}. The present intervention changes environmental conditions without a separate reintegration procedure, whereas real-world patients receive support before, during, and after treatment. The effects of behavioral nudging on decanalized and recanalized agents could help to demonstrate the dynamics more clearly.
+
+\subsection{Future Directions}
+
+The present study applies a single decanalization episode to a policy whose weights are fixed after training. A natural next step is to apply repeated cycles of decanalization and recanalization to agents that continue learning, and to ask which schedules lead to recovery and which use the perturbation as fuel for long-term improvement. We expect a long-term Goldilocks zone. With too little decanalization, the agent stays in its rut. With too much, it is constantly destabilized and never has time to consolidate what it finds, so repeated decanalization should eventually degrade performance. Somewhere in between, periodic decanalization followed by enough recanalization to learn from it should produce the best long-term regulation, much as annealing depends on its cooling schedule \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}. The same framework could test robustness to new disruptions, a computational analogue of new adversity or trauma: shifting or depleting the resources the agent relies on, or moving its setpoint, and comparing how quickly previously decanalized and never-decanalized agents recover. More generally, the model supports many such studies, varying the timing, intensity, and frequency of interventions and the conditions that follow them, and measuring their long-term rather than only immediate effects.
+
+These questions bear on a broader debate about optimal dosing and the shape of therapeutic change. One view treats change as incremental: a small intervention is given, its effects observed, and the dose increased or decreased accordingly. This is the standard model in behavioral and cognitive-behavioral therapy, and it may explain the continued appeal of psychedelic microdosing, even though placebo-controlled studies have so far found little benefit beyond placebo \cite{szigeti_microdosing_2021}. A newer view, associated with integrative psychotherapy and synergetics \cite{schiepek_self-organization_2014, schiepek_psychotherapy_2017}, introduces criticality into psychological transformation. Change on this view is not smooth; it comes from one or a few highly transformative episodes, such as pivotal mental states \cite{brouwer_pivotal_2021} or transformative experiences \cite{paul_transformative_2014}, in which a system near instability reorganizes. Discontinuous change appears even within cognitive-behavioral therapy, where some patients show large sudden gains between sessions \cite{tang_sudden_1999, hayes_change_2007}. Our model can compare these possibilities directly, for example by giving agents either one large perturbation or many small ones of matched total magnitude and asking which produces more durable improvements in regulation. The present results, in which a single large intervention improved subsequent regulation, are consistent with the pivotal view but do not test it against an incremental alternative.
 
 
 \section{Conclusions}
@@ -475,13 +486,12 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   286(1895):20182539, 2019.
   \newblock \doi{10.1098/rspb.2018.2539}.
 
-% SUGGESTED EDIT [23]: Proposed supporting reference: brouwer_pivotal_2021.
-%   \bibitem[Brouwer and Carhart-Harris, 2021]{brouwer_pivotal_2021}
-%   Ari Brouwer and Robin Lester Carhart-Harris.
-%   \newblock Pivotal mental states.
-%   \newblock \emph{Journal of Psychopharmacology}, 35(4):319--352, 2021.
-%   \newblock \doi{10.1177/0269881120959637}.
-% END SUGGESTED EDIT [23]
+  \bibitem[Brouwer and Carhart-Harris, 2021]{brouwer_pivotal_2021}
+  Ari Brouwer and Robin~L. Carhart-Harris.
+  \newblock Pivotal mental states.
+  \newblock \emph{Journal of Psychopharmacology}, 35(4):319--352, 2021.
+  \newblock \doi{10.1177/0269881120959637}.
+
 % SUGGESTED EDIT [24]: Proposed supporting reference: brouwer_trajectory_2024.
 %   \bibitem[Brouwer et~al., 2024]{brouwer_trajectory_2024}
 %   Ari Brouwer, Joshua K. Brown, Earth Erowid, Fire Erowid, Sylvia Thyssen,
@@ -566,6 +576,14 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock \emph{Mathematics of Operations Research}, 13(2):311--329, 1988.
   \newblock \doi{10.1287/moor.13.2.311}.
 
+  \bibitem[Hayes et~al., 2007]{hayes_change_2007}
+  Adele~M. Hayes, Jean-Philippe Laurenceau, Greg Feldman, Jennifer~L. Strauss,
+  and LeeAnn Cardaciotto.
+  \newblock Change is not always linear: The study of nonlinear and
+  discontinuous patterns of change in psychotherapy.
+  \newblock \emph{Clinical Psychology Review}, 27(6):715--723, 2007.
+  \newblock \doi{10.1016/j.cpr.2007.01.008}.
+
   \bibitem[Hip\'olito et~al., 2023]{hipolito_pattern_2023}
   In\^es Hip\'olito, Jonas Mago, Fernando~E Rosas, and Robin Carhart-Harris.
   \newblock Pattern breaking: a complex systems approach to psychedelic medicine.
@@ -642,6 +660,11 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock URL
   \url{https://royalsocietypublishing.org/doi/10.1098/rstb.2019.0750}.
   \newblock Publisher: Royal Society.
+
+  \bibitem[Paul, 2014]{paul_transformative_2014}
+  L.~A. Paul.
+  \newblock \emph{Transformative Experience}.
+  \newblock Oxford University Press, Oxford, 2014.
 
   \bibitem[Pearson et~al., 2014]{pearson_decision_2014}
   John~M Pearson, Karli~K Watson, and Michael~L Platt.
@@ -753,6 +776,21 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   Richard~S Sutton, Andrew~G Barto, et~al.
   \newblock \emph{Reinforcement learning: An introduction}, volume~1.
   \newblock MIT press Cambridge, 1998.
+
+  \bibitem[Szigeti et~al., 2021]{szigeti_microdosing_2021}
+  Balázs Szigeti, Laura Kartner, Allan Blemings, Fernando Rosas, Amanda
+  Feilding, David~J. Nutt, Robin~L. Carhart-Harris, and David Erritzoe.
+  \newblock Self-blinding citizen science to explore psychedelic microdosing.
+  \newblock \emph{eLife}, 10:e62878, 2021.
+  \newblock \doi{10.7554/eLife.62878}.
+
+  \bibitem[Tang and DeRubeis, 1999]{tang_sudden_1999}
+  Tony~Z. Tang and Robert~J. DeRubeis.
+  \newblock Sudden gains and critical sessions in cognitive-behavioral therapy
+  for depression.
+  \newblock \emph{Journal of Consulting and Clinical Psychology},
+  67(6):894--904, 1999.
+  \newblock \doi{10.1037/0022-006X.67.6.894}.
 
   \bibitem[Waddington, 1959]{waddington_canalization_1959}
   C.~H. Waddington.
