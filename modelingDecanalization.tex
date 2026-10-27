@@ -110,7 +110,7 @@ For the most part, these ideas have remained metaphorical. Existing conceptualiz
 
 Our working model of decanalization is inspired by work on the entropic brain \cite{carhart-harris_entropic_2014,carhart-harris_entropic_2018}, canalization, and Hipólito et al.'s (2023) pattern-breaking model. We also draw heavily on Juliani et al.'s “Deep CANALs” (2024), which directly extends the ``CANAL'' model \cite{carhart-harris_canalization_2023} and distinguishes overfitting in inference from loss of plasticity in learning, treating the intersection of overfitting and low plasticity as a source of psychopathology. According to Juliani et al., decanalization acutely alters synaptic weights, sensory observations, and metaplasticity: “[Acute decanalization] is a function of both the current environmental context (made partially available to the model through a sequence of sensory observations) and the state of the system within the synaptic weight landscape. The inferred set of beliefs in a given instance are a function of the location of the system within the neural activity landscape.” In our agent-based model, sensory observations are observations about internal and external states. Synaptic weights correspond to learned associations between states, actions, and rewards. Neural activity corresponds to short-term beliefs represented by the state variables of the solutions. Metaplasticity is represented by factors that alter the learning dynamics of the system.
 
-Although hypercanalization is expressly maladaptive, it is more modestly rooted in behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. In real-world environments, agents learn against the backdrop of niche construction. We represent one aspect of this through introducing traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
+Although hypercanalization is expressly maladaptive, it is more modestly rooted in behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. This reflects a broader point from embodied, embedded, enactive, and extended (4E) approaches to cognition: habits are not stored only in the head but are distributed across brain, body, and world \cite{barandiaran_genealogical_2014, newen_oxford_2018}. A worn path, a cleared trail, or a familiar routine is a behavioral pattern embodied in the environment, and it continues to shape behavior regardless of what the organism has learned. In real-world environments, agents learn against the backdrop of niche construction. We represent one aspect of this through introducing traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
 
 In this paper, we test the hypothesis that a homeostatic reinforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization.
 
@@ -216,7 +216,7 @@ HRL and NF selection prioritized encoder/policy/decoder snapshot triplets that r
 
 \subsection{Canalization and Decanalization}\label{sec:protocol}
 
-We represent canalization both through policy training and through the environmental history left by repeated traversal. Once training ends, the policy's weights remain fixed, but its behavior still depends on observations, recurrent state, and the paths made less costly by earlier visits. This simulation translates ideas about canalization in inference and learning \cite{juliani_deep_2024} into environmental alterations.
+We represent canalization both through policy training and through the environmental history left by repeated traversal. Once training ends, the policy's weights remain fixed, but its behavior still depends on observations, recurrent state, and the paths made less costly by earlier visits. Canalization in our model therefore has two loci: one internal, in the learned policy, and one external, in the landscape of traversal costs the agent has worn into the environment. The decanalization manipulation acts primarily on the second. It flattens the external landscape (zero traversal cost during decanalization, halved visit counts afterward) and leaves the policy weights untouched. This simulation translates ideas about canalization in inference and learning \cite{juliani_deep_2024} into environmental alterations.
 
 We represent decanalization through temporary changes to the environment and to what the agent perceives. During decanalization, every pellet is worth 35 (the maximum ordinary value), and traversal and passive losses are set to zero. These changes affect the agent’s estimates of future homeostatic gain and loss. 
 
@@ -354,7 +354,7 @@ Because CDR and CCC trials share the same random seeds, each CDR trial can be pa
 
 We hypothesized that decanalization would improve post-intervention homeostatic regulation for the HRL agent. The results support this hypothesis: the HRL agent had lower post-intervention mean absolute deviation under CDR than CCC, maintaining a narrower range around the setpoint. Likewise, we predicted that the NF agent would not benefit from decanalization. This was the case, at least in terms of staying close to the setpoint. However, it was actually able to increase reward despite its inability to maintain homeostatic regulation. This suggests that decanalization can improve performance in some dimensions without improving homeostatic regulation.
 
-Using HRL and NF objectives with PPO, we simulated a canalization--decanalization--recanalization process in which repeated traversal makes familiar pathways less costly. This represents a limited form of niche construction: activity changes the environment, which then shapes subsequent behavior \cite{pio-lopez_scale-free_2025, lyon_reframing_2021}. Efficient routes can support stable behavior while also reducing the incentive to explore alternatives.
+Using HRL and NF objectives with PPO, we simulated a canalization--decanalization--recanalization process in which repeated traversal makes familiar pathways less costly. This represents a limited form of niche construction: activity changes the environment, which then shapes subsequent behavior \cite{pio-lopez_scale-free_2025, lyon_reframing_2021}. Efficient routes can support stable behavior while also reducing the incentive to explore alternatives. Traversal cost is a property of the environment's dynamics, not of the reward function: the reward depends only on $h$, and the agent's history shapes the world it moves through. This puts the model in line with embodied and extended views of cognition, on which habits are sustained by the environment as well as by internal states \cite{lyon_reframing_2021, hipolito_pattern_2023}. Clinically, this is a familiar point. Entrenched patterns are held in place by routines, relationships, and settings, not only by beliefs. Interventions that target only the internal side may leave the external grooves intact, and our model offers one way to separate the two.
 
 The phase 1 behavior illustrates what we mean by hypercanalization. The agent over-exploits a local cluster of resources and stops exploring the larger space. Given what it can perceive, a 90-degree field reaching about ten tiles, the local loop is the best available option: distant pellets are invisible, and leaving the worn path means paying full traversal cost on unfamiliar tiles. In therapeutic terms, the policy behaves as if this is the best it can do. This is a form of the observational overfitting described above \cite{song_observational_2019}. Decanalization temporarily removes the cost of leaving the rut and makes every pellet equally attractive, which lets the agent reach routes and resources it would otherwise not try. The greater $h$ loss, $h$ gain, and pellet count of the HRL agent after decanalization are consistent with this wider ranging, and the 7.4-point reduction in mean absolute $h$ gives one estimate of how much the canalized agent stood to gain.
 
@@ -452,6 +452,14 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock In \emph{Proceedings of the 37th International Conference on
   Machine Learning}, volume 119 of \emph{Proceedings of Machine Learning
   Research}, pages 507--517, 2020.
+
+  \bibitem[Barandiaran and Di~Paolo, 2014]{barandiaran_genealogical_2014}
+  Xabier~E. Barandiaran and Ezequiel~A. Di~Paolo.
+  \newblock A genealogical map of the concept of habit.
+  \newblock 8:\penalty0 522, 2014.
+  \newblock \doi{10.3389/fnhum.2014.00522}.
+  \newblock URL
+  \url{https://www.frontiersin.org/articles/10.3389/fnhum.2014.00522}.
 
   \bibitem[Barack and Platt, 2016]{barack_neurocomputational_2016}
   David~L. Barack and Michael~L. Platt.
@@ -686,6 +694,12 @@ The Unreal Engine source code, evaluation data, and analysis materials used in t
   \newblock Human-level control through deep reinforcement learning.
   \newblock \emph{Nature}, 518(7540):529--533, 2015.
   \newblock \doi{10.1038/nature14236}.
+
+  \bibitem[Newen et~al., 2018]{newen_oxford_2018}
+  Albert Newen, Leon De~Bruin, and Shaun Gallagher, editors.
+  \newblock \emph{The Oxford Handbook of 4E Cognition}.
+  \newblock Oxford University Press, 2018.
+  \newblock \doi{10.1093/oxfordhb/9780198735410.001.0001}.
 
   \bibitem[Paul, 2014]{paul_transformative_2014}
   L.~A. Paul.
