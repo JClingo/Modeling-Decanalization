@@ -1,1 +1,0 @@
-PASS: R independently reproduced 189 descriptive rows, 24 CCC contrasts, 20 current-rule contrasts, 60 all-pair contrasts and 176 sensitivities, including intervals, p values and Holm families.

@@ -1,1 +1,0 @@
-PASS: R independently reproduced 108 descriptive rows, 36 primary contrasts and 144 sensitivity contrasts, including confidence intervals, p values and Holm corrections.

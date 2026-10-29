@@ -1,1 +1,0 @@
-PASS: independent R reproduced 189 summaries, 12 four-cell interactions, 12 simple rate effects, 24 CCC contrasts and 48 interaction sensitivities, including SEs, df, intervals, p values and Holm families.

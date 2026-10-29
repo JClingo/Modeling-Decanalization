@@ -1,6 +1,0 @@
-# Compatible with UE 5.5 PythonFoundationPackages pins.
-tensorboard==2.13.0
-grpcio==1.65.5
-protobuf==4.24.0
-typing-extensions==4.8.0
-six==1.17.0

@@ -1,7 +1,0 @@
-{
-  "reason": "Fix local variable shadowing in traversal metadata capture",
-  "scientific_settings_changed": false,
-  "completed_scientific_rollouts_before_correction": 0,
-  "failed_attempt_preserved": "/private/tmp/hrl-canalization-study-20261026/next-audit-selected-reference-e43001-n0-s0-ccc-c1",
-  "record": "revisionPlan/anticipation2026/hrl-next-20261027/attempts/audit-logger-scope"
-}

@@ -1,6 +1,0 @@
-{
-  "reason": "Replace fixed 6 GiB prelaunch guard with measured two-copy footprint plus 2 GiB headroom",
-  "scientific_settings_changed": false,
-  "scientific_cases_started_before_amendment": 0,
-  "previous_record": "revisionPlan/anticipation2026/hrl-next-20261027/attempts/prelaunch-storage-guard"
-}

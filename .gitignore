@@ -1,5 +1,12 @@
-# LaTeX build output
-/out/
+# Track only paper sources, figures, and submission materials.
+# Implementation, experiments, reviews, editor settings, and build output stay local.
+/*
+!/.gitignore
+!/*.tex
+!/cover-letter-statement
+!/figures/
+
+# LaTeX build output and local metadata (including inside figures/)
 .DS_Store
 *.aux
 *.bbl
@@ -12,22 +19,3 @@
 *.pdf
 *.run.xml
 *.synctex.gz
-
-# Local tools, environments, and Python caches
-/.claude/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.venv/
-
-# Local implementation workspace and learning validation runs
-/implementation/
-/learning/*/validation/
-/learning/*/assets/*.uasset
-
-# Raw experiment archives and training checkpoints. Keep analysis code,
-# protocols, manifests, reports, summary tables, and plots for paper review.
-/revisionPlan/anticipation2026/**/inputs/
-/revisionPlan/anticipation2026/**/policies/
-/revisionPlan/anticipation2026/**/attempts/
-/revisionPlan/anticipation2026/**/*.uasset

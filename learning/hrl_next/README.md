@@ -1,1 +1,0 @@
-Versioned follow-up to learning/hrl for the 27 October 2026 audit and staged learning studies. Original sources and production policies remain preserved. See revisionPlan/anticipation2026/hrl-next-20261027/README.md.

@@ -1,1 +1,0 @@
-PASS: independent R reproduced 54 descriptive rows, 18 primary contrasts and 72 sensitivity contrasts, with 95% intervals and nine-test Holm families per phase/method.

@@ -1,1 +1,0 @@
-PASS: base R independently reproduced 162 descriptive rows, 32 primary contrasts, 40 secondary factor contrasts and 128 sensitivity contrasts, with intervals and Holm corrections.
