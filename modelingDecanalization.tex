@@ -89,7 +89,7 @@
 
 \begin{abstract}
 
-  Living organisms continuously manage their homeostatic setpoints but sometimes fall into the ruts and grooves of an entrenched or canalized behavioral repertoire. Clinicians employ interventions, from psychoactive drugs to targeted stimulus regimes, to transiently decanalize entrenched behaviors and support more adaptive patterns. We present a computational model in which canalization is learned: a foraging agent builds a cognitive map and becomes increasingly confident about where food is. Policies trained with a homeostatic reinforcement learning (HRL) objective or a one-sided negative-feedback (NF) objective in a stable world were evaluated after the world changed: familiar resources degraded and better ones appeared elsewhere. Left undisturbed, 70\% of HRL agents became trapped, returning to failing resources, and precise beliefs made this worse. A temporary decanalization that relaxed the precision of the agent's beliefs and increased the randomness of its choices, without altering its physiology, released trapped agents and restored regulation (post-intervention mean absolute deviation reduced by 83 points, 95\% CI $[77, 89]$, across four training seeds). Both components contributed, an intermediate intensity worked best, and the HRL agent benefited far more than the NF agent. The model makes the canalization account of decanalizing interventions testable and specifies when it should help.
+  Living organisms continuously manage their homeostatic setpoints but sometimes fall into the ruts and grooves of an entrenched or canalized behavioral repertoire. Clinicians employ interventions, from psychoactive drugs to targeted stimulus regimes, to transiently decanalize entrenched behaviors and support more adaptive patterns. We present a computational model in which canalization is learned: a foraging agent builds a cognitive map and becomes increasingly confident about where food is. Policies trained with a homeostatic reinforcement learning (HRL) objective or a one-sided negative-feedback (NF) objective in a stable world were evaluated after the world changed: familiar resources degraded and better ones appeared elsewhere. Left undisturbed, 70\% of HRL agents became trapped, returning to failing resources, and precise beliefs made this worse. A temporary decanalization that relaxed the precision of the agent's beliefs and increased the randomness of its choices, without altering its physiology, released trapped agents and restored regulation, across four training seeds). Both relaxation and randomless contributed to the effect. Intermediate intensity worked best, and the HRL agent benefited far more than the NF agent. The model makes the canalization account of decanalizing interventions testable and provides predictions for when in what situations it could be beneficial.
 
 \end{abstract}
 
@@ -112,13 +112,13 @@ Our working model of decanalization is inspired by work on the entropic brain \c
 
 Although hypercanalization is expressly maladaptive, it is more modestly rooted in behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. This reflects a broader point from embodied, embedded, enactive, and extended (4E) approaches to cognition: habits are not stored only in the head but are distributed across brain, body, and world \cite{barandiaran_genealogical_2014, newen_oxford_2018}. A worn path, a cleared trail, or a familiar routine is a behavioral pattern embodied in the environment, and it continues to shape behavior regardless of what the organism has learned. In real-world environments, agents learn against the backdrop of niche construction. We represent one aspect of this through introducing traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
 
-In this paper, we model canalization as something an agent learns: confident beliefs about where resources are, formed while the world is stable. We test four hypotheses. First, canalization formed in a stable world becomes maladaptive when the world changes, trapping the agent in patterns that no longer serve its homeostatic needs. Second, a temporary decanalization that relaxes the precision of those beliefs and increases the variability of the agent's choices, without changing its physiology, releases it and improves subsequent regulation. Third, the intervention works best at an intermediate intensity. Fourth, an agent trained with a homeostatic reinforcement learning (HRL) objective benefits more than one trained with a one-sided negative-feedback (NF) objective.
+In this paper, we model canalization as something an agent learns: confident beliefs about where resources are, formed while the world is stable. We test four hypotheses. First, canalization formed in a stable world becomes maladaptive when the world changes, trapping the agent in patterns that no longer serve its homeostatic needs. Second, a temporary decanalization that relaxes the precision of those beliefs and increases the variability of the agent's choices, without changing its physiology, releases it and improves subsequent regulation. Third, the intervention works best at an intermediate intensity---limited or excessive decanalization is unhelpful at best. Fourth, an agent trained with a homeostatic reinforcement learning (HRL) objective benefits more than one trained with a one-sided negative-feedback (NF) objective.
 
 The contrast between HRL and NF follows Keramati and Gutkin (2014), who argued that homeostatic reinforcement learning, unlike classical negative-feedback accounts, explains anticipatory regulation. Intuitively, HRL resembles a heating and air-conditioning system that maintains a stable temperature; NF resembles a heater that acts only when the temperature falls below a fixed setpoint. An NF agent may escape an entrenched pattern as readily as an HRL agent, but only the HRL agent is rewarded for using its new freedom to stay near its setpoint.
 
 \section{Methods}
 
-We built a simulation in which an agent manages a single homeostatic variable while foraging in a two-dimensional world, learns where resources are, and becomes more confident in what it has learned. Canalization is represented by that confidence: the precision of the agent's beliefs about where food is. Decanalization is represented by a temporary relaxation of that precision, together with an increase in the randomness of the agent's choices, in line with the REBUS account of relaxed beliefs under psychedelics \cite{carhart-harris_rebus_2019} and the distinction between inference and behavioral variability in Deep CANALs \cite{juliani_deep_2024}. Physiology is never altered by the intervention.
+We built a simulation in which an agent manages a single homeostatic variable while foraging in a two-dimensional world, learns where resources are, and becomes more confident in what it has learned. Canalization is represented by that confidence: the precision of the agent's beliefs about where food is. Decanalization is represented by a temporary relaxation of that precision, together with an increase in the randomness of the agent's choices, in line with the REBUS account of relaxed beliefs under psychedelics \cite{carhart-harris_rebus_2019} and the distinction between inference and behavioral variability in Deep CANALs \cite{juliani_deep_2024}.
 
 An earlier version of this study used an Unreal Engine sandbox with a reactive policy and fixed perception. Analyses of that version showed that its agents did not form persistent, history-dependent routes: route overlap across phases was close to the level expected between unrelated trials, and manipulating the agent's tile history had little behavioral effect. Because there was no canal to disrupt, that version could not test decanalization (Supplementary Material, Sections~1--2). The present model was designed to supply the two missing ingredients: an agent whose behaviour depends on learned, history-dependent beliefs, and a world that changes after those beliefs form. The simulation is written in Python; its world mirrors the Unreal task where possible.
 
@@ -140,7 +140,7 @@ We use two versions of the world. In the \emph{stable} world, patches never degr
 
 \subsection{Agent: perception and cognitive map}\label{sec:map}
 
-The agent perceives along seven rays spanning $90^\circ$ with a range of 10 tiles. Perception is fixed; it never narrows by construction. The agent maintains a cognitive map with a believed pellet value $V_c$ and a precision $P_c$ for every cell $c$. Each observation of a cell, with value $v$ and observation precision $P_s$, updates the map by precision weighting:
+The agent perceives along seven rays spanning $90^\circ$ with a range of 10 tiles. Perception is fixed. The agent maintains a cognitive map with a believed pellet value $V_c$ and a precision $P_c$ for every cell $c$. Each observation of a cell, with value $v$ and observation precision $P_s$, updates the map by precision weighting:
 \begin{equation}\label{eq:belief}
   V_c\leftarrow\frac{P_cV_c+P_sv}{P_c+P_s},\qquad P_c\leftarrow P_c+P_s .
 \end{equation}
@@ -158,32 +158,34 @@ Both objectives reward drive reduction \cite{keramati_homeostatic_2014}. With $D
   \item \textbf{Negative feedback (NF)}: $D=\max(-h,0)/25$. Only deficits are costly; surplus earns nothing and is not penalized, like a heater that acts only below its setpoint.
 \end{itemize}
 
+\begin{sloppypar}
 Policies were trained with proximal policy optimization \cite{schulman_proximal_2017} for 60 iterations of 16 trials (about 1.3 million decisions), in the stable world, without any intervention. For each objective, four independent training seeds were run. A checkpoint was selected for each seed from every fifth iteration (from iteration 20) and the last, on eight held-out stable-world trials, by the family's own objective: lowest mean $|h|$ for HRL and lowest mean deficit for NF. Settings are listed in Appendix~\ref{app:implementation-settings}. Weights are fixed during evaluation.
+\end{sloppypar}
 
 \subsection{Canalization, decanalization and recanalization}\label{sec:protocol}
 
 Each evaluation trial has three phases: 300\,s of canalization, 100\,s of intervention, and 300\,s of recanalization. The trial runs in the changing world, so the policy, trained in a stable world, meets degradation and new resources it was never trained on. The homeostatic state is continuous across phases: because the intervention does not alter physiology, carrying $h$ over does not confound the comparison.
 
-In the CCC condition the agent is left undisturbed. In the CDR condition, decanalization with dose $d\in[0,1]$ is applied during the second phase through two levers:
+In the CCC condition, the agent is left undisturbed. In the CDR condition, decanalization with dose $d\in[0,1]$ is applied during the second phase through two levers:
 \begin{itemize}
-  \item \textbf{Relaxed precision}: at the start of the window every belief's precision is multiplied by $1-d$, and during the window new evidence is weighed against priors of precision $(1-d)P_c$. The agent's beliefs become easier to revise.
-  \item \textbf{Increased behavioral entropy}: the policy's sampling temperature is raised to $1+b\,d$, where $b$ is the entropy boost. The agent's option choices become more variable.
+  \item \textbf{Relaxed precision}: at the start of the window, every belief's precision is multiplied by $1-d$. During the window, new evidence is weighed against priors of precision $(1-d)P_c$. The agent's beliefs become easier to revise.
+  \item \textbf{Increased behavioral entropy}: the policy's sampling temperature is raised to $1+b\,d$, where $b$ is the entropy \emph{boost}. The agent's option choices become more variable.
 \end{itemize}
 We evaluated $b\in\{0,1,3\}$ and $d\in\{0.5,1\}$, and $b=10$ at $d=1$; and, to separate the levers, entropy alone ($b\in\{1,3\}$ with precision unchanged). As a reference for the cost of canalization, we also evaluated each policy with beliefs that track the senses (no harvest precision, precision time constant 20\,s; ``low precision'').
 
 \subsection{Endpoints and statistics}\label{sec:stats}
 
-The primary endpoint is the phase-3 mean absolute deviation of $h$ from the setpoint (MAE). A phase counts as \emph{trapped} if $h$ falls to $-100$ or below during it. We also report harvests from the newly appeared patches. Each training seed was evaluated on 64 paired trials (evaluation seeds 5000--5063): paired trials share the world layout, starting state and random streams, so condition differences within a seed are paired. Because conclusions should generalize across training runs, the training seed is the unit of inference: per-seed mean differences are averaged across the four seeds, with 95\% $t$-intervals ($df=3$). Criteria for each test were fixed before the corresponding run. Model development preceded these runs and used separate seeds; that history, including decisions made after seeing data, is reported in the Supplementary Material.
+The primary endpoint is the phase-3 mean absolute deviation of $h$ from the setpoint (MAE). A phase counts as \emph{trapped} if $h$ falls to $-100$ or below. We also report harvests from the newly appeared patches. Each training seed was evaluated on 64 paired trials (evaluation seeds 5000--5063): paired trials share the world layout, starting state and random streams, so condition differences within a seed are paired. Because conclusions should generalize across training runs, the training seed is the unit of inference: per-seed mean differences are averaged across the four seeds, with 95\% $t$-intervals ($df=3$). Criteria for each test were fixed before the corresponding run. Model development preceded these runs and used separate seeds; that history, including decisions made after seeing data, is reported in the Supplementary Material.
 
 \subsection{Code and data availability}
 
-The simulation, training and analysis code and the evaluation outputs are to be released with this paper. The earlier Unreal Engine sandbox remains available at \url{https://github.com/JClingo/decanalization}.
+The simulation, training and analysis code and the evaluation outputs are available at \url{https://github.com/JClingo/decanalization}.
 
 \section{Results}\label{model-results}
 
 \subsection{Canalization becomes hypercanalization when the world changes}
 
-Trained in a stable world, both policies regulate well there. In the changing world, left undisturbed, they become trapped: as familiar patches degrade, the agents keep pursuing them, and $h$ falls. Across training seeds, 70\% of HRL trials (95\% CI [66, 73]) and 48\% of NF trials ([44, 51]) were trapped in phase 3 (Table~\ref{tab:main}). Precise beliefs made this worse. The same policies with beliefs that track the senses regulated better: HRL phase-3 MAE was 60 points higher with learned precision ([43, 78]), and NF trapping was 0.33 higher ([0.25, 0.41]).
+Trained in a stable world, both policies regulate agents well. In the changing world, left undisturbed, they become trapped: as familiar patches degrade, the agents keep pursuing them, and $h$ falls. Across training seeds, 70\% of HRL trials (95\% CI [66, 73]) and 48\% of NF trials ([44, 51]) were trapped in phase 3 (Table~\ref{tab:main}). Precise beliefs made this worse. The same policies with beliefs that track the senses regulated better: HRL phase-3 MAE was 60 points higher with learned precision ([43, 78]), and NF trapping was 0.33 higher ([0.25, 0.41]).
 
 Trapping depends on the world having changed in ways the policy did not anticipate. An HRL policy trained in the changing world itself was almost never trapped (2\%) and regulated near the noise floor (phase-3 MAE 12.5); decanalization then had nothing to improve (difference $-0.7$, 95\% CI $[-1.9, 0.8]$; one training seed).
 
@@ -200,7 +202,8 @@ Decanalization during the second phase restored regulation in the HRL agent (Tab
 
 \begin{table}[htbp]
 \centering\small
-\begin{tabular}{@{}lrr@{}}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xrr@{}}
 \toprule
  & HRL & NF\\
 \midrule
@@ -213,7 +216,7 @@ Decanalization, boost 3, $d=1$: $\Delta$MAE & $-98$ [$-122$, $-73$] & $-28$ [$-5
 Decanalization, boost 10, $d=1$: $\Delta$MAE$^{a}$ & $-72$ [$-100$, $-44$] & $-9$ [$-14$, $-4$]\\
 Phase-2 MAE at boosts 1 / 3 / 10 & 66 / 62 / 108 & 91 / 108 / 139\\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \caption{Main results in the changing world for policies trained in the stable world. Means across four training seeds with 95\% $t$-intervals over seeds; each seed contributes 64 paired trials. $\Delta$ is decanalized minus undisturbed. $^{a}$Three training seeds.}
 \label{tab:main}
 \end{table}
@@ -231,7 +234,7 @@ Either lever alone released a substantial share of trapped HRL agents (Figure~\r
 
 \subsection{An intermediate intensity works best}
 
-Stronger behavioral perturbation was not better. With precision relaxed, raising the entropy boost from 3 to 10 reduced the benefit by 18 points ([5, 31]), and the cost during the intervention rose sharply: phase-2 MAE was 108 at a boost of 10 against 62 at a boost of 3. The most disruptive setting tested was still better than no intervention, so the model shows diminishing and then declining returns rather than outright harm.
+Extreme behavioral perturbation was not ideal. With precision relaxed, raising the entropy boost from 3 to 10 reduced the benefit by 18 points ([5, 31]), and the cost during the intervention rose sharply: phase-2 MAE was 108 at a boost of 10 against 62 at a boost of 3. The most disruptive setting tested was still better than no intervention, so the model shows diminishing and then declining returns rather than outright harm.
 
 \subsection{HRL benefits more than NF}
 
@@ -241,9 +244,11 @@ Decanalization reduced trapping in the NF agent as well (by 33 percentage points
 
 We hypothesized that decanalization would improve post-intervention homeostatic regulation in an HRL agent, and that an NF agent would benefit less. Both predictions held, in a model where canalization demonstrably exists. Canalization here is a learned property: an agent that gathers food reliably in a stable world becomes confident about where food is. That confidence is efficient while the world stays the same. When the world changes, the same confidence holds the agent to patches that no longer pay, even as better resources appear elsewhere: hypercanalization, in the sense of maladaptive persistence after the conditions that justified a habit have gone \cite{carhart-harris_canalization_2023}. Agents with less precise beliefs, or policies that had been trained on the change, were rarely trapped.
 
-Decanalization acted on where canalization is stored. Relaxing the precision of beliefs, the core of the REBUS account \cite{carhart-harris_rebus_2019}, let new evidence revise the agent's map; increasing the entropy of its choices let it sample options its beliefs disfavored. Each lever helped on its own, and their combination helped most, consistent with the distinction in Deep CANALs between rigid inference and reduced behavioral variability \cite{juliani_deep_2024}. Neither lever changed the agent's physiology, the reward function, or its learned weights; the benefit came from what the agent did with a temporarily loosened view of its world, and persisted for 300\,s after the intervention ended.
+\begin{sloppypar}
+Decanalization acted on here canalization is stored. Relaxing the precision of beliefs---the core of the REBUS account \cite{carhart-harris_rebus_2019}---let new evidence revise the agent's map; increasing the entropy of its choices let it sample options its beliefs disfavored. Each lever helped on its own, and their combination helped most, consistent with the distinction in Deep CANALs between rigid inference and reduced behavioral variability \cite{juliani_deep_2024}. Neither lever changed the agent's physiology, the reward function, or its learned weights; the benefit came from what the agent did with a temporarily loosened view of its world, and persisted after the intervention ended.
+\end{sloppypar}
 
-The intervention helped most at an intermediate intensity. Strong behavioral perturbation disorganized foraging during the window and left the agent worse off afterwards than a moderate perturbation did. This is the shape predicted by analogies with simulated annealing \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}: destabilization helps when it is enough to leave a poor attractor but not so much that useful structure is lost. In a heuristic version of the agent, without a learned policy, sufficiently strong exploration made outcomes worse than no intervention at all; with learned policies, the strongest setting we tested was still beneficial.
+Intermediate decanalization was the most effective. Strong behavioral perturbation disorganized foraging during the window and left the agent worse off afterwards than a moderate perturbation did. This is the shape predicted by analogies with simulated annealing \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}: destabilization helps when it is enough to leave a poor attractor but not so much that useful structure is lost. In a heuristic version of the agent, without a learned policy, sufficiently strong exploration made outcomes worse than no intervention at all; with learned policies, the strongest setting we tested was still beneficial.
 
 The HRL--NF difference follows from the objectives. Both agents escaped their failing patches, but only the HRL agent is rewarded for staying near its setpoint once it does. Decanalization creates an opportunity; whether the opportunity improves regulation depends on what the agent is trying to regulate. This is the contrast motivated by Keramati and Gutkin's comparison of homeostatic and negative-feedback accounts \cite{keramati_homeostatic_2014}.
 
@@ -251,9 +256,11 @@ The HRL--NF difference follows from the objectives. Both agents escaped their fa
 
 The decanalization levers, the option set, and the cognitive map are modeling choices. They are motivated by the REBUS and CANAL frameworks, but other formalizations of ``relaxed priors'' are possible, and the results show what follows from these ones. The model does not learn during or after the intervention: its weights are fixed, and the lasting effect of decanalization runs entirely through the agent's beliefs and position in the world.
 
-Hypercanalization required that the world change in ways the policy had not been trained on. This is part of the theory rather than a convenience, but it means the effect size depends on the size of that mismatch, which we did not vary. The changing world also supplies a better alternative; without one, escaping a failing patch is less useful, and in development runs without new resources, decanalization rarely improved regulation (Supplementary Material, Section~4).
+Hypercanalization required that the world change in ways the policy had not been trained on. This is part of the theory rather than a convenience, but it means the effect size depends on the size of that mismatch, which we did not explore. The changing world also supplies a better alternative; without one, escaping a failing patch is less useful, and in development runs without new resources, decanalization rarely improved regulation (Supplementary Material, Section~4).
 
 Four training seeds per objective support generalization across training runs, but not across architectures or hyperparameters. NF regulation is dominated by surplus, which its objective does not penalize; NF results are best read through trapping. The drive-reduction rewards omit the finite-endpoint correction used in our earlier Unreal implementation, and checkpoints were selected on held-out trials of the training world. Finally, the model manages a single setpoint in a simple world. It should be read as a formal demonstration of one mechanism, not as an account of psychiatric conditions or of psychedelic treatment.
+% TODO: Fix up this NF section since it's a bit off
+
 
 \subsection{Future Directions}
 
@@ -261,7 +268,7 @@ The present study applies one intervention to agents whose weights are fixed. Al
 
 \section{Conclusions}
 
-Research on canalization and decanalization often moves between clinical, dynamical and mechanistic vocabularies without making the underlying computational assumptions explicit. We formalized one set of them. An agent that learns confident beliefs about its world in stable conditions becomes trapped when the world changes; temporarily relaxing the precision of those beliefs and the regularity of its choices releases it, restores its homeostatic regulation, and works best at an intermediate intensity. The benefit is much larger for an agent that values staying near its setpoint than for one that only avoids deficits. These results make the canalization account testable in a simulated agent, and they identify the conditions under which decanalization should help: when entrenched beliefs, not physiology, keep an agent from options that would now serve it better.
+Research on canalization and decanalization often moves between clinical, dynamical and mechanistic vocabularies without making the underlying computational assumptions explicit. We formalized one set of them. An agent that learns confident beliefs about its world in stable conditions becomes trapped when the world changes; temporarily relaxing the precision of those beliefs and the regularity of its choices releases it, restores its homeostatic regulation, and works best at an intermediate intensity. The benefit is much larger for an agent that values staying near its setpoint than for one that only avoids deficits. These results make the canalization account testable in a simulated agent, and they identify the conditions under which decanalization should help: when entrenched beliefs keep an agent from options that would now serve it better.
 
 Like most scientific models, ours is a simplified approximation of a much more complex reality, and many technical and parameter choices shaped the results. The model should therefore be read as a formal demonstration of one candidate mechanism, not as a direct account of psychiatric disorders, psychotherapeutic change, or psychedelic treatment outcomes.
 
@@ -283,7 +290,7 @@ The authors used AI agents to assist with analysis code, implementation audits, 
 Not applicable. This study used only simulated agents in a simulated environment; no human participants, nonhuman animals, biological specimens, or clinical records were involved.
 
 \subsection*{Data and code availability}
-The simulation, training and analysis code and the evaluation outputs used in this study will be made openly available on publication. The earlier Unreal Engine sandbox is available at \url{https://github.com/JClingo/decanalization}.
+The simulation, training and analysis code and the evaluation outputs used in this study are openly available at \url{https://github.com/JClingo/decanalization}. The earlier Unreal Engine sandbox is archived in the same repository (\texttt{archive/unreal}; tag \texttt{unreal-v1}).
 
 \sloppy
 \begin{thebibliography}{33}
