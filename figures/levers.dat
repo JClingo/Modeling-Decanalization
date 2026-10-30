@@ -1,0 +1,6 @@
+y label HRLm HRLlo HRLhi NFm NFlo NFhi
+1 {Both (boost 3)} -97.73 24.68 24.68 -28.43 29.95 29.95
+2 {Both (boost 1)} -82.69 5.99 5.99 -34.32 19.86 19.86
+3 {Entropy only (boost 3)} -60.85 11.81 11.81 -21.57 12.95 12.95
+4 {Entropy only (boost 1)} -10.92 8.10 8.10 -24.19 32.12 32.12
+5 {Precision only} -58.70 17.45 17.45 -34.66 44.39 44.39

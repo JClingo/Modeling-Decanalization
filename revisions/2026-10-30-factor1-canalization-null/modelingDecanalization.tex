@@ -1,0 +1,924 @@
+ %!TEX program = latexmk
+\documentclass[12pt,fleqn]{article}
+\usepackage{setspace}
+\usepackage{float}
+
+\usepackage[english]{babel}
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+% A few common packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage{graphicx}
+  \graphicspath{{./}{../../}}  % revision copy: own figures first, then the main figures folder
+\else
+  \usepackage[dvipdfmx]{graphicx}
+\fi
+\usepackage{relsize}
+\usepackage[titletoc]{appendix}
+\usepackage{caption}
+% \usepackage{xurl}
+\captionsetup[table]{skip=10pt plus 0.01pt}
+\usepackage{subcaption}  % \begin{subfigure}...\end{subfigure} within figure
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{booktabs}
+% \usepackage{ltablex}
+\usepackage[autostyle, english = american]{csquotes}
+
+
+% Uncomment the following to attempt to enforce Type 1 or TrueType 
+% fonts. ProQuest does not want the type 3 fonts used by default as
+% of Dec. 2019 - see 
+% https://support.proquest.com/articledetail?id=kA01W000000k9o2SAA . 
+% If you are unable to embed fonts such as 'Zapf Dingbats' or 
+% 'Symbol', try using raster images (.jpg or .png) instead of vector 
+%images (.pdf or .eps).
+% \usepackage[T1]{fontenc} 
+
+% plainpages=false fixes the "duplicate ignored" error with page counters
+% Set pdfborder to 0 0 0 to disable colored borders around PDF hyperlinks
+\makeatletter
+\renewcommand{\@biblabel}[1]{}
+\renewcommand{\@cite}[2]{(#1\if@tempswa , #2\fi)}
+\makeatother
+\setlength{\emergencystretch}{3em}
+
+\ifpdf
+  \usepackage[plainpages=false,pdfborder={0 0 0}]{hyperref}
+\else
+  \usepackage[dvipdfmx,plainpages=false,pdfborder={0 0 0}]{hyperref}
+\fi
+
+\begin{document}
+
+\begin{titlepage}
+  \pagenumbering{alph}
+  \centering
+  \vspace*{2cm}
+  {\LARGE\bfseries Modeling Decanalization with Homeostatic Reinforcement Learning\par}
+  \vspace{2cm}
+  {\large
+    Joshua Clingo\textsuperscript{1,*} and Jeff Yoshimi\textsuperscript{1}\par
+  }
+  \vspace{0.5cm}
+  {\small
+    ORCID: Joshua Clingo \texttt{0009-0003-9377-1532}; Jeff Yoshimi \texttt{0000-0001-7327-5599}\par
+  }
+  \vspace{1cm}
+  {\normalsize
+    \textsuperscript{1}School of Social Sciences, Humanities and Arts, University of California, Merced\par
+  }
+  \vspace{1cm}
+  {\normalsize
+    \textsuperscript{*}Corresponding author: Joshua Clingo\\
+    Email: jclingo@ucmerced.edu\par
+  }
+  \vfill
+\end{titlepage}
+
+\pagenumbering{arabic}
+
+\begin{abstract}
+
+  Living organisms continuously manage their homeostatic setpoints but sometimes fall into the ruts and grooves of an entrenched or canalized behavioral repertoire. Clinicians employ interventions, from psychoactive drugs to targeted stimulus regimes, to transiently decanalize entrenched behaviors and support more adaptive patterns. We present a computational model of canalization, decanalization, and recanalization in a homeostatic navigation task. Two policies, trained with a homeostatic reinforcement learning (HRL) objective or a one-sided negative-feedback (NF) objective, were evaluated in intervention and control trials. After correction of the model's anticipatory observations, and using one traversal count per tile entry in all phases, the HRL agent's post-intervention absolute-deviation contrast was uncertain (intervention minus control $-3.69$, 95\% CI $[-9.72, 2.35]$; 250 trials per condition). Route analyses showed that the trained agent did not form persistent, history-dependent routes, in the original environment or in a redesigned one, so the intervention had no entrenched pathway to disrupt. The model formalizes how environmental history and temporary perturbation interact with fixed learned policies; the corrected evaluation does not establish a benefit to subsequent homeostatic regulation, and testing decanalization requires agents whose behavior first depends on their history.
+
+\end{abstract}
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} canalization, decanalization, homeostatic reinforcement learning, foraging, psychedelics, altered states
+
+\section{Introduction}
+
+Organisms are constantly confronted with the trade-off between exploitation, the pursuit of known sources of reward, and exploration, the pursuit of uncertain sources of reward \cite{stephens_foraging_1986}. Although organisms ideally switch between exploration and exploitation at will and at optimal times \cite{pearson_decision_2014}, they often remain in one of those modes for too long or continue to cycle between them in non-optimal ways \cite{barack_neurocomputational_2016, addicott_primer_2017}. This can lead to habituated behavior patterns that are in conflict with their homeostatic needs \cite{bernard_lectures_1974}. From a dynamical systems perspective, organisms get stuck in the wells of fixed attractors, in the ruts and grooves of a ‘canalized’ landscape of behaviors \cite{waddington_canalization_1959, carhart-harris_canalization_2023}. The Bayesian perspective suggests that precise priors reduce the impact of new evidence, leading to repeated suboptimal behaviors and rigid response patterns \cite{carhart-harris_rebus_2019, carhart-harris_canalization_2023}. Work in reinforcement learning \cite{sutton_reinforcement_1998} has demonstrated that the interaction of meta-parameters and environmental factors can lead to reduced exploration and therefore over-exploitation of rewarding resources \cite{huys_mapping_2013}. These resources are discounted in perceived value, resulting in ‘observational overfitting’, where agents stop exploring altogether because they fixate on the wrong observational factors---resources that once were rewarding but are no longer rewarding \cite{song_observational_2019}.
+
+The problem of hypercanalization (over-canalization) has been recognized in psychology, cognitive science \cite{lloyd_understanding_2023}, clinical practice \cite{addicott_primer_2017}, and integrative psychotherapy \cite{schiepek_self-organization_2014, schiepek_integrative_2015, schiepek_psychotherapy_2017}. In integrative psychotherapy, intentional shifts between decanalization and recanalization are central to the therapeutic process because they allow for the integration and reintegration of positive behavioral patterns. These theorists draw on dynamical systems theory, in particular Haken's synergetics \cite{haken_synergetics_1977}, as well as on control theory and cybernetics \cite{wiener_cybernetics_2019}, to model feedback-driven mental pathologies and possible interventions. Related frameworks include homeostatic setpoint management and allostasis \cite{sterling_allostasis_1988, sterling_allostasis_2012}. In homeostatic reinforcement learning \cite{keramati_homeostatic_2014}, complex behaviors emerge and stabilize over time through learning and the temporal discounting it affords. However, the learning process can backfire if the organism becomes observationally overfitted and relies on rigid expectations about possible rewards in its environment.
+
+On canalization accounts, hypercanalized behaviors such as depression, anxiety, PTSD, substance use disorder, and OCD are said to result from overweighted priors \cite{carhart-harris_canalization_2023}, rigid and stubborn response patterns that canalize behavior toward a downward spiral of maladaptive, self-fulfilling, and self-destructive behavior \cite{scheffer_dynamical_2024}. This view has made its way into psychedelic-assisted psychotherapy, where psychedelics have been proposed to provide an entropic burst that destabilizes brain networks, leading to long-term psychological transformation \cite{carhart-harris_entropic_2014, hipolito_pattern_2023, girn_complex_2023}. These authors propose that focused destabilization during the psychotherapeutic process can address many otherwise intractable conditions marked by behavioral canalization.
+
+Psychedelics may also precipitate critical period plasticity similar to plasticity in early development, leading to ``exquisite sensitivity to environmental input'' \cite[Abstract]{lepow_critical_2021}. This mirrors Juliani et al.'s (2024) description of acute shifts to inference, which, when supported by heightened metaplasticity, result in learning and relearning of the environment and actions that can manipulate it. This learning is made even stronger when the environment itself shifts during these critical periods.
+
+For the most part, these ideas have remained metaphorical. Existing conceptualizations are often suggestive, but they rarely model their assumptions directly. Without a quantitative foundation, their explanatory value is limited. To address this gap, we developed a simulation that translates some of these assumptions into observable behavior. The aim is to render earlier conceptualizations into formal structures that can be quantified and compared, thereby sharpening the concepts, demonstrating their applicability to simulated agents, and exposing open questions that become visible only once the informal ideas are turned into a behavioral model.
+
+Our working model of decanalization is inspired by work on the entropic brain \cite{carhart-harris_entropic_2014,carhart-harris_entropic_2018}, canalization, and Hipólito et al.'s (2023) pattern-breaking model. We also draw heavily on Juliani et al.'s “Deep CANALs” (2024), which directly extends the ``CANAL'' model \cite{carhart-harris_canalization_2023} and distinguishes overfitting in inference from loss of plasticity in learning, treating the intersection of overfitting and low plasticity as a source of psychopathology. According to Juliani et al., decanalization acutely alters synaptic weights, sensory observations, and metaplasticity: “[Acute decanalization] is a function of both the current environmental context (made partially available to the model through a sequence of sensory observations) and the state of the system within the synaptic weight landscape. The inferred set of beliefs in a given instance are a function of the location of the system within the neural activity landscape.” In our agent-based model, sensory observations are observations about internal and external states. Synaptic weights correspond to learned associations between states, actions, and rewards. Neural activity corresponds to short-term beliefs represented by the state variables of the solutions. Metaplasticity is represented by factors that alter the learning dynamics of the system.
+
+Although hypercanalization is expressly maladaptive, it is more modestly rooted in behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. This reflects a broader point from embodied, embedded, enactive, and extended (4E) approaches to cognition: habits are not stored only in the head but are distributed across brain, body, and world \cite{barandiaran_genealogical_2014, newen_oxford_2018}. A worn path, a cleared trail, or a familiar routine is a behavioral pattern embodied in the environment, and it continues to shape behavior regardless of what the organism has learned. In real-world environments, agents learn against the backdrop of niche construction. We represent one aspect of this through introducing traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
+
+In this paper, we test the hypothesis that a homeostatic reinforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization.
+
+As a contrast and sanity check, we also examine the same intervention in an agent trained with a one-sided negative-feedback (NF) objective, which rewards reductions in absolute deviation only when the resulting state remains below the setpoint. Intuitively, we can think of HRL as an adaptive heating and air conditioning system that maintains a stable temperature. In contrast, NF functions as a simple heater would; it only activates when the temperature goes below a single fixed setpoint. We predicted that NF agents would not benefit from decanalization, based on the assumption that NF is fundamentally reactive and, in its simplest form, is not well-suited to proactively adjusting to altered environments. This assumption was drawn from Keramati and Gutkin's (2014) work on homeostatic reinforcement learning, which saw simple HRL models demonstrate improved temporal discounting, resulting in more rapid adaptations to altered environmental conditions, relative to NF. 
+
+To model decanalization and recanalization, we employ a variation of homeostatic reinforcement learning (HRL). This approach links movement, planning, and reward-seeking to the minimization of setpoint deviation. 
+
+Our results qualify this picture. After correcting the agent's anticipatory observations, the post-intervention benefit for the HRL agent was uncertain: its confidence interval includes both benefit and harm. Route analyses suggest why. The trained agent foraged reactively and did not form the persistent, history-dependent routes that canalization requires, either in the original environment or in a redesigned environment built to encourage them. Canalization and decanalization can be formalized in a way that allows hypotheses about their effects to be tested; doing so here shows that an agent must first exhibit canalization before decanalization has something to act on.
+
+\section{Methods}
+
+We built a simulation sandbox in Unreal Engine to directly explore canalization and decanalization dynamics. Entrenched behavioral patterns---often visualized as gravitational wells---are represented as variable-cost pathways through which an agent traverses a simulated world of homeostatic state-altering resources. Using reinforcement learning, the agent was trained to choose actions that maximize reward under a given reward function. In each training cycle, the agent observes a state, chooses an action, and receives a reward based on that action. We used an ongoing reward for proximity to the homeostatic setpoint as the primary objective (Homeostatic Reinforcement Learning), contrasting it with a one-sided deficit-reduction objective (Negative Feedback).
+
+The agent is modeled as a cube that moves forward automatically at a constant speed. Its internal homeostatic variable, $h_t$ (which can be thought of as food satiation, with setpoint fixed at 0), decreases through passive loss and tile traversal costs, and increases when the agent overlaps cylindrical resource pellets. Repeated traversals are tracked by partitioning the planar environment into tiles with a memory of past visits. Traversal cost decreases with this visit count, making familiar paths less costly.
+
+The arena is enclosed by a rectangular boundary. When the agent reaches the boundary, it is moved\footnote{This design choice prevents edge effects that would otherwise require the agent to manage the boundary as an additional environmental factor and potentially introduce edge-induced artifacts into the behavioral data.} to the diametrically opposite point of the boundary (half its perimeter away), keeping its heading. The world is therefore closed but not toroidal: crossing one edge re-enters from the opposite edge at the mirrored position.
+
+To train the agent, we used proximal policy optimization (PPO), a model-free reinforcement learning method \cite{schulman_proximal_2017}. PPO tends to be relatively stable and effective in complex learning environments. Both reward conditions used PPO.
+
+We implemented the environment in Unreal Engine 5.5 (Epic Games), a 3D computer graphics game engine that performs physics simulation, rendering, and state management. Although Unreal is a 3D tool, the task itself is essentially planar. To implement reinforcement learning, we used Unreal Engine's Learning Agents plugin, which trains policies in Python 3.11.8 using PyTorch 2.4.0. After training, we loaded encoder, decoder, and policy snapshots for evaluation.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1\linewidth]{./figures/canalization-phases.jpg}
+  \caption{Illustrative views of a trained HRL agent across four stages: pre-canalization, canalization, decanalization, and recanalization. The small yellow square marks the agent, and the white line indicates its orientation and forward raycast. Darker ``well-traveled'' tiles cost less to cross.  Pellets are shown in green, with shading proportional to reward value. The yellow-tinted panel marks the decanalization phase and its altered perceptual properties.}
+  \label{fig:canalization-phases}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/first-person.jpg}
+  \caption{Illustrative first-person view from the agent's field of view. Within this, the agent detects objects and estimates the future value of \(h\) from the current state, given the pellets and tiles along its projected trajectory. During decanalization, all pellets have the same value and tiles have zero traversal cost, and these estimates change accordingly.}
+\end{figure}
+
+\subsection{Model Details}\label{sec:model}
+
+The agent's internal homeostatic variable $h$ increases on resource collection and decreases through tile traversal and passive loss. Time $t$ indexes simulation ticks of 0.05s (20 Hz) in both training and evaluation; at each tick, the policy receives observations and selects one action, which steers the agent left or right. The agent's homeostatic state is updated according to
+\begin{equation}\label{eq:h}
+  h_{t+1}=h_t+o_t-c_t(\tau)-l_t,
+\end{equation}
+where $o_t$ is the value of the pellet collected during tick $t$ (0 if none), $c_t(\tau)$ is the traversal cost of the tile currently occupied, and $l_t$ is the passive loss, applied every fifth tick. Most ticks change $h$ only slightly; collecting a pellet produces a large increase.
+
+The policy also receives estimates of potential homeostatic gain and loss along its central raycast, that is, along the path it would follow if it continued straight ahead. If $\mathbf{O}$ and $\mathbf{T}$ denote the objects intersected by that ray, the corresponding short-horizon homeostatic state estimate can be expressed as
+\begin{equation}\label{eq:h-hat}
+  \hat h_{t+\kappa}=h_t+\sum_{o\in\mathbf{O}}o-\sum_{\tau\in\mathbf{T}}\hat c_t(\tau)-\hat L_{t,\kappa},
+\end{equation}
+where $\hat c_t(\tau)$ estimates traversal loss and $\hat L_{t,\kappa}$ estimates passive loss over the projected path, and $\kappa$ is the estimated time needed to traverse it. These observations inform steering actions.
+
+Simulated resource pellet instances (\(o\)) are represented as cylindrical objects that occupy the center of a tile and produce a positive effect on \(h\) on overlap with the agent. The agent is represented as a cube with a bounding box that monitors and manages overlap with \(o\) and \(\tau\) objects. The environment has a $50\times50$ tile grid with spacing of 1,000 Unreal units and a pellet-spawn probability of 0.05 per cell. Ordinary pellet values are drawn uniformly from $[5,35]$. The agent's starting position and orientation are randomized, using different random seeds for training and evaluation so that agents are not evaluated on the starting conditions seen during training. Evaluation samples $h_0$ once per trial from $[-15,15]$.
+
+To model environmental canalization, we created a grid of tiles that reduce \(h\) during overlap with the agent; we call this movement tax \emph{traversal cost}. Each tile is tracked individually, with a base impact parameter of 10 and an overlap count \(n\). Outside decanalization, the tile-impact calculation uses \(0.5/(n+1)\) per tick, where \(n\) counts the agent's entries into the tile during the training episode/trial sequence. Traversal cost therefore decreases with visit count, making familiar paths less costly. This mechanism represents the persistence of activity-dependent environmental changes---a kind of rudimentary niche construction, where the environment adapts to the agent's behavior, with diminishing returns to efficiency.
+
+It should be noted that cost to traversal is not equivalent to punishment. If the agent is above the setpoint, traversal loss can bring it closer to zero and increase subsequent HRL reward. More costly tiles can therefore bring greater reward, depending on the current state. It should also be noted that the agent also canalizes its behavior through reinforcement learning. The agent's policy is trained to maximize reward, which is a function of the homeostatic state \(h\). The agent learns to exploit the environment in ways that reduce \(h\) deviation from the setpoint, and this learned behavior was intended to interact with the environment's traversal costs to produce canalized behavior. Whether it does so is an empirical question, which we test in Section~\ref{sec:route-analysis}.
+
+At each tick, the policy---a neural network trained with PPO (Section~\ref{sec:ppo})---receives an array of observations as its input layer. These include predicted homeostatic gain and loss along the current path, the agent's current distance from the setpoint, and seven raycast values that measure the proportion of each ray that intersects with pellets and tiles. The policy network also includes a recurrent layer, which carries 64 internal values from one tick to the next. This acts as a short-term memory, letting the policy use recent experience as well as current observations. The agent's perceptual field spans 90 degrees, using seven raycasts at $-45^\circ$, $-22.5^\circ$, $-11.7^\circ$, $0^\circ$, $11.7^\circ$, $22.5^\circ$, and $45^\circ$ relative to its heading. The agent's perception is limited to 10,000 Unreal units\footnote{An ``Unreal unit'' is the basic unit of measurement in the Unreal Engine but does not translate to real-world distances.} in front of it.
+
+The central 0° raycast is also used for predicting potential homeostatic impact. The agent perceives both potential gain and loss to \(h\) through the central raycast's  overlap with \(o\) and \(\tau\) objects. These estimates correspond to the gain and loss terms of Equation~\ref{eq:h-hat}; the policy receives them separately, alongside $h_t$. The agent uses this information to help make action decisions.
+
+Anticipatory observations are computed from the central raycast. Predicted gain sums the impacts of all intersected pellets. Predicted loss combines the time spent crossing each intersected tile with passive loss over the full horizon. Tile crossing time is the ray's length inside the tile bounds divided by the agent's movement speed. The starting tile uses its recorded entry count, while future tiles include one prospective entry. This estimates straight travel at constant speed through the present axis-aligned tiles; it does not predict turns or pellet respawns. Gain and loss are inputs to the policy, rather than values learned by its critic. During decanalization, anticipated loss is deliberately set to zero. An earlier version of this computation retained only the last pellet on the ray, used approximate endpoint logic, mis-scaled passive loss, and applied an extra factor of 0.2; the corrected computation passed 23 native collision-based regression checks. Observations are gathered before the frame's perception update, so they lag perception by one tick (0.05s).
+
+At each tick, the agent moves forward automatically and selects a single continuous steering command $a_t$, which turns it by $2.5a_t$ degrees.
+
+The agent is unaware of anything beyond these observations and the actions it takes over time (a floating-point steering command at each tick), so its learning is contingent on finding useful interactions between the action (\(a\)) it takes at time \(t\) and the resulting future state at \(\mathbf{S}_{t+1}|a_t\).
+
+\subsection{Homeostatic Reinforcement Learning (HRL)}\label{sec:hrl}
+
+Homeostatic Reinforcement Learning (HRL) models an agent that manages a set of internal physiological or cognitive variables (e.g., energy, temperature, hunger, curiosity). The agent's goal is to reduce drive $D$ by keeping these values close to a set of preferred setpoints \cite{keramati_homeostatic_2014}:
+
+\begin{equation}\label{eq:model-drive}
+  D\left(H_t\right)=\sqrt[m]{\sum_{i=1}^N\left|h_i^*-h_{i, t}\right|^n}
+\end{equation}
+\(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). Note that for the case of $m = n = 1$, which we use, $D$ is a sum of absolute values between the setpoints and the actual physiological states. We focus on the case of a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\). Thus, in our model, drive reduces to the absolute value of $h$: \(D(h_t)=|h_t|\). A setpoint of 0 makes it easy to interpret $h$ values as either above or below the desired setpoint. If $h$ is food-satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger. HRL rewards states near the setpoint, so the agent learns, in Goldilocks fashion, to make $h$ larger when it is below \(h^*\) and smaller when it is above \(h^*\).
+
+Keramati and Gutkin (2014) define reward as reduction in drive, $r_t=D(H_t)-D(H_{t+1})$, and show that an agent maximizing discounted reward of this kind also minimizes its discounted deviation from the setpoint. We make a similar assumption with our model, treating drive reduction as equivalent to reward maximization through reinforcement learning. We predict that an agent that maximizes its homeostatic reward function will tend to hew closely to the setpoint, often through sophisticated temporal discounting, i.e., eschewing immediate rewards for longer term gains.
+
+In our implementation and at each tick, the HRL-like agent (which we will refer to as the ``HRL agent'') receives a reward that is largest at the setpoint and shrinks as $h$ moves away from it in either direction:
+\begin{equation}\label{eq:reward-hrl}
+  r_t^{HRL}=\frac{\Delta t\,R}{1+(h_t/S)^2},\qquad \Delta t=0.05,\ R=1,\ S=25.
+\end{equation}
+
+In effect, the organism is being rewarded for minimizing drive over time. Reward falls to half its maximum at $|h_t|=S$ and is never negative except on failure (below). For example, each tick spent at the setpoint earns 0.05, a tick at $h=\pm25$ earns 0.025, and a tick at $\pm50$ earns 0.01. An agent that stayed at the setpoint for a whole phase (2,000 ticks) would earn 100; one that stayed 25 away would earn 50. $R$ and $S$ are scaling parameters that set the reward magnitude and the width of the reward curve. They were selected to improve agent performance, measured as mean distance from the setpoint during pre-trial analysis for agent snapshot selection. The multiplier $\Delta t$ scales each tick's reward by its duration. Training episodes normally last 100s, but end early if $h$ gets more than 100 away from the setpoint ($|h_t|>100$). The agent then receives a reward of $-1$, the only negative reward, and is reset for a new episode. Evaluation trials never end early: each runs the full 300s (three 100s phases), however far $h$ drifts.
+% TODO: Adjust this based on later iterations (we've modified this)
+
+\subsection{Homeostatic Negative Feedback (NF)}\label{sec:nf}
+
+We also trained agents with a negative feedback (NF) reward function, which rewards the agent only for moving closer to the setpoint $h^*$ when it is below it. A heater thermostat is similar in that it only acts on one side of the setpoint: the heater turns on when the temperature gets too low, but no action is taken when the temperature gets too high.
+
+Formally,
+\begin{equation}\label{eq:reward-nf}
+  r_t^{NF}=\begin{cases}
+    \max\bigl(|h_{t-1}|-|h_t|,0\bigr)\,R/S,& h_t<0,\\
+    0,& h_t\geq0,
+  \end{cases}
+  \qquad R=1,\ S=25.
+\end{equation}
+The reward is proportional to how much closer to the setpoint the agent moves, but only if it ends the tick below the setpoint. For example, going from $h=-20$ to $-18$ earns $2/S=0.08$, while going from $-20$ to $-22$ earns nothing; there is no penalty. A pellet that takes $h$ from $-30$ to $-5$ earns 1, but one that takes it from $-10$ to $+15$ earns nothing, since the agent ends above the setpoint. $R$ and $S$ are scaling parameters, as in HRL. As with HRL, a training episode ends early if $h$ gets more than 100 away from the setpoint, but here the final reward is zero.
+
+We chose NF as a contrast to HRL. Keramati and Gutkin (2014) argued that HRL, unlike classical negative-feedback accounts, explains anticipatory responding, learned cue-triggered responses that reduce deviations from a temperature setpoint. We therefore predicted that decanalization would have little or no effect on NF agents. NF and HRL share the property of rewarding reduced deviation from the setpoint, but NF only rewards movement toward the setpoint when below it, resulting in behavior that is more reactive than proactive and therefore unstable.
+
+\subsection{Learning via Proximal Policy Optimization (PPO)}\label{sec:ppo}
+
+Neural-network policies were trained with proximal policy optimization \cite{schulman_proximal_2017} through Unreal Engine's Learning Agents interface and project-local Python adapters. HRL and NF use different hyperparameters, and NF required fine-tuning to effectively learn. These are reported in Appendix~\ref{app:implementation-settings}.
+
+Training used a fixed timestep of 0.05s (20 Hz). Episodes terminate if $|h_t|>100$ and truncate when the episode timer exceeds 100s. Full resets restore $h_0=0$, clear recurrent memory and custom reward/termination bookkeeping, reset perception and tile history, restore resources and their respawn timers, and clear stale movement input.
+
+Checkpoints were selected on canalized (CCC) validation trials: minimum mean absolute $h$ for HRL and maximum received reward for NF, over the three phases of each trial. Candidates were screened on eight trials and confirmed on 32 independent trials; the final 250-trial evaluations used a separate seed and played no part in selection. The selected HRL policy was newly trained with the corrected observations (750,000 collected transitions). The selected NF policy retains the weights of the earlier NF winner, which outperformed fresh and refined NF candidates when validated with the corrected observations.
+
+\subsection{Canalization and Decanalization}\label{sec:protocol}
+
+We represent canalization both through policy training and through the environmental history left by repeated traversal. Traversal costs fall with repeated visits, so the agent's history is written into the environment. Once training ends, the policy's weights remain fixed, and its behavior can depend on the environment only through its observations and recurrent state. In the trained policies, this landscape had little measurable influence on behavior (Section~\ref{sec:route-analysis}). The decanalization manipulation changes both what the agent perceives and its physiology: pellets are worth the maximum and losses are removed. It leaves the policy weights untouched. This simulation translates ideas about canalization in inference and learning \cite{juliani_deep_2024} into environmental alterations.
+
+We represent decanalization through temporary changes to the environment and to what the agent perceives. During decanalization, every pellet is worth 35 (the maximum ordinary value), and traversal and passive losses are set to zero. These changes affect the agent’s estimates of future homeostatic gain and loss. 
+
+The environmental changes also include halving tile traversal counts (rounding down) at the start of recanalization. Tile entries are counted, one per entry, in all three phases, including decanalization. Ordinary physical losses are removed during decanalization as well as anticipated losses, so these runs do not isolate the effect of perceptual change from the physical changes. Sensitivity analyses of the counting rate during decanalization and of the count transformation at recanalization are reported in the supplement.
+
+These alterations are designed to simulate the effects of decanalizing stimuli being actively explored in psychedelic research. %TODO: Mini lit review and explanation of why these alterations are appropriate for simulating decanalization.
+
+Each trained agent is evaluated in 250 canalization--decanalization--recanalization (CDR) trials and 250 canalization--canalization--canalization (CCC) trials. Each phase comprises 2,000 ticks of 0.05s, or 100s; phase boundaries occur at 2000, 4000, and 6000 cumulative ticks.
+
+In the first phase in both conditions, the agent is evaluated in a canalized environment with ordinary resource and cost settings. 
+
+In the second phase, CDR applies decanalization, while CCC retains ordinary resource and cost settings, with homeostatic value reset to the initial value for that trial between phases.
+
+In the third phase, CDR restores ordinary resource and cost settings but halves (rounds down) the visit counts to represent the flattening of the behavioral landscape, returning the agent to a canalizing perceptual and environmental state. CCC retains ordinary resource and cost settings.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Condition & Phase 1: 0--100s & Phase 2: 100--200s & Phase 3: 200--300s\\
+\midrule
+CDR & Canalization & Decanalization & Recanalization\\
+CCC & Canalization & Canalization & Canalization\\
+\bottomrule
+\end{tabular}
+\caption{Evaluation phases for each agent. Phase boundaries restore the trial's initial $h$ but otherwise preserve traversal history, movement speed, and heading.}
+\label{tab:trial-phases}
+\end{table}
+
+Each trial begins with a full reset: the agent's short-term memory, the tile visit counts, and the pellets are all restored to their starting state. The boundaries between phases within a trial reset only $h$, which returns to the trial's initial value, so that differences in the recanalization phase reflect behavior rather than a different starting $h$. Everything else carries over from one phase to the next: the agent's memory, its position and heading, the pellets, and the tile visit counts. The only changes are the decanalization manipulations described above.
+
+\subsection{Statistical Analysis and Reproducibility}\label{sec:stats}
+
+All 250 trials in each condition were logged. The primary analysis reports CDR minus CCC mean differences, two-sided Welch tests, and unadjusted 95\% confidence intervals. We also ran paired comparisons, matching CDR and CCC trials by trial number. No formal a priori power analysis was performed.
+
+\subsection{Code and Data Availability}
+
+The Unreal Engine source code, evaluation data, and analysis materials are available at \url{https://github.com/JClingo/decanalization}. The repository includes a README with instructions for reproducing the results. The code is released under the MIT license, and the data are released under the CC BY 4.0 license. 
+
+
+\section{Results}\label{model-results}
+
+One selected policy per objective was evaluated under both CDR and CCC. The main tables compare CDR with CCC in the post-intervention phase. The primary HRL analysis uses one traversal count per entry in all phases. The available corrected NF evaluation counted no entries during decanalization, so the NF results are reported as a separate reference rather than as a matched primary comparison.
+
+% TODO: Determine which items in Table 2 are needed (AI suggested this table, but it's a bit much. Also, the formatting is bad.)
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}p{0.29\linewidth}X@{}}
+\toprule
+Measure & Definition\\
+\midrule
+Mean absolute $h$ & Average distance of $h$ from the setpoint over a phase\\
+Total reward & Reward summed over the 2,000 ticks of a phase\\
+RMS $h$ & Root mean square of $h$: distance from the setpoint, weighting large deviations more heavily\\
+$h$ loss & Total $h$ lost to traversal and passive loss\\
+$h$ gain & Total $h$ gained from pellets\\
+Logged harvest count & Number of harvests logged in the phase\\
+\bottomrule
+\end{tabularx}
+\caption{Outcome definitions used to compare phase 3 outcomes across conditions. The primary outcome is mean absolute $h$; the remaining outcomes are secondary.}
+\label{tab:outcome-measures}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/factor1-phase-outcomes.png}
+\caption{Phase-level HRL outcomes for 250 trials per condition, comparing CDR (one count per entry in all phases) with CCC under the same selected policy. Points show trial means and bars show unadjusted 95\% confidence intervals. CDR comprises canalization, decanalization, and recanalization; CCC remains canalized. Homeostatic summaries use recorded event/update samples, and reward is summed over the 2,000 decisions of each 100-second phase. Homeostatic state is restored at phase boundaries, so connected phase means do not depict an uninterrupted state trajectory.}
+\label{fig:rerun-primary}
+\end{figure}
+% TODO: Discuss this figure--we'll have to see whether it makes sense to include the 'during' part.
+
+Phase 1 is identical across conditions and shows how the trained policies behave in an ordinary canalizing environment. The HRL agent harvested about 33 pellets per phase; its $h$ averaged 11.2 from the setpoint and was within $\pm5$ 33\% of the time, with a slight tendency to overshoot (mean $h$ = 4.5). In the NF reference evaluation, the agent harvested about 30 pellets, and its $h$ averaged 41.6 from the setpoint and was within $\pm5$ only 5\% of the time.
+
+\subsection{Route persistence}\label{sec:route-analysis}
+
+Canalization in the intended sense requires that the agent's routes persist and depend on the history written into the landscape. They did not. In phase 1 of the CCC trials, the HRL agent made 648 tile entries on 558 distinct tiles, 22\% of the arena, so only 14\% of entries were revisits. Its phase-2 routes overlapped its own phase-1 routes barely more than the routes of an unrelated trial did: the Jaccard similarity of entered-tile sets was 0.133, against 0.124 for phase-2 routes from other trials (excess 0.009, 95\% bootstrap CI [0.005, 0.012]). The agent ranged widely rather than settling into a worn loop, and its earlier routes did not guide its later ones. A later audit with the current selected HRL policy found the same pattern, and showed that manipulating tile history had little behavioral effect: phase-3 starting counts from 78 to 2,218 changed post-intervention MAE by less than 0.6.
+
+To test whether canalization could be induced, we rebuilt the environment around it (supplement): fixed resource patches with slow regrowth, wear that fades with disuse, traversal cost perceived on every ray, and retraining over multi-episode lifetimes, with three training seeds and two rounds of environmental tuning. Stronger wear raised revisiting within a phase to 0.61, but phase-3 routes returned to phase-1 routes at no more than 1.5 times the chance level, short of the pre-specified twofold criterion. In a further pilot with the original policy and environment, removing the food from the agent's most-used phase-1 tiles cost it equally whether or not its landscape history was intact, and flattening only the agent's perception changed how much it harvested but not where it went. The model therefore did not exhibit the canalization that the intervention was designed to disrupt.
+
+\subsection{HRL: decanalization vs. no-decanalization}
+
+In the recanalization phase, post-intervention mean absolute deviation was 14.789 under CDR and 18.475 under CCC (difference $-3.686$, 95\% CI $[-9.722, 2.349]$; Table~\ref{model-analysis-hrl}). Mean objective reward was 79.964 and 79.349 (difference 0.615, 95\% CI $[-1.796, 3.026]$). The SD, RMS, and near-setpoint fraction contrasts were also uncertain, and all Holm-adjusted $p$ values for these outcomes were 1.0. Logged loss and gain were larger under CDR, and the harvest contrast did not survive the Holm adjustment. These results do not establish the predicted improvement in post-intervention regulation; they also do not establish equivalence between conditions.
+
+\begin{table}[htbp]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Measure & CDR & CCC & $\Delta M$ & 95\% CI & Holm $p$\\
+\midrule
+Mean absolute $h$ & 14.789 & 18.475 & -3.686 & [-9.722, 2.349] & 1 \\
+Population SD of $h$ & 15.564 & 17.347 & -1.783 & [-5.397, 1.831] & 1 \\
+Objective reward per phase & 79.964 & 79.349 & 0.615 & [-1.796, 3.026] & 1 \\
+Fraction within $\pm$5 & 0.312 & 0.307 & 0.005 & [-0.008, 0.018] & 1 \\
+RMS $h$ & 19.131 & 23.526 & -4.396 & [-11.445, 2.654] & 1 \\
+Signed mean $h$ & 0.999 & 8.275 & -7.276 & [-13.710, -0.843] & 0.1605 \\
+Logged $h$ loss & -467.060 & -409.067 & -57.993 & [-73.445, -42.541] & 6.519e-12 \\
+Logged $h$ gain & 663.624 & 621.157 & 42.466 & [19.242, 65.691] & 0.00288 \\
+Logged harvest count & 30.932 & 29.468 & 1.464 & [0.293, 2.635] & 0.1008 \\
+\bottomrule
+\end{tabular}
+\caption{Post-intervention outcomes for the HRL agent ($n=250$ per condition), with one traversal count per entry in all phases. $\Delta M$ is CDR minus CCC; confidence intervals are unadjusted two-sided Welch intervals. Holm $p$ values adjust the nine HRL outcomes within this phase.}
+\label{model-analysis-hrl}
+\end{table}
+
+\subsection{NF: decanalization vs. no-decanalization}
+
+In the separate NF reference evaluation, which counted no tile entries during decanalization, the NF agent earned more post-intervention reward under CDR than under CCC (21.327 versus 18.525; difference 2.802, 95\% CI $[1.737, 3.867]$; Table~\ref{model-analysis-nf}). Its absolute-error contrast remained uncertain (66.210 versus 41.584; difference 24.626, 95\% CI $[-28.795, 78.046]$), and the fraction of samples within $\pm5$ fell from 0.068 to 0.050. Higher NF reward therefore did not establish better absolute setpoint regulation. Because its counting rule differs, this evaluation is not a matched comparison with the primary HRL result.
+
+\begin{table}[htbp]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Measure & CDR & CCC & $\Delta M$ & 95\% CI & Holm $p$\\
+\midrule
+Mean absolute $h$ & 66.210 & 41.584 & 24.626 & [-28.795, 78.046] & 1.0000 \\
+Population SD of $h$ & 39.565 & 24.943 & 14.621 & [-19.789, 49.032] & 1.0000 \\
+Objective reward per phase & 21.327 & 18.525 & 2.802 & [1.737, 3.867] & 5.18e-06 \\
+Fraction within $\pm$5 & 0.050 & 0.068 & -0.018 & [-0.023, -0.014] & 3.12e-13 \\
+RMS $h$ & 77.225 & 48.222 & 29.002 & [-34.512, 92.517] & 1.0000 \\
+Signed mean $h$ & 8.871 & -9.505 & 18.376 & [-35.865, 72.617] & 1.0000 \\
+Logged $h$ loss & -453.455 & -392.484 & -60.971 & [-81.815, -40.127] & 2.6e-07 \\
+Logged $h$ gain & 693.229 & 587.756 & 105.473 & [-3.962, 214.909] & 0.6472 \\
+Logged harvest count & 28.056 & 26.876 & 1.180 & [-0.283, 2.643] & 1.0000 \\
+\bottomrule
+\end{tabular}
+\caption{Post-intervention outcomes for the NF agent in the reference evaluation without counting during decanalization ($n=250$ per condition). $\Delta M$ is CDR minus CCC; confidence intervals are unadjusted. Holm $p$ values adjust 18 comparisons, nine outcomes for each of the two policies evaluated under this counting rule.}
+\label{model-analysis-nf}
+\end{table}
+
+\subsection{Paired comparisons}
+
+Because CDR and CCC trials share the same random seeds, each CDR trial can be paired with the CCC trial of the same number. For the primary HRL comparison, all 250 pairs matched in their captured initial $h$, random-number state and recurrent-memory start, and 249 matched in all nine phase-1 outcomes. Paired, baseline-change and pretreatment-matched analyses gave the same picture: the mean absolute $h$ difference was $-3.686$ (95\% CI $[-9.361, 1.988]$) across all pairs and $-3.661$ ($[-9.358, 2.036]$) across the 249 matched pairs, and every reward interval included zero.
+
+\section{Discussion}\label{model-discussion}
+
+% In this paper, we test the hypothesis that a homeostatic reinforcement-trained agent that undergoes simulated decanalization will be better able to minimize its average setpoint distance, relative to an agent that undergoes no simulated decanalization.
+
+% As a contrast and sanity check, we also examine the same intervention in an agent trained with a one-sided negative-feedback (NF) objective, which rewards reductions in absolute deviation only when the resulting state remains below the setpoint. Intuitively, we can think of HRL as an adaptive heating and air conditioning system that maintains a stable temperature. In contrast, NF functions as a simple heater would; it only activates when the temperature goes below a single fixed setpoint. We predicted that NF agents would not benefit from decanalization, based on the assumption that NF is fundamentally reactive and, in its simplest form, is not well-suited to proactively adjusting to altered environments. This assumption was drawn from Keramati and Gutkin's (2014) work on homeostatic reinforcement learning, which saw simple HRL models demonstrate temporal discounting, resulting in more rapid adaptations to altered environmental conditions.
+
+We hypothesized that decanalization would improve post-intervention homeostatic regulation for the HRL agent. The corrected evaluation does not support this hypothesis. The point estimate favors CDR, but the interval leaves both benefit and harm compatible with the data. An earlier version of the model, with faulty anticipatory observations and a different selected policy, had shown a clear benefit (difference $-7.36$); because both the observations and the policy changed, the comparison cannot isolate which change accounts for the smaller estimate. The uncertainty is also not evidence that the effect is absent. The more basic finding is that the agent was not canalized in the sense the hypothesis assumes (Section~\ref{sec:route-analysis}), so the experiment could not test whether breaking a canal improves regulation.
+
+Using HRL and NF objectives with PPO, we simulated a canalization--decanalization--recanalization process in which repeated traversal makes familiar pathways less costly. This represents a limited form of niche construction: activity changes the environment, which then shapes subsequent behavior \cite{pio-lopez_scale-free_2025, lyon_reframing_2021}. Efficient routes can support stable behavior while also reducing the incentive to explore alternatives. Traversal cost is a property of the environment's dynamics and not of the reward function: the reward depends only on $h$, and the agent's history shapes the world it moves through. This puts the model in line with embodied and extended views of cognition, on which habits are sustained by the environment as well as by internal states \cite{lyon_reframing_2021, hipolito_pattern_2023}. Clinically, this is a familiar point. Entrenched patterns are held in place by environmental factors: routines, relationships, and settings, not only by beliefs, which are already represented in reinforcement learning. Interventions that target only the internal side may leave the external grooves intact, and our model treats these as separable but tightly coupled aspects of cognition. In the present model, however, the external grooves had little influence on behavior: the agent's routes did not persist across phases, and changing its tile history barely changed what it did.
+
+The behavior of phase 1 shows why. The agent forages reactively, steering toward pellets within its 90-degree field and roughly ten-tile range, and it does not return to its earlier routes. Distant pellets are invisible to it, and the traversal cost it perceives along its central ray is close to the cost of fresh tiles most of the time, so worn paths carry little information for the policy. Decanalization changes where the agent goes during the intervention, but its phase-3 routes are no more or less similar to its phase-1 routes than without it. Any post-intervention difference therefore does not arise from leaving a habitual route. In the terms of observational overfitting \cite{song_observational_2019}, the policy relies on what it can currently perceive rather than on what it has learned about where it has been.
+
+In the NF reference evaluation, the agent earned more reward after the intervention without regulating better. This dissociation follows from the objective: NF rewards only reductions of a deficit, gives nothing for states at or above the setpoint, and does not penalize swings below it. It does not show that the NF agent lacks anticipation; both policies receive the same anticipatory observations and are trained with the same discount. Because this evaluation used a different counting rule, a matched NF evaluation is needed before comparing the two objectives directly.
+
+
+
+Cybernetic accounts of personality place goal regulation at the center of individual differences \cite{safron_deyoung_2021}, and recent work develops this program using active inference \cite{safron_sheikhbahaee_2024}. Our model makes a narrower distinction between stable behavior under ordinary conditions and behavior after a temporary perceptual perturbation.
+
+Safron et al. propose that psychedelic effects can involve both strengthened and relaxed beliefs, depending on representational level, dose, and context \cite{safron_albus_2025}. Translating this to the present model, the HRL agent's policy is strengthened by training, but its perception of the environment is relaxed by decanalization. 
+
+Temporary perturbation also has a loose parallel with simulated annealing, where destabilization can facilitate movement between regions of a solution space \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}. In the present model, the perturbation did not produce reliably improved subsequent regulation, and the agent had no entrenched region to escape from; the model is a computational starting point for studying behavioral transformation \cite{clingoDisintegrationReintegrationModelPsychological2025} rather than an example of it.
+
+\subsection{Limitations}
+
+The evaluation compared just a single agent per objective. It also did not measure variation across independent training seeds. Cross-agent differences therefore cannot fully isolate the effect of reward design from training settings.
+
+Most importantly, we did not establish that the trained agents were canalized in the sense of persistent, history-dependent routes. Route overlap across phases was close to chance, and manipulating tile history had little behavioral effect. A redesigned environment with resource patches, fading wear, per-ray cost perception, and retraining over multi-episode lifetimes did not produce such canalization either. The study therefore tests a perturbation of a reactive forager, not the disruption of an entrenched pattern.
+
+The boundary wrap occasionally places the agent outside the grid at a corner, where there are no tiles or pellets, and the agent rarely returns; in position-logged runs this occurred in about 0.7\% of phases. The agent is not respawned at phase boundaries, so such an escape can affect the rest of a trial. In the primary HRL data, 9 of 250 trials had a phase that began outside the grid (6 under CCC and 8 under CDR, 5 of them shared because phase 1 is identical across conditions). Excluding these trials gave a similar, still uncertain, mean absolute $h$ difference ($-4.46$, 95\% CI $[-10.12, 1.19]$, 241 trials per condition). Escapes followed by a return within a phase would not be detected by this screen.
+
+At phase boundaries, $h$ was restored to the trial's initial value while other within-trial state was retained. Post-intervention performance is consequently not uninterrupted physiological recovery. This decision was made intentionally: during decanalization, pellets are worth the maximum and losses are removed, so $h$ can move far from the setpoint, and we did not want that deviation to carry into the recanalization phase. However, this came at the cost of our being unable to measure the effect of decanalization on uninterrupted homeostatic recovery. 
+
+Some initial-scene captures also differed in timer, visibility, or overlap state despite identical baseline outcomes and matching RNG and memory records. The paired comparisons address the recorded differences; the general significance or direction of results do not meaningfully change, even after compensating for these factors.
+
+Homeostatic summaries are based on event/update samples rather than uniformly timed samples. Related outcome measures share information, confidence intervals are unadjusted, and no optimal controller or independent training-seed benchmark was evaluated; the residual gap to attainable performance is therefore unknown.
+
+The HRL policy is not optimal. We used off-the-shelf PPO with limited tuning and limited systematic hyperparameter search, and the task is partially observed (a 90-degree field of view reaching roughly ten tiles of a $50\times50$ arena) and non-stationary (tile costs change with visits and pellets respawn). Both training settings and the structure of the environment therefore likely contribute to the gap. Our aim was comparative rather than to maximize performance: in domains such as Atari games and language modeling, finding good working solutions has required very large amounts of compute and expert engineering, even where, as in language modeling, no zero-loss optimum exists \cite{mnih_human-level_2015, badia_agent57_2020, hoffmann_training_2022}.
+
+In the primary HRL runs, visit counts increased by one per entry in all phases and were halved at recanalization. With the same selected policy, we varied the counting rate during decanalization (0, 1, 2, 4 or 7 counts per entry), the share of counts retained at recanalization (0\% to 100\%, with and without flooring), and the two jointly, with 250 trials per condition. These manipulations substantially changed the retained tile counts, but none established a post-intervention difference from CCC or from the primary condition after adjustment. This does not establish equivalence or an optimal rule. The chosen values were selected primarily for learning tractability and to capture some essential alterations present in decanalization as understood by psychedelic researchers and other researchers interested in pivotal behavioral changes, but they may not be optimal or inclusive of all relevant factors. The parameters and hyperparameters were selected independently of the evaluation data. Our goal was to hillclimb to a working model that could be inspected and perturbed, then to compare conditions within it.
+
+Another limitation is that this model explores the management of a single setpoint. Living organisms coordinate around the management of many different setpoints, presenting constant pressure for organisms to effectively juggle these, allowing some to stray far from the ideal range so that others may be satisfied. In such cases, the far-from-ideal setpoint(s) exert disproportionate influence on the organism's behavior (e.g., when we are extremely thirsty, all we can think about is quenching that thirst).
+
+In real-world environments, endlessly exploitable resources, perfect predictions, and environmental constancy are improbable. Moreover, the optimal reward is often unknown, and setpoints---as in allostasis \cite{sterling_allostasis_1988}---are themselves changing over time. Organisms have to deal with many trade-offs and risks. Learning to use drive to motivate discounted behaviors that are well-adapted to long-term survival means being able to live with non-ideal states.
+
+A fuller treatment of between-trial differences, robustness to hyperparameter choices, and ablations of the composite decanalization manipulation would strengthen future work.
+
+An area that we did not address---but could support long-term behavioral shifts---is intentional reintegration driven by top-down processes. Psychedelic-assisted therapy is characterized by acute alterations in experience, but this is followed by active reintegration practices \cite{bathje_psychedelic_2022}. The present intervention changes environmental conditions without a separate reintegration procedure, whereas real-world patients receive support before, during, and after treatment. The effects of behavioral nudging on decanalized and recanalized agents could help to demonstrate the dynamics more clearly.
+
+\subsection{Future Directions}
+
+The present study applies a single decanalization episode to a policy whose weights are fixed after training. A natural next step is to apply repeated cycles of decanalization and recanalization to agents that continue learning, and to ask which combinations of intensity, duration, repitition, and duty cycles lead to regression to the mean and  which lead to long-term improvements and/or degradations. We expect to encounter long-term Goldilocks zones. 
+
+With too little decanalization, the agent stays in its rut. With too much, it is constantly destabilized and never has time to consolidate what it finds, so repeated decanalization should eventually degrade performance. Somewhere in between, periodic decanalization followed by enough recanalization to learn from it should produce the best long-term regulation, much as annealing depends on its cooling schedule \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}. The same framework could test robustness to new disruptions, a computational analogue of new adversity or trauma: shifting or depleting the resources the agent relies on, or moving its setpoint, and comparing how quickly previously decanalized and never-decanalized agents recover. In pilot work with the present policy, such a shift cost the agent equally whether or not its landscape history was intact, so this test requires agents whose behavior depends on their history, for example through memory that persists across phases or through learning during evaluation. More generally, the model supports many such studies, varying the timing, intensity, and frequency of interventions and the conditions that follow them, and measuring their long-term rather than only immediate effects.
+
+These questions bear on a broader debate about optimal dosing and the shape of therapeutic change. One view treats change as incremental: a small intervention is given, its effects observed, and the dose increased or decreased accordingly. This is the standard model in behavioral and cognitive-behavioral therapy, and it may explain the continued appeal of psychedelic microdosing, even though placebo-controlled studies have so far found little benefit beyond placebo \cite{szigeti_microdosing_2021}. A newer view, associated with integrative psychotherapy and synergetics \cite{schiepek_self-organization_2014, schiepek_psychotherapy_2017}, introduces criticality into psychological transformation. Change on this view is not smooth; it comes from one or a few highly transformative episodes, such as pattern breaking \cite{hipolito_pattern_2023}, pivotal mental states \cite{brouwer_pivotal_2021} or transformative experiences \cite{paul_transformative_2014}, in which a system near instability spontaneously reorganizes. Discontinuous change appears even within cognitive-behavioral therapy, where some patients show large sudden gains between sessions \cite{tang_sudden_1999, hayes_change_2007}. Our model can compare these possibilities directly, for example by giving agents either one large perturbation or many small ones of matched total magnitude and asking which produces more durable improvements in regulation. The present results, in which a single large intervention improved subsequent regulation, are consistent with the pivotal view but do not test it against an incremental alternative.
+
+Still, understanding the underlying shape and dynamics of psychological transformation mediated by pattern-breaking interventions such as psychedelics is pressing if their therapeutic potential is to translate into routine clinical use. The REBUS and CANAL frameworks propose that relaxing rigid beliefs and destabilizing maladaptive attractors can permit psychological change; whether such change becomes beneficial depends on what follows the initial destabilization.
+
+This dependence is central to accounts of psychedelic action that emphasize context and renewed learning. In mice, psychedelics reopen a critical period for social reward learning, with the duration of this window varying across compounds \cite{nardou_psychedelics_2023}. This provides a preclinical basis for investigating the timing of therapeutic experiences, while work on set and setting emphasizes how psychological and environmental conditions may shape outcomes \cite{carhart-harris_context_2018}. Deep CANALs further distinguishes rigid inference from loss of learning capacity and suggests that increased plasticity can permit maladaptive as well as adaptive learning \cite{juliani_deep_2024}. More predictive models are therefore needed to specify how initial rigidity, intervention intensity and duration, and the conditions of subsequent recanalization jointly determine whether decanalization produces lasting benefit. The present work provides a starting point by making some of these dependencies experimentally tractable in a simulated agent.
+
+\section{Conclusions}
+
+Research on canalization and decanalization often moves between clinical, dynamical, and mechanistic vocabularies without making underlying computational assumptions explicit. Our aim was to formalize one such set of assumptions in a simple model that could be inspected, perturbed, and compared across conditions.
+
+The model implements environmental canalization and temporary perturbation in a homeostatic navigation task. After correcting the anticipatory observations and selecting policies for their respective objectives, post-intervention HRL absolute regulation remained uncertain relative to uninterrupted canalization, and the trained agent did not show the route persistence that canalization requires. These results constrain the proposed benefit of decanalization within this model; they do not establish improved regulation across trained policies or biological systems. They also identify the next modeling step: agents whose behavior depends on their own history.
+
+Like most scientific models, ours is a simplified approximation of a much more complex reality. We reduced the number of possible parameters for tractability, and in doing so may have omitted emergent and higher-level features that are central to behavioral transformation. Although the model was simple, the implementation was not. Many technical and parameter choices may have shaped the results. These are standard tradeoffs in scientific modeling and reflect the need to study behavioral entrenchment with a concrete model. The model should therefore be read as a formal setting in which canalization and decanalization can be specified and tested, not as a direct account of psychiatric disorders, psychotherapeutic change, or psychedelic treatment outcomes. We nevertheless hope it provides a useful starting point for further investigating behavioral transformation.
+
+\section*{Declarations}
+
+\subsection*{Declaration of conflicting interests}
+The authors declare that there is no conflict of interest.
+
+\subsection*{Funding}
+\begin{sloppypar}
+  The authors received no financial support for the research, authorship, and/or publication of this article.
+\end{sloppypar}
+
+\subsection*{Use of AI}
+
+The authors used AI agents to assist with analysis code, implementation audits, and manuscript revision. During revision, AI assisted with checking the source repository and evaluation records, regenerating tables, integrating revised methods and results, and providing suggestions for manuscript text. All content was thoroughly reviewed, edited, and approved by the authors.
+
+\subsection*{Ethics approval}
+Not applicable. This study used only simulated agents in a simulated environment; no human participants, nonhuman animals, biological specimens, or clinical records were involved.
+
+\subsection*{Data and code availability}
+The Unreal Engine source code, evaluation data, and analysis materials used in this study are openly available at \url{https://github.com/JClingo/decanalization}.
+
+\sloppy
+\begin{thebibliography}{33}
+  \providecommand{\natexlab}[1]{#1}
+  \providecommand{\url}[1]{\texttt{#1}}
+  \expandafter\ifx\csname urlstyle\endcsname\relax
+    \providecommand{\doi}[1]{doi: #1}\else
+    \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+  \bibitem[Addicott et~al., 2017]{addicott_primer_2017}
+  M.~A. Addicott, J.~M. Pearson, M.~M. Sweitzer, D.~L. Barack, and M.~L. Platt.
+  \newblock A primer on foraging and the explore/exploit trade-off for psychiatry
+  research.
+  \newblock 42\penalty0 (10):\penalty0 1931--1939, 2017.
+  \newblock ISSN 1740-634X.
+  \newblock \doi{10.1038/npp.2017.108}.
+  \newblock URL \url{https://www.nature.com/articles/npp2017108}.
+  \newblock Publisher: Nature Publishing Group.
+
+  \bibitem[Badia et~al., 2020]{badia_agent57_2020}
+  Adri\`a~Puigdom\`enech Badia, Bilal Piot, Steven Kapturowski, Pablo
+  Sprechmann, Alex Vitvitskyi, Daniel Guo, and Charles Blundell.
+  \newblock Agent57: Outperforming the {Atari} human benchmark.
+  \newblock In \emph{Proceedings of the 37th International Conference on
+  Machine Learning}, volume 119 of \emph{Proceedings of Machine Learning
+  Research}, pages 507--517, 2020.
+
+  \bibitem[Barandiaran and Di~Paolo, 2014]{barandiaran_genealogical_2014}
+  Xabier~E. Barandiaran and Ezequiel~A. Di~Paolo.
+  \newblock A genealogical map of the concept of habit.
+  \newblock 8:\penalty0 522, 2014.
+  \newblock \doi{10.3389/fnhum.2014.00522}.
+  \newblock URL
+  \url{https://www.frontiersin.org/articles/10.3389/fnhum.2014.00522}.
+
+  \bibitem[Barack and Platt, 2016]{barack_neurocomputational_2016}
+  David~L. Barack and Michael~L. Platt.
+  \newblock Neurocomputational nosology: {{Malfunctions}} of models and
+  mechanisms.
+  \newblock \emph{Frontiers in Psychology}, Volume 7 - 2016, 2016.
+  \newblock ISSN 1664-1078.
+  \newblock \doi{10.3389/fpsyg.2016.00602}.
+
+  \bibitem[Barak, 2017]{barak_recurrent_2017}
+  Omri Barak.
+  \newblock Recurrent neural networks as versatile tools of neuroscience
+  research.
+  \newblock 46:\penalty0 1--6, 2017.
+  \newblock ISSN 0959-4388.
+  \newblock \doi{10.1016/j.conb.2017.06.003}.
+  \newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0959438817300429}.
+
+  \bibitem[Bathje et~al., 2022]{bathje_psychedelic_2022}
+  Geoff~J. Bathje, Eric Majeski, and Mesphina Kudowor.
+  \newblock Psychedelic integration: An analysis of the concept and its practice.
+  \newblock 13, 2022.
+  \newblock ISSN 1664-1078.
+  \newblock URL
+  \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2022.824077}.
+
+  \bibitem[Bernard, 1974]{bernard_lectures_1974}
+  C.~Bernard.
+  \newblock \emph{Lectures on the phenomena of life common to animals and
+    plants}.
+  \newblock American lecture series, publication. Thomas, 1974.
+  \newblock ISBN 978-0-398-02857-2.
+  \newblock URL \url{https://books.google.com/books?id=zMhqAAAAMAAJ}.
+  \newblock Number: v. 1 tex.lccn: 73004297.
+
+  \bibitem[Bochynek et~al., 2019]{bochynek_infrastructure_2019}
+  Thomas Bochynek, Martin Burd, Christoph Kleineidam, and Bernd Meyer.
+  \newblock Infrastructure construction without information exchange: the trail
+  clearing mechanism in \emph{Atta} leafcutter ants.
+  \newblock \emph{Proceedings of the Royal Society B: Biological Sciences},
+  286(1895):20182539, 2019.
+  \newblock \doi{10.1098/rspb.2018.2539}.
+
+  \bibitem[Brouwer and Carhart-Harris, 2021]{brouwer_pivotal_2021}
+  Ari Brouwer and Robin~L. Carhart-Harris.
+  \newblock Pivotal mental states.
+  \newblock \emph{Journal of Psychopharmacology}, 35(4):319--352, 2021.
+  \newblock \doi{10.1177/0269881120959637}.
+
+% SUGGESTED EDIT [24]: Proposed supporting reference: brouwer_trajectory_2024.
+%   \bibitem[Brouwer et~al., 2024]{brouwer_trajectory_2024}
+%   Ari Brouwer, Joshua K. Brown, Earth Erowid, Fire Erowid, Sylvia Thyssen,
+%   Charles L. Raison, and Robin L. Carhart-Harris.
+%   \newblock The temporal trajectory of the psychedelic mushroom experience
+%   mimics the narrative arc of the Hero's Journey.
+%   \newblock \emph{Research Square}, preprint, version 1, 2024.
+%   \newblock \doi{10.21203/rs.3.rs-3941205/v1}.
+% END SUGGESTED EDIT [24]
+  \bibitem[Carhart-Harris and Friston, 2019]{carhart-harris_rebus_2019}
+  R.~L. Carhart-Harris and K.~J. Friston.
+  \newblock {REBUS} and the anarchic brain: Toward a unified model of the brain
+  action of psychedelics.
+  \newblock 71\penalty0 (3):\penalty0 316--344, 2019.
+  \newblock ISSN 0031-6997.
+  \newblock \doi{10.1124/pr.118.017160}.
+  \newblock URL \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6588209/}.
+
+  \bibitem[Carhart-Harris et~al., 2023]{carhart-harris_canalization_2023}
+  R.~L. Carhart-Harris, S.~Chandaria, D.~E. Erritzoe, A.~Gazzaley, M.~Girn,
+  H.~Kettner, P.~A.~M. Mediano, D.~J. Nutt, F.~E. Rosas, L.~Roseman,
+  C.~Timmermann, B.~Weiss, R.~J. Zeifman, and K.~J. Friston.
+  \newblock Canalization and plasticity in psychopathology.
+  \newblock 226:\penalty0 109398, 2023.
+  \newblock ISSN 0028-3908.
+  \newblock \doi{10.1016/j.neuropharm.2022.109398}.
+  \newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0028390822004579}.
+
+  \bibitem[Carhart-Harris et~al., 2014]{carhart-harris_entropic_2014}
+  Robin Carhart-Harris, Robert Leech, Peter Hellyer, Murray Shanahan, Amanda
+  Feilding, Enzo Tagliazucchi, Dante Chialvo, and David Nutt.
+  \newblock The entropic brain: a theory of conscious states informed by
+  neuroimaging research with psychedelic drugs.
+  \newblock 8, 2014.
+  \newblock ISSN 1662-5161.
+  \newblock URL
+  \url{https://www.frontiersin.org/article/10.3389/fnhum.2014.00020}.
+
+  \bibitem[Carhart-Harris, 2018]{carhart-harris_entropic_2018}
+  Robin~L. Carhart-Harris.
+  \newblock The entropic brain---revisited.
+  \newblock 142:\penalty0 167--178, 2018.
+  \newblock ISSN 0028-3908.
+  \newblock \doi{10.1016/j.neuropharm.2018.03.010}.
+  \newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0028390818301175}.
+
+  \bibitem[Carhart-Harris et~al., 2018]{carhart-harris_context_2018}
+  Robin~L. Carhart-Harris, Leor Roseman, Eline Haijen, David Erritzoe,
+  Rosalind Watts, Igor Branchi, and Mendel Kaelen.
+  \newblock Psychedelics and the essential importance of context.
+  \newblock \emph{Journal of Psychopharmacology}, 32(7):725--731, 2018.
+  \newblock \doi{10.1177/0269881118754710}.
+
+  \bibitem[Clingo, 2025]{clingoDisintegrationReintegrationModelPsychological2025}
+  Joshua Clingo.
+  \newblock \emph{The Disintegration-Reintegration Model of Psychological Transformation}.
+  \newblock Thesis, UC Merced, July 23, 2025.
+  \newblock URL \url{https://escholarship.org/uc/item/54z4d95j}.
+
+  \bibitem[Davies and Blackwell, 2007]{davies_energy_2007}
+  Mark~S. Davies and Janine Blackwell.
+  \newblock Energy saving through trail following in a marine snail.
+  \newblock \emph{Proceedings of the Royal Society B: Biological Sciences},
+  274(1614):1233--1236, 2007.
+  \newblock \doi{10.1098/rspb.2007.0046}.
+
+  \bibitem[Girn et~al., 2023]{girn_complex_2023}
+  Manesh Girn, Fernando~E. Rosas, Richard~E. Daws, Courtney~L. Gallen, Adam
+  Gazzaley, and Robin~L. Carhart-Harris.
+  \newblock A complex systems perspective on psychedelic brain action.
+  \newblock 27\penalty0 (5):\penalty0 433--445, 2023.
+  \newblock ISSN 1364-6613, 1879-307X.
+  \newblock \doi{10.1016/j.tics.2023.01.003}.
+  \newblock URL
+  \url{https://www.cell.com/trends/cognitive-sciences/abstract/S1364-6613(23)00021-9}.
+  \newblock Publisher: Elsevier.
+
+  \bibitem[Haken, 1977]{haken_synergetics_1977}
+  Hermann Haken.
+  \newblock \emph{Synergetics: An Introduction. Nonequilibrium Phase Transitions
+  and Self-Organization in Physics, Chemistry and Biology}.
+  \newblock Springer, Berlin, 1977.
+
+  \bibitem[Hajek, 1988]{hajek_cooling_1988}
+  Bruce Hajek.
+  \newblock Cooling schedules for optimal annealing.
+  \newblock \emph{Mathematics of Operations Research}, 13(2):311--329, 1988.
+  \newblock \doi{10.1287/moor.13.2.311}.
+
+  \bibitem[Hayes et~al., 2007]{hayes_change_2007}
+  Adele~M. Hayes, Jean-Philippe Laurenceau, Greg Feldman, Jennifer~L. Strauss,
+  and LeeAnn Cardaciotto.
+  \newblock Change is not always linear: The study of nonlinear and
+  discontinuous patterns of change in psychotherapy.
+  \newblock \emph{Clinical Psychology Review}, 27(6):715--723, 2007.
+  \newblock \doi{10.1016/j.cpr.2007.01.008}.
+
+  \bibitem[Hip\'olito et~al., 2023]{hipolito_pattern_2023}
+  In\^es Hip\'olito, Jonas Mago, Fernando~E Rosas, and Robin Carhart-Harris.
+  \newblock Pattern breaking: a complex systems approach to psychedelic medicine.
+  \newblock 2023\penalty0 (1):\penalty0 niad017, 2023.
+  \newblock ISSN 2057-2107.
+  \newblock \doi{10.1093/nc/niad017}.
+  \newblock URL \url{https://doi.org/10.1093/nc/niad017}.
+
+  \bibitem[Hoffmann et~al., 2022]{hoffmann_training_2022}
+  Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor
+  Cai, Eliza Rutherford, Diego de~Las~Casas, Lisa~Anne Hendricks, Johannes
+  Welbl, Aidan Clark, et~al.
+  \newblock Training compute-optimal large language models.
+  \newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~35, pages 30016--30030, 2022.
+
+  \bibitem[Huys et~al., 2013]{huys_mapping_2013}
+  Quentin~JM Huys, Diego~A. Pizzagalli, Ryan Bogdan, and Peter Dayan.
+  \newblock Mapping anhedonia onto reinforcement learning: A behavioural
+  meta-analysis.
+  \newblock \emph{Biology of Mood \& Anxiety Disorders}, 3\penalty0 (1):\penalty0
+  12, June 2013.
+  \newblock ISSN 2045-5380.
+  \newblock \doi{10.1186/2045-5380-3-12}.
+
+  \bibitem[Juliani et~al., 2024]{juliani_deep_2024}
+  Arthur Juliani, Adam Safron, and Ryota Kanai.
+  \newblock Deep {CANALs}: a deep learning approach to refining the canalization
+  theory of psychopathology.
+  \newblock 2024\penalty0 (1):\penalty0 niae005, 2024.
+  \newblock ISSN 2057-2107.
+  \newblock \doi{10.1093/nc/niae005}.
+  \newblock URL \url{https://doi.org/10.1093/nc/niae005}.
+
+  \bibitem[Keramati and Gutkin, 2014]{keramati_homeostatic_2014}
+  Mehdi Keramati and Boris Gutkin.
+  \newblock Homeostatic reinforcement learning for integrating reward collection
+  and physiological stability.
+  \newblock 3:\penalty0 e04811, 2014.
+  \newblock ISSN 2050-084X.
+  \newblock \doi{10.7554/eLife.04811}.
+  \newblock URL \url{https://doi.org/10.7554/eLife.04811}.
+  \newblock Publisher: {eLife} Sciences Publications, Ltd.
+
+  \bibitem[Kirkpatrick et~al., 1983]{kirkpatrick_optimization_1983}
+  S. Kirkpatrick, C.~D. Gelatt, Jr., and M.~P. Vecchi.
+  \newblock Optimization by simulated annealing.
+  \newblock \emph{Science}, 220(4598):671--680, 1983.
+  \newblock \doi{10.1126/science.220.4598.671}.
+
+  \bibitem[Laland et~al., 2016]{laland_niche_2016}
+  Kevin Laland, Blake Matthews, and Marcus W. Feldman.
+  \newblock An introduction to niche construction theory.
+  \newblock \emph{Evolutionary Ecology}, 30:191--202, 2016.
+  \newblock \doi{10.1007/s10682-016-9821-z}.
+
+  \bibitem[Lepow et~al., 2021]{lepow_critical_2021}
+  Lauren Lepow, Hirofumi Morishita, and Rachel Yehuda.
+  \newblock Critical period plasticity as a framework for psychedelic-assisted
+  psychotherapy.
+  \newblock 15, 2021.
+  \newblock ISSN 1662-453X.
+  \newblock \doi{10.3389/fnins.2021.710004}.
+  \newblock URL
+  \url{https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2021.710004/full}.
+  \newblock Publisher: Frontiers.
+
+  \bibitem[Lloyd et~al., 2023]{lloyd_understanding_2023}
+  Alex Lloyd, Essi Viding, Ryan McKay, and Nicholas Furl.
+  \newblock Understanding patch foraging strategies across development.
+  \newblock 27\penalty0 (11):\penalty0 1085--1098, 2023.
+  \newblock ISSN 1364-6613, 1879-307X.
+  \newblock \doi{10.1016/j.tics.2023.07.004}.
+  \newblock URL
+  \url{https://www.cell.com/trends/cognitive-sciences/abstract/S1364-6613(23)00172-9}.
+
+  \bibitem[Lyon et~al., 2021]{lyon_reframing_2021}
+  Pamela Lyon, Fred Keijzer, Detlev Arendt, and Michael Levin.
+  \newblock Reframing cognition: getting down to biological basics.
+  \newblock 376\penalty0 (1820):\penalty0 20190750, 2021.
+  \newblock \doi{10.1098/rstb.2019.0750}.
+  \newblock URL
+  \url{https://royalsocietypublishing.org/doi/10.1098/rstb.2019.0750}.
+  \newblock Publisher: Royal Society.
+
+  \bibitem[Mnih et~al., 2015]{mnih_human-level_2015}
+  Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A. Rusu, Joel Veness,
+  Marc~G. Bellemare, Alex Graves, Martin Riedmiller, Andreas~K. Fidjeland,
+  Georg Ostrovski, et~al.
+  \newblock Human-level control through deep reinforcement learning.
+  \newblock \emph{Nature}, 518(7540):529--533, 2015.
+  \newblock \doi{10.1038/nature14236}.
+
+  \bibitem[Moreno et~al., 2026]{moreno_randomized_2026}
+  Francisco~A. Moreno, Katja~E. Allen, Christopher~B. Wiegand, Rajan Dunne,
+  James~I. Prickett, Brian Bayze, and John~J.~B. Allen.
+  \newblock A randomized clinical trial of repeated doses of psilocybin for
+  the treatment of obsessive--compulsive disorder.
+  \newblock \emph{Journal of Psychopharmacology}, 40(5):837--849, 2026.
+  \newblock \doi{10.1177/02698811261424214}.
+
+  \bibitem[Nardou et~al., 2023]{nardou_psychedelics_2023}
+  Romain Nardou, Edward Sawyer, Young~Jun Song, Makenzie Wilkinson,
+  Yasmin Padovan-Hernandez, J\'unia~Lara de~Deus, Noelle Wright, Carine Lama,
+  Sehr Faltin, Loyal~A. Goff, Genevieve~L. Stein-O'Brien, and G\"ul D\"olen.
+  \newblock Psychedelics reopen the social reward learning critical period.
+  \newblock \emph{Nature}, 618(7966):790--798, 2023.
+  \newblock \doi{10.1038/s41586-023-06204-3}.
+
+  \bibitem[Newen et~al., 2018]{newen_oxford_2018}
+  Albert Newen, Leon De~Bruin, and Shaun Gallagher, editors.
+  \newblock \emph{The Oxford Handbook of 4E Cognition}.
+  \newblock Oxford University Press, 2018.
+  \newblock \doi{10.1093/oxfordhb/9780198735410.001.0001}.
+
+  \bibitem[Paul, 2014]{paul_transformative_2014}
+  L.~A. Paul.
+  \newblock \emph{Transformative Experience}.
+  \newblock Oxford University Press, Oxford, 2014.
+
+  \bibitem[Pearson et~al., 2014]{pearson_decision_2014}
+  John~M Pearson, Karli~K Watson, and Michael~L Platt.
+  \newblock Decision making: the neuroethological turn.
+  \newblock \emph{Neuron}, 82\penalty0 (5):\penalty0 950--965, June 2014.
+
+  \bibitem[Pio-Lopez et~al., 2025]{pio-lopez_scale-free_2025}
+  L\'eo Pio-Lopez, Giovanni Pezzulo, and Michael Levin.
+  \newblock Scale-free niche construction: expanding agent-microenvironment
+  co-development to unconventional substrates, 2025.
+  \newblock URL \url{https://osf.io/ytg35_v1}.
+
+  \bibitem[Safron and DeYoung, 2021]{safron_deyoung_2021}
+  Adam Safron and Colin G. DeYoung.
+  \newblock Integrating Cybernetic Big Five Theory with the free energy
+  principle: A new strategy for modeling personalities as complex systems.
+  \newblock In D. Wood, S. J. Read, P. D. Harms, and A. Slaughter, editors,
+  \emph{Measuring and Modeling Persons and Situations}, pages 617--649.
+  Academic Press, 2021.
+  \newblock \doi{10.1016/B978-0-12-819200-9.00010-7}.
+
+  \bibitem[Safron and Sheikhbahaee, 2024]{safron_sheikhbahaee_2024}
+  Adam Safron and Zahra Sheikhbahaee.
+  \newblock Towards understanding persons and their personalities with
+  Cybernetic Big 5 Theory and the Free Energy Principle and Active Inference
+  (FEP-AI) framework.
+  \newblock In C. L. Buckley et~al., editors, \emph{Active Inference},
+  CCIS 1915, pages 73--90. Springer, 2024.
+  \newblock \doi{10.1007/978-3-031-47958-8_6}.
+
+  \bibitem[Safron et~al., 2025]{safron_albus_2025}
+  Adam Safron, Arthur Juliani, Nicco Reggente, Victoria Klimaj, and Matthew Johnson.
+  \newblock On the varieties of conscious experiences: Altered Beliefs Under
+  Psychedelics (ALBUS).
+  \newblock \emph{Neuroscience of Consciousness}, 2025(1):niae038, 2025.
+  \newblock \doi{10.1093/nc/niae038}.
+
+  \bibitem[Raison et~al., 2023]{raison_single-dose_2023}
+  Charles~L. Raison, Gerard Sanacora, Joshua Woolley, et~al.
+  \newblock Single-dose psilocybin treatment for major depressive disorder:
+  A randomized clinical trial.
+  \newblock \emph{JAMA}, 330(9):843--853, 2023.
+  \newblock \doi{10.1001/jama.2023.14530}.
+
+  \bibitem[Scheffer et~al., 2024]{scheffer_dynamical_2024}
+  Marten Scheffer, Claudi~L. Bockting, Denny Borsboom, Roshan Cools, Clara
+  Delecroix, Jessica~A. Hartmann, Kenneth~S. Kendler, Ingrid van~de Leemput,
+  Han L.~J. van~der Maas, Egbert van Nes, Mark Mattson, Pat~D. {McGorry}, and
+  Barnaby Nelson.
+  \newblock A dynamical systems view of psychiatric disorders-theory: A review.
+  \newblock 81\penalty0 (6):\penalty0 618--623, 2024.
+  \newblock ISSN 2168-6238.
+  \newblock \doi{10.1001/jamapsychiatry.2024.0215}.
+
+  \bibitem[Schiepek et~al., 2015]{schiepek_integrative_2015}
+  G\"unter Schiepek, Heiko Eckert, Benjamin Aas, Sebastian Wallot, and Anna
+  Wallot.
+  \newblock \emph{Integrative Psychotherapy: A Feedback-Driven Dynamic Systems
+    Approach}.
+  \newblock Hogrefe Publishing, 2015.
+  \newblock ISBN 978-0-88937-472-0.
+  \newblock \doi{10.1027/00472-000}.
+
+  \bibitem[Schiepek et~al., 2014]{schiepek_self-organization_2014}
+  G\"unter~K. Schiepek, Igor Tominschek, and Stephan Heinzel.
+  \newblock Self-organization in psychotherapy: testing the synergetic model of
+  change processes.
+  \newblock 5, 2014.
+  \newblock ISSN 1664-1078.
+  \newblock URL
+  \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2014.01089}.
+
+  \bibitem[Schiepek et~al., 2017]{schiepek_psychotherapy_2017}
+  G\"unter~K. Schiepek, Kathrin Viol, Wolfgang Aichhorn, Marc-Thorsten H\"utt,
+  Katharina Sungler, David Pincus, and Helmut~J. Sch\"oller.
+  \newblock Psychotherapy is chaotic---(not only) in a computational world.
+  \newblock 8, 2017.
+  \newblock ISSN 1664-1078.
+  \newblock \doi{10.3389/fpsyg.2017.00379}.
+  \newblock URL
+  \url{https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2017.00379/full}.
+  \newblock Publisher: Frontiers.
+
+  \bibitem[Schulman et~al., 2017]{schulman_proximal_2017}
+  John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+  \newblock Proximal policy optimization algorithms, 2017.
+  \newblock URL \url{http://arxiv.org/abs/1707.06347}.
+
+  \bibitem[Song et~al., 2019]{song_observational_2019}
+  Xingyou Song, Yiding Jiang, Stephen Tu, Yilun Du, and Behnam Neyshabur.
+  \newblock Observational overfitting in reinforcement learning, 2019.
+  \newblock URL \url{https://arxiv.org/abs/1912.02975}.
+
+  \bibitem[Stephens and Krebs, 1986]{stephens_foraging_1986}
+  David~W Stephens and John~R Krebs.
+  \newblock \emph{Foraging theory}, volume~6.
+  \newblock Princeton university press, 1986.
+
+  \bibitem[Sterling, 2012]{sterling_allostasis_2012}
+  Peter Sterling.
+  \newblock Allostasis: A model of predictive regulation.
+  \newblock 106\penalty0 (1):\penalty0 5--15, 2012.
+  \newblock ISSN 0031-9384.
+  \newblock \doi{10.1016/j.physbeh.2011.06.004}.
+  \newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0031938411003076}.
+
+  \bibitem[Sterling and Eyer, 1988]{sterling_allostasis_1988}
+  Peter Sterling and Joseph Eyer.
+  \newblock Allostasis: A new paradigm to explain arousal pathology.
+  \newblock In \emph{Handbook of life stress, cognition and health}, pages
+  629--649. John Wiley \& Sons, 1988.
+  \newblock ISBN 978-0-471-91269-9.
+
+  \bibitem[Sutton et~al., 1998]{sutton_reinforcement_1998}
+  Richard~S Sutton, Andrew~G Barto, et~al.
+  \newblock \emph{Reinforcement learning: An introduction}, volume~1.
+  \newblock MIT press Cambridge, 1998.
+
+  \bibitem[Szigeti et~al., 2021]{szigeti_microdosing_2021}
+  Balázs Szigeti, Laura Kartner, Allan Blemings, Fernando Rosas, Amanda
+  Feilding, David~J. Nutt, Robin~L. Carhart-Harris, and David Erritzoe.
+  \newblock Self-blinding citizen science to explore psychedelic microdosing.
+  \newblock \emph{eLife}, 10:e62878, 2021.
+  \newblock \doi{10.7554/eLife.62878}.
+
+  \bibitem[Tang and DeRubeis, 1999]{tang_sudden_1999}
+  Tony~Z. Tang and Robert~J. DeRubeis.
+  \newblock Sudden gains and critical sessions in cognitive-behavioral therapy
+  for depression.
+  \newblock \emph{Journal of Consulting and Clinical Psychology},
+  67(6):894--904, 1999.
+  \newblock \doi{10.1037/0022-006X.67.6.894}.
+
+  \bibitem[Waddington, 1959]{waddington_canalization_1959}
+  C.~H. Waddington.
+  \newblock Canalization of development and genetic assimilation of acquired
+  characters.
+  \newblock 183\penalty0 (4676):\penalty0 1654--1655, 1959.
+  \newblock ISSN 1476-4687.
+  \newblock \doi{10.1038/1831654a0}.
+  \newblock URL \url{https://www.nature.com/articles/1831654a0}.
+  \newblock Number: 4676 Publisher: Nature Publishing Group.
+
+  \bibitem[Wiener, 2019]{wiener_cybernetics_2019}
+  Norbert Wiener.
+  \newblock \emph{Cybernetics or Control and Communication in the Animal and the
+    Machine}.
+  \newblock The {MIT} Press, reissue edition, 2019.
+  \newblock ISBN 978-0-262-35590-2.
+  \newblock \doi{10.7551/mitpress/11810.001.0001}.
+  \newblock URL
+  \url{https://direct.mit.edu/books/oa-monograph/4581/Cybernetics-or-Control-and-Communication-in-the}.
+
+\end{thebibliography}
+
+
+\clearpage
+\begin{appendices}
+
+% SUGGESTED EDIT [29]: R1-18: Regenerate the figures from verified metrics and experimental units.
+% Increase labels at final print size and add a focused post-intervention figure with appropriate uncertainty.
+% Keep detailed phase panels in the appendix, using comparable scales and explicit metric definitions.
+% END SUGGESTED EDIT [29]
+  \section{Appendix}\label{appendix}
+
+  \input{appendix}
+
+
+
+
+
+\end{appendices}
+
+\end{document}

@@ -1,45 +1,8 @@
 % !TEX root = ./modelingDecanalization.tex
 
-All settings and analyses are available in the repository, but the following table summarizes them for convenience. The effective PPO settings for the selected policies are shown in Table~\ref{tab:ppo-settings}. The shared environment and evaluation settings are shown in Table~\ref{tab:environment-settings}.
+\subsection{Implementation settings}\label{app:implementation-settings}
 
-\subsubsection{Effective PPO settings}
-
-
-
-\begin{table}[htbp]
-\centering\small
-\begin{tabularx}{\linewidth}{@{}Xll@{}}
-\toprule
-Parameter & HRL & NF\\
-\midrule
-Policy / critic learning rate & $10^{-4}/10^{-3}$ & $3\times10^{-5}/3\times10^{-4}$\\
-Learning-rate multiplier & 1 & 1\\
-Weight decay & $10^{-4}$ & $10^{-4}$\\
-Policy / critic minibatch & 2056 / 4096 & 2056 / 4096\\
-Recurrent window (steps) & 16 & 16\\
-Updates per gather / critic warmup & 32 / 8 & 8 / 0\\
-PPO clipping parameter & 0.2 & 0.1\\
-Discount / GAE parameter & 0.99 / 0.95 & 0.99 / 0.95\\
-Normalized advantage range & $[-10,10]$ & $[-10,10]$\\
-Action surrogate weight & 1 & 1\\
-Action regularization / entropy weight & 0.001 / 0.001 & 0 / 0\\
-Return regularization & $10^{-4}$ & $10^{-4}$\\
-Gradient-norm clipping & 0.5 & 0.25\\
-Start / end steps trimmed & 0 / 0 & 0 / 0\\
-Exploration SD & Learned & Fixed, 0.15\\
-Sampled approximate KL guard & None specified & 0.015\\
-PPO seed & 1234 & 1234\\
-Configured iteration limit & 1,000,000 & 1,000,000\\
-Selected checkpoint label & 10000 & 5000\\
-\bottomrule
-\end{tabularx}
-\caption{Effective training settings for the selected policies.}
-\label{tab:ppo-settings}
-\end{table}
-
-\subsubsection{Environment and evaluation settings}
-
-The following table environment and evaluation settings are shared across all trials and conditions:
+Table~\ref{tab:world-settings} lists the world and agent parameters and Table~\ref{tab:ppo-settings} the training settings. Both objectives use identical settings; they differ only in the drive $D$.
 
 \begin{table}[htbp]
 \centering\small
@@ -47,23 +10,44 @@ The following table environment and evaluation settings are shared across all tr
 \toprule
 Parameter & Value\\
 \midrule
-Tile grid / spacing (Unreal units) & $50\times50$ / 1000\\
-Resource-spawn probability per cell & 0.05\\
-Ordinary / decanalized pellet impact & $[5,35]$ / 35\\
-Pellet respawn interval & 0.01 s\\
-Passive-loss parameter / update interval & 0.5 / 0.25 s\\
-Tile base impact parameter & 10\\
-Normal / decanalized counted visits per entry & 1 / 0\\
-Recanalization count update & $\lfloor n/2\rfloor$\\
-Training / trial environment seed & 1 / 10001\\
-Training initial $h$ / trial initial $h$ & $-15$ / uniform $[-15,15]$\\
-Native movement-speed setting & 5,000 cm/s\\
-Ray horizon / trace radius (Unreal units) & 10,000 / 75\\
-Decision interval / decisions per phase & 0.05 s / 2000\\
-Phase duration / trials per condition & 100 s / 250\\
-Inference action noise & 0\\
+Grid / boundary & $50\times50$ tiles / toroidal\\
+Tick / speed / maximum turn & 0.05\,s / 5 tiles\,s$^{-1}$ / $10^\circ$ per tick\\
+Passive loss & 2 per second\\
+Traversal cost $c(n)$ & $1+4e^{-n/3}$ per second; entry counts fade with half-life 200\,s\\
+Patches / size / quality & 10 / $3\times3$ cells / uniform $[3,15]$\\
+Regrowth delay & $8\,\mathrm{s}/f$\\
+Degradation per harvest / fertility recovery & $f\leftarrow0.92f$ / time constant 300\,s (changing world only)\\
+New patches (changing world) & 2, quality uniform $[8,12]$, no degradation, regrowth $\times0.5$, appear at 300\,s $\ge$20 tiles from the agent\\
+Perception & 7 rays over $90^\circ$, range 10 tiles\\
+Belief precision from sighting / contact / harvest & 0.05 per tick / 0.5\,s$^{-1}$ / 2\\
+Precision decay time constant & 200\,s (low-precision reference: 20\,s, no harvest precision)\\
+Believed regrowth time & 8\,s\\
+Phases & 300\,s / 100\,s / 300\,s; $h$ continuous; $h_0=0$\\
+Trap criterion & $h\le-100$ during the phase\\
 \bottomrule
 \end{tabularx}
-\caption{Shared evaluation environment and primary intervention.}
-\label{tab:environment-settings}
+\caption{World and agent parameters.}
+\label{tab:world-settings}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xl@{}}
+\toprule
+Parameter & Value\\
+\midrule
+Decision interval / options & 0.5\,s (10 ticks) / seek, explore, cruise, avoid\\
+Network & 11 inputs, two tanh layers of 64, policy (4) and value heads\\
+Reward per tick & $\kappa(D_{t-1}-D_t)$, $\kappa=\Delta t/(1-\gamma)$, $\gamma=0.99$; HRL $D=|h|/25$, NF $D=\max(-h,0)/25$\\
+Option discount / GAE $\lambda$ & $0.99^{10}$ / 0.95\\
+Optimizer / learning rate & Adam / $3\times10^{-4}$\\
+Clip / epochs / minibatch & 0.2 / 4 / 2048\\
+Entropy weight / value weight / gradient clip & 0.01 / 0.5 / 0.5\\
+Training & 60 iterations $\times$ 16 trials in the stable world; four training seeds per objective\\
+Checkpoint selection & every fifth iteration from 20 and the last; 8 held-out stable-world trials; HRL lowest mean $|h|$, NF lowest mean deficit\\
+Evaluation & 64 paired trials per training seed (seeds 5000--5063), sampled actions\\
+\bottomrule
+\end{tabularx}
+\caption{Policy, objective and training settings.}
+\label{tab:ppo-settings}
 \end{table}
