@@ -1,0 +1,144 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs,tabularx,amsmath,amssymb,float}
+\usepackage[hidelinks]{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\title{Supplement: model development history\\\large Modeling decanalization with homeostatic reinforcement learning}
+\date{}
+
+\begin{document}
+\maketitle
+
+\noindent This supplement records how the model in the main text was reached, including the versions that did not work and why. All quantities are means with 95\% confidence intervals unless stated otherwise. ``Paired'' comparisons share world layout, starting state and random streams. Criteria for each test were fixed before the corresponding run unless a step is explicitly marked as post hoc.
+
+\section{The Unreal Engine sandbox}
+
+\subsection{Original study}
+
+The first version of this study used an Unreal Engine 5.5 sandbox: an agent on a $50\times50$ tile grid, perceiving seven rays, steering with a policy trained by proximal policy optimization (PPO). Traversal cost fell with each tile's visit count. The intervention (CDR) set every pellet to the maximum value and removed traversal and passive loss for 100\,s, then halved visit counts. Comparing CDR with uninterrupted canalization (CCC), the originally reported HRL benefit was a phase-3 mean absolute $h$ difference of $-7.37$ $[-10.59, -4.14]$ (250 trials per condition).
+
+\subsection{Correction of the anticipatory observations}
+
+An audit found that the agent's perceived gain and loss were computed incorrectly. Only the last pellet on the ray was counted, endpoint logic was approximate, passive loss was mis-scaled, and an extra factor of 0.2 was applied. After the repair, which passed 23 native regression checks, and retraining of the HRL policy, the contrast became uncertain: $-3.33$ $[-9.49, 2.82]$ under the original counting rule, and $-3.69$ $[-9.72, 2.35]$ under the intended rule of one count per entry in all phases. Sweeps of the counting rate during the intervention (0, 1, 2, 4, 7 counts per entry), of the share of counts retained afterwards (0--100\%), and of their interaction (250 trials per condition) established no post-intervention difference. Policies trained with later drive-reduction rewards gave $+0.26$ $[-0.31, 0.83]$ (paired, 36 trials, $h$ reset at phase boundaries). With $h$ carried across phases, CDR was harmful (phase-3 MAE 228 vs 19), because the intervention's physiological surplus carried over.
+
+\subsection{The sandbox did not form canals}
+
+Route analyses explained the absence of an effect: there was no entrenched pattern to disrupt.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yl@{}}
+\toprule
+Observation & Value\\
+\midrule
+Phase-1 tile entries / distinct tiles (factor-1 HRL policy, CCC) & 648 / 558 (22\% of the arena)\\
+Phase 1--2 route overlap (Jaccard) vs unrelated trials & 0.133 vs 0.124 (excess $+0.009$ $[0.005, 0.012]$)\\
+Phase 1--3 route overlap vs unrelated trials (current-protocol policy) & 0.126 vs 0.106\\
+Tile-history manipulation: phase-3 starting counts 78--2,218 & post-intervention MAE changed by $<0.6$\\
+CDR effect on routes (cosine, phase 1--2 / phase 1--3) & 0.19 $\to$ 0.135 / 0.185 vs 0.186\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The agent foraged reactively and did not return to earlier routes. Wear was barely visible to it: the central ray's perceived traversal cost averaged about 7--9 against a fresh-tile value of 10.
+
+\subsection{Other findings from the audit}
+
+\begin{itemize}
+  \item \textbf{Boundary.} The manuscript described the arena as toroidal. In fact, the agent reaching a wall is moved to the diametrically opposite point of the boundary, half its perimeter away, keeping its heading. At corners this occasionally places the agent outside the grid, where it finds no tiles or food and rarely returns: about 0.7\% of logged phases, and 9 of 250 trials in the factor-1 HRL data. Excluding those trials left the factor-1 contrast uncertain: $-4.46$ $[-10.12, 1.19]$.
+  \item \textbf{Discounted-distance metric.} The native discounted-distance score is cumulative from the trial start. Its ``phase-3'' value therefore reflects only the first 5--10\,s of phase 1.
+  \item \textbf{Observation timing.} Observations are gathered before the frame's perception update, a lag of one tick (0.05\,s).
+  \item \textbf{Evaluation reproducibility.} Evaluations were deterministic within one project copy. A reference policy scored differently across separately prepared copies (2.01 vs 1.70), for reasons not resolved.
+\end{itemize}
+
+\section{Redesigning the sandbox}
+
+We redesigned the sandbox to make canals form and matter:
+\begin{itemize}
+  \item fixed resource patches with 20\,s regrowth;
+  \item wear that fades with disuse (half-life 200\,s);
+  \item traversal cost perceived on every ray (observation 11 $\to$ 18 values);
+  \item retraining over multi-episode lifetimes, with tile counts carried across episodes and occasional patch relocations;
+  \item three seeds per round.
+\end{itemize}
+Every component passed native validation. The pre-specified gate G0 required phase 1--3 route overlap at least twice the chance level and a phase-3 revisit fraction of at least 0.5.
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Yrrr@{}}
+\toprule
+Round & Overlap / chance & Phase-3 revisit & Training vs reference\\
+\midrule
+Current policy in the redesigned world (probe) & excess $+0.005$ $[-0.017, 0.024]$ & 0.32 & ---\\
+0: retrained, respawn every episode & 1.06$\times$ & 0.38 & 0.85$\times$\\
+1: continuous lifetimes & 0.92$\times$ & 0.32 & 1.49$\times$ (abort)\\
+2: stronger wear & 1.50$\times$ & \textbf{0.61} & 1.18$\times$\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent Stronger wear made agents revisit their own tiles within a phase, but routes did not return across phases. G0 failed after the two permitted tuning rounds.
+
+The pre-specified fallback design kept the original policy and world. It added perception-only flattening, a phase-3 shift that moved food out of the agent's most-used tiles, and pathway endpoints. A 16-trial-per-arm pilot found:
+\begin{itemize}
+  \item the shift cost the agent equally whether or not its landscape history was intact;
+  \item perception-only flattening changed foraging ($-2.2$ $[-3.9, -0.1]$ harvests in phase 2) but not routes ($+0.011$ $[-0.005, 0.026]$ Jaccard);
+  \item routes already overlapped at chance.
+\end{itemize}
+We concluded that the sandbox lacked two ingredients: an agent whose behavior depends on learned, history-dependent beliefs, and a world that changes after those beliefs form.
+
+\section{Python prototype: imposed perceptual narrowing}
+
+To iterate quickly on the dynamics, we built a Python gridworld mirroring the sandbox: the same grid, speed, rays, wear and homeostatic dynamics, with resource patches that degrade with use. The first prototype imposed canalization. A canal-depth variable $\kappa$ rose on familiar tiles. As $\kappa$ grew, the field of view and ray range narrowed, and the agent perceived remembered food in exhausted familiar patches, a precise prior. Decanalization restored full perception. A hand-written controller steered toward perceived food when hungry and along worn paths otherwise.
+
+\begin{itemize}
+  \item \textbf{Canals formed} (window-to-window route overlap about $10\times$ chance), but in every arm. The controller's preference for worn tiles made the physical canal emergent; the narrowing of perception was built in.
+  \item \textbf{Outcomes were bistable:} trials either collapsed into a starving rut or regulated well. Means were dominated by collapsed trials, so we adopted a \emph{trap} endpoint post hoc: a phase counts as trapped if $h\le-100$.
+  \item \textbf{Trapping and release} were confirmed on fresh seeds (64 paired trials). The narrowing agent was trapped in 53\% of trials, against 5\% for an agent that never narrowed ($+0.48$ $[0.36, 0.61]$). Fully relaxed perception for 100\,s lowered trapping by 0.25 $[0.11, 0.39]$, and release grew with dose and duration.
+  \item \textbf{Canalization never paid.} An agent that never narrowed did best everywhere, so decanalization could only help and no intermediate optimum appeared. Adding costs to wide perception (metabolic or noise), noise to decanalized perception, or reward-driven canal depth did not change this: 0 of 23 configurations passed a pre-specified criterion requiring canalization to pay in a stable world. The reason is that a reactive controller steers only by what it currently sees; a narrower view only ever hides food, and a canal carries no information the controller can use.
+\end{itemize}
+
+\section{Cognitive-map agent with a hand-written planner}
+
+Canalization was then made a learned property. The agent kept, for each cell, a believed value and a precision, updated by precision weighting (main text, Eq.~3). Perception was fixed. A planner pursued the remembered cell with the best worth per unit distance when hungry, and explored otherwise. Two build fixes were needed:
+\begin{itemize}
+  \item an exploration threshold, without which the agent orbited its first patch forever;
+  \item a regrowth expectation, without which it kept targeting the empty cell underfoot.
+\end{itemize}
+
+\begin{itemize}
+  \item \textbf{Learned precision trapped agents on its own:} 0.31 vs 0.09 phase-3 trap rate against an agent whose beliefs tracked its senses ($+0.22$ $[0.09, 0.38]$, 32 trials). A mechanism check found two routes to trapping:
+  \begin{itemize}
+    \item \emph{phantom pursuit}, specific to precise beliefs: while trapped, the agent's targets were actually empty 37\% of the time, against 2\% for the low-precision agent;
+    \item \emph{local fixation}, shared by both agents and caused by the exploration rule.
+  \end{itemize}
+  \item \textbf{Relaxing precision alone never helped,} and flattening believed values toward their mean was harmful, because empty cells inherited the mean value. Adding an exploration boost made strong doses catastrophic (every trial trapped) without producing a benefit. Escape did not pay, because exploration was blind and alternative patches were no better on average.
+  \item \textbf{Opportunity world.} Two rich patches appeared at the phase-2 start, at least 20 tiles from the agent, and exploration was directed to unvisited territory. Decanalized agents then harvested the new patches more ($+5$ to $+13$). Regulation barely improved, because rich pellets (25--35) caused overshoot.
+  \item \textbf{Reliable opportunities.} The new patches were given ordinary quality, no degradation and faster regrowth. The selected setting was confirmed on fresh seeds (64 paired trials): phase-3 MAE $-25$ $[-43, -9]$, trapping $-0.14$ $[-0.25, -0.03]$. A dose $\times$ exploration-boost surface (16 cells, 64 fresh paired trials each) passed three pre-specified criteria:
+  \begin{itemize}
+    \item benefit (best cell $-14.4$ $[-25, -6]$);
+    \item harm at the strongest cell ($+166$ $[133, 201]$; trapping $+0.72$);
+    \item an interior optimum.
+  \end{itemize}
+  In the beneficial range the benefit was a lower trap probability; median MAE barely changed.
+\end{itemize}
+
+\section{Learned policies}
+
+The hand-written planner was replaced by a learned option policy (main text, Section~2.3). The first policies were trained in the same changing world used for evaluation. The HRL policy learned to cope with that change: it was almost never trapped (2\%), regulated near the noise floor (phase-3 MAE 12.5), and gained nothing from decanalization ($-0.7$ $[-1.9, 0.8]$). Decanalization harmed the NF policy ($+26$ to $+34$). Because hypercanalization concerns persistence after changes a habit did not anticipate, the main study trains in a stable world and evaluates in the changing one (main text). In that design, the effects reported in the main text replicated across four training seeds per objective.
+
+\section{Decisions made after seeing data}
+
+\begin{itemize}
+  \item \textbf{Trap endpoint.} Adopted after the first tuning sweep of the imposed-narrowing prototype showed bistable outcomes. It was used, pre-specified, in all later tests.
+  \item \textbf{Tuning choices.} The opportunity world, reliable patches and directed exploration were each introduced after the preceding version failed a criterion. Each final setting was confirmed on seeds not used for tuning.
+  \item \textbf{Checkpoint selection.} Checkpoints were selected on held-out trials of the training world, not the evaluation world.
+  \item \textbf{Grid selection.} The heuristic map agent's confirmed setting was chosen from a 24-cell grid by a rule fixed before the grid's results were seen.
+\end{itemize}
+
+\end{document}
