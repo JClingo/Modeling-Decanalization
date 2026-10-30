@@ -5,6 +5,8 @@
 !/*.tex
 !/cover-letter-statement
 !/figures/
+!/revisionPlan/adaptiveBehaviorRevisions.txt
+!/revisions
 
 # LaTeX build output and local metadata (including inside figures/)
 .DS_Store

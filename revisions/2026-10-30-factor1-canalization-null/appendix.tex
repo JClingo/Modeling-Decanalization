@@ -1,0 +1,70 @@
+% !TEX root = ./modelingDecanalization.tex
+
+All settings and analyses are available in the repository, but the following table summarizes them for convenience. The effective PPO settings for the selected policies are shown in Table~\ref{tab:ppo-settings}. The shared environment and evaluation settings are shown in Table~\ref{tab:environment-settings}.
+
+\subsubsection{Effective PPO settings}
+
+
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xll@{}}
+\toprule
+Parameter & HRL & NF\\
+\midrule
+Policy / critic learning rate & $10^{-4}/10^{-3}$ & $3\times10^{-5}/3\times10^{-4}$\\
+Learning-rate multiplier & 1 & 1\\
+Weight decay & $10^{-4}$ & $10^{-4}$\\
+Policy / critic minibatch & 2056 / 4096 & 2056 / 4096\\
+Recurrent window (steps) & 16 & 16\\
+Updates per gather / critic warmup & 32 / 8 & 8 / 0\\
+PPO clipping parameter & 0.2 & 0.1\\
+Discount / GAE parameter & 0.99 / 0.95 & 0.99 / 0.95\\
+Normalized advantage range & $[-10,10]$ & $[-10,10]$\\
+Action surrogate weight & 1 & 1\\
+Action regularization / entropy weight & 0.001 / 0.001 & 0 / 0\\
+Return regularization & $10^{-4}$ & $10^{-4}$\\
+Gradient-norm clipping & 0.5 & 0.25\\
+Start / end steps trimmed & 0 / 0 & 0 / 0\\
+Exploration SD & Learned & Fixed, 0.15\\
+Sampled approximate KL guard & None specified & 0.015\\
+PPO seed & 1234 & 1234\\
+Configured iteration limit & 1,000,000 & 1,000,000\\
+Selected checkpoint & gather 75 (750,000 transitions; label 2400) & label 5000 (earlier winner)\\
+\bottomrule
+\end{tabularx}
+\caption{Effective training settings for the selected policies. The HRL policy was newly trained with the corrected anticipatory observations; the NF policy retains the weights of the earlier NF winner, validated with the corrected observations.}
+\label{tab:ppo-settings}
+\end{table}
+
+\subsubsection{Environment and evaluation settings}
+
+The following table environment and evaluation settings are shared across all trials and conditions:
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xl@{}}
+\toprule
+Parameter & Value\\
+\midrule
+Tile grid / spacing (Unreal units) & $50\times50$ / 1000\\
+Resource-spawn probability per cell & 0.05\\
+Ordinary / decanalized pellet impact & $[5,35]$ / 35\\
+Pellet respawn interval & 0.01 s\\
+Passive-loss parameter / update interval & 0.5 / 0.25 s\\
+Tile base impact parameter & 10\\
+Normal / decanalized counted visits per entry & 1 / 1 (NF reference: 1 / 0)\\
+Recanalization count update & $\lfloor n/2\rfloor$\\
+Training / trial environment seed & 1 / 10001\\
+Checkpoint screening / confirmation seed (trials) & 20001 (8) / 30001 (32)\\
+Training initial $h$ / trial initial $h$ & $-15$ / uniform $[-15,15]$\\
+Native movement-speed setting & 5,000 cm/s\\
+Ray horizon / trace radius (Unreal units) & 10,000 / 75\\
+Decision interval / decisions per phase & 0.05 s / 2000\\
+Phase duration / trials per condition & 100 s / 250\\
+Inference action noise & 0\\
+\bottomrule
+\end{tabularx}
+\caption{Shared evaluation environment and primary intervention.}
+\label{tab:environment-settings}
+\end{table}
