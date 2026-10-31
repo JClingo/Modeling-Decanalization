@@ -19,5 +19,6 @@
 *.log
 *.out
 *.pdf
+!/figures/protocol.pdf
 *.run.xml
 *.synctex.gz

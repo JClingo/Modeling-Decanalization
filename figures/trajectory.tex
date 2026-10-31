@@ -3,17 +3,36 @@
 \definecolor{s1}{HTML}{2a78d6}\definecolor{s2}{HTML}{eb6834}\definecolor{ink}{HTML}{5f5e5a}\definecolor{grid}{HTML}{e4e3df}
 \begin{document}
 \begin{tikzpicture}
-\begin{axis}[width=13cm,height=6cm,xmin=0,xmax=700,ymin=-130,ymax=40,clip=false,xlabel={Time (s)},ylabel={Homeostatic state $h$},
+\pgfplotsset{trajectory axis/.style={
+  width=12cm,scale only axis,xmin=0,xmax=700,clip=false,
   axis line style={ink},tick style={ink},label style={text=ink},ticklabel style={text=ink,font=\small},
-  ymajorgrids,grid style={grid},axis x line*=bottom,axis y line*=left,legend style={draw=none,fill=none,font=\small,at={(0.02,0.04)},anchor=south west},
+  ymajorgrids,grid style={grid},axis x line*=bottom,axis y line*=left,
+  xtick={0,100,...,700},unbounded coords=jump}}
+\begin{axis}[trajectory axis,name=state,height=4.4cm,ymin=-130,ymax=40,
+  xticklabels=\empty,ylabel={Homeostatic state $h$},
+  legend style={draw=none,fill=none,font=\small,at={(0.02,0.04)},anchor=south west},
   legend cell align=left]
 \fill[s2,opacity=0.10] (axis cs:300,-130) rectangle (axis cs:400,40);
-\node[font=\small,text=ink,anchor=south] at (axis cs:350,40) {decanalization};
-\node[font=\small,text=ink,anchor=south] at (axis cs:150,40) {canalization};
-\node[font=\small,text=ink,anchor=south] at (axis cs:550,40) {after the change};
+\pgfplotsinvokeforeach{300,400}{\draw[ink,densely dashed,thin] (axis cs:#1,-130) -- (axis cs:#1,40);}
+\node[font=\small,text=ink,anchor=south,yshift=3pt] at (axis cs:150,40) {Pre};
+\node[font=\small,text=ink,anchor=south,yshift=3pt] at (axis cs:350,40) {During};
+\node[font=\small,text=ink,anchor=south,yshift=3pt] at (axis cs:550,40) {Post};
 \draw[ink,densely dashed,thin] (axis cs:0,0) -- (axis cs:700,0);
-\addplot[s1,line width=1.2pt] table[x=t,y=undisturbed] {trajectory.dat};\addlegendentry{Undisturbed (CCC)}
-\addplot[s2,line width=1.2pt] table[x=t,y=decanalized] {trajectory.dat};\addlegendentry{Decanalized (CDR)}
+\addplot[ink,line width=1.1pt,restrict x to domain=0:300.5]
+  table[x=t,y=undisturbed] {trajectory.dat};\addlegendentry{CCC = CDR (Pre)}
+\addplot[s1,line width=1.1pt,restrict x to domain=300.5:700]
+  table[x=t,y=undisturbed] {trajectory.dat};\addlegendentry{CCC}
+\addplot[s2,dashed,line width=1.1pt,restrict x to domain=300.5:700]
+  table[x=t,y=decanalized] {trajectory.dat};\addlegendentry{CDR}
+\end{axis}
+\begin{axis}[trajectory axis,at={(state.south west)},anchor=north west,yshift=-0.5cm,
+  height=2.0cm,ymin=-70,ymax=100,ytick={-50,0,50},
+  xlabel={Time (s)},ylabel={$h_{\mathrm{CDR}}-h_{\mathrm{CCC}}$}]
+\fill[s2,opacity=0.10] (axis cs:300,-70) rectangle (axis cs:400,100);
+\pgfplotsinvokeforeach{300,400}{\draw[ink,densely dashed,thin] (axis cs:#1,-70) -- (axis cs:#1,100);}
+\draw[ink,densely dashed,thin] (axis cs:0,0) -- (axis cs:700,0);
+\addplot[ink,line width=0.9pt]
+  table[x=t,y expr=\thisrow{decanalized}-\thisrow{undisturbed}] {trajectory.dat};
 \end{axis}
 \end{tikzpicture}
 \end{document}

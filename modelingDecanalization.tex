@@ -112,7 +112,23 @@ Our working model of decanalization is inspired by work on the entropic brain \c
 
 Although hypercanalization is expressly maladaptive, it is more modestly rooted in behavioral persistence, which can reflect both learning within an organism and changes that its activities produce in the environment. Established routes can offer material advantages: marine snails following existing mucus trails reduce their own mucus production \cite{davies_energy_2007}, while leafcutter ants construct trails by removing obstacles encountered during travel \cite{bochynek_infrastructure_2019}. Such feedback is central to niche construction: organisms modify their environments, changing the conditions they subsequently encounter \cite{laland_niche_2016}. This reflects a broader point from embodied, embedded, enactive, and extended (4E) approaches to cognition: habits are not stored only in the head but are distributed across brain, body, and world \cite{barandiaran_genealogical_2014, newen_oxford_2018}. A worn path, a cleared trail, or a familiar routine is a behavioral pattern embodied in the environment, and it continues to shape behavior regardless of what the organism has learned. In real-world environments, agents learn against the backdrop of niche construction. We represent one aspect of this through introducing traversal costs that decrease with repeated visits. The advantage of niche construction is efficiency and reliability, but it can also lead to hypercanalization if the organism becomes over-reliant on a few sources of reward and fails to adapt to new surroundings.
 
-In this paper, we model canalization as something an agent learns: confident beliefs about where resources are, formed while the world is stable. We test four hypotheses. First, canalization formed in a stable world becomes maladaptive when the world changes, trapping the agent in patterns that no longer serve its homeostatic needs. Second, a temporary decanalization that relaxes the precision of those beliefs and increases the variability of the agent's choices, without changing its physiology, releases it and improves subsequent regulation. Third, the intervention works best at an intermediate intensity---limited or excessive decanalization is unhelpful at best. Fourth, an agent trained with a homeostatic reinforcement learning (HRL) objective benefits more than one trained with a one-sided negative-feedback (NF) objective.
+In this paper, we model canalization through environmental learning (Figure~\ref{fig:overview}). Policies are first trained in a stable world. During evaluation, agents build confident beliefs about familiar resources and establish routes whose traversal costs decrease with use, even as repeated harvesting depletes those resources. After 300\,s, two new, reliable resource patches appear. For the next 100\,s, agents either undergo temporary decanalization---relaxed belief precision and more variable choices---or continue undisturbed. Both conditions then run for another 300\,s with baseline intervention settings in the same changed world. This final phase tests whether changes in beliefs and behavior support subsequent regulation; learned policy weights remain fixed throughout evaluation. Figure~\ref{fig:movement} follows one simulated pair of agents through these phases.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/overview.pdf}
+\caption{Conceptual overview. Each panel sketches the agent's behavioral landscape, in which deep canals represent deep beliefs about the value and precision of resources (clusters of energy-providing pellets with diminishing returns). The ball represents agents; one of them is left alone and the other undergoes simulated decanalization. In the first phase, canalization, both agents' beliefs motivate them to move around, carving out deepened grooves in interest of securing rewarding resources. In the second phase, two new, reliable sources of energy appear far away. At this point, the undisturbed agent stays in the same canals, further entrenching itself. The decanalized agent flattens its beliefs (precision $P_c$ scaled by $1-d$) and makes more chaotic decisions (temperature $T=1+bd$), which allows it to escape its canals and reach new patches. In the third phase, the decanalized agent returns to its baseline belief values. If the agent is in a new region, new canals are formed. The undisturbed agent, unable to escape, starves.}
+\label{fig:overview}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/movement.pdf}
+\caption{Representative sample of pathways taken; from the trial shown in Figure~\ref{fig:trajectory}. Open and filled circles mark where each phase begins and ends, with lines tracing agent movement between them. Familiar pellet-rich energy patches (green) are shaded by their fertility---homeostatic energy payout---at the end of the phase. The two agents are identical in the first phase, settling on a handful of familiar nearby patches. In the second phase, two new patches (purple) appear and agent behavior diverges by introducing decanalization. In the third phase, the non-decanlized agent mostly circles two depleted patches until it starves. The decanalized agent survives, ranging more widely and harvesting pellets from a new patch.}
+\label{fig:movement}
+\end{figure}
+
+We test four hypotheses. First, canalization formed in a stable world becomes maladaptive when the world changes, trapping the agent in patterns that no longer serve its homeostatic needs. Second, a temporary decanalization that relaxes the precision of those beliefs and increases the variability of the agent's choices, without changing its physiology, releases it and improves subsequent regulation. Third, the intervention works best at an intermediate intensity---limited or excessive decanalization is unhelpful at best. Fourth, an agent trained with a homeostatic reinforcement learning (HRL) objective benefits more than one trained with a one-sided negative-feedback (NF) objective.
 
 The contrast between HRL and NF follows Keramati and Gutkin (2014), who argued that homeostatic reinforcement learning, unlike classical negative-feedback accounts, explains anticipatory regulation. Intuitively, HRL resembles a heating and air-conditioning system that maintains a stable temperature; NF resembles a heater that acts only when the temperature falls below a fixed setpoint. An NF agent may escape an entrenched pattern as readily as an HRL agent, but only the HRL agent is rewarded for using its new freedom to stay near its setpoint.
 
@@ -164,7 +180,7 @@ Policies were trained with proximal policy optimization \cite{schulman_proximal_
 
 \subsection{Canalization, decanalization and recanalization}\label{sec:protocol}
 
-Each evaluation trial has three phases: 300\,s of canalization, 100\,s of intervention, and 300\,s of recanalization. The trial runs in the changing world, so the policy, trained in a stable world, meets degradation and new resources it was never trained on. The homeostatic state is continuous across phases: because the intervention does not alter physiology, carrying $h$ over does not confound the comparison.
+Each evaluation trial has three phases: 300\,s of canalization, 100\,s of intervention, and 300\,s of recanalization (Figure~\ref{fig:protocol}). The trial runs in the changing world, so the policy, trained in a stable world, meets degradation and new resources it was never trained on. The homeostatic state is continuous across phases: because the intervention does not alter physiology, carrying $h$ over does not confound the comparison.
 
 In the CCC condition, the agent is left undisturbed. In the CDR condition, decanalization with dose $d\in[0,1]$ is applied during the second phase through two levers:
 \begin{itemize}
@@ -172,6 +188,13 @@ In the CCC condition, the agent is left undisturbed. In the CDR condition, decan
   \item \textbf{Increased behavioral entropy}: the policy's sampling temperature is raised to $1+b\,d$, where $b$ is the entropy \emph{boost}. The agent's option choices become more variable.
 \end{itemize}
 We evaluated $b\in\{0,1,3\}$ and $d\in\{0.5,1\}$, and $b=10$ at $d=1$; and, to separate the levers, entropy alone ($b\in\{1,3\}$ with precision unchanged). As a reference for the cost of canalization, we also evaluated each policy with beliefs that track the senses (no harvest precision, precision time constant 20\,s; ``low precision'').
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/protocol.pdf}
+\caption{Overview of the three-phase evaluation. Both conditions share the first phase and the same world changes. CDR receives temporary decanalization; CCC remains undisturbed. Dose $d$ controls precision relaxation, and boost $b$ controls the rise in sampling temperature $T$. Main combined-lever evaluations use $d\in\{0.5,1\}$ and $b\in\{0,1,3\}$, with $b=10$ also tested at $d=1$. At 400\,s, intervention settings return to baseline; earlier beliefs and experiences are not reset. Resource depletion continues throughout evaluation. Columns are schematic, not proportional to phase duration. Full parameter definitions and lever controls appear in Section~\ref{sec:protocol}.}
+\label{fig:protocol}
+\end{figure}
 
 \subsection{Endpoints and statistics}\label{sec:stats}
 
@@ -192,13 +215,20 @@ Trapping depends on the world having changed in ways the policy did not anticipa
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/trajectory.pdf}
-\caption{One paired trial (HRL, stable-trained). Both agents follow the same trajectory until the intervention. Left undisturbed, the agent keeps returning to its depleted patches after the world changes, and its state falls to about $-100$; decanalized for 100\,s, it dips once, finds the new resources, and returns to the setpoint.}
+\caption{One paired trial (HRL, stable-trained). The agents share the gray trajectory in Pre (0--300\,s). CCC (blue, solid) and CDR (orange, dashed) separate during decanalization in the shaded During phase (300--400\,s). The lower panel shows their state difference, $h_{\mathrm{CDR}}-h_{\mathrm{CCC}}$: zero before the intervention and nonzero during it. In Post (400--700\,s), CCC keeps returning to depleted patches and falls to about $-100$; CDR finds the new resources and returns to the setpoint after a transient dip.}
 \label{fig:trajectory}
 \end{figure}
 
 \subsection{Decanalization releases trapped agents}
 
-Decanalization during the second phase restored regulation in the HRL agent (Table~\ref{tab:main}, Figure~\ref{fig:trajectory}). With relaxed precision and an entropy boost of 1, phase-3 MAE fell by 83 points ([77, 89]); every training seed showed a reduction between 78 and 86. With an entropy boost of 3 it fell by 98 ([73, 122]). Trapping fell by 23 percentage points, and the improvement reached typical trials, not only the trapped tail: in the first training seed, median phase-3 MAE fell from 81 to 14. Smaller doses had smaller effects ($d=0.5$: $-43$ and $-63$ at boosts 1 and 3).
+Decanalization during the second phase restored regulation in the HRL agent (Table~\ref{tab:main}, Figures~\ref{fig:trajectory} and~\ref{fig:performance}). With relaxed precision and an entropy boost of 1, phase-3 MAE fell by 83 points ([77, 89]); every training seed showed a reduction between 78 and 86. With an entropy boost of 3 it fell by 98 ([73, 122]). Trapping fell by 23 percentage points, and the improvement reached typical trials, not only the trapped tail: in the first training seed, median phase-3 MAE fell from 81 to 14. Smaller doses had smaller effects ($d=0.5$: $-43$ and $-63$ at boosts 1 and 3).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figures/performance.png}
+\caption{CCC and CDR performance across phases for HRL and NF policies trained in the stable world and evaluated in the changing world. CDR relaxes belief precision and raises behavioral entropy ($d=1$, boost 1) during the 100\,s intervention; CCC remains undisturbed. Pre and post phases each last 300\,s. Points show phase MAE averaged across four training seeds, each evaluated on 64 paired trials; bars show 95\% $t$-intervals over training seeds ($df=3$). Lower values indicate closer regulation. Conditions coincide before intervention. Lines connect phase means, rather than continuous state trajectories.}
+\label{fig:performance}
+\end{figure}
 
 \begin{table}[htbp]
 \centering\small
@@ -238,7 +268,7 @@ Extreme behavioral perturbation was not ideal. With precision relaxed, raising t
 
 \subsection{HRL benefits more than NF}
 
-Decanalization reduced trapping in the NF agent as well (by 33 percentage points at a boost of 1), and NF agents also found the new resources. Their regulation improved much less: phase-3 MAE fell by 34 points ([14, 54]) at a boost of 1, and the effect shrank toward zero at higher boosts. Paired by trial, the HRL improvement exceeded the NF improvement by 48 points ([29, 68]); every training seed showed the difference. NF rewards only the removal of deficits, so an NF agent that escapes a failing patch has no incentive to avoid overshooting once fed; its absolute deviation is dominated by surplus.
+Decanalization reduced trapping in the NF agent as well (by 33 percentage points at a boost of 1), and NF agents also found the new resources. Their regulation improved much less (Figure~\ref{fig:performance}): phase-3 MAE fell by 34 points ([14, 54]) at a boost of 1, and the effect shrank toward zero at higher boosts. Paired by trial, the HRL improvement exceeded the NF improvement by 48 points ([29, 68]); every training seed showed the difference. NF rewards only the removal of deficits, so an NF agent that escapes a failing patch has no incentive to avoid overshooting once fed; its absolute deviation is dominated by surplus.
 
 \section{Discussion}\label{model-discussion}
 

@@ -1,0 +1,127 @@
+{
+  "description": "Per-training-seed means for phase MAE, 64 paired trials per condition (evaluation seeds 5000-5063); stable-trained policies in changing world.",
+  "intervention": {
+    "dose": 1.0,
+    "entropy_boost": 1.0,
+    "duration_seconds": 100
+  },
+  "phase1_CDR": "Identical to CCC: paired conditions have the same simulation and random streams until intervention at 300 s.",
+  "seeds": [
+    {
+      "training_seed": 0,
+      "source": "decanalization/results/evaluations/eval_policies_stable.json",
+      "sha256": "31a64b5ad0754d08b4f9009d80aa6d566dd87beb9c9f89f3a25ac16f85a97b1c",
+      "HRL": {
+        "CCC": [
+          59.55033435585337,
+          134.6093852269959,
+          145.2395786396729
+        ],
+        "CDR": [
+          59.55033435585337,
+          74.83002625627,
+          58.836692054166114
+        ]
+      },
+      "NF": {
+        "CCC": [
+          67.7013148008803,
+          135.2271725668235,
+          218.59392260522137
+        ],
+        "CDR": [
+          67.7013148008803,
+          96.17538862724506,
+          192.66955160241824
+        ]
+      }
+    },
+    {
+      "training_seed": 1,
+      "source": "decanalization/results/evaluations/eval_policies_stable_s1.json",
+      "sha256": "dcc3dfe6ad3e90f449d53fc3ce875a805dcd05e40025e32d41177b417ec47b6c",
+      "HRL": {
+        "CCC": [
+          62.8874952390909,
+          135.2583937030832,
+          143.66212374425345
+        ],
+        "CDR": [
+          62.8874952390909,
+          70.32719339609888,
+          65.63080345038941
+        ]
+      },
+      "NF": {
+        "CCC": [
+          60.15022597173311,
+          106.27305668158473,
+          107.65367134048094
+        ],
+        "CDR": [
+          60.15022597173311,
+          74.12280116805834,
+          73.49431573655131
+        ]
+      }
+    },
+    {
+      "training_seed": 2,
+      "source": "decanalization/results/evaluations/eval_policies_stable_s2.json",
+      "sha256": "a6b296140bdeb0826aa366cd9063d2fef5cc48301fbcc6ad4b1ba985a9b00562",
+      "HRL": {
+        "CCC": [
+          51.92914888902155,
+          111.31404237163443,
+          132.4869312253831
+        ],
+        "CDR": [
+          51.92914888902155,
+          63.05278726844266,
+          47.49515844210467
+        ]
+      },
+      "NF": {
+        "CCC": [
+          67.3615957397486,
+          134.55654558363742,
+          192.8822638618594
+        ],
+        "CDR": [
+          67.3615957397486,
+          98.88784650816213,
+          140.86513995957466
+        ]
+      }
+    },
+    {
+      "training_seed": 3,
+      "source": "decanalization/results/evaluations/eval_policies_stable_s3.json",
+      "sha256": "8095e572a6d9a52662718f96723763203a833f0692e29b8f816407438abcced8",
+      "HRL": {
+        "CCC": [
+          61.54899236538175,
+          112.85174205259523,
+          122.86011702308177
+        ],
+        "CDR": [
+          61.54899236538175,
+          54.464319345243375,
+          41.51181446128764
+        ]
+      },
+      "NF": {
+        "CCC": [
+          61.662969889860086,
+          130.81391378502545,
+          167.79964038421426
+        ],
+        "CDR": [
+          61.662969889860086,
+          96.1727590498873,
+          142.631026009449
+        ]
+      }
+    }
+  ]
+}

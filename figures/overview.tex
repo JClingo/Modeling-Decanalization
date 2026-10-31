@@ -1,0 +1,145 @@
+% Rebuild from figures/: pdflatex -interaction=nonstopmode -halt-on-error overview.tex
+\documentclass[border=2pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath}
+\usepackage{anyfontsize}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\definecolor{ink}{HTML}{28333F}
+\definecolor{muted}{HTML}{596673}
+\definecolor{rule}{HTML}{D7DDE2}
+\definecolor{ccc}{HTML}{2A78D6}
+\definecolor{cdr}{HTML}{C65B29}
+
+% Schematic attractor landscape: wells at the familiar (u=0.3) and new (u=0.74) patches.
+\pgfmathdeclarefunction{land}{3}{%
+  \pgfmathparse{-#2*exp(-((#1-0.3)*(#1-0.3))/0.011)-#3*exp(-((#1-0.74)*(#1-0.74))/0.011)}}
+\newcommand{\pw}{3.7}
+% Height of the flat landscape above the panel floor, and depth per unit of well depth.
+\def\rim{1.05}\def\dep{0.95}
+% \panel{x}{y}{familiar depth}{new depth}{colour}
+\newcommand{\panel}[5]{%
+  \filldraw[fill=#5!4,draw=#5!45,rounded corners=4pt] (#1,#2-0.1) rectangle (#1+\pw,#2+2.3);
+  \fill[#5!12] plot[domain=0:1,samples=90,smooth,variable=\u]
+    ({#1+0.1+(\pw-0.2)*\u},{#2+\rim+\dep*land(\u,#3,#4)}) -- (#1+\pw-0.1,#2) -- (#1+0.1,#2) -- cycle;
+  \draw[#5!80!black,line width=1.1pt] plot[domain=0:1,samples=90,smooth,variable=\u]
+    ({#1+0.1+(\pw-0.2)*\u},{#2+\rim+\dep*land(\u,#3,#4)});}
+% \ball{x}{y}{u}{familiar depth}{new depth}
+\newcommand{\ball}[5]{%
+  \pgfmathsetmacro{\bx}{#1+0.1+(\pw-0.2)*#3}
+  \pgfmathsetmacro{\by}{#2+\rim+\dep*land(#3,#4,#5)+0.12}
+  \filldraw[fill=ink,draw=white,line width=0.6pt] (\bx,\by) circle (0.12);}
+
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  every node/.style={font=\fontsize{8.5}{10.5}\selectfont,text=ink,inner sep=0pt},
+  note/.style={align=left,anchor=north west,font=\fontsize{7.5}{9}\selectfont},
+  flow/.style={-{Stealth[length=2mm]},line width=0.8pt,draw=muted},
+  lab/.style={align=left,anchor=west,text width=1.8cm,font=\fontsize{7.5}{9}\selectfont}]
+\path[use as bounding box] (0,-0.75) rectangle (14.1,11.45);
+
+% ---- Phase headers and world events (shared by both conditions) ----
+\foreach \x/\n/\title/\timing in {
+  1.85/1/Canalization/{0--300\,s},
+  6.15/2/Intervention/{300--400\,s},
+  10.35/3/Recanalization/{400--700\,s}} {
+  \fill[ink] (\x+0.17,11.2) circle (0.17);
+  \node[text=white,font=\bfseries\fontsize{8}{9}\selectfont] at (\x+0.17,11.2) {\n};
+  \node[anchor=west,font=\bfseries\fontsize{9}{11}\selectfont] at (\x+0.42,11.2) {\title};
+  \node[anchor=west,text=muted] at (\x+0.42,10.84) {\timing};
+}
+\fill[black!3,rounded corners=3pt] (1.85,9.8) rectangle (14.05,10.5);
+\node[note] at (1.98,10.4) {Agent harvests\\available pellets};
+\node[note] at (6.28,10.4) {New, unharvested pellets appear,\\far away from the agent};
+\node[note] at (10.48,10.4) {World persists; pellets\\continue to be harvested};
+
+% ---- Landscapes: depth = believed value x precision; ball = agent ----
+
+% Phase 1 is shared: beliefs grow precise and the route wears in.
+\panel{1.85}{6.05}{0.62}{0}{muted}
+\ball{1.85}{6.05}{0.3}{0.62}{0}
+\node[note] at (1.98,8.27) {Agent carves out\\deep canals};
+
+% Phase 2, decanalized: the canal is flattened and choices become more variable.
+\panel{6.15}{7.5}{0.15}{0.04}{cdr}
+\draw[cdr,densely dotted,line width=0.9pt,-{Stealth[length=1.6mm]}]
+  (7.35,8.35) .. controls (7.65,8.85) and (7.85,8.85) .. (8.05,8.7);
+\ball{6.15}{7.5}{0.52}{0.15}{0.04}
+\draw[cdr,densely dotted,line width=0.9pt,-{Stealth[length=1.6mm]}]
+  (8.2,8.75) .. controls (8.4,8.92) and (8.65,8.89) .. (8.8,8.71);
+\node[note] at (6.28,9.72) {Perceptions flatten\\Temperature increases};
+
+% Phase 2, undisturbed: nothing changes for the agent.
+\panel{6.15}{4.55}{0.62}{0}{ccc}
+\ball{6.15}{4.55}{0.3}{0.62}{0}
+\node[note] at (6.28,6.77) {No disturbances:\\canals remain};
+
+% Phase 3: baseline settings in both arms; only experience differs.
+\panel{10.35}{7.5}{0.15}{0.5}{cdr}
+\ball{10.35}{7.5}{0.74}{0.15}{0.5}
+\node[note] at (10.48,9.72) {Perception and temperature\\reset to baseline; new canals\\form; agent survives};
+\panel{10.35}{4.55}{0.66}{0}{ccc}
+\ball{10.35}{4.55}{0.3}{0.66}{0}
+\node[note] at (10.48,6.77) {No disturbances: canals\\remain; agent starves};
+
+\draw[flow] (5.55,7.2) -- (5.85,7.2) |- (6.15,8.4);
+\draw[flow] (5.85,7.2) |- (6.15,5.45);
+% Condition labels sit at the corners where the paths diverge.
+\node[anchor=south east,text=cdr,font=\bfseries\fontsize{7.5}{9}\selectfont] at (5.8,8.5) {DECANALIZED};
+\node[anchor=north east,text=ccc,font=\bfseries\fontsize{7.5}{9}\selectfont] at (5.8,5.35) {UNDISTURBED};
+\draw[flow,draw=cdr] (9.85,8.4) -- (10.35,8.4);
+\draw[flow,draw=ccc] (9.85,5.45) -- (10.35,5.45);
+
+% ---- Time courses (schematic; equal-width phases) ----
+\def\xa{1.85}\def\xb{5.85}\def\xc{10.1}\def\xd{14.05}
+\node[lab,font=\bfseries\fontsize{7.5}{9}\selectfont,text=muted,text width=6cm] at (0,3.52) {VALUE TRAJECTORIES OVER TIME};
+\begin{scope}[font=\fontsize{7}{8.5}\selectfont]
+  \draw[ink,line width=1pt] (8.0,3.52) -- +(0.4,0) node[right=2pt,text=muted] {shared};
+  \draw[ccc,line width=1pt] (9.6,3.52) -- +(0.4,0) node[right=2pt,text=muted] {undisturbed};
+  \draw[cdr,line width=1pt,dashed] (11.75,3.52) -- +(0.4,0) node[right=2pt,text=muted] {decanalized};
+\end{scope}
+\foreach \y/\name in {2.45/{Precision $P_c$},
+                      1.4/{Temperature $T$},
+                      0.35/{Path cost $c(n)$},
+                      -0.7/{Energy gain}} {
+  \fill[black!2] (\xa,\y) rectangle (\xd,\y+0.7);
+  \draw[rule] (\xa,\y) -- (\xd,\y);
+  \node[lab] at (0,\y+0.35) {\name};
+}
+\fill[cdr,opacity=0.07] (\xb,-0.7) rectangle (\xc,3.15);
+\foreach \x in {\xb,\xc} \draw[muted,densely dashed,thin] (\x,-0.7) -- (\x,3.15);
+
+\begin{scope}[line width=1pt,line cap=round]
+% Precision: builds through use; relaxed once in CDR, then only partly rebuilt.
+\draw[ink] plot[domain=0:1,samples=40,variable=\s] ({\xa+(\xb-\xa)*\s},{2.45+0.7*(0.1+0.78*(1-exp(-3*\s)))});
+\draw[ccc] (\xb,2.45+0.7*0.84) -- (\xd,2.45+0.7*0.86);
+\draw[cdr,dashed] (\xb,2.45+0.7*0.84) -- (\xb,2.45+0.7*0.2)
+  plot[domain=0:1,samples=40,variable=\s] ({\xb+(\xd-\xb)*\s},{2.45+0.7*(0.2+0.2*(1-exp(-2*\s)))});
+\node[text=cdr,anchor=west,font=\fontsize{7}{8.5}\selectfont] at (\xb+0.08,2.45+0.7*0.55) {$(1-d)\,P_c$};
+
+% Temperature: raised only inside the CDR window.
+\draw[ink] (\xa,1.4+0.12) -- (\xb,1.4+0.12);
+\draw[ccc] (\xb,1.4+0.12) -- (\xd,1.4+0.12);
+\draw[cdr,dashed] (\xb,1.4+0.12) -- (\xb,1.4+0.6) -- (\xc,1.4+0.6) -- (\xc,1.4+0.12) -- (\xd,1.4+0.12);
+\foreach \l/\r in {\xa/\xb,\xc/\xd}
+  \node[text=muted,anchor=south,font=\fontsize{7}{8.5}\selectfont] at ($(\l,1.52)!0.5!(\r,1.52)+(0,0.05)$) {$T=1$};
+\node[text=cdr,anchor=south,font=\fontsize{7}{8.5}\selectfont] at ($(\xb,2.0)!0.5!(\xc,2.0)+(0,0.04)$) {$T=1+b\,d$};
+
+% Traversal cost: the familiar route wears in; it fades back only if abandoned.
+\draw[ink] plot[domain=0:1,samples=40,variable=\s] ({\xa+(\xb-\xa)*\s},{0.35+0.7*(0.15+0.75*exp(-3.5*\s))});
+\draw[ccc] (\xb,0.35+0.7*0.17) -- (\xd,0.35+0.7*0.17);
+\draw[cdr,dashed] plot[domain=0:1,samples=40,variable=\s] ({\xb+(\xd-\xb)*\s},{0.35+0.7*(0.17+0.45*(1-exp(-1.5*\s)))});
+\node[text=muted,anchor=west,font=\fontsize{7}{8.5}\selectfont] at (\xa+1.0,0.35+0.7*0.6) {over-exploited paths grow deeper};
+\node[text=cdr,anchor=east,font=\fontsize{7}{8.5}\selectfont] at (\xd-0.05,0.35+0.7*0.82) {unexploited paths become more shallow};
+
+% Energy gain: falls as familiar patches deplete; recovers once new patches are used.
+\draw[ink] plot[domain=0:1,samples=40,variable=\s] ({\xa+(\xb-\xa)*\s},{-0.7+0.7*(0.85-0.35*\s*\s)});
+\draw[ccc] plot[domain=0:1,samples=40,variable=\s] ({\xb+(\xd-\xb)*\s},{-0.7+0.7*(0.5-0.4*\s)});
+\draw[cdr,dashed] plot[domain=0:1,samples=20,variable=\s] ({\xb+(\xc-\xb)*\s},{-0.7+0.7*(0.5-0.06*\s)})
+  plot[domain=0:1,samples=40,variable=\s] ({\xc+(\xd-\xc)*\s},{-0.7+0.7*(0.44+0.3*(1-exp(-3*\s)))});
+\end{scope}
+
+\end{tikzpicture}
+\end{document}
