@@ -12,16 +12,17 @@
 \definecolor{ccc}{HTML}{2A78D6}
 \definecolor{cdr}{HTML}{C65B29}
 \definecolor{food}{HTML}{287C68}
-\definecolor{newp}{HTML}{7A4FBF}
+\definecolor{newp}{HTML}{A493C9}
 \input{movement-stats.tex}
 
 % One 50 x 50 world panel; patches come from movement-stats.tex.
 % #1 x, #2 y, #3 arm (ccc/cdr), #4 phase (1-3),
-% #5 path colour, #6 t from, #7 t to, #8 frame colour, #9 stats tag (e.g. cccA).
+% #5 path colour, #6 t from, #7 t to, #8 unused, #9 stats tag (e.g. cccA).
+% Frames are neutral; colour is kept to the path and the condition name.
 \newcommand{\world}[9]{%
   \begin{axis}[at={(#1cm,#2cm)},anchor=south west,width=3.4cm,height=3.4cm,scale only axis,
-    xmin=0,xmax=50,ymin=0,ymax=50,ticks=none,axis line style={#8!55,line width=0.7pt},
-    axis background/.style={fill=#8!3},clip=true,unbounded coords=jump]
+    xmin=0,xmax=50,ymin=0,ymax=50,ticks=none,axis line style={rule,line width=0.7pt},
+    axis background/.style={fill=black!2},clip=true,unbounded coords=jump]
   \csname patches#9\endcsname
   \addplot[#5,line width=0.45pt,opacity=0.55,line join=round,
     restrict expr to domain={\thisrow{t}}{#6:#7}] table[x=x,y=y] {movement-#3.dat};
@@ -39,45 +40,45 @@
   flow/.style={-{Stealth[length=2mm]},line width=0.8pt,draw=muted},
   lab/.style={align=left,anchor=west,text width=1.8cm,font=\fontsize{7.5}{9}\selectfont}]
 \usetikzlibrary{arrows.meta,calc}
-\path[use as bounding box] (0,0.05) rectangle (14.1,10.25);
+\path[use as bounding box] (1.8,0.05) rectangle (14.1,11.0);
 
 \foreach \x/\n/\title/\timing in {
   1.85/1/Canalization/{0--300\,s},
-  6.15/2/Intervention window/{300--400\,s},
+  6.15/2/Intervention/{300--400\,s},
   10.35/3/Recanalization/{400--700\,s}} {
-  \fill[ink] (\x+0.17,10.0) circle (0.17);
-  \node[text=white,font=\bfseries\fontsize{8}{9}\selectfont] at (\x+0.17,10.0) {\n};
-  \node[anchor=west,font=\bfseries\fontsize{9}{11}\selectfont] at (\x+0.42,10.0) {\title};
-  \node[anchor=west,text=muted] at (\x+0.42,9.64) {\timing};
+  \fill[ink] (\x+0.17,10.75) circle (0.17);
+  \node[text=white,font=\bfseries\fontsize{8}{9}\selectfont] at (\x+0.17,10.75) {\n};
+  \node[anchor=west,font=\bfseries\fontsize{9}{11}\selectfont] at (\x+0.42,10.75) {\title};
+  \node[anchor=west,text=muted] at (\x+0.42,10.39) {\timing};
 }
-\node[lab,text=cdr] at (0,7.6) {\textbf{CDR}\\decanalized};
-\node[lab,text=ccc] at (0,3.1) {\textbf{CCC}\\undisturbed};
+% Condition names sit on top of the panels where the paths diverge.
+\node[anchor=south west,text=cdr,font=\bfseries\fontsize{7.5}{9}\selectfont] at (6.15,9.78) {Decanalized};
+\node[anchor=south west,text=ccc,font=\bfseries\fontsize{7.5}{9}\selectfont] at (6.15,4.88) {Undisturbed};
 
-\world{1.85}{3.65}{ccc}{1}{ink}{0}{300}{muted}{cccA}
-\world{6.15}{5.9}{cdr}{2}{cdr}{300}{400}{cdr}{cdrB}
-\world{10.35}{5.9}{cdr}{3}{cdr}{400}{700}{cdr}{cdrC}
+\world{1.85}{3.85}{ccc}{1}{ink}{0}{300}{muted}{cccA}
+\world{6.15}{6.3}{cdr}{2}{cdr}{300}{400}{cdr}{cdrB}
+\world{10.35}{6.3}{cdr}{3}{cdr}{400}{700}{cdr}{cdrC}
 \world{6.15}{1.4}{ccc}{2}{ccc}{300}{400}{ccc}{cccB}
 \world{10.35}{1.4}{ccc}{3}{ccc}{400}{700}{ccc}{cccC}
 
-\node[stat] at (1.85,3.5) {Harvests: \oldcccA\\Mean $|h|$: \maecccA};
-\node[stat] at (6.15,5.75) {Harvests: \oldcdrB\ familiar, \newcdrB\ new\\Mean $|h|$: \maecdrB};
-\node[stat] at (10.35,5.75) {Harvests: \oldcdrC\ familiar, \newcdrC\ new\\Mean $|h|$: \maecdrC};
+\node[stat] at (1.85,3.7) {Harvests: \oldcccA\ new\\Mean $|h|$: \maecccA};
+\node[stat] at (6.15,6.15) {Harvests: \oldcdrB\ familiar, \newcdrB\ new\\Mean $|h|$: \maecdrB};
+\node[stat] at (10.35,6.15) {Harvests: \oldcdrC\ familiar, \newcdrC\ new\\Mean $|h|$: \maecdrC};
 \node[stat] at (6.15,1.25) {Harvests: \oldcccB\ familiar, \newcccB\ new\\Mean $|h|$: \maecccB};
 \node[stat] at (10.35,1.25) {Harvests: \oldcccC\ familiar, \newcccC\ new\\Mean $|h|$: \maecccC};
 
-\draw[flow] (5.25,5.35) -- (5.7,5.35) |- (6.15,7.6);
-\draw[flow] (5.7,5.35) |- (6.15,3.1);
-\draw[flow,draw=cdr] (9.55,7.6) -- (10.35,7.6);
-\draw[flow,draw=ccc] (9.55,3.1) -- (10.35,3.1);
+% Connectors meet each panel at its vertical centre.
+\draw[flow] (5.25,5.55) -- (5.7,5.55) |- (6.15,8.0);
+\draw[flow] (5.7,5.55) |- (6.15,3.1);
+\draw[flow] (9.55,8.0) -- (10.35,8.0);
+\draw[flow] (9.55,3.1) -- (10.35,3.1);
 
 % Legend; each entry is placed after the previous one.
 \begin{scope}[font=\fontsize{7}{8.5}\selectfont]
-  \fill[food] (0.9,0.2) rectangle +(0.2,0.2);
-  \fill[food,opacity=0.25] (1.15,0.2) rectangle +(0.2,0.2);
-  \node[anchor=west,text=muted] (l1) at (1.45,0.3) {familiar patch (fades with use)};
-  \filldraw[fill=newp,draw=newp!60!black,line width=0.7pt] ($(l1.east)+(0.45,-0.1)$) rectangle +(0.2,0.2);
-  \filldraw[fill=newp!15,draw=newp,dashed,line width=1pt,dash pattern=on 1.5pt off 1pt] ($(l1.east)+(0.75,-0.13)$) rectangle +(0.26,0.26);
-  \node[anchor=west,text=muted] (l2) at ($(l1.east)+(1.1,0)$) {new patch (dashed before 300\,s)};
+  \fill[food] (1.85,0.2) rectangle +(0.2,0.2);
+  \node[anchor=west,text=muted] (l1) at (2.15,0.3) {familiar patch};
+  \filldraw[fill=newp,draw=newp!70!black,line width=0.7pt] ($(l1.east)+(0.45,-0.1)$) rectangle +(0.2,0.2);
+  \node[anchor=west,text=muted] (l2) at ($(l1.east)+(0.75,0)$) {new patch};
   \draw[fill=white,draw=ink,line width=0.8pt] ($(l2.east)+(0.5,0)$) circle (0.075);
   \fill[ink] ($(l2.east)+(0.75,0)$) circle (0.085);
   \node[anchor=west,text=muted] at ($(l2.east)+(0.95,0)$) {phase start / end};

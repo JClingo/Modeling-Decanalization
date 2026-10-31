@@ -1,38 +1,49 @@
-\documentclass[border=4pt]{standalone}
+% Rebuild from figures/: pdflatex -interaction=nonstopmode -halt-on-error trajectory.tex
+\documentclass[border=2pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath}
+\usepackage{anyfontsize}
 \usepackage{pgfplots}\pgfplotsset{compat=1.18}
-\definecolor{s1}{HTML}{2a78d6}\definecolor{s2}{HTML}{eb6834}\definecolor{ink}{HTML}{5f5e5a}\definecolor{grid}{HTML}{e4e3df}
+\usetikzlibrary{calc}
+\definecolor{ink}{HTML}{28333F}
+\definecolor{muted}{HTML}{596673}
+\definecolor{rule}{HTML}{D7DDE2}
+\definecolor{ccc}{HTML}{2A78D6}
+\definecolor{cdr}{HTML}{C65B29}
+% \phasehead{centre time}{number}{title}{time range}: numbered phase header above the axis,
+% as in the overview and movement figures.
+\newcommand{\phasehead}[4]{%
+  \node[anchor=south,yshift=13pt,font=\bfseries\fontsize{9}{11}\selectfont,inner sep=0pt] (h#2) at (axis cs:#1,40) {#3};
+  \fill[ink] ([xshift=-8pt]h#2.west) circle [radius=0.17cm];
+  \node[text=white,font=\bfseries\fontsize{8}{9}\selectfont,inner sep=0pt] at ([xshift=-8pt]h#2.west) {#2};
+  \node[anchor=north,text=muted,inner sep=0pt,yshift=-2pt] at (h#2.south) {#4};}
 \begin{document}
-\begin{tikzpicture}
-\pgfplotsset{trajectory axis/.style={
-  width=12cm,scale only axis,xmin=0,xmax=700,clip=false,
-  axis line style={ink},tick style={ink},label style={text=ink},ticklabel style={text=ink,font=\small},
-  ymajorgrids,grid style={grid},axis x line*=bottom,axis y line*=left,
-  xtick={0,100,...,700},unbounded coords=jump}}
-\begin{axis}[trajectory axis,name=state,height=4.4cm,ymin=-130,ymax=40,
-  xticklabels=\empty,ylabel={Homeostatic state $h$},
-  legend style={draw=none,fill=none,font=\small,at={(0.02,0.04)},anchor=south west},
-  legend cell align=left]
-\fill[s2,opacity=0.10] (axis cs:300,-130) rectangle (axis cs:400,40);
-\pgfplotsinvokeforeach{300,400}{\draw[ink,densely dashed,thin] (axis cs:#1,-130) -- (axis cs:#1,40);}
-\node[font=\small,text=ink,anchor=south,yshift=3pt] at (axis cs:150,40) {Pre};
-\node[font=\small,text=ink,anchor=south,yshift=3pt] at (axis cs:350,40) {During};
-\node[font=\small,text=ink,anchor=south,yshift=3pt] at (axis cs:550,40) {Post};
-\draw[ink,densely dashed,thin] (axis cs:0,0) -- (axis cs:700,0);
-\addplot[ink,line width=1.1pt,restrict x to domain=0:300.5]
-  table[x=t,y=undisturbed] {trajectory.dat};\addlegendentry{CCC = CDR (Pre)}
-\addplot[s1,line width=1.1pt,restrict x to domain=300.5:700]
-  table[x=t,y=undisturbed] {trajectory.dat};\addlegendentry{CCC}
-\addplot[s2,dashed,line width=1.1pt,restrict x to domain=300.5:700]
-  table[x=t,y=decanalized] {trajectory.dat};\addlegendentry{CDR}
+\begin{tikzpicture}[every node/.style={font=\fontsize{8.5}{10.5}\selectfont,text=ink}]
+\begin{axis}[width=12.2cm,height=4.6cm,scale only axis,xmin=0,xmax=700,ymin=-130,ymax=40,clip=false,
+  axis line style={muted},tick style={muted},
+  ticklabel style={text=muted,font=\fontsize{7.5}{9}\selectfont,/pgf/number format/assume math mode=true},label style={text=ink,font=\fontsize{8}{10}\selectfont},
+  ymajorgrids,grid style={rule},axis x line*=bottom,axis y line*=left,
+  xtick={0,100,...,700},ytick={-100,-50,0},
+  xlabel={Time (s)},ylabel={Homeostatic state $h$}]
+% The intervention window is shaded; boundaries are dashed.
+\fill[black!4] (axis cs:300,-130) rectangle (axis cs:400,40);
+\pgfplotsinvokeforeach{300,400}{\draw[muted,densely dashed,thin] (axis cs:#1,-130) -- (axis cs:#1,40);}
+\phasehead{150}{1}{Canalization}{0--300\,s}
+\phasehead{350}{2}{Intervention}{300--400\,s}
+\phasehead{550}{3}{Recanalization}{400--700\,s}
+\draw[muted,densely dashed,thin] (axis cs:0,0) -- (axis cs:700,0)
+  node[anchor=west,text=muted,font=\fontsize{7}{8.5}\selectfont,inner sep=3pt] {setpoint};
+\addplot[ink,line width=1.1pt,restrict x to domain=0:300.5] table[x=t,y=undisturbed] {trajectory.dat};
+\addplot[ccc,line width=1.1pt,restrict x to domain=300.5:700] table[x=t,y=undisturbed] {trajectory.dat};
+\addplot[cdr,line width=1.1pt,restrict x to domain=300.5:700] table[x=t,y=decanalized] {trajectory.dat};
 \end{axis}
-\begin{axis}[trajectory axis,at={(state.south west)},anchor=north west,yshift=-0.5cm,
-  height=2.0cm,ymin=-70,ymax=100,ytick={-50,0,50},
-  xlabel={Time (s)},ylabel={$h_{\mathrm{CDR}}-h_{\mathrm{CCC}}$}]
-\fill[s2,opacity=0.10] (axis cs:300,-70) rectangle (axis cs:400,100);
-\pgfplotsinvokeforeach{300,400}{\draw[ink,densely dashed,thin] (axis cs:#1,-70) -- (axis cs:#1,100);}
-\draw[ink,densely dashed,thin] (axis cs:0,0) -- (axis cs:700,0);
-\addplot[ink,line width=0.9pt]
-  table[x=t,y expr=\thisrow{decanalized}-\thisrow{undisturbed}] {trajectory.dat};
-\end{axis}
+% Legend; each entry is placed after the previous one.
+\begin{scope}[font=\fontsize{7.5}{9}\selectfont,line width=1.1pt]
+  \draw[ink] (0,-1.15) -- +(0.45,0) node[right=3pt,text=muted] (l1) {Shared};
+  \draw[ccc] ($(l1.east)+(0.45,0)$) -- +(0.45,0) node[right=3pt,text=ccc,font=\bfseries\fontsize{7.5}{9}\selectfont] (l2) {Undisturbed};
+  \draw[cdr] ($(l2.east)+(0.45,0)$) -- +(0.45,0) node[right=3pt,text=cdr,font=\bfseries\fontsize{7.5}{9}\selectfont] {Decanalized};
+\end{scope}
 \end{tikzpicture}
 \end{document}

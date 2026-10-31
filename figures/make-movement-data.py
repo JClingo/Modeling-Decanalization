@@ -90,7 +90,7 @@ for name, trial in (("ccc", ccc), ("cdr", cdr)):
                 draws.append(f"\\filldraw[fill=newp!15,draw=newp,dashed,line width=1pt] "
                              f"(axis cs:{x0 - 0.6},{y0 - 0.6}) rectangle (axis cs:{x0 + 3.6},{y0 + 3.6});")
             else:
-                draws.append(f"\\filldraw[fill=newp,draw=newp!60!black,line width=0.7pt] {box}")
+                draws.append(f"\\filldraw[fill=newp,draw=newp!70!black,line width=0.7pt] {box}")
         stats.append(f"\\def\\patches{tag}{{" + "".join(draws) + "}")
         inside = [s for s in trial.log["samples"] if lo < round(s[0], 3) <= hi]
         stats += [f"\\def\\start{tag}{{{inside[0][1]:.2f},{inside[0][2]:.2f}}}",
