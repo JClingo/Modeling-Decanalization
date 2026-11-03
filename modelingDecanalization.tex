@@ -100,7 +100,7 @@ For the most part, these ideas have remained metaphorical. Existing conceptualiz
 
 Our working model of decanalization is inspired by work on the entropic brain \cite{carhart-harris_entropic_2014,carhart-harris_entropic_2018}, canalization, and Hipólito et al.'s (2023) pattern-breaking model. We also draw heavily on Juliani et al.'s “Deep CANALs” (2024), which directly extends the ``CANAL'' model \cite{carhart-harris_canalization_2023} and distinguishes overfitting in inference from loss of plasticity in learning, treating the intersection of overfitting and low plasticity as a source of psychopathology. According to Juliani et al., decanalization acutely alters synaptic weights, sensory observations, and metaplasticity: “[Acute decanalization] is a function of both the current environmental context (made partially available to the model through a sequence of sensory observations) and the state of the system within the synaptic weight landscape. The inferred set of beliefs in a given instance are a function of the location of the system within the neural activity landscape.” In our agent-based model, sensory observations are observations about internal and external states. Synaptic weights correspond to the weights of the agent's learned policy, which are fixed once training ends. Neural activity corresponds to the agent's beliefs about its world, held in a cognitive map whose precision grows with experience. Our decanalization acts on these beliefs and on the variability of the agent's choices, not on its weights, and we do not model metaplasticity.
 
-The concept of a cognitive map originated in work on spatial navigation in rats. Tolman (1948) showed that rats that had learned a maze could reach the goal by new routes when the familiar one was blocked, suggesting that they had learned the layout of the maze and not just a sequence of responses. The idea later received neurobiological support from the discovery of place cells in the rodent hippocampus \cite{okeefe_hippocampus_1971, okeefe_hippocampus_1978} and grid cells in the entorhinal cortex \cite{hafting_microstructure_2005}, and it has since been extended from physical space to any domain in which structure must be learned from experience \cite{behrens_cognitive_2018}. Tolman also contrasted broad, comprehensive maps with narrow ``strip'' maps, and suggested that overly repetitive training and strongly motivating or frustrating conditions narrow them, an early version of the canalization idea. In our model, canalization lives in such a map. The agent learns where food is and becomes confident, and that confidence acts as the precise prior of the canalization account: it persists after the world it describes has changed.
+The concept of a cognitive map originated in work on spatial navigation in rats. Tolman (1948) showed that rats that had learned a maze could reach the goal by new routes when the familiar one was blocked, suggesting that they had learned the layout of the maze and not just a sequence of responses \cite{tolman_cognitive_1948}. The idea later received neurobiological support from the discovery of place cells in the rodent hippocampus \cite{okeefe_hippocampus_1971, okeefe_hippocampus_1978} and grid cells in the entorhinal cortex \cite{hafting_microstructure_2005}, and it has since been extended from physical space to any domain in which structure must be learned from experience \cite{behrens_cognitive_2018}. Tolman also contrasted broad, comprehensive maps with narrow ``strip'' maps, and suggested that overly repetitive training and strongly motivating or frustrating conditions narrow them, an early version of the canalization idea. A related idea comes from phenomenology, where experience is described as a field organized around a theme at the focus of attention, with related content around it and unrelated content at the margin, and where expectations shape that organization \cite{gurwitsch_field_1964, yoshimi_extending_2015, clingoDisintegrationReintegrationModelPsychological2025}. In our model, canalization lives in a cognitive map. The agent learns where food is and becomes confident, and that confidence acts as the precise prior of the canalization account: it persists after the world it describes has changed.
 
 In this paper, we model canalization through learning about the environment (Figure~\ref{fig:overview}). Policies are first trained in a stable world. During evaluation, agents build confident beliefs about familiar resources and establish routes whose traversal costs decrease with use, even as repeated harvesting depletes those resources. After 300\,s, two new, reliable resource patches appear. For the next 100\,s, agents either undergo temporary decanalization---relaxed belief precision and more variable choices---or receive no intervention. We call the first condition CDR, for canalization, decanalization, and recanalization, and the second CCC, for canalization throughout. Both conditions then run for another 300\,s with baseline intervention settings in the same changed world. This final phase tests whether changes in beliefs and behavior support subsequent regulation; learned policy weights remain fixed throughout evaluation. Figure~\ref{fig:movement} follows one simulated pair of agents through these phases.
 
@@ -232,7 +232,7 @@ New-patch harvests & Pellets harvested from the two patches that appear at 300\,
 
 Each of the eight trained policies (four HRL and four NF, one per training seed) was evaluated on 64 trials in each condition. The trials are paired: a CCC trial and its CDR partner share the world layout, starting state, and random events, so they are identical until the intervention begins, and any later difference between them comes from the intervention. To draw conclusions that hold across independently trained policies, and not only across trials of one policy, we treat each policy as a single observation. For each policy we average the 64 paired differences, and we report the mean across the four policies of each type with a 95\% $t$-interval ($df=3$) and a two-sided $p$ value. Criteria for each test were fixed before the corresponding run, and model development used separate seeds.
 
-\subsection{Code and data availability}
+\subsection{Code and data availability}\label{sec:code}
 
 The simulation, training, analysis code, and the evaluation outputs are available at \url{https://github.com/JClingo/decanalization}.
 
@@ -294,7 +294,7 @@ To see what drives the effect, we also varied the intervention, testing each com
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/levers.pdf}
-\caption{Effect of each decanalization component on phase-3 mean absolute $h$ (CDR minus CCC; $d=1$ for 100\,s). Bars show means across four training seeds; error bars show 95\% $t$-intervals over seeds. Negative values are improvements.}
+\caption{Effect of each decanalization component on MAE in the recanalization phase (CDR minus CCC; $d=1$ for 100\,s). Bars show means across four training seeds; error bars show 95\% $t$-intervals over seeds. Negative values are improvements.}
 \label{fig:levers}
 \end{figure}
 
@@ -304,13 +304,15 @@ The fourth hypothesis was that HRL agents would benefit more than NF agents, and
 
 \section{Discussion}\label{model-discussion}
 
-We hypothesized that decanalization would improve post-intervention homeostatic regulation in an HRL agent, and that an NF agent would benefit less. Both predictions held, in a model where canalization demonstrably exists. Canalization here is a learned property: an agent that gathers food reliably in a stable world becomes confident about where food is. That confidence is efficient while the world stays the same. When the world changes, the same confidence holds the agent to patches that no longer pay, even as better resources appear elsewhere: hypercanalization, in the sense of maladaptive persistence after the conditions that justified a habit have gone \cite{carhart-harris_canalization_2023}. Agents with less precise beliefs, or policies that had been trained on the change, were rarely trapped.
+We hypothesized that decanalization would improve post-intervention homeostatic regulation in an HRL agent, and that an NF agent would benefit less. Both predictions held, in a model where canalization demonstrably exists. Canalization here is a learned property: an agent that gathers food reliably in a stable world becomes confident about where food is. That confidence is efficient while the world stays the same. When the world changes, the same confidence holds the agent to patches that no longer pay, even as better resources appear elsewhere: hypercanalization, in the sense of maladaptive persistence after the conditions that justified a habit have gone \cite{carhart-harris_canalization_2023}. Agents with less precise beliefs were trapped less often, and a policy trained on the change was almost never trapped.
 
 \begin{sloppypar}
 Decanalization acted where canalization is stored. Relaxing the precision of beliefs---the core of the REBUS account \cite{carhart-harris_rebus_2019}---let new evidence revise the agent's map; increasing the entropy of its choices let it sample options its beliefs disfavored. Each component helped on its own, and their combination helped most, consistent with the distinction in Deep CANALs between rigid inference and reduced behavioral variability \cite{juliani_deep_2024}. Neither component changed the agent's physiology, the reward function, or its learned weights; the benefit came from what the agent did with a temporarily loosened view of its world, and persisted after the intervention ended.
 \end{sloppypar}
 
-Intermediate decanalization was the most effective. Strong behavioral perturbation disorganized foraging during the window and left the agent worse off afterwards than a moderate perturbation did. This is the shape predicted by analogies with simulated annealing \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}: destabilization helps when it is enough to leave a poor attractor but not so much that useful structure is lost. In a heuristic version of the agent, without a learned policy, sufficiently strong exploration made outcomes worse than no intervention at all; with learned policies, the strongest setting we tested was still beneficial.
+Cognitive maps are not only consulted when planning; they are reflected immediately in the field of experience, in what stands out and what recedes. On field-theoretic accounts, expectations shape which contents become the theme and which fall to the margin \cite{gurwitsch_field_1964, yoshimi_extending_2015, clingoDisintegrationReintegrationModelPsychological2025}. In our agent, the analogue is that precise beliefs keep the familiar patches at the center of its choices while the rest of the arena has little pull. A hypercanalized person may be in a similar position: options that would now serve them better are not so much rejected as never salient. Relaxing precision changes what stands out, and this may be part of how decanalization works.
+
+For the entropy boost, an intermediate setting was most effective; for the dose, more was better. Strong behavioral perturbation disorganized foraging during the window and left the agent worse off afterwards than a moderate perturbation did. This is the shape predicted by analogies with simulated annealing \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}: destabilization helps when it is enough to leave a poor attractor but not so much that useful structure is lost. Even the strongest setting we tested was better than no intervention.
 
 The HRL--NF difference follows from the objectives. Both agents escaped their failing patches, but only the HRL agent is rewarded for staying near its setpoint once it does. Decanalization creates an opportunity; whether the opportunity improves regulation depends on what the agent is trying to regulate. This is the contrast motivated by Keramati and Gutkin's comparison of homeostatic and negative-feedback accounts \cite{keramati_homeostatic_2014}.
 
@@ -318,9 +320,9 @@ The HRL--NF difference follows from the objectives. Both agents escaped their fa
 
 The two decanalization components, the option set, and the cognitive map are modeling choices. They are motivated by the REBUS and CANAL frameworks, but other formalizations of ``relaxed priors'' are possible, and the results show what follows from these ones. The model does not learn during or after the intervention: its weights are fixed, and the lasting effect of decanalization runs entirely through the agent's beliefs and position in the world.
 
-Hypercanalization required that the world change in ways the policy had not been trained on. This is part of the theory rather than a convenience, but it means the effect size depends on the size of that mismatch, which we did not explore. The changing world also supplies a better alternative; without one, escaping a failing patch is less useful, and in development runs without new resources, decanalization rarely improved regulation.
+Hypercanalization required that the world change in ways the policy had not been trained on. This is part of the theory rather than a convenience, but it means the effect size depends on the size of that mismatch, which we did not explore. The changing world also supplies a better alternative; without one, escaping a failing patch is less useful.
 
-Four training seeds per objective support generalization across training runs, but not across architectures or hyperparameters. NF regulation is dominated by surplus, which its objective does not penalize; NF results are best read through trapping. Checkpoints were selected on held-out trials of the training world. Finally, the model manages a single setpoint in a simple world. It should be read as a formal demonstration of one mechanism, not as an account of psychiatric conditions or of psychedelic treatment.
+Four training seeds per objective support generalization across training runs, but not across architectures or hyperparameters. NF regulation is dominated by surplus, which its objective does not penalize. Checkpoints were selected on held-out trials of the training world. Finally, the model manages a single setpoint in a simple world. It should be read as a formal demonstration of one mechanism, not as an account of psychiatric conditions or of psychedelic treatment.
 
 
 \subsection{Future Directions}
@@ -329,9 +331,11 @@ The present study applies a single intervention to fixed-weight agents. It could
 
 \section{Conclusions}
 
-Research on canalization and decanalization often moves between clinical, dynamical and mechanistic vocabularies without making the underlying computational assumptions explicit. We formalized one interpretation of them. An agent that learns confident beliefs about its world in stable conditions becomes trapped when the world changes. Temporarily relaxing the precision of those beliefs and the regularity of its choices can free it, restoring its homeostatic regulation. The benefit is much larger for an agent that values staying near its setpoint (HRL) than for one that only avoids deficits (NF). These results make the canalization account testable in a simulated agent, and they identify the conditions under which decanalization should help: when entrenched beliefs keep an agent from options that would now serve it better.
+Research on canalization and decanalization often moves between clinical, dynamical, and mechanistic vocabularies without making underlying computational assumptions explicit. Our aim was to formalize one such set of assumptions in a simple model that could be inspected, perturbed, and compared across conditions.
 
-Like most scientific models, ours is a simplified approximation of a much more complex reality, and many technical and parameter choices shaped the results. The model should therefore be read as a formal demonstration of one candidate mechanism, not as a direct account of psychiatric disorders, psychotherapeutic change, or psychedelic treatment outcomes.
+An agent that learns confident beliefs about its world in stable conditions becomes trapped when the world changes. Temporarily relaxing the precision of those beliefs and the regularity of its choices lets it find new resources sooner, before its deficit grows. The benefit was much larger for an agent that values staying near its setpoint (HRL) than for one rewarded only for reducing deficits (NF). This suggests that decanalization strategies have the potential to improve a person's ability to manage their needs, but the effect is not guaranteed and depends on many contextual factors. It should help most when entrenched beliefs keep an agent from options that would now serve it better.
+
+Like most scientific models, ours is a simplified approximation of a much more complex reality. We reduced the number of possible parameters for tractability, and in doing so may have omitted emergent and higher-level features that are central to behavioral transformation. Many technical and parameter choices may have shaped the results. These are standard tradeoffs in scientific modeling and reflect the need to study behavioral entrenchment with a concrete model. The model should therefore be read as a formal demonstration of one candidate mechanism, not as a direct account of psychiatric disorders, psychotherapeutic change, or psychedelic treatment outcomes. We nevertheless hope it provides a useful starting point for further investigation.
 
 \section*{Declarations}
 
@@ -513,6 +517,11 @@ The simulation, training and analysis code and the evaluation outputs used in th
   \newblock URL
   \url{https://www.cell.com/trends/cognitive-sciences/abstract/S1364-6613(23)00021-9}.
   \newblock Publisher: Elsevier.
+
+  \bibitem[Gurwitsch, 1964]{gurwitsch_field_1964}
+  Aron Gurwitsch.
+  \newblock \emph{The Field of Consciousness}.
+  \newblock Duquesne University Press, Pittsburgh, 1964.
 
   \bibitem[Haken, 1977]{haken_synergetics_1977}
   Hermann Haken.
@@ -831,6 +840,12 @@ The simulation, training and analysis code and the evaluation outputs used in th
   \newblock Precision and the {Bayesian} brain.
   \newblock \emph{Current Biology}, 31(17):R1026--R1031, 2021.
   \newblock \doi{10.1016/j.cub.2021.07.044}.
+
+  \bibitem[Yoshimi and Vinson, 2015]{yoshimi_extending_2015}
+  Jeff Yoshimi and David~W. Vinson.
+  \newblock Extending {G}urwitsch's field theory of consciousness.
+  \newblock \emph{Consciousness and Cognition}, 34:104--123, 2015.
+  \newblock \doi{10.1016/j.concog.2015.03.017}.
 
 \end{thebibliography}
 

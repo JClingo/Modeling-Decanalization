@@ -1,87 +1,137 @@
 % !TEX root = ./modelingDecanalization.tex
 
+This appendix gives the exact settings used in the study and the additional results that the main text refers to. Anything not listed here, including the full list of policy inputs, the steering rules for each option, and the code for every analysis, is in the code repository (Section~\ref{sec:code}).
+
 \subsection{Implementation settings}\label{app:implementation-settings}
 
-Table~\ref{tab:world-settings} lists the world and agent parameters and Table~\ref{tab:ppo-settings} lists the training settings. HRL and NF use identical settings; they differ only in their reward functions.
+Tables~\ref{tab:world-settings} and \ref{tab:ppo-settings} list the settings used in the study.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering\small
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.34\linewidth}>{\raggedright\arraybackslash}X@{}}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.42\linewidth}>{\raggedright\arraybackslash}X@{}}
 \toprule
-Parameter & Value\\
+Setting & Value\\
 \midrule
-Grid / boundary & $50\times50$ tiles / toroidal\\
-Tick / speed / maximum turn & 0.05\,s / 5 tiles/s / $10^\circ$ per tick\\
-Passive loss & 2 per second\\
-Traversal cost $c(n)$ & $1+4e^{-n/3}$ per second; entry counts fade with half-life 200\,s\\
-Patches / size / quality & 10 / $3\times3$ cells / uniform $[3,15]$\\
-Regrowth delay & $8\,\mathrm{s}/f$\\
-Degradation per harvest / fertility recovery & $f\leftarrow0.92f$ / time constant 300\,s (changing world only)\\
-New patches (changing world) & 2, quality uniform $[8,12]$, no degradation, regrowth $\times0.5$, appear at 300\,s $\ge$20 tiles from the agent\\
-Perception & 7 rays over $90^\circ$, range 10 tiles\\
-Belief precision from sighting / contact / harvest & 0.05 per tick / 0.5/s / 2\\
-Precision decay time constant & 200\,s (low-precision reference: 20\,s, no harvest precision)\\
+\multicolumn{2}{@{}l}{\emph{World}}\\
+Grid & $50\times50$ tiles; edges wrap around\\
+Tick & 0.05\,s\\
+Speed & 5 tiles per second\\
+Maximum turn & $10^\circ$ per tick\\
+Passive loss & 2 units of $h$ per second\\
+Traversal cost $c(n)$ & $1+4e^{-n/3}$ per second, where $n$ counts earlier entries into the tile\\
+Fading of entry counts & half-life 200\,s\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Patches}}\\
+Number and size & 10 patches of $3\times3$ cells\\
+Pellet value & drawn uniformly from $[3,15]$ for each patch\\
+Regrowth delay & $8\,\mathrm{s}/f$, where $f$ is the patch's fertility\\
+Effect of a harvest on fertility & $f$ multiplied by 0.92 (changing world only)\\
+Recovery of fertility & toward 1, time constant 300\,s\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{New patches}}\\
+Number & 2, appearing at 300\,s, at least 20 tiles from the agent\\
+Pellet value & drawn uniformly from $[8,12]$\\
+Regrowth & every 4\,s (half the delay of a fresh original patch); no degradation\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Perception and beliefs}}\\
+Field of view & 7 rays spanning $90^\circ$, range 10 tiles\\
+Precision added by seeing a cell & 0.05 per tick (1 per second)\\
+Precision added by standing on a cell & 0.5 per second\\
+Precision added by a harvest & 2\\
+Fading of precision & time constant 200\,s\\
 Believed regrowth time & 8\,s\\
-Phases & 300\,s / 100\,s / 300\,s; $h$ continuous; $h_0=0$\\
-Trap criterion & $h\le-100$ during the phase\\
+Low-precision control & no precision from harvests; time constant 20\,s\\
 \bottomrule
 \end{tabularx}
-\caption{World and agent parameters.}
+\caption{World and agent settings, grouped in the order they are explained in Sections~\ref{sec:world} and \ref{sec:map}. Most repeat values given there; a few, such as the maximum turn, appear only here. New patches appear only in the changing world.}
 \label{tab:world-settings}
 \end{table}
 
-\begin{table}[htbp]
+Three entries in Table~\ref{tab:ppo-settings} may need explanation. The reward is written with the scale factor $\kappa$ and drive $D=|h|/25$ (Section~\ref{sec:hrl}); together they give a reward of 0.2 for each unit $h$ moves toward the setpoint. The policy makes a decision every 10 ticks, so the discount from one decision to the next is $0.99^{10}\approx0.90$. Checkpoint selection describes how we picked the snapshot of each policy that was kept (Section~\ref{sec:training}): for example, an HRL snapshot with a mean $|h|$ of 15 on the eight test trials would be kept over one with a mean of 20.
+
+\begin{table}[H]
 \centering\small
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.34\linewidth}>{\raggedright\arraybackslash}X@{}}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.42\linewidth}>{\raggedright\arraybackslash}X@{}}
 \toprule
-Parameter & Value\\
+Setting & Value\\
 \midrule
-Decision interval / options & 0.5\,s (10 ticks) / seek, explore, cruise, avoid\\
-Network & 10 inputs and a bias, two tanh layers of 64, policy (4) and value heads\\
-Reward per tick & $\kappa(D_{t-1}-D_t)$, $\kappa=\Delta t/(1-\gamma)$, $\gamma=0.99$; HRL $D=|h|/25$, NF $D=\max(-h,0)/25$\\
-Option discount / GAE $\lambda$ & $0.99^{10}$ / 0.95\\
-Optimizer / learning rate & Adam / $3\times10^{-4}$\\
-Clip / epochs / minibatch & 0.2 / 4 / 2048\\
-Entropy weight / value weight / gradient clip & 0.01 / 0.5 / 0.5\\
-Training & 60 iterations $\times$ 16 trials in the stable world; four training seeds per objective\\
-Checkpoint selection & every fifth iteration from 20 and the last; 8 held-out stable-world trials; HRL lowest mean $|h|$, NF lowest mean deficit\\
-Evaluation & 64 paired trials per training seed (seeds 5000--5063), sampled actions\\
+\multicolumn{2}{@{}l}{\emph{Policy}}\\
+Decision interval & 0.5\,s (10 ticks)\\
+Options & seek, explore, cruise, avoid\\
+Network & 10 inputs and a bias; two layers of 64 tanh units; policy output (4 options) and value output\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Reward}}\\
+Reward per tick & $\kappa(D_{t-1}-D_t)$, with $\kappa=\Delta t/(1-\gamma)=5$ and $\gamma=0.99$\\
+HRL drive & $D=|h|/25$\\
+NF drive & $D=\max(-h,0)/25$\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Training}}\\
+Discount per decision & $0.99^{10}$\\
+GAE $\lambda$ & 0.95\\
+Optimizer and learning rate & Adam, $3\times10^{-4}$\\
+Clipping parameter & 0.2\\
+Epochs per iteration & 4\\
+Minibatch size & 2048\\
+Entropy weight & 0.01\\
+Value loss weight & 0.5\\
+Gradient clipping & 0.5\\
+Length of training & 60 iterations of 16 trials, in the stable world\\
+Training seeds & 4 per reward function\\
+Checkpoint selection & snapshots saved every fifth iteration from iteration 20, plus the last; each tested on 8 held-out stable-world trials; kept the one with the lowest mean $|h|$ (HRL) or lowest mean deficit (NF)\\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Evaluation}}\\
+Phases & canalization 300\,s, intervention 100\,s, recanalization 300\,s\\
+Starting state & $h=0$; $h$ carries over between phases\\
+Trapped & $h$ falls to $-100$ or below during the phase\\
+Trials & 64 paired trials per training seed (trial seeds 5000--5063)\\
+Choices & sampled from the policy, as in training\\
 \bottomrule
 \end{tabularx}
-\caption{Policy, objective and training settings.}
+\caption{Policy, reward, training and evaluation settings (Sections~\ref{sec:policy}--\ref{sec:stats}). HRL and NF policies differ only in their drive. Training used proximal policy optimization.}
 \label{tab:ppo-settings}
 \end{table}
 
-\subsection{Additional results and robustness checks}\label{app:additional}
+\subsection{Mechanism checks and sensitivity analysis}\label{app:additional}
 
-\begin{table}[htbp]
+Table~\ref{tab:main} gives results that the main text refers to but does not show. The mechanism checks ask why agents are trapped. For example, precise beliefs raised the fraction of HRL agents trapped by 0.24, from 0.46 with low-precision beliefs to 0.70. The sensitivity analysis asks whether the benefit of decanalization depends on the setting chosen for the main comparison. For HRL agents it does not: decanalization lowered MAE at every dose and boost tested, by 43 to 98 points. The size of the benefit varied, and a boost of 10 helped less than a boost of 3 and was costly during the intervention itself (MAE 108, against 62). Medians show the typical trial, which is less affected by the few trials with very large deficits.
+
+\begin{table}[H]
 \centering\small
-\renewcommand{\arraystretch}{1.15}
+\renewcommand{\arraystretch}{1.05}
 \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xrr@{}}
 \toprule
  & HRL & NF\\
 \midrule
-Fraction trapped in phase 3, CCC & 0.70 [0.66, 0.73] & 0.48 [0.44, 0.51]\\
-Phase-3 MAE, CCC & 136 [119, 153] & 172 [96, 247]\\
-Low-precision control: MAE, precise minus low precision & $+60$ [43, 78] & $+27$ [$-12$, 66]\\
-\quad Fraction trapped, precise minus low precision & $+0.24$ [0.12, 0.36] & $+0.33$ [0.25, 0.41]\\
-Decanalization, boost 1, $d=1$: $\Delta$MAE & $-83$ [$-89$, $-77$] & $-34$ [$-54$, $-14$]\\
-\quad $\Delta$ fraction trapped & $-0.23$ [$-0.34$, $-0.12$] & $-0.33$ [$-0.39$, $-0.28$]\\
-\quad Median phase-3 MAE, CCC / CDR$^{c}$ & 72 / 17 & 127 / 108\\
-Decanalization, boost 3, $d=1$: $\Delta$MAE & $-98$ [$-122$, $-73$] & $-28$ [$-58$, 2]\\
-Decanalization, boost 10, $d=1$: $\Delta$MAE$^{a}$ & $-72$ [$-100$, $-44$] & $-9$ [$-14$, $-4$]\\
-\quad Boost 10 minus boost 3, MAE$^{a}$ & $+18$ [5, 31] & $+21$ [$-33$, 75]\\
-Decanalization, boost 1, $d=0.5$: $\Delta$MAE & $-43$ [$-61$, $-24$] & $-27$ [$-53$, $-1$]\\
-Decanalization, boost 3, $d=0.5$: $\Delta$MAE & $-63$ [$-83$, $-42$] & $-29$ [$-52$, $-6$]\\
-Phase-2 MAE at boosts 1 / 3 / 10 & 66 / 62 / 108 & 91 / 108 / 139\\
+\multicolumn{3}{@{}l}{\emph{Main setting}}\\
+Fraction trapped, CCC & 0.70 [0.66, 0.73] & 0.48 [0.44, 0.51]\\
+MAE, CCC & 136 [119, 153] & 172 [96, 247]\\
+Median MAE, CCC and CDR$^{c}$ & 72 and 17 & 127 and 108\\
 \midrule
-Policy trained in the changing world$^{b}$: fraction trapped in phase 3, CCC & 0.02 & ---\\
-\quad Phase-3 MAE, CCC & 12.5 & ---\\
-\quad $\Delta$MAE, boost 3, $d=1$ & $-0.7$ [$-1.8$, 0.6] & ---\\
+\multicolumn{3}{@{}l}{\emph{Mechanism checks}}\\
+\multicolumn{3}{@{}l}{Low-precision control (precise minus low precision)}\\
+\quad MAE & $+60$ [43, 78] & $+27$ [$-12$, 66]\\
+\quad Fraction trapped & $+0.24$ [0.12, 0.36] & $+0.33$ [0.25, 0.41]\\
+\multicolumn{3}{@{}l}{Policy trained in the changing world$^{b}$}\\
+\quad Fraction trapped, CCC & 0.02 & ---\\
+\quad MAE, CCC & 12.5 & ---\\
+\quad MAE, CDR minus CCC & $-0.7$ [$-1.8$, 0.6] & ---\\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Sensitivity analysis}}\\
+\multicolumn{3}{@{}l}{MAE, CDR minus CCC}\\
+\quad Full dose, boost 1 (main setting) & $-83$ [$-89$, $-77$] & $-34$ [$-54$, $-14$]\\
+\quad Full dose, boost 3 & $-98$ [$-122$, $-73$] & $-28$ [$-58$, 2]\\
+\quad Full dose, boost 10$^{a}$ & $-72$ [$-100$, $-44$] & $-9$ [$-14$, $-4$]\\
+\quad Half dose, boost 1 & $-43$ [$-61$, $-24$] & $-27$ [$-53$, $-1$]\\
+\quad Half dose, boost 3 & $-63$ [$-83$, $-42$] & $-29$ [$-52$, $-6$]\\
+\quad Boost 10 minus boost 3$^{a}$ & $+18$ [5, 31] & $+21$ [$-33$, 75]\\
+\multicolumn{3}{@{}l}{MAE during the intervention, CDR, full dose}\\
+\quad Boost 1 & 66 & 91\\
+\quad Boost 3 & 62 & 108\\
+\quad Boost 10 & 108 & 139\\
 \bottomrule
 \end{tabularx}
-\caption{Additional results in the changing world for policies trained in the stable world, including the low-precision control and higher entropy boosts. Means across four training seeds with 95\% $t$-intervals over seeds; each seed contributes 64 paired trials. $\Delta$ is CDR minus CCC. $^{a}$Three training seeds. $^{b}$One HRL training seed; interval over its 64 paired trials. $^{c}$Median over each seed's 64 trials, averaged across seeds; CDR was lower in every seed.}
+\caption{Mechanism checks and sensitivity analysis, for the recanalization phase unless stated. For the low-precision control, positive values mean precise beliefs made things worse. For decanalization, negative differences mean it helped; an effect that keeps its sign across settings does not depend on the setting chosen. Means across four training seeds (64 paired trials each) with 95\% $t$-intervals; an interval that excludes zero corresponds to $p<.05$. $^{a}$Three training seeds. $^{b}$One HRL training seed, decanalized at full dose and boost 3; interval over its 64 paired trials. $^{c}$Median over each seed's trials, averaged across seeds; CDR was lower in every seed.}
 \label{tab:main}
 \end{table}
