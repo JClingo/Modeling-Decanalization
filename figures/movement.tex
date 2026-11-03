@@ -51,9 +51,12 @@
   \node[anchor=west,font=\bfseries\fontsize{9}{11}\selectfont] at (\x+0.42,10.75) {\title};
   \node[anchor=west,text=muted] at (\x+0.42,10.39) {\timing};
 }
-% Condition names sit on top of the panels where the paths diverge.
+% Condition names sit on top of every panel; phase 1 is shared.
 \node[anchor=south west,text=cdr,font=\bfseries\fontsize{7.5}{9}\selectfont] at (6.15,9.78) {CDR};
 \node[anchor=south west,text=ccc,font=\bfseries\fontsize{7.5}{9}\selectfont] at (6.15,4.88) {CCC};
+\node[anchor=south west,text=cdr,font=\bfseries\fontsize{7.5}{9}\selectfont] at (10.35,9.78) {CDR};
+\node[anchor=south west,text=ccc,font=\bfseries\fontsize{7.5}{9}\selectfont] at (10.35,4.88) {CCC};
+\node[anchor=south west,text=ink,font=\bfseries\fontsize{7.5}{9}\selectfont] at (1.85,7.33) {\textcolor{cdr}{CDR}\textcolor{muted}{\,/\,}\textcolor{ccc}{CCC}};
 
 \world{1.85}{3.85}{ccc}{1}{ink}{0}{300}{muted}{cccA}
 \world{6.15}{6.3}{cdr}{2}{cdr}{300}{400}{cdr}{cdrB}
@@ -61,7 +64,7 @@
 \world{6.15}{1.4}{ccc}{2}{ccc}{300}{400}{ccc}{cccB}
 \world{10.35}{1.4}{ccc}{3}{ccc}{400}{700}{ccc}{cccC}
 
-\node[stat] at (1.85,3.7) {Harvests: \oldcccA\ new\\Mean $|h|$: \maecccA};
+\node[stat] at (1.85,3.7) {Harvests: \oldcccA\ familiar\\Mean $|h|$: \maecccA};
 \node[stat] at (6.15,6.15) {Harvests: \oldcdrB\ familiar, \newcdrB\ new\\Mean $|h|$: \maecdrB};
 \node[stat] at (10.35,6.15) {Harvests: \oldcdrC\ familiar, \newcdrC\ new\\Mean $|h|$: \maecdrC};
 \node[stat] at (6.15,1.25) {Harvests: \oldcccB\ familiar, \newcccB\ new\\Mean $|h|$: \maecccB};

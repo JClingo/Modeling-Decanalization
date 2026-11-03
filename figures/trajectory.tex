@@ -21,15 +21,15 @@
   \node[anchor=north,text=muted,inner sep=0pt,yshift=-2pt] at (h#2.south) {#4};}
 \begin{document}
 \begin{tikzpicture}[every node/.style={font=\fontsize{8.5}{10.5}\selectfont,text=ink}]
-\begin{axis}[width=12.2cm,height=4.6cm,scale only axis,xmin=0,xmax=700,ymin=-130,ymax=40,clip=false,
+\begin{axis}[width=12.2cm,height=4.6cm,scale only axis,xmin=0,xmax=700,ymin=-190,ymax=40,clip=false,
   axis line style={muted},tick style={muted},
   ticklabel style={text=muted,font=\fontsize{7.5}{9}\selectfont,/pgf/number format/assume math mode=true},label style={text=ink,font=\fontsize{8}{10}\selectfont},
   ymajorgrids,grid style={rule},axis x line*=bottom,axis y line*=left,
-  xtick={0,100,...,700},ytick={-100,-50,0},
+  xtick={0,100,...,700},ytick={-150,-100,-50,0},
   xlabel={Time (s)},ylabel={Homeostatic state $h$}]
 % The intervention window is shaded; boundaries are dashed.
-\fill[black!4] (axis cs:300,-130) rectangle (axis cs:400,40);
-\pgfplotsinvokeforeach{300,400}{\draw[muted,densely dashed,thin] (axis cs:#1,-130) -- (axis cs:#1,40);}
+\fill[black!4] (axis cs:300,-190) rectangle (axis cs:400,40);
+\pgfplotsinvokeforeach{300,400}{\draw[muted,densely dashed,thin] (axis cs:#1,-190) -- (axis cs:#1,40);}
 \phasehead{150}{1}{Canalization}{0--300\,s}
 \phasehead{350}{2}{Intervention}{300--400\,s}
 \phasehead{550}{3}{Recanalization}{400--700\,s}
