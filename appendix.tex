@@ -12,7 +12,7 @@ Table~\ref{tab:world-settings} lists the world and agent parameters and Table~\r
 Parameter & Value\\
 \midrule
 Grid / boundary & $50\times50$ tiles / toroidal\\
-Tick / speed / maximum turn & 0.05\,s / 5 tiles\,s$^{-1}$ / $10^\circ$ per tick\\
+Tick / speed / maximum turn & 0.05\,s / 5 tiles/s / $10^\circ$ per tick\\
 Passive loss & 2 per second\\
 Traversal cost $c(n)$ & $1+4e^{-n/3}$ per second; entry counts fade with half-life 200\,s\\
 Patches / size / quality & 10 / $3\times3$ cells / uniform $[3,15]$\\
@@ -20,7 +20,7 @@ Regrowth delay & $8\,\mathrm{s}/f$\\
 Degradation per harvest / fertility recovery & $f\leftarrow0.92f$ / time constant 300\,s (changing world only)\\
 New patches (changing world) & 2, quality uniform $[8,12]$, no degradation, regrowth $\times0.5$, appear at 300\,s $\ge$20 tiles from the agent\\
 Perception & 7 rays over $90^\circ$, range 10 tiles\\
-Belief precision from sighting / contact / harvest & 0.05 per tick / 0.5\,s$^{-1}$ / 2\\
+Belief precision from sighting / contact / harvest & 0.05 per tick / 0.5/s / 2\\
 Precision decay time constant & 200\,s (low-precision reference: 20\,s, no harvest precision)\\
 Believed regrowth time & 8\,s\\
 Phases & 300\,s / 100\,s / 300\,s; $h$ continuous; $h_0=0$\\
@@ -39,7 +39,7 @@ Trap criterion & $h\le-100$ during the phase\\
 Parameter & Value\\
 \midrule
 Decision interval / options & 0.5\,s (10 ticks) / seek, explore, cruise, avoid\\
-Network & 11 inputs, two tanh layers of 64, policy (4) and value heads\\
+Network & 10 inputs and a bias, two tanh layers of 64, policy (4) and value heads\\
 Reward per tick & $\kappa(D_{t-1}-D_t)$, $\kappa=\Delta t/(1-\gamma)$, $\gamma=0.99$; HRL $D=|h|/25$, NF $D=\max(-h,0)/25$\\
 Option discount / GAE $\lambda$ & $0.99^{10}$ / 0.95\\
 Optimizer / learning rate & Adam / $3\times10^{-4}$\\
@@ -52,4 +52,36 @@ Evaluation & 64 paired trials per training seed (seeds 5000--5063), sampled acti
 \end{tabularx}
 \caption{Policy, objective and training settings.}
 \label{tab:ppo-settings}
+\end{table}
+
+\subsection{Additional results and robustness checks}\label{app:additional}
+
+\begin{table}[htbp]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xrr@{}}
+\toprule
+ & HRL & NF\\
+\midrule
+Fraction trapped in phase 3, CCC & 0.70 [0.66, 0.73] & 0.48 [0.44, 0.51]\\
+Phase-3 MAE, CCC & 136 [119, 153] & 172 [96, 247]\\
+Low-precision control: MAE, precise minus low precision & $+60$ [43, 78] & $+27$ [$-12$, 66]\\
+\quad Fraction trapped, precise minus low precision & $+0.24$ [0.12, 0.36] & $+0.33$ [0.25, 0.41]\\
+Decanalization, boost 1, $d=1$: $\Delta$MAE & $-83$ [$-89$, $-77$] & $-34$ [$-54$, $-14$]\\
+\quad $\Delta$ fraction trapped & $-0.23$ [$-0.34$, $-0.12$] & $-0.33$ [$-0.39$, $-0.28$]\\
+\quad Median phase-3 MAE, CCC / CDR$^{c}$ & 72 / 17 & 127 / 108\\
+Decanalization, boost 3, $d=1$: $\Delta$MAE & $-98$ [$-122$, $-73$] & $-28$ [$-58$, 2]\\
+Decanalization, boost 10, $d=1$: $\Delta$MAE$^{a}$ & $-72$ [$-100$, $-44$] & $-9$ [$-14$, $-4$]\\
+\quad Boost 10 minus boost 3, MAE$^{a}$ & $+18$ [5, 31] & $+21$ [$-33$, 75]\\
+Decanalization, boost 1, $d=0.5$: $\Delta$MAE & $-43$ [$-61$, $-24$] & $-27$ [$-53$, $-1$]\\
+Decanalization, boost 3, $d=0.5$: $\Delta$MAE & $-63$ [$-83$, $-42$] & $-29$ [$-52$, $-6$]\\
+Phase-2 MAE at boosts 1 / 3 / 10 & 66 / 62 / 108 & 91 / 108 / 139\\
+\midrule
+Policy trained in the changing world$^{b}$: fraction trapped in phase 3, CCC & 0.02 & ---\\
+\quad Phase-3 MAE, CCC & 12.5 & ---\\
+\quad $\Delta$MAE, boost 3, $d=1$ & $-0.7$ [$-1.8$, 0.6] & ---\\
+\bottomrule
+\end{tabularx}
+\caption{Additional results in the changing world for policies trained in the stable world, including the low-precision control and higher entropy boosts. Means across four training seeds with 95\% $t$-intervals over seeds; each seed contributes 64 paired trials. $\Delta$ is CDR minus CCC. $^{a}$Three training seeds. $^{b}$One HRL training seed; interval over its 64 paired trials. $^{c}$Median over each seed's 64 trials, averaged across seeds; CDR was lower in every seed.}
+\label{tab:main}
 \end{table}

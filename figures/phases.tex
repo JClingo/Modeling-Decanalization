@@ -1,0 +1,49 @@
+\documentclass[border=4pt]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\definecolor{ccc}{HTML}{2a78d6}
+\definecolor{cdr}{HTML}{eb6834}
+\definecolor{ink}{HTML}{5f5e5a}
+\definecolor{grid}{HTML}{e4e3df}
+\newcommand{\zero}{\addplot[ink,line width=0.5pt,forget plot] coordinates {(0.7,0) (3.3,0)};}
+\newcommand{\pair}[2]{%
+  \addplot[ccc,line width=1pt,mark=triangle*,mark size=2.3pt,error bars/.cd,y dir=both,y explicit]
+    table[x=phase,y=#1#2ccc,y error=#1#2cccCI] {phases.dat};
+  \addplot[cdr,dashed,line width=1pt,mark=*,mark size=1.8pt,error bars/.cd,y dir=both,y explicit]
+    table[x=phase,y=#1#2cdr,y error=#1#2cdrCI] {phases.dat};}
+\begin{document}
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=4 by 2,horizontal sep=1.15cm,vertical sep=1.3cm,xticklabels at=edge bottom},
+  width=4.9cm,height=4.8cm,xmin=0.7,xmax=3.3,
+  xtick={1,2,3},xticklabels={Pre,During,Post},
+  axis line style={ink},tick style={ink},label style={text=ink},
+  ticklabel style={text=ink,font=\small},title style={text=ink},
+  ymajorgrids,grid style={grid},axis x line*=bottom,axis y line*=left,
+  legend style={draw=none,fill=none,font=\small,at={(0.03,0.97)},anchor=north west},
+  legend cell align=left,
+  error bars/error bar style={line width=0.6pt},
+]
+\nextgroupplot[title={Mean absolute $h$},ylabel={\textbf{HRL}},ymin=0,ymax=270,ytick={0,50,...,250}]
+\pair{HRL}{mae}
+\legend{CCC,CDR}
+\nextgroupplot[title={Mean $h$},ymin=-160,ymax=200,ytick={-150,-100,...,200}]
+\zero
+\pair{HRL}{mean_h}
+\nextgroupplot[title={Fraction trapped},ymin=0,ymax=1,ytick={0,0.25,...,1}]
+\pair{HRL}{trapped}
+\nextgroupplot[title={New-patch harvests},ymin=0,ymax=45,ytick={0,10,...,40}]
+\pair{HRL}{rich}
+\nextgroupplot[ylabel={\textbf{NF}},ymin=0,ymax=270,ytick={0,50,...,250}]
+\pair{NF}{mae}
+\nextgroupplot[ymin=-160,ymax=200,ytick={-150,-100,...,200}]
+\zero
+\pair{NF}{mean_h}
+\nextgroupplot[ymin=0,ymax=1,ytick={0,0.25,...,1}]
+\pair{NF}{trapped}
+\nextgroupplot[ymin=0,ymax=45,ytick={0,10,...,40}]
+\pair{NF}{rich}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}

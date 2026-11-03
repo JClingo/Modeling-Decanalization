@@ -5,7 +5,7 @@
 !/*.tex
 !/cover-letter-statement
 !/figures/
-!/revisionPlan/adaptiveBehaviorRevisions.txt
+!/responses/
 !/revisions
 
 # LaTeX build output and local metadata (including inside figures/)
