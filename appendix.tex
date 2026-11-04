@@ -44,7 +44,7 @@ Believed regrowth time & 8\,s\\
 Low-precision control & no precision from harvests; time constant 20\,s\\
 \bottomrule
 \end{tabularx}
-\caption{World and agent settings, grouped in the order they are explained in Sections~\ref{sec:world} and \ref{sec:map}. Most repeat values given there; a few, such as the maximum turn, appear only here. New patches appear only in the changing world.}
+\caption{World and agent settings, grouped in the order they are explained in Sections~\ref{sec:world} and \ref{sec:map}. Most repeat values given there; a few, such as the maximum turn, are not given in the main text. New patches appear only in the changing world.}
 \label{tab:world-settings}
 \end{table}
 
@@ -134,6 +134,6 @@ Median MAE, CCC and CDR$^{c}$ & 72 and 17 & 127 and 108\\
 \quad Boost 10 & 108 & 139\\
 \bottomrule
 \end{tabularx}
-\caption{Mechanism checks and sensitivity analysis, for the recanalization phase unless stated. For the low-precision control, positive values mean precise beliefs made things worse. For decanalization, negative differences mean it helped; an effect that keeps its sign across settings does not depend on the setting chosen. Means across four training seeds (64 paired trials each) with 95\% $t$-intervals; an interval that excludes zero corresponds to $p<.05$. $^{a}$Three training seeds. $^{b}$One HRL training seed, decanalized at full dose and boost 3; interval over its 64 paired trials. $^{c}$Median over each seed's trials, averaged across seeds; CDR was lower in every seed.}
+\caption{Mechanism checks and sensitivity analysis, for the recanalization phase unless otherwise stated. Every effect keeps its sign across settings, so none depends on the particular setting chosen. Means across four training seeds (64 paired trials each) with 95\% $t$-intervals; an interval that excludes zero corresponds to $p<.05$. $^{a}$Three training seeds. $^{b}$One HRL training seed, decanalized at full dose and boost 3; interval over its 64 paired trials. $^{c}$Median over each seed's trials, averaged across seeds; CDR was lower in every seed.}
 \label{tab:main}
 \end{table}
