@@ -1,0 +1,98 @@
+We thank both reviewers for helpful comments. They led to fairly substantial changes both to the model and the paper. The simulation is now a two-dimensional world in pure Python, and everything can be regenerated from the public repository. Canalization is now located in learning, as Reviewer 1 recommended.
+
+REVIEWER 1
+
+Comment: My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. [...] My recommendation would be to focus on canalization that is connected to the intrinsic dynamics of learning itself. If, however, the focus remains on the design of the reward function, then that choice should be thoroughly justified and defended within the paper. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one.
+
+Response: We took this recommendation. Canalization now arises from learning, not the reward function. The "healthy" comparison is provided by agents with low-precision beliefs, which are trapped much less often.
+
+Comment: Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
+
+Response: Corrected in the main text.
+
+Comment: Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are.
+
+Response: The Introduction now ends with two explicit hypotheses. 
+
+Comment: Page 4: Why was a 3D environment chosen?
+
+Response: The world is now two-dimensional.
+
+Comment: Page 5: The PPO algorithm should be properly cited here.
+
+Response: Done.
+
+Comment: Page 5: There is no description of the architecture of the model itself. [...] Please include these details, as well as what parameter choices were used for training.
+
+Response: Architecture is in Methods, training settings in the Appendix.
+
+Comment: Page 7: I am not clear on the action space available to the agent.
+
+Response: The policy now chooses among four options every 0.5 s (Methods).
+
+Comment: Page 10: It is claimed that it is a normal practice to provide "disproportionally more reward the closer it gets to the target."
+
+Response: Removed.
+
+Comment: Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement.
+
+Response: Removed.
+
+Comment: Page 11: The choice of the Negative Feedback agent as a baseline should be better justified.
+
+Response: Following Keramati and Gutkin (2014), NF is now explained as a contrast to HRL (Introduction; Methods).
+
+Comment: Page 12: It is not clear what "60 seconds" means in this context.
+
+Response: Durations are now in simulated seconds.
+
+Comment: Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. [...] It would be valuable to see how adjusting this parameter influences the results of the simulations.
+
+Response: We now vary intensity and test each component alone and include a sensitivity analysis in an appendix.
+
+Comment: Page 15: The tables are somewhat difficult to interpret. [...] Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition.
+
+Response: Measures are now defined in a table before the results, and the main results table is simpler.
+
+Comment: Page 16: The authors find differences in the performance of the control conditions which they describe as a "false positive."
+
+Response: No longer applies. Paired conditions are identical until the intervention.
+
+Comment: Page 19: Having a stronger hypothesis being tested would help make the summary section more clear.
+
+Response: Done. Both hypotheses held; other analyses are checks or exploratory.
+
+Comment: A related question is: "why did this need to be simulated at all?"
+
+Response: We think the paper as a whole now makes the answer to this more clear. We did not add any explicit discussion of why many of the results are non-obvious (though we could on request).
+
+Comment: Page 19: The authors provide "niche-construction" as a motivation for the reward function in the discussion.
+
+Response: No longer applies.
+
+Comment: Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment.
+
+Response: This is now discussed in Limitations. A policy trained in the changing world regulates well, so the task is learnable.
+
+Comment: Page 20: The discussion is a place for engaging with the wider literature [...] It would be valuable to expand it.
+
+Response: The Discussion has been expanded substantially.
+
+Comment: Page 28 and 29: These figures are difficult to read. [...] Another suggestion would be to have a single "hero figure".
+
+Response: All figures are new and figure 5 functions as a kind of hero figure.
+
+
+REVIEWER 2
+
+Comment: "Canalization and plasticity in psychopathology" is a highly problematic paper [...] it would be more accurate (even if less satisfying/aggrandizing) to refer to this as the "second principal component" of psychopathology.
+
+Response: Added to the Discussion.
+
+Comment: In discussing altered beliefs under psychedelics, it could be worth mentioning this work which suggests we ought to expect combinations of both directly and indirectly relaxed and strengthened beliefs (ALBUS).
+
+Response: Added to the Discussion.
+
+Comment: Another question I had in reading this manuscript was the extent to which these findings could be used to understand the natural/normative functioning of psychedelic-like transformative experiences as described in the excellent work of Ari Brouwer.
+
+Response: Added to the Discussion.
