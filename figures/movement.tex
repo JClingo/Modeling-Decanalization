@@ -84,7 +84,9 @@
   \node[anchor=west,text=muted] (l2) at ($(l1.east)+(0.75,0)$) {new patch};
   \draw[fill=white,draw=ink,line width=0.8pt] ($(l2.east)+(0.5,0)$) circle (0.075);
   \fill[ink] ($(l2.east)+(0.75,0)$) circle (0.085);
-  \node[anchor=west,text=muted] at ($(l2.east)+(0.95,0)$) {phase start / end};
+  \node[anchor=west,text=muted] (l3) at ($(l2.east)+(0.95,0)$) {phase start / end};
+  \filldraw[fill=newp!15,draw=newp,dashed,line width=0.8pt] ($(l3.east)+(0.45,-0.1)$) rectangle +(0.2,0.2);
+  \node[anchor=west,text=muted] at ($(l3.east)+(0.75,0)$) {new patch, before it appears};
 \end{scope}
 \end{tikzpicture}
 \end{document}

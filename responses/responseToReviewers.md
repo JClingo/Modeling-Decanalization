@@ -32,7 +32,7 @@ Corrected. The distinction is now made in the main text.
 
 > Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are.
 
-The Introduction now ends with explicit hypotheses. TODO: update once the hypotheses are finalized (the intensity hypothesis may be demoted to a secondary finding).
+The Introduction now ends with two explicit hypotheses: that a temporary decanalization improves the agent's regulation after the intervention, and that an HRL agent benefits more than an NF agent. It also says that we first check that canalization becomes maladaptive, and that the effect of each component and of intensity is explored without a prediction. TODO: the reviewer also asked for an allusion to the findings; the Introduction does not yet preview them.
 
 > Page 4: Why was a 3D environment chosen?
 
@@ -68,7 +68,7 @@ No longer applies. All durations are in simulated seconds, with a fixed tick of 
 
 > Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. [...] It would be valuable to see how adjusting this parameter influences the results of the simulations.
 
-The intervention is no longer a single setting. We vary its intensity and test each of its two components alone. Each helps on its own, they help most together, and very strong disruption helps less than moderate disruption (Results). TODO: update to match how much of this stays in the main text.
+The intervention is no longer a single setting. In an exploratory analysis, we vary its intensity and test each of its two components alone. Each helps on its own, they help most together, and very strong disruption helps less than moderate disruption (Results; all settings in the appendix sensitivity analysis).
 
 > Page 15: The tables are somewhat difficult to interpret. [...] Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition.
 
@@ -80,7 +80,7 @@ No longer applies. Paired trials share the world layout, starting state, and ran
 
 > Page 19: Having a stronger hypothesis being tested would help make the summary section more clear.
 
-TODO.
+The paper now tests two hypotheses, stated at the end of the Introduction and taken up in turn in the Results and at the start of the Discussion: decanalization improves later regulation, and an HRL agent benefits more than an NF agent. Both held. The other analyses are presented as checks (why agents become trapped) or as exploratory (components and intensity), not as hypotheses.
 
 > A related question is: "why did this need to be simulated at all?"
 

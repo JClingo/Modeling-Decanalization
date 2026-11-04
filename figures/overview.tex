@@ -38,7 +38,7 @@
   every node/.style={font=\fontsize{8.5}{10.5}\selectfont,text=ink,inner sep=0pt},
   note/.style={align=left,anchor=north west,font=\fontsize{7.5}{9}\selectfont},
   flow/.style={-{Stealth[length=2mm]},line width=0.8pt,draw=muted}]
-\path[use as bounding box] (1.45,1.75) rectangle (14.1,11.35);
+\path[use as bounding box] (1.8,1.75) rectangle (14.1,11.35);
 
 % ---- Phase headers and world events (shared by both conditions) ----
 \foreach \x/\n/\title/\timing in {
@@ -79,7 +79,7 @@
 \ball{10.35}{4.55}{0.3}{0.66}{0.22}
 % A slow, late move toward the new patch.
 \draw[ccc,densely dotted,line width=0.9pt,-{Stealth[length=1.6mm]}]
-  (11.75,5.95) .. controls (12.3,6.45) and (12.85,6.4) .. (13.15,6.0);
+  (11.7,5.3) .. controls (12.1,6.05) and (12.7,6.05) .. (13.0,5.6);
 \node[note] at (10.48,6.97) {New patches\\eventually found};
 
 % Condition names sit just above each panel, as in the movement figure.
@@ -99,8 +99,7 @@
 \draw[rule] (5.85,2.0) -- (5.85,4.1);
 \draw[rule] (10.1,2.0) -- (10.1,4.1);
 \draw[muted,dashed,line width=0.5pt] (1.85,\sy) -- (14.05,\sy);
-\node[anchor=south west,text=muted,font=\fontsize{7}{8.5}\selectfont] at (6.0,\sy+0.06) {setpoint};
-\node[anchor=east,font=\fontsize{8.5}{10}\selectfont] at (1.75,\sy-0.7) {$h$};
+\node[anchor=south west,text=muted,font=\fontsize{7}{8.5}\selectfont] at (6.0,\sy+0.06) {setpoint ($h$)};
 \fill[ccc!12] plot[smooth,tension=0.6] coordinates {(5.85,\sy-0.85*\sh) (6.6,\sy-0.7*\sh) (7.6,\sy-0.35*\sh) (8.8,\sy-0.12*\sh) (10.1,\sy-0.05*\sh) (11.0,\sy) (12.5,\sy+0.02*\sh) (14.05,\sy)}
   -- (14.05,\sy-0.38*\sh) -- plot[smooth,tension=0.6] coordinates {(14.05,\sy-0.38*\sh) (13.5,\sy-0.58*\sh) (12.9,\sy-0.82*\sh) (12.2,\sy-0.92*\sh) (11.2,\sy-0.95*\sh) (10.1,\sy-0.9*\sh) (8.5,\sy-0.85*\sh) (7.0,\sy-0.8*\sh) (5.85,\sy-0.85*\sh)} -- cycle;
 \draw[ink,line width=1.1pt] plot[smooth,tension=0.6] coordinates {(1.85,\sy) (2.6,\sy) (3.3,\sy-0.15*\sh) (4.2,\sy-0.45*\sh) (5.0,\sy-0.7*\sh) (5.85,\sy-0.85*\sh)};
