@@ -48,7 +48,7 @@ Low-precision control & no precision from harvests; time constant 20\,s\\
 \label{tab:world-settings}
 \end{table}
 
-Three entries in Table~\ref{tab:ppo-settings} may need explanation. The reward is written with the scale factor $\kappa$ and drive $D=|h|/25$ (Section~\ref{sec:hrl}); together they give a reward of 0.2 for each unit $h$ moves toward the setpoint. The policy makes a decision every 10 ticks, so the discount from one decision to the next is $0.99^{10}\approx0.90$. Checkpoint selection describes how we picked the snapshot of each policy that was kept (Section~\ref{sec:training}): for example, an HRL snapshot with a mean $|h|$ of 15 on the eight test trials would be kept over one with a mean of 20.
+Three entries in Table~\ref{tab:ppo-settings} may need explanation. The reward of 0.2 for each unit $h$ moves toward the setpoint (Section~\ref{sec:hrl}) is written in the code as a factor of 5 applied to $|h|/25$ (HRL) or $\max(-h,0)/25$ (NF), which is the same. The policy makes a decision every 10 ticks, so the discount from one decision to the next is $0.99^{10}\approx0.90$. Checkpoint selection describes how we picked the snapshot of each policy that was kept (Section~\ref{sec:training}): for example, an HRL snapshot with a mean $|h|$ of 15 on the eight test trials would be kept over one with a mean of 20.
 
 \begin{table}[H]
 \centering\small
@@ -63,9 +63,8 @@ Options & seek, explore, cruise, avoid\\
 Network & 10 inputs and a bias; two layers of 64 tanh units; policy output (4 options) and value output\\
 \midrule
 \multicolumn{2}{@{}l}{\emph{Reward}}\\
-Reward per tick & $\kappa(D_{t-1}-D_t)$, with $\kappa=\Delta t/(1-\gamma)=5$ and $\gamma=0.99$\\
-HRL drive & $D=|h|/25$\\
-NF drive & $D=\max(-h,0)/25$\\
+HRL reward per tick & $0.2(D_{t-1}-D_t)$, where $D=|h|$\\
+NF reward per tick & $0.2(\delta_{t-1}-\delta_t)$, where $\delta=\max(-h,0)$\\
 \midrule
 \multicolumn{2}{@{}l}{\emph{Training}}\\
 Discount per decision & $0.99^{10}$\\
@@ -89,7 +88,7 @@ Trials & 64 paired trials per training seed (trial seeds 5000--5063)\\
 Choices & sampled from the policy, as in training\\
 \bottomrule
 \end{tabularx}
-\caption{Policy, reward, training and evaluation settings (Sections~\ref{sec:policy}--\ref{sec:stats}). HRL and NF policies differ only in their drive. Training used proximal policy optimization.}
+\caption{Policy, reward, training and evaluation settings (Sections~\ref{sec:policy}--\ref{sec:stats}). HRL and NF policies differ only in their reward function. Training used proximal policy optimization.}
 \label{tab:ppo-settings}
 \end{table}
 

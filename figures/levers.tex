@@ -14,7 +14,7 @@
 \begin{tikzpicture}
 \begin{axis}[width=11cm,height=5.2cm,scale only axis,ybar,bar width=26pt,ymin=0,ymax=155,
   xmin=0.4,xmax=6.6,xtick={1,...,6},
-  xticklabels={{No intervention\\(CCC)},{Precision\\relaxation\\only},{Temperature\\boost only,\\$b=1$},{Temperature\\boost only,\\$b=3$},{Both,\\$b=1$},{Both,\\$b=3$}},
+  xticklabels={{No intervention\\(CCC)\\\textcolor{muted}{$P_c\times1$}\\\textcolor{muted}{$T=1$}},{Precision\\relaxation only\\\textcolor{muted}{$P_c\times0$}\\\textcolor{muted}{$T=1$}},{Temperature\\boost only\\\textcolor{muted}{$P_c\times1$}\\\textcolor{muted}{$T=2$}},{Temperature\\boost only\\\textcolor{muted}{$P_c\times1$}\\\textcolor{muted}{$T=4$}},{Both\\components\\\textcolor{muted}{$P_c\times0$}\\\textcolor{muted}{$T=2$}},{Both\\components\\\textcolor{muted}{$P_c\times0$}\\\textcolor{muted}{$T=4$}}},
   xticklabel style={align=center,font=\footnotesize,text=ink},
   ytick={0,50,100,150},yticklabel style={font=\footnotesize,text=muted},
   ylabel={Mean absolute $h$ after the intervention},ylabel style={font=\small,text=ink},
