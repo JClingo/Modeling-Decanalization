@@ -1,12 +1,11 @@
 # Track only paper sources, figures, and submission materials.
-# Implementation, experiments, reviews, editor settings, and build output stay local.
+# Implementation, experiments, editor settings, and build output stay local.
 /*
 !/.gitignore
 !/*.tex
-!/cover-letter-statement
 !/figures/
-!/responses/
-!/revisions
+!/reviews/
+!/archive/
 
 # LaTeX build output and local metadata (including inside figures/)
 .DS_Store
