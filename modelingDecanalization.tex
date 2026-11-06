@@ -31,15 +31,13 @@
 \usepackage{makecell}
 \usepackage{booktabs}
 \usepackage[autostyle, english = american]{csquotes}
-
-
+% APA 7 author-year citations: (Author, Year; Author, Year), sorted in reference-list order
+\usepackage[authoryear,round,semicolon,sort]{natbib}
+\setlength{\bibhang}{0.5in}
+\setlength{\bibsep}{0pt}
 
 % plainpages=false fixes the "duplicate ignored" error with page counters
 % Set pdfborder to 0 0 0 to disable colored borders around PDF hyperlinks
-\makeatletter
-\renewcommand{\@biblabel}[1]{}
-\renewcommand{\@cite}[2]{(#1\if@tempswa , #2\fi)}
-\makeatother
 \setlength{\emergencystretch}{3em}
 
 \ifpdf
@@ -47,6 +45,7 @@
 \else
   \usepackage[dvipdfmx,plainpages=false,pdfborder={0 0 0}]{hyperref}
 \fi
+\urlstyle{same}  % APA: URLs and DOIs in the text font
 
 \begin{document}
 
@@ -88,131 +87,133 @@
 
 \section{Introduction}
 
-Organisms are constantly confronted with the trade-off between exploitation, the pursuit of known sources of reward, and exploration, the pursuit of uncertain sources of reward \cite{stephens_foraging_1986}. Although organisms ideally switch between exploration and exploitation at will and at optimal times \cite{pearson_decision_2014}, they often remain in one of those modes for too long or continue to cycle between them in non-optimal ways \cite{barack_neurocomputational_2016, addicott_primer_2017}. This can lead to habituated behavior patterns that are in conflict with their homeostatic needs \cite{bernard_lectures_1974}. From a dynamical systems perspective, organisms get stuck in the wells of fixed attractors, in the ruts and grooves of a ‘canalized’ landscape of behaviors \cite{waddington_canalization_1959, carhart-harris_canalization_2023}. The Bayesian perspective suggests that precise priors reduce the impact of new evidence, leading to repeated suboptimal behaviors and rigid response patterns \cite{carhart-harris_rebus_2019, carhart-harris_canalization_2023}. Work in reinforcement learning \cite{sutton_reinforcement_1998} has demonstrated that the interaction of meta-parameters and environmental factors can lead to reduced exploration and therefore over-exploitation of rewarding resources \cite{huys_mapping_2013}. These resources are discounted in perceived value, resulting in ‘observational overfitting’, where agents stop exploring altogether because they fixate on the wrong observational factors---resources that once were rewarding but are no longer rewarding \cite{song_observational_2019}.
+Organisms are constantly confronted with the trade-off between exploitation, the pursuit of known sources of reward, and exploration, the pursuit of uncertain sources of reward \citep{stephens_foraging_1986}. Although organisms ideally switch between exploration and exploitation at will and at optimal times \citep{pearson_decision_2014}, they often remain in one for too long or cycle between them in non-optimal ways \citep{barack_neurocomputational_2016, addicott_primer_2017}. This can lead to habituated behavior patterns that are in conflict with their homeostatic needs \citep{bernard_lectures_1974}. From a dynamical systems perspective, organisms get stuck in the wells of fixed attractors, in the ruts and grooves of a ‘canalized’ landscape of behaviors \citep{waddington_canalization_1959, carhart-harris_canalization_2023}. The Bayesian perspective suggests that precise priors reduce the impact of new evidence, leading to repeated suboptimal behaviors and rigid response patterns \citep{carhart-harris_rebus_2019, carhart-harris_canalization_2023}. Work in reinforcement learning \citep{sutton_reinforcement_1998} has demonstrated that the interaction of meta-parameters and environmental factors can lead to reduced exploration and therefore over-exploitation of rewarding resources \citep{huys_mapping_2013}. These resources are discounted in perceived value, resulting in ‘observational overfitting’, where agents stop exploring altogether because they fixate on the wrong observational factors---resources that once were rewarding but are no longer rewarding \citep{song_observational_2019}.
 
-The problem of hypercanalization (over-canalization) has been recognized in psychology, cognitive science \cite{lloyd_understanding_2023}, clinical practice \cite{addicott_primer_2017}, and integrative psychotherapy \cite{schiepek_self-organization_2014, schiepek_integrative_2015, schiepek_psychotherapy_2017}. In integrative psychotherapy, intentional shifts between decanalization and recanalization are central to the therapeutic process because they allow for the integration and reintegration of positive behavioral patterns. These theorists draw on dynamical systems theory, in particular Haken's synergetics \cite{haken_synergetics_1977}, as well as on control theory and cybernetics \cite{wiener_cybernetics_2019}, to model feedback-driven mental pathologies and possible interventions. Related frameworks include homeostatic setpoint management and allostasis \cite{sterling_allostasis_1988, sterling_allostasis_2012}. In homeostatic reinforcement learning \cite{keramati_homeostatic_2014}, complex behaviors emerge and stabilize over time through learning and the temporal discounting it affords. However, the learning process can backfire if the organism becomes observationally overfitted and relies on rigid expectations about possible rewards in its environment.
+The problem of hypercanalization (over-canalization) has been recognized in psychology, cognitive science \citep{lloyd_understanding_2023}, clinical practice \citep{addicott_primer_2017}, and integrative psychotherapy \citep{schiepek_self-organization_2014, schiepek_integrative_2015, schiepek_psychotherapy_2017}. In integrative psychotherapy, intentional shifts between decanalization and recanalization are central to the therapeutic process because they allow for the integration and reintegration of positive behavioral patterns. These theorists draw on dynamical systems theory---including Haken's \citeyearpar{haken_synergetics_1977} synergetics, control theory, and cybernetics \citep{wiener_cybernetics_2019}---to model feedback-driven mental pathologies and possible interventions. Related frameworks include homeostatic setpoint management and allostasis \citep{sterling_allostasis_1988, sterling_allostasis_2012}. In models of these \citep{keramati_homeostatic_2014}, learning to maximize an objective in a complex environment results in the emergence of sophisticated behaviors, such as temporal discounting. However, the learning process can backfire if the organism becomes observationally overfitted and relies on rigid expectations about possible rewards in this environment.
 
-On canalization accounts, hypercanalized behaviors such as depression, anxiety, PTSD, substance use disorder, and OCD are said to result from overweighted priors \cite{carhart-harris_canalization_2023}, rigid and stubborn response patterns that canalize behavior toward a downward spiral of maladaptive, self-fulfilling, and self-destructive behavior \cite{scheffer_dynamical_2024}. This view has made its way into psychedelic-assisted psychotherapy, where psychedelics have been proposed to provide an entropic burst that destabilizes brain networks, leading to long-term psychological transformation \cite{carhart-harris_entropic_2014, hipolito_pattern_2023, girn_complex_2023}. These authors propose that focused destabilization during the psychotherapeutic process can address many otherwise intractable conditions marked by behavioral canalization.
+In canalization accounts, hypercanalized behaviors such as depression, anxiety, PTSD, substance use disorder, and OCD are asserted to result from overweighted priors \citep{carhart-harris_canalization_2023}, rigid and stubborn response patterns that canalize behavior toward a downward spiral of maladaptive, self-fulfilling, and self-destructive behavior \citep{scheffer_dynamical_2024}. This view has been applied to psychedelic-assisted psychotherapy, where the acute effects of psychedelics are proposed to provide increased entropy, destabilizing brain networks and leading to long-term psychological transformation \citep{carhart-harris_entropic_2014, hipolito_pattern_2023, girn_complex_2023}. These authors propose that focused destabilization during the psychotherapeutic process can address many otherwise intractable conditions marked by behavioral canalization.
 
-Psychedelics may also precipitate critical period plasticity similar to plasticity in early development, leading to ``exquisite sensitivity to environmental input'' \cite[Abstract]{lepow_critical_2021}. This mirrors Juliani et al.'s (2024) description of acute shifts to inference, which, when supported by heightened metaplasticity, result in learning and relearning of the environment and actions that can manipulate it. This learning is made even stronger when the environment itself shifts during these critical periods.
+Psychedelics may also precipitate critical period plasticity similar to plasticity in early development, leading to ``exquisite sensitivity to environmental input'' \citep[Abstract]{lepow_critical_2021}. This mirrors Juliani et al.'s (2024) description of acute shifts to inference, which, when supported by heightened metaplasticity, result in learning and relearning of the environment and actions that can manipulate it. This learning is made even stronger when the environment itself shifts during these critical periods.
 
-For the most part, these ideas have remained metaphorical. Existing conceptualizations are often suggestive, but they rarely model their assumptions directly. Without a quantitative foundation, their explanatory value is limited. To address this gap, we developed a simulation that translates some of these assumptions into observable behavior. The aim is to render earlier conceptualizations into formal structures that can be quantified and compared, thereby sharpening the concepts, demonstrating their applicability to simulated agents, and exposing open questions that become visible only once the informal ideas are turned into a behavioral model.
+For the most part, these concepts have remained metaphorical. Existing conceptualizations are often suggestive, but they rarely model their assumptions directly. Without a quantitative foundation, their explanatory value is limited. To address this gap, we developed a simulation that translates some of these assumptions into observable behavior. The aim is to render earlier conceptualizations into formal structures that can be quantified and compared, thereby sharpening them, demonstrating their applicability to simulated agents, and exposing open questions that become visible only once these informal concepts are turned into a behavioral model.
 
-Our working model of decanalization is inspired by work on the entropic brain \cite{carhart-harris_entropic_2014,carhart-harris_entropic_2018}, canalization, and Hipólito et al.'s (2023) pattern-breaking model. We also draw heavily on Juliani et al.'s “Deep CANALs” (2024), which directly extends the ``CANAL'' model \cite{carhart-harris_canalization_2023} and distinguishes overfitting in inference from loss of plasticity in learning, treating the intersection of overfitting and low plasticity as a source of psychopathology. According to Juliani et al., decanalization acutely alters synaptic weights, sensory observations, and metaplasticity: “[Acute decanalization] is a function of both the current environmental context (made partially available to the model through a sequence of sensory observations) and the state of the system within the synaptic weight landscape. The inferred set of beliefs in a given instance are a function of the location of the system within the neural activity landscape.” In our agent-based model, sensory observations are observations about internal and external states. Synaptic weights correspond to the weights of the agent's learned policy, which are fixed once training ends. Neural activity corresponds to the agent's beliefs about its world, held in a cognitive map whose precision grows with experience. That confidence acts as the precise prior of the canalization account: it persists after the world it describes has changed. Our decanalization acts on these beliefs and on the variability of the agent's choices, not on its weights, and we do not model metaplasticity.
+Our working model of decanalization is inspired by work on the entropic brain \citep{carhart-harris_entropic_2014,carhart-harris_entropic_2018}, canalization, and Hipólito et al.'s (2023) pattern-breaking model. We also draw heavily from Juliani et al.'s “Deep CANALs” (2024), which directly extends the ``CANAL'' model \citep{carhart-harris_canalization_2023} and distinguishes overfitting in inference from loss of plasticity in learning, treating the intersection of overfitting and low plasticity as a source of psychopathology---hypercanalization. According to Juliani et al., decanalization acutely alters synaptic weights, sensory observations, and metaplasticity. In their model, the landscape of neural activity that supports inference is shaped both by the current environment, which the system sees through its sensory observations, and by the system's position in the landscape of synaptic weights, and the beliefs it infers at any moment depend on where it sits in that activity landscape \citep[][``Two Canalizations'' section, para.~7]{juliani_deep_2024}. 
 
-In this paper, we model canalization through learning about the environment (Figure~\ref{fig:overview}). Policies are first trained in a stable world. During evaluation, agents build confident beliefs about familiar resources and establish routes whose traversal costs decrease with use, even as repeated harvesting depletes those resources. After 300\,s, two new, reliable resource patches appear. For the next 100\,s, agents either undergo temporary decanalization---relaxed belief precision and more variable choices---or receive no intervention. We call the first condition CDR, for canalization, decanalization, and recanalization, and the second CCC, for canalization throughout. Both conditions then run for another 300\,s with baseline intervention settings in the same changed world. This final phase tests whether changes in beliefs and behavior support subsequent regulation; learned policy weights remain fixed throughout evaluation. Figure~\ref{fig:movement} follows one simulated pair of agents through these phases.
+In our agent-based model, sensory observations represent observations about internal and external states, synaptic weights represent fixed weights in the agent's learned policy, and neural activity represents the agent's beliefs about its world, held in a cognitive map where precision grows with experience. The resulting strong beliefs act as a canalizing, behaviorally restrictive force that persists well after the world the agent learned about has changed. We selectively apply decanalization to weaken those beliefs, resulting in new behaviors.
+
+In our implementation, we start by training policies in a diverse range of stable worlds, rewarding actions based on one of two pre-selected objectives representing the maintenance of a homeostatic setpoint. Next, we place those trained agents similarly shaped worlds and evaluate their performance as these worlds are altered. In these worlds, the agents initially build confident beliefs about familiar resources and establish routes whose traversal costs decrease with use, even as repeated harvesting depletes those resources. After a fixed time interval, new, reliable resource patches appear, altering the world. For a second fixed time interval, agents either undergo temporary decanalization---relaxed belief precision and more variable choices---or receive no intervention. We call the first condition \emph{CDR}, for canalization, decanalization, and recanalization, and the second \emph{CCC}, for canalization throughout. Both conditions then run for a third fixed time interval, in which the decanalized agent returns to its usual settings and its beliefs regain precision. This final phase tests whether changes in beliefs and behavior support subsequent regulation. Learned policy weights remain fixed throughout evaluation. Figure~\ref{fig:movement} follows one simulated pair of agents through these phases.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/overview.pdf}
-\caption{Conceptual overview. Policies are first trained in a stable world, where patches never degrade. In evaluation, each panel sketches the agent's landscape of beliefs, in which deep canals are confident beliefs about where food is; the ball is the agent. During canalization, the familiar patches degrade with use while beliefs about them grow more precise. At 300\,s, two new patches appear far away. CDR agents are then decanalized for 100\,s: their beliefs flatten and their choices become more random, which lets them reach the new patches. CCC agents receive no intervention and are slow to find the new patches. The panel below shows how $h$ (which is ideally close to the dotted line at the setpoint 0) changes over time. Both conditions fall into deficit during canalization; CDR agents return toward the setpoint during the intervention, while CCC agents stay far below it until late in recanalization.}
+\caption{Conceptual overview. Policies are first trained in a stable world, where patches never degrade. In evaluation, each panel sketches the agent's landscape of beliefs, in which the ball represents the agent and the deep canals represents the agent's confident beliefs about the food's location. During canalization, the familiar patches degrade with use, even as beliefs about them grow more precise. At 300\,s, two new patches appear far away. CDR agents are then decanalized for 100\,s: their beliefs flatten and their choices subsequently become more random, letting them reach the new patches. CCC agents receive no intervention and are slow to find the new patches. The panel below shows how the homeostatic setpoint $h$ (which is ideally close to the dotted line at setpoint $0$) changes over time. Both conditions fall into a deficit during canalization. However, only CDR agents tend to return toward the setpoint during the intervention---CCC agents tend to stay far below it until late in recanalization.}
 \label{fig:overview}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/movement.pdf}
-\caption{One paired trial using HRL (also shown in Figure~\ref{fig:trajectory}). Lines trace each agent's path during a phase, from the open circle to the filled one. Familiar patches (green) are shaded by fertility at the end of the phase, so pale patches are depleted. New patches are purple. Below each panel are the phase's harvests and mean $|h|$. The two agents are identical during canalization. During the intervention, the CDR agent ranges more widely and reaches a new patch just before the intervention ends, while the CCC agent stays with its familiar patches. In recanalization, the CDR agent harvests from the new patches throughout and stays near the setpoint (mean $|h|$ of 12). The CCC agent first harvests from a new patch at 628\,s and spends most of the phase far below the setpoint (mean $|h|$ of 93).}
+\caption{One paired trial with an agent trained with a HRL objective (also shown in Figure~\ref{fig:trajectory}). Lines trace the agent's path during a phase, from the open circle to the filled one. Familiar patches (green) are shaded by fertility at the end of the phase, so pale patches represent depletion. New patches are purple. Below each panel are the phase's harvests and mean $|h|$. Agent performance across conditions is identical during canalization. During the intervention, it diverges. The CDR agent ranges more widely and reaches a new patch just before the intervention ends, while the CCC agent sticks to its familiar patches. In recanalization, the CDR agent harvests from the new patches throughout and stays near the setpoint (mean $|h|$ of 12); the CCC agent first harvests from a new patch at 628\,s and spends most of the phase far below the setpoint (mean $|h|$ of 93).}
 \label{fig:movement}
 \end{figure}
 
-We test two hypotheses. First, a temporary decanalization that relaxes the precision of the agent's beliefs and increases the variability of its choices improves its regulation after the intervention ends. Second, an agent trained with a homeostatic reinforcement learning (HRL) objective benefits more than one trained with a one-sided negative-feedback (NF) objective. Before testing them, we check that canalization formed in a stable world becomes maladaptive in the changing world, and why. We also ask, as an exploratory question, how each component of the intervention and its intensity contribute.
+We test two hypotheses. First, temporary decanalization---relaxing the precision of the agent's beliefs and increasing the variability of its choices---will improve the agent's ability to regulate its homeostatic state after the intervention ends. Second, in the same worlds and with the same intervention, an agent trained with a homeostatic reinforcement learning (HRL) objective will benefit more than an agent trained with a one-sided negative-feedback (NF) objective. 
 
-The contrast between HRL and NF follows Keramati and Gutkin (2014), who argued that homeostatic reinforcement learning, unlike classical negative-feedback accounts, explains anticipatory regulation. Intuitively, HRL resembles a heating and air-conditioning system that maintains a stable temperature; NF resembles a heater that acts only when the temperature falls below a fixed setpoint. An NF agent may escape an entrenched pattern as readily as an HRL agent, but only the HRL agent is rewarded for using its new freedom to stay near its setpoint.
+The contrast between HRL and NF follows Keramati and Gutkin (2014), who argued that homeostatic reinforcement learning, unlike classical negative-feedback accounts, promotes anticipatory regulation, temporal discounting of immedate rewards---central to survival in complex and demanding environments. Intuitively, HRL resembles a heating and air-conditioning system that maintains a stable temperature; NF resembles a heater that acts only when the temperature falls below a stable setpoint. The one-sided nature of the NF objective tends to limit its ability to promote anticipatory regulation.
 
 \section{Methods}
 
-We built a simulation in which an agent manages a single homeostatic variable while foraging in a two-dimensional world, learns where resources are, and becomes more confident in what it has learned. In this model, canalization corresponds to the precision of the agent's expectations in its cognitive map: having specific expectations about where food is corresponds to being canalized. Someone who has lived in a neighborhood for years has precise expectations about what is around every corner, while a visitor to a new city does not, and a precise belief takes much more contrary evidence to revise \cite{yon_precision_2021}. Decanalization corresponds to a temporary relaxation of that precision, together with an increase in the randomness of the agent's choices, in line with the REBUS account of relaxed beliefs under psychedelics \cite{carhart-harris_rebus_2019} and the distinction between inference and behavioral variability in Deep CANALs \cite{juliani_deep_2024}.
+We built a simulation in which an agent manages a single homeostatic variable while foraging in a two-dimensional world, learns where resources are, and gains confidence in its beliefs as they are rewarded. In this model, canalization corresponds to the precision of the agent's expectations in its cognitive map: having specific expectations about where food is corresponds to being canalized. Someone who has lived in a neighborhood for years has precise expectations about what is around every corner, while a visitor to a new city does not, and a precise belief takes much more contrary evidence to revise \citep{yon_precision_2021}. Decanalization corresponds to a temporary relaxation of that precision, together with an increase in the randomness of the agent's choices, in line with the REBUS account of relaxed beliefs under psychedelics \citep{carhart-harris_rebus_2019} and the distinction between inference and behavioral variability in Deep CANALs \citep{juliani_deep_2024}.
 
 \subsection{World}\label{sec:world}
 
-The world is a $50\times50$ toroidal grid of unit tiles. At each tick of $\Delta t=0.05$\,s the agent moves forward at 5 tiles per second and turns by up to $10^\circ$. Its homeostatic state $h$ (setpoint 0) changes as
+The world is a $50\times50$ toroidal grid of unit tiles. At each tick of $\Delta t=0.05$\,s, the agent moves forward at 5 tiles per second and turns by up to $10^\circ$. Its homeostatic state $h$ (setpoint 0) changes as
 \begin{equation}\label{eq:h}
-  h_{t+1}=h_t+o_t-\left(c(n_\tau)+\ell\right)\Delta t,
+  h_{t+1}=h_t+o_t-\left(c(n)+\ell\right)\Delta t,
 \end{equation}
-where $o_t$ is the value of a pellet harvested during the tick, $\ell=2$ is a passive loss per second, and $c(n_\tau)$ is the traversal cost per second of the occupied tile, which falls with $n_\tau$, the number of times the agent entered the tile before the current crossing:
+where $o_t$ is the value of a pellet harvested during the tick, $\ell=2$ is a passive loss per second, and $c(n)$ is the traversal cost per second of the occupied tile, which falls with $n$, the number of times the agent entered the tile before the current crossing. The tile cost at any given point in time is
 \begin{equation}\label{eq:wear}
   c(n)=c_{\min}+(c_0-c_{\min})\,e^{-n/k},\qquad c_0=5,\ c_{\min}=1,\ k=3.
 \end{equation}
-Each time the agent enters a tile, the tile's cost goes down. Moving at 5 tiles per second, the agent spends about 0.2\,s on each tile, so a crossing costs about $0.2\,c(n)$. The first crossing of a tile ($n=0$) costs $0.2\times5=1$ unit of $h$. The second ($n=1$) costs about $0.2\times3.9\approx0.8$, and the cost approaches 0.2 with repeated crossings. Entry counts fade with a half-life of 200\,s, so a worn path persists only through use.
+where the tile's cost goes down each time the agent enters it. Moving at 5 tiles per second, the agent spends about 0.2\,s on each tile, so a crossing costs about $0.2\,c(n)$. The first crossing of a tile ($n=0$) costs $0.2\times5=1$ unit of $h$. The second ($n=1$) costs about $0.2\times3.9\approx0.8$, and the cost approaches 0.2 with repeated crossings. Entry counts fade with a half-life of 200\,s, so a worn path persists only through use.
 
-Traversal cost models a simple form of niche construction, in which organisms modify their environments and so change the conditions they later encounter \cite{laland_niche_2016}. Established routes can offer material advantages: marine snails that follow existing mucus trails produce less mucus of their own \cite{davies_energy_2007}, and leafcutter ants build trails by clearing obstacles as they travel \cite{bochynek_infrastructure_2019}. In the same way, a path in our world gets easier to travel the more it is used. Worn paths make familiar routes cheaper, which can also make leaving them less attractive.
+Traversal cost models a simple form of niche construction, in which organisms modify their environments and so change the conditions they later encounter \citep{laland_niche_2016}. Established routes can offer material advantages: marine snails that follow existing mucus trails produce less mucus of their own \citep{davies_energy_2007}, and leafcutter ants build trails by clearing obstacles as they travel \citep{bochynek_infrastructure_2019}. In the same way, a path in our world gets easier to travel the more it is used. Worn paths make familiar routes cheaper, which can also make leaving them less attractive.
 
-Resources occur in ten patches of $3\times3$ cells. Each patch has a pellet value drawn uniformly from $[3,15]$, and each of its cells holds one pellet of that value. A harvested pellet regrows after a delay of $8\,\mathrm{s}/f$, where $f\in(0,1]$ is the patch's fertility. A fresh patch ($f=1$) regrows a pellet in 8\,s. Every harvest multiplies $f$ by $0.92$, so after ten harvests $f$ is about 0.43 and regrowth takes about 18\,s. Left alone, $f$ recovers toward 1 with a time constant of 300\,s. Heavily used patches therefore regrow slowly, and an exploited route stops paying.
+Resources occur in ten patches of $3\times3$ cells, placed randomly throughout the world, with at least two cells separating patches. Each patch has a pellet value drawn uniformly from $[3,15]$, and each of its cells holds one pellet of that value. Pellets regrow 8 seconds after harvesting in a fully fertile patch. Regrowth takes longer as fertility falls: the delay is $\frac{8}{f}$ seconds, where $f\in(0,1]$ is the patch’s fertility. Every harvest multiplies $f$ by $0.92$, so after ten harvests $f$ is about 0.43 and regrowth takes about 18\,s. When a patch is not being harvested, its fertility recovers gradually: the gap between $f$ and 1 shrinks to about 37\% of its size every 300\,s. Thus, a well-harvested patch at $f=0.43$ would recover only to about 0.79 after five minutes.
 
-In each evaluation trial the agent first forages in the world just described, and the patches it relies on degrade with use from the start. At 300\,s, two new, reliable patches appear, at least 20 tiles from the agent's position at that moment. Their pellet values (uniform $[8,12]$) are in the middle of the range of the original patches, so they are no richer per pellet. They are better because they never degrade and regrow a pellet in 4\,s, half the time of an original patch. This models a change in circumstances, like an animal whose familiar food sources are running out while better ones appear elsewhere, or a person whose situation shifts. Any agent whose familiar patches are failing then has a better option available, outside the area it habitually uses. We call this the changing world, and all evaluation takes place in it.
+In each evaluation trial, the agent first forages in the world and the patches it learns to rely on degrade with use. At 300\,s, two new patches appear, at least 20 tiles from the agent's current position. Their pellet values (uniform $[8,12]$) are in the middle of the range of the original patches. These are designed to be better overall, because they unlike other patches, they never degrade, and they regrow a pellet in 4\,s, half the time of other patches. This models a positive change in circumstances, like an animal whose familiar food sources are running thin when better ones appear nearby by chance, or a human whose living situation suddenly shifts around them. presenting new opportunities and challenges. The agent whose familiar patches are failing suddenly has a better option available, outside the area it habitually harvests resources. We call this environment and its shifts the \emph{changing world}, and all evaluation takes place in instances of it.
 
-Policies are trained in a simpler, stable version of the world, in which harvesting does not lower fertility and no new patches appear, so a familiar route never stops paying. This sets up the question the study asks: when a habit that served well stops paying, does temporarily loosening it help the agent adapt?
+Policies are trained in a simpler, stable version of the world, in which harvesting does not lower fertility and no new patches appear, so a familiar route never stops paying. This sets up the question the study asks: when a  habit that served well stops paying, does temporarily loosening it help the agent adapt?
 
 \subsection{Agent: perception and cognitive map}\label{sec:map}
 
-The agent perceives along seven rays spanning $90^\circ$ with a range of 10 tiles. The agent maintains a set of beliefs about the pellets it has observed, a simple cognitive map. The agent always knows its own position, and the map stores what it believes is at each location, so it can head directly to a remembered cell from anywhere. It does not have to learn the layout itself, since the world is an open field with no walls or obstacles. For each cell $c$, the map holds a believed pellet value $V_c$ and the precision $P_c$ of that belief, which measures how much evidence supports it. At each tick, every precision fades, and each cell the agent observes is updated with the pellet value $v$ it sees there ($v=0$ for an empty cell):
+The agent perceives along seven rays, spanning $90^\circ$ with a range of 10 tiles. The agent uses these perceptions to maintain a set of beliefs about the pellets it has observed---a simple cognitive map. Beyond its ray perception, the agent also always knows its own position, and the map stores what it believes is at each location, so it can head directly to a remembered cell from anywhere. It does not have to learn the layout itself, since the world is an open field with no walls or obstacles. For each cell $c$, the map holds two numbers: $V_c$, the value of the pellet the agent believes is there (0 if it believes the cell is empty), and $P_c$, the precision of that belief. Precision is the weight a belief carries against new evidence. It grows each time the cell is observed, reflecting how much recent evidence supports the belief. At each tick, the precision of every cell fades, and each cell the agent observes is updated toward the pellet value $v$ it sees there ($v=0$ for an empty cell):
 \begin{equation}\label{eq:belief}
 \begin{aligned}
-  \text{fading:}&\quad P_c\leftarrow P_c\,e^{-\Delta t/\tau},\\
-  \text{observation:}&\quad V_c\leftarrow\frac{P_cV_c+P_ov}{P_c+P_o},\qquad P_c\leftarrow P_c+P_o,
+  \text{Fading:}&\quad P_c\leftarrow P_c\,e^{-\Delta t/\tau},\\
+  \text{Observation:}&\quad V_c\leftarrow\frac{P_cV_c+P_ov}{P_c+P_o},\qquad P_c\leftarrow P_c+P_o,
 \end{aligned}
 \end{equation}
-where $\tau=200$\,s is the time constant of fading and $P_o$ is the precision of the observation. $P_o$ depends on how the cell is observed: harvesting its pellet contributes 2, seeing it 1 per second, and being on it when it is empty 0.5 per second. The new belief is an average of the old belief and the observation, each weighted by its precision. Precisions add because each observation is further evidence, as in Bayesian updating, and fading means that beliefs that are not refreshed become less certain. A cell the agent has harvested and watched many times might have a precision of around 50. If the agent then sees it empty for one second, a believed value of 10 drops only to about 9.8. A cell glimpsed for two seconds has a precision of about 2, and the same one-second look drops its believed value from 10 to about 6.7. Cells that have repeatedly paid off therefore become precise, and later evidence that they are empty moves the belief only slowly.
+where $\tau=200$\,s is the time constant of fading and $P_o$ is the precision of the observation. $P_o$ depends on the kind of observation. In each tick, every cell the agent sees gives $P_o=0.05$ (1 per second), whether or not it holds a pellet; standing on an empty cell gives $P_o=0.025$ (0.5 per second); and harvesting a pellet gives $P_o=2$. The agent's own cell is often also in view, so standing on an empty cell can add both. The new believed value is an average of the old belief and the observation, each weighted by its precision, and the precisions add. This is a standard Bayesian update for a Gaussian belief, where each observation is independent evidence. Fading means that beliefs the agent does not refresh lose weight, so new evidence moves them more easily. For example, a cell the agent has harvested and watched many times might have a precision of around 50. If the agent then sees it empty for one second, its believed value drops from 10 only to about 9.8 ($50\times 10\div51$). A cell glimpsed for two seconds has a precision of about 2, and the same one-second look drops its believed value from 10 to about 6.7 ($2\times10\div3$). Cells the agent harvests often hold precise beliefs, and later evidence that they are empty are slow to weaken those beliefs.
 
-When choosing where to go, the agent combines these beliefs with a fixed expectation about regrowth: it assumes a harvested cell regrows in 8\,s, as a fully fertile patch does. The believed worth of a cell is therefore $V_c\,(1-e^{-(t-t_c)/8})$, where $t_c$ is the time of its last harvest.
+The agent combines its beliefs about cell values with a expectation that harvested cells will always regrow in 8\,s, as a fully fertile patch does. The believed worth of a cell is therefore $V_c\,(1-e^{-(t-t_c)/8})$, where $t_c$ is the time of its last harvest.
 
 \subsection{Policy}\label{sec:policy}
 
-The agent's behavior is controlled by a learned policy that chooses among four options. In reinforcement learning, an option is a fixed behavior that, once chosen, runs for a period of time \cite{sutton_between_1999}. Every 0.5\,s the policy gives a probability for each option, one option is sampled, and its fixed steering rule runs until the next choice. The four options are to \emph{seek} the remembered cell with the greatest believed worth per unit distance; \emph{explore} toward the nearest cell never seen; \emph{cruise} along the cheapest (most worn) direction; or \emph{avoid} visible food. What the policy learns is which option to use when; where to go comes from the cognitive map and the steering rules. Its main inputs include the homeostatic state $h$, the value and distance of the best visible food, the believed worth, distance, and precision of the best remembered cell, and the time since the last harvest. The full list is in the code repository. It is a two-layer network of 64 units per layer with separate policy and value outputs.
+The agent's behavior is controlled by a learned policy that chooses from among four options. In reinforcement learning, an option is a fixed behavior that, once chosen, runs for a period of time \citep{sutton_between_1999}. Every 0.5\,s the policy gives a probability for each option, one option is sampled, and its fixed steering rule runs until the next choice. The four options are to \emph{seek} the remembered cell with the greatest believed worth per unit distance; \emph{explore} toward the nearest cell never seen; \emph{cruise} along the cheapest (most worn) direction; or \emph{avoid} visible food. What the policy learns is which option to use when; where to go comes from the cognitive map and the steering rules. Its main inputs include the homeostatic state $h$, the value and distance of the best visible food, the believed worth, distance, and precision of the best remembered cell, and the time since the last harvest. The full list is in the code repository. It is a two-layer network of 64 units per layer, with separate policy and value outputs.
 
 \subsection{Homeostatic reinforcement learning (HRL)}\label{sec:hrl}
 
-Homeostatic reinforcement learning (HRL) models an agent that manages a set of internal physiological or cognitive variables (e.g., energy, temperature, hunger, curiosity). The agent's goal is to reduce drive $D$ by keeping these values close to a set of preferred setpoints \cite{keramati_homeostatic_2014}:
+Homeostatic reinforcement learning (HRL) models an agent that manages a set of internal physiological or cognitive variables (e.g., energy, temperature, hunger, curiosity). The agent's goal is to reduce drive $D$ by keeping these values close to a set of preferred setpoints \citep{keramati_homeostatic_2014}:
 \begin{equation}\label{eq:model-drive}
   D\left(H_t\right)=\sqrt[m]{\sum_{i=1}^N\left|h_i^*-h_{i, t}\right|^n}
 \end{equation}
 \(H^*=\left(h_1^*, h_2^*, \ldots, h_N^*\right)\) is a vector of setpoints describing the organism's ideal physiological state, and \(H_t=\left(h_{1, t}, h_{2, t}, \ldots, h_{N, t}\right)\) represents the organism's actual physiological state at time \(t\). For $m=n=1$, which we use, $D$ is a sum of absolute differences between the setpoints and the actual physiological states. We focus on a single state \(h_t\), whose setpoint \(h^*\) is set to \(0\), so that $D=|h_t|$. A setpoint of 0 makes it easy to interpret $h$ values as either above or below the desired setpoint. If $h$ is food satiation, then positive values are degrees of over-satiation and negative values are degrees of hunger.
 
-Keramati and Gutkin (2014) define reward as reduction in drive, and we use this definition directly. At each tick the HRL agent earns
+Keramati and Gutkin (2014) define reward as reduction in drive, and we use this definition directly. At each tick, the HRL agent earns
 \begin{equation}\label{eq:reward}
   r^{\mathrm{HRL}}_t=0.2\,(D_{t-1}-D_t)=0.2\,\bigl(|h_{t-1}|-|h_t|\bigr).
 \end{equation}
-HRL rewards movement toward the setpoint from either side, and the agent learns, in Goldilocks fashion, to make $h$ larger when it is below \(h^*\) and smaller when it is above \(h^*\). Each unit that $h$ moves toward the setpoint earns a reward of 0.2, and each unit it moves away costs 0.2. The factor 0.2 sets the overall size of rewards for training; it does not change what the reward favors. For example, a pellet worth 10 that takes $h$ from $-12$ to $-2$ earns a reward of 2. A pellet that takes $h$ from $-4$ to $+6$ overshoots and costs 0.4, since the agent ends farther from the setpoint than it started. Losses work the same way: below the setpoint, passive and traversal losses cost reward, but above it they move $h$ back toward the setpoint and earn reward.
+HRL rewards movement toward the setpoint from either side, so an HRL agent learns, in Goldilocks fashion, to raise $h$ when it is below \(h^*\) and to let it fall when it is above \(h^*\). Each unit that $h$ moves toward the setpoint earns a reward of 0.2, and each unit it moves away costs 0.2. The factor 0.2 sets the overall size of rewards for training but does not change what the reward favors. For example, a pellet worth 10 that takes $h$ from $-12$ to $-2$ earns a reward of 2. A pellet that takes $h$ from $-4$ to $+6$ overshoots and costs 0.4, since the agent ends farther from the setpoint than it started. Losses work the same way: below the setpoint, passive and traversal losses cost reward, but above it they move $h$ back toward the setpoint and earn reward.
 
 \subsection{Negative feedback (NF)}\label{sec:nf}
 
-We also trained agents with a negative feedback (NF) reward function, which counts only deficits. A heater thermostat is similar in that it only acts on one side of the setpoint: the heater turns on when the temperature gets too low, but no action is taken when the temperature gets too high. NF rewards only reductions in the deficit $\delta_t=\max(-h_t,0)$, which is zero whenever $h$ is at or above the setpoint:
+We also trained agents with a negative feedback (NF) reward function, which counts only deficits. A heater thermostat is similar in that it only acts on one side of the setpoint: the heater turns on when the temperature gets too low, but no action is taken when the temperature gets too high. NF reward depends only on changes in the deficit $\delta_t=\max(-h_t,0)$, which is zero whenever $h$ is at or above the setpoint:
 \begin{equation}\label{eq:reward-nf}
   r^{\mathrm{NF}}_t=0.2\,(\delta_{t-1}-\delta_t).
 \end{equation}
-Below the setpoint, NF works like HRL: each unit that $h$ moves toward the setpoint earns a reward of 0.2, and each unit it moves away costs 0.2. The pellet that takes $h$ from $-12$ to $-2$ again earns a reward of 2, and falling from $-20$ to $-22$ costs 0.4. Above the setpoint, nothing is rewarded or penalized. The pellet that takes $h$ from $-4$ to $+6$ earns 0.8 for removing the deficit, where HRL charged 0.4 for the overshoot. NF agents therefore have no reason to avoid overeating.
+Below the setpoint, NF works like HRL: each unit that $h$ moves toward the setpoint earns a reward of 0.2, and each unit it moves away costs 0.2. The pellet that takes $h$ from $-12$ to $-2$ again earns a reward of 2, and falling from $-20$ to $-22$ costs 0.4. Above the setpoint, nothing is rewarded or penalized. The pellet that takes $h$ from $-4$ to $+6$ earns 0.8 for removing the deficit, where HRL charged 0.4 for the overshoot. NF agents therefore have no reason to avoid overeating, and a surplus can even help them, since it delays the next deficit.
 
-Following Keramati and Gutkin (2014), we chose NF as a contrast to HRL. They argued that HRL, unlike classical negative-feedback accounts, explains anticipatory responding, for example learned cue-triggered responses that reduce deviations from a temperature setpoint. NF is a simple version of such an account: like HRL, it rewards the agent for regulating $h$, but only deficits matter to it. Our NF agents, however, learn by the same reinforcement learning as HRL agents, which values future as well as immediate reward, so they too can learn to act in advance, for example by heading toward food before a deficit grows. The comparison concerns the consequences of the two reward functions, not a contrast between an anticipatory and a purely reactive agent.
+Following Keramati and Gutkin (2014), we chose NF as a contrast to HRL. They argued that HRL, unlike classical negative-feedback accounts, explains anticipatory responding, such as learned cue-triggered responses that reduce deviations from a temperature setpoint. NF is a simple version of such an account: like HRL, it rewards the agent for regulating $h$, but only deficits matter to it. Although NF agents can learn to act in advance, they do not respond as well to decanalizating changes.
 
 \subsection{Training}\label{sec:training}
 
-\begin{sloppypar}
-Policies were trained with proximal policy optimization \cite{schulman_proximal_2017} for 60 iterations of 16 trials (about 1.3 million decisions), in the stable world, without any intervention. We trained four HRL and four NF policies, each starting from a different random initialization (a training seed). During training we saved snapshots of each policy and kept the one that did best on eight separate test trials in the stable world, judged by its own reward function: the lowest mean $|h|$ for HRL and the lowest mean deficit for NF. Once training ends, the policies no longer learn. Settings are listed in Appendix~\ref{app:implementation-settings}.
-\end{sloppypar}
+Policies were trained in stable worlds with proximal policy optimization (PPO) \citep{schulman_proximal_2017}, a standard reinforcement learning method for neural network policies. The network has two outputs, trained together: a policy, which gives a probability for each option, and a value estimate, which predicts the reward still to come and is used only during training, to judge whether a choice turned out better or worse than expected. Each update shifts the policy toward choices that turned out better than expected, but only by a limited amount, which keeps training stable. Two features of this setup directly impact our results. First, the policy is stochastic: the agent samples its choices from the policy's probabilities, in training and in evaluation, which is what allows the temperature boost to make them more random, and a small bonus for keeping those probabilities spread out during training stops the policy from becoming fully deterministic. Second, future reward is discounted by 0.99 per tick, so reward 5\,s ahead counts about a third as much as reward now.
+
+Training comprised 60 iterations, each with 16 trials lasting 700\,s (about 1.3 million decisions total), in randomly generated stable worlds. We trained four HRL and four NF policies with different random seeds; each seed determined the initial weights and training worlds. A snapshot was saved after every iteration. For each policy, we evaluated snapshots from every fifth iteration starting at iteration 20, as well as the final snapshot, on eight validation trials in new stable worlds. We kept the snapshot that best met the policy's own objective: lowest mean $|h|$ for HRL or lowest mean deficit for NF. The policies no longer learn after training. Settings are listed in Appendix~\ref{app:implementation-settings}.
 
 \subsection{Canalization, decanalization and recanalization}\label{sec:protocol}
 
-Each evaluation trial takes place in the changing world and has three phases (Figure~\ref{fig:protocol}). In the canalization phase (300\,s), the agent forages and builds up its beliefs. At 300\,s, the two new patches appear and the intervention phase (100\,s) begins. In the recanalization phase (300\,s), the agent continues in the changed world with its usual settings. The homeostatic state carries over from one phase to the next, so an agent that falls into deficit in one phase starts the next one hungry. The intervention never changes $h$ directly, so any difference in $h$ between conditions comes from how the agents behave.
+Each evaluation trial takes place in the changing world and has three phases (Figure~\ref{fig:protocol}). In the canalization phase (0--300\,s), the agent starts at $h=0$ with an empty map, forages, and builds up its beliefs. At 300\,s, the two new patches appear and the intervention phase (300--400\,s) begins. In the recanalization phase (400--700\,s), the agent continues in the changed world with its usual settings. The homeostatic state carries over from one phase to the next, so an agent that falls into deficit in one phase starts the next one hungry. The intervention never changes $h$ directly, so any difference in $h$ between conditions comes from how the agents behave and how that behavior changes the world.
 
-We compare two conditions. In the CCC condition (canalization throughout), the agent receives no intervention. In the CDR condition (canalization, decanalization, recanalization), the agent is decanalized during the intervention phase. Decanalization has two components. Precision relaxation lowers the precision of every belief, so that new evidence revises beliefs more easily, and a temperature boost makes the agent's choices more random. In the main setting, every precision is set to zero at the start of the intervention phase, and the temperature is doubled until the phase ends.
+We compare two conditions. In the CCC condition (canalization throughout), the agent receives no intervention. In the CDR condition (canalization, decanalization, recanalization), the agent is decanalized during the intervention phase. Decanalization has two components. Precision relaxation lowers the precision of every belief, so that new evidence revises beliefs more easily, and a temperature boost increases the randomness of the agent's choices. In the main setting, every precision is set to zero at the start of the intervention phase, and the temperature is doubled until the phase ends.
 
-At full strength, beliefs carry no weight against new evidence for the whole phase. Each observation of a cell replaces the belief about it, so a single glimpse of an empty patch is enough for the agent to believe it is empty. The temperature controls how random the policy's choices are, since the policy chooses among its options by sampling. Raising it from 1 to 2 makes the options the policy would usually pass over more likely. After the intervention phase, the temperature returns to 1, and precision again builds with evidence as in Equation~\ref{eq:belief}.
+At full strength, beliefs carry no weight against what the agent sees for the whole phase. Each sighting of a cell replaces the belief about it, so a single glimpse of an empty patch is enough for the agent to believe it is empty. Standing on or harvesting from a cell updates the belief as usual, weighed against whatever precision the cell has gained since the phase began. The temperature controls how random the policy's choices are, since the policy chooses among its options by sampling. Raising it from 1 to 2 makes the options the policy would usually pass over more likely. After the intervention phase, the temperature returns to 1, and sightings are again weighed against the precision each belief has built up since the phase began, as in Equation~\ref{eq:belief}.
 
-Two settings control the strength of the intervention. The dose $d$, between 0 and 1, scales both components: every precision is multiplied by $1-d$, and the temperature is raised from 1 to $1+b\,d$. The boost $b$ sets how far the temperature rises at a given dose. During the phase, new observations are weighed against beliefs whose precision is reduced by the same factor $1-d$. The main setting, $d=1$ and $b=1$, gives the zero precision and doubled temperature described above. To see how the strength of the intervention matters, we also tested a half dose ($d=0.5$), boosts of 0 and 3, and, at full dose, a boost of 10. To see what each component contributes, we tested precision relaxation alone (boost 0) and the temperature boost alone (boost 1 or 3, with precision unchanged).
+Two settings control the strength of the intervention. The dose $d$, between 0 and 1, scales both components: every precision is multiplied by $1-d$ at the start of the phase, and the temperature is raised from 1 to $1+b\,d$ until the phase ends. The temperature boost $b$ sets how far the temperature rises at a given dose. Throughout the phase, whenever the agent sees a cell, the belief's precision is multiplied by $1-d$ again when it is weighed against the sighting, although the stored precision is not lowered further. At half dose, then, a belief formed before the intervention carries a quarter of its usual weight against what the agent sees, and half its usual weight when the agent stands on or harvests from the cell. The main setting, $d=1$ and $b=1$, gives the zero precision and doubled temperature described above. To quantify how the strength of the intervention matters, we tested every combination of a half or full dose ($d=0.5$ or 1) with a boost of 0, 1 or 3, and, at full dose only, a boost of 10. To see what each component contributes, we tested precision relaxation alone (boost 0) and the temperature boost alone (boost 1 or 3, with precision unchanged).
 
 Finally, to check whether precise beliefs are what trap the agent, we ran each policy with beliefs that never become precise and with no intervention. In this low-precision control, harvests add no precision, and precision fades with a time constant of 20\,s instead of 200\,s, so the agent's beliefs mostly reflect what it currently sees.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/protocol.pdf}
-\caption{Evaluation protocol. Policies are trained in a stable world, and their weights are then fixed. Each evaluation trial runs in the changing world, where the familiar patches degrade with use from the start and two new patches appear at 300\,s. During canalization, the two conditions are identical, and the precision $P_c$ of the agent's beliefs grows as it observes and harvests. During the intervention, CDR agents are decanalized with a dose $d$ and a boost $b$: every precision is multiplied by $1-d$, and the sampling temperature $T$ is raised to $1+bd$. CCC agents keep the baseline settings ($d=0$, $T=1$). In recanalization, both return to baseline; beliefs, position and $h$ carry over. The main setting is $d=1$, $b=1$; we also tested $d=0.5$ and $b=0$, 3 and 10, with $b=10$ at full dose only (Section~\ref{sec:protocol}). Outcomes are compared in recanalization (Table~\ref{tab:measures}).}
+\caption{Evaluation protocol. Policies are trained in a stable world, and their weights are then fixed. Each evaluation trial runs in the changing world, where the familiar patches degrade with use from the start and two new patches appear at 300\,s. During canalization, the two conditions are identical, and the precision $P_c$ of the agent's beliefs grows as it observes and harvests. During the intervention, CDR agents are decanalized with a dose $d$ and a temperature boost $b$: every precision is multiplied by $1-d$, and the sampling temperature $T$ is raised to $1+bd$. CCC agents keep the baseline settings ($d=0$, $T=1$). In recanalization, both return to baseline; beliefs, position, and $h$ carry over. The main setting is $d=1$, $b=1$; we also tested $d=0.5$ and $b=0$, 3 and 10, with $b=10$ at full dose only (Section~\ref{sec:protocol}). Outcomes are compared in recanalization (Table~\ref{tab:measures}).}
 \label{fig:protocol}
 \end{figure}
 
 \subsection{Measures and statistics}\label{sec:stats}
 
-We compare the two conditions on four measures (Table~\ref{tab:measures}). The main measure is how far, on average, $h$ stays from the setpoint after the intervention has ended: mean absolute $h$ in the recanalization phase, which we call MAE (mean absolute error). Agents are trained to regulate $h$, so this is the most direct measure of how well they do. Because $h$ has no lower bound, a trapped agent can fall into deficit indefinitely, and a few such trials can pull mean values well beyond typical ones; medians are given in Appendix Table~\ref{tab:main}. The other three help explain it. The fraction trapped shows how often agents fail badly, mean $h$ shows whether they err toward deficit or surplus, and new-patch harvests show whether and when they find the new resources.
+We compare the two conditions on four measures (Table~\ref{tab:measures}). The main measure is how far, on average, $h$ stays from the setpoint after the intervention has ended: mean absolute $h$ in the recanalization phase, which we call MAE (mean absolute error). Agents are trained to regulate $h$, so this is the most direct measure of their performance. Because $h$ is unbounded, a trapped agent can fall far into deficit, and a few such trials can pull mean values well beyond typical ones; medians are given in Appendix Table~\ref{tab:main}. The other three measures help explain differences in MAE. The fraction trapped shows how often agents fail badly, mean $h$ shows whether they err toward deficit or surplus, and new-patch harvests, counted separately during and after the intervention, show whether and when they find the new resources. Except for new-patch harvests during the intervention, all measures are taken in the recanalization phase.
 
 \begin{table}[htbp]
 \centering\small
@@ -231,7 +232,7 @@ New-patch harvests & Pellets harvested from the two patches that appear at 300\,
 \label{tab:measures}
 \end{table}
 
-Each of the eight trained policies (four HRL and four NF, one per training seed) was evaluated on 64 trials in each condition. The trials are paired: a CCC trial and its CDR partner share the world layout, starting state, and random events, so they are identical until the intervention begins, and any later difference between them comes from the intervention. To draw conclusions that hold across independently trained policies, and not only across trials of one policy, we treat each policy as a single observation. For each policy we average the 64 paired differences, and we report the mean across the four policies of each type with a 95\% $t$-interval ($df=3$) and a two-sided $p$ value. Model development used separate seeds.
+Each of the eight trained policies (four HRL and four NF, one per training seed) was evaluated on 64 trials in each condition. The trials are paired: a CCC trial and its CDR partner share the world layout, starting state, and random events, so they are identical until the intervention begins, and any later difference between them comes from the intervention. To draw conclusions that hold across independently trained policies, and not only across trials of one policy, we treat each policy as a single observation. For each policy, we average the 64 paired differences, and we report the mean across the four policies of each type with a 95\% $t$-interval ($df=3$) and a two-sided $p$ value. To compare HRL with NF, we pair the HRL and NF policies trained with the same seed, which share initial weights, training worlds and evaluation trials, and test the four differences between their effects in the same way. Model development used separate evaluation seeds.
 
 \subsection{Code and data availability}\label{sec:code}
 
@@ -239,12 +240,12 @@ The simulation, training, analysis code, and the evaluation outputs are availabl
 
 \section{Results}\label{model-results}
 
-We first show that canalization becomes maladaptive in the changing world, then test the two hypotheses, and then turn to the exploratory question of how the components and intensity of the intervention matter. Values are means across the four training seeds. Confidence intervals and $p$ values are given in the tables and figures.
+We show that canalization becomes maladaptive in the changing world, test the two hypotheses, and then turn to the exploratory question of how the components and intensity of the intervention affect outcomes. For all results, values are means across the four training seeds and confidence intervals and $p$ values are given in tables and figures.
 
-We first checked that canalization formed in a stable world becomes maladaptive in the changing world, and it did. The policies were competent in the world they were trained in: on the held-out stable-world trials used to select them, HRL policies kept mean $|h|$ near 9, and NF policies kept their deficit near zero, though with large surpluses. Yet CCC agents did poorly in the changing world. Their familiar patches began to degrade from the start, and many agents kept returning to them as they failed. Before the new patches appeared, $h$ had already fallen to $-100$ or below in 62\% of HRL trials and 48\% of NF trials (Figure~\ref{fig:performance}). Most of these agents stayed trapped: in the recanalization phase, the fractions were 70\% for HRL and 48\% for NF (Table~\ref{tab:ccc-cdr}). CCC agents did eventually find the new patches, but late, after they had fallen deep into deficit. Without the new patches, most would have kept declining. In exploratory runs of the changing world without them, extended to 1,200\,s, about two thirds of HRL trials ended at $-100$ or below, many still falling, while about a third ended near the setpoint.
+The policies were competent in the world they were trained in: on the held-out stable-world trials used to select them, HRL policies kept mean $|h|$ near 9, and NF policies kept their deficit near zero, albeit with large surpluses. With either policy, agents did poorly in the changing world. Their familiar patches began to degrade from the start, and many agents kept returning to them as they failed. Before the new patches appeared, $h$ had already fallen to $-100$ or below in 62\% of HRL trials and 48\% of NF trials (Figure~\ref{fig:performance}). Trapping persisted: in the recanalization phase, the fractions were 70\% for HRL and 48\% for NF (Table~\ref{tab:ccc-cdr}). Many CCC agents found the new patches only well after the intervention phase had ended, and many never found them: by the end of the trial, 36\% of HRL and 24\% of NF CCC agents had not harvested from them. By then, most HRL agents were deep in deficit, while many NF agents, once they found the new patches, overate. Without the new patches, many HRL agents would have kept declining. In exploratory runs of the changing world without them, extended to 1,200\,s, about two thirds of HRL trials ended at $-100$ or below, most of them still falling, while about a quarter ended near the setpoint.
 
-Two checks show what causes trapping. First, precise beliefs were a main cause. Compared with the low-precision control, which removes precision for the whole trial, agents with precise beliefs were trapped more often in the recanalization phase, by 24 percentage points for HRL and 33 for NF. HRL agents with precise beliefs also regulated worse, with an MAE 60 points higher; for NF the difference was smaller, and its interval included zero. Second, trapping depended on the world changing in ways training had not covered. An HRL policy trained in the changing world itself was almost never trapped (2\%) and regulated well (MAE 12.5). For this policy decanalization had nothing to improve (a difference in MAE of $-0.7$ at a boost of 3, with an interval that included zero; one training seed). Both checks are reported in Appendix Table~\ref{tab:main}.
-
+Two checks show what caused trapping. First, precise beliefs were a main cause. Compared with the low-precision control, which keeps precision low for the whole trial, agents with precise beliefs were trapped more often in the recanalization phase, by 24 percentage points for HRL and 33 for NF. HRL agents with precise beliefs also regulated worse, with an MAE 60 points higher; for NF, the difference was smaller. Second, trapping depended on the world changing in ways training had not covered. An HRL policy trained in the changing world itself was almost never trapped (2\%) and regulated well (MAE 12.5). For this policy, decanalization had nothing to improve (a difference in MAE of $-0.7$ at a boost of 3, with an interval that included zero; one training seed). Both checks are reported in Appendix Table~\ref{tab:main}.
+% TODO: Bring the unchanging/changing world up in discussion
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/trajectory.pdf}
@@ -252,12 +253,16 @@ Two checks show what causes trapping. First, precise beliefs were a main cause. 
 \label{fig:trajectory}
 \end{figure}
 
-Our first hypothesis was that decanalization would release trapped agents and improve later regulation. For HRL agents it did (Table~\ref{tab:ccc-cdr}). In the recanalization phase, the MAE of CDR agents was 83 points lower than that of CCC agents, and fewer of them were trapped. Figure~\ref{fig:performance} shows how. During the intervention, CDR agents left their failing patches and reached the new ones, harvesting from them about four times as often as CCC agents. CCC agents reached the new patches later, and in the recanalization phase the two groups harvested from them about equally. By then, however, CCC agents had fallen far into deficit, and they did not recover: their mean $h$ in the recanalization phase was $-132$, against $-47$ for CDR agents. The benefit came from finding the new resources sooner, before the deficit grew. Figure~\ref{fig:trajectory} shows one paired trial.
+
+Our first hypothesis was that decanalization would improve post-intervention regulation. For HRL agents, it did (Table~\ref{tab:ccc-cdr}). In the recanalization phase, the MAE of CDR agents was 83 points lower than that of CCC agents, and fewer of them were trapped. Figure~\ref{fig:performance} shows how. During the intervention, CDR agents left their failing patches and reached the new ones, harvesting from them about four times as often as CCC agents. CCC agents reached the new patches later, and in the recanalization phase, the two groups harvested from them about equally. By then, however, CCC agents had fallen far into deficit, and they did not recover: their mean $h$ in the recanalization phase was $-132$, versus $-47$ for CDR agents. The benefit came from finding the new resources sooner, before the deficit grew. Figure~\ref{fig:trajectory} shows one paired trial.
+
+% TODO: Bring up in discussion how the "trapped" behavior was emergent but happens to correspond with behavioral descriptions of pathological hypercanalization
+
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/phases.pdf}
-\caption{CCC and CDR across phases for HRL (top) and NF (bottom). Columns show mean absolute $h$, mean $h$, the fraction of trials trapped, and harvests from the two new patches. Points are means across four training seeds, each evaluated on 64 paired trials; bars show 95\% $t$-intervals over training seeds. Conditions coincide before the intervention. After it, CDR agents of both types have lower mean absolute $h$ and are trapped less often. They harvest from the new patches sooner, but after the intervention the two conditions harvest from them about equally.}
+\caption{CCC and CDR across phases for HRL (top) and NF (bottom). Columns show mean absolute $h$, mean $h$, the fraction of trials trapped, and harvests from the two new patches. Points are means across four training seeds, each evaluated on 64 paired trials; bars show 95\% $t$-intervals over training seeds. Conditions coincide before the intervention. After it, CDR agents of both types have lower mean absolute $h$ and are trapped less often. They harvest from the new patches sooner, but after the intervention, the two conditions harvest from them about equally.}
 \label{fig:performance}
 \end{figure}
 
@@ -290,14 +295,14 @@ Difference in effect on mean absolute $h$ & & & $-48$ [$-68$, $-29$] & .004\\
 \label{tab:ccc-cdr}
 \end{table}
 
-Our second hypothesis was that HRL agents would benefit more than NF agents, and they did. Decanalization helped both, but in different ways. On the main measure, HRL agents gained far more. Decanalization lowered their MAE by 83 points, against 34 for NF agents, and the NF benefit shrank toward zero at higher boosts. The difference held in every training seed (Table~\ref{tab:ccc-cdr}). This was not because NF agents failed to escape. Decanalization freed even more NF agents than HRL agents from trapping (33 percentage points fewer trapped, against 23), and NF agents too reached the new patches sooner. The difference came afterward. As the mean $h$ panels of Figure~\ref{fig:performance} show, decanalized NF agents escaped their deficit and then overshot, ending far above the setpoint (mean $h$ of $+112$). They also harvested somewhat more from the new patches than decanalized HRL agents did (33 pellets against 27), consistent with eating past the setpoint. NF rewards only the removal of deficits, so once fed, an NF agent has no reason to stop eating.
+Our second hypothesis was that HRL agents would benefit more than NF agents, and they did. Decanalization helped both, but in different ways. On the main measure, HRL agents gained far more. Decanalization lowered their MAE by 83 points, against 34 for NF agents, and the NF benefit shrank toward zero at higher boosts. The difference held in every training seed (Table~\ref{tab:ccc-cdr}). This was not because NF agents failed to escape. Decanalization freed even more NF agents than HRL agents from trapping (33 percentage points fewer trapped, against 23), and NF agents also reached the new patches sooner. The difference came afterward. As the mean $h$ panels of Figure~\ref{fig:performance} show, decanalized NF agents escaped their deficit and then overshot, ending far above the setpoint (mean $h$ of $+112$). They also harvested somewhat more from the new patches than decanalized HRL agents did (33 pellets against 27), consistent with overeating. NF rewards only the removal of deficits, so once fed, an NF agent has no reason to stop eating.
 
-Finally, as an exploratory question, we asked what drives the effect, testing each component of the intervention alone and changing its strength (Figure~\ref{fig:levers}). Recall that precision relaxation lowers the precision of every belief, so that new evidence revises beliefs more easily, and the temperature boost raises the sampling temperature, so that choices become more random. The figure gives the precision factor and temperature for each version. Each component helped on its own. Precision relaxation alone helped much more than raising the temperature to 2, and about as much as raising it to 4. Together they helped most. With a temperature of 2, the combination helped more than the sum of the two components' separate effects. With a temperature of 4 it helped most of all, but less than that sum, which suggests that the two components partly work the same way: both let the agent leave patches its beliefs still favor.
+Finally, as an exploratory dimension, we investigated what drives the effect, testing each component of the intervention alone and changing its strength (Figure~\ref{fig:levers}). Recall that precision relaxation lowers the precision of every belief, so new evidence revises beliefs more easily, and temperature boost raises the sampling temperature, so that choices become more random. The figure gives the precision factor and temperature for each version. Each component helped on its own. Precision relaxation alone helped much more than raising the temperature to 2, and about as much as raising it to 4. Together they helped most. With a temperature of 2, the combination helped more than the sum of the two components' separate effects. A temperature of 4, was most helpful, but less than the combined sum, which suggests that the two components partly work the same way: both let the agent leave patches its beliefs still favor.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\linewidth]{figures/levers.pdf}
-\caption{Exploratory analysis of the two components of decanalization, for HRL agents at full dose. Bars show mean absolute $h$ (MAE) in the recanalization phase, averaged over the four trained policies, each evaluated on 64 trials. The dashed line marks no intervention (CCC), so the benefit of each version is how far its bar falls below the line. Below each label are the factor applied to every precision $P_c$ and the sampling temperature $T$ during the intervention. The darker bar is the main intervention. Each version's difference from CCC, with its 95\% interval, and the corresponding NF results are in Appendix Table~\ref{tab:main}.}
+\caption{Exploratory analysis of the two components of decanalization, for HRL agents at full dose. Bars show mean absolute $h$ (MAE) in the recanalization phase, averaged over the four trained policies, each evaluated on 64 trials. The dashed line marks no intervention (CCC), so the benefit of each version is how far its bar falls below the line. Below each label are the factors applied to every precision $P_c$ and the sampling temperature $T$ during the intervention. The darker bar is the main intervention. Each version's difference from CCC and the corresponding NF results are in Appendix Table~\ref{tab:main}.}
 \label{fig:levers}
 \end{figure}
 
@@ -306,53 +311,56 @@ We also varied the intensity of the intervention (Appendix Table~\ref{tab:main})
 
 \section{Discussion}\label{model-discussion}
 
-We hypothesized that decanalization would improve post-intervention homeostatic regulation in an HRL agent, and that an NF agent would benefit less. Both predictions held, in a model where canalization demonstrably exists. Canalization here is a learned property: an agent that gathers food reliably in a stable world becomes confident about where food is. That confidence is efficient while the world stays the same. When the world changes, the same confidence holds the agent to patches that no longer pay, even as better resources appear elsewhere. This is hypercanalization, in the sense of maladaptive persistence after the conditions that once justified a habit have gone \cite{carhart-harris_canalization_2023}. 
+We hypothesized that decanalization would improve post-intervention homeostatic regulation in an HRL agent, and that an NF agent would benefit less. Both predictions held. Canalization here is a learned property: an agent that gathers food reliably in a stable world becomes confident about where food is. That confidence is rewarding while the world stays the same. When the world changes, the same confidence is punishing, holding the agent to patches that no longer pay, even as better resources appear elsewhere. This is hypercanalization, in the sense of maladaptive persistence after the conditions that once justified a habit have gone \citep{carhart-harris_canalization_2023}. 
 
-CCC agents were not permanently trapped. Many eventually found the new patches and, once there, harvested from them as often as CDR agents did. But they found them late, after falling deep into deficit, and that deficit did not close within the trial. Decanalized agents reached the new patches sooner and spent far less time far from the setpoint. The clinical parallel is that many people recover from entrenched patterns without intervention; it simply takes them longer, and the cost lies in the time spent far from where they need to be.
+CCC agents were not permanently trapped. Many eventually found the new patches and, once there, harvested from them as often as CDR agents did. But they found them late, after falling deep into deficit, and that deficit did not close within the trial. Decanalized agents reached the new patches sooner and spent far less time far from the setpoint. The clinical parallel is that many people recover from entrenched patterns without intervention; it simply takes them longer, and the cost lies in the time spent far from where they need to be and the consequences of extreme deviations from the ideal.
 
-Both HRL and NF agents escaped their failing patches, but only the HRL agent is rewarded for staying near its setpoint once it does. The NF agent is rewarded only for reducing a deficit, so nothing tells it to stop once it is full. In the terms of our heating analogy, it is a heater that gets credit for warming a cold room but no penalty for overheating it. Once freed, decanalized NF agents kept eating past the setpoint and ended far above it (mean $h$ of $+112$), so their regulation improved much less than that of HRL agents. Decanalization gave both agents a chance to reach better food, and what each did with that chance depended on what it was rewarded for. This is the point of Keramati and Gutkin's homeostatic account \cite{keramati_homeostatic_2014}. An HRL agent is rewarded for moving toward its setpoint from either side, so for it, seeking reward and staying stable are the same thing. For an NF agent they can come apart.
+Both HRL and NF agents escaped their failing patches, but only the HRL agent is rewarded for staying near its setpoint once it does. The NF agent is rewarded only for reducing a deficit, so nothing tells it to stop once it is full. In the terms of our heating analogy, it is a heater that gets credit for warming a cold room but no penalty for overheating it. Once freed, decanalized NF agents kept eating past the setpoint and ended far above it (mean $h$ of $+112$), so their regulation improved much less than that of HRL agents. Decanalization gave both agents a chance to reach better food, and what each did with that chance depended on what it was rewarded for. This is the point of Keramati and Gutkin's \citeyearpar{keramati_homeostatic_2014} homeostatic account. An HRL agent is rewarded for moving toward its setpoint from either side, so for it, seeking reward and staying stable are the same thing. For an NF agent, they can come apart---instability and even wild deviations from the setpoint are common.
 
-Decanalization worked on the agent's beliefs, which is where its canalization lived. Lowering its confidence in what it believed about each cell let new evidence change its map more easily. This relaxing of beliefs is the core of the REBUS account \cite{carhart-harris_rebus_2019}. REBUS concerns high-level priors, such as beliefs about oneself and the world, while ours are low-level beliefs about where food is, so the parallel is one of mechanism rather than content. Psychedelic effects may also involve both relaxed and strengthened beliefs, depending on representational level, dose, and context \cite{safron_albus_2025}; our intervention only relaxes. Raising the temperature of its choices made them more random, letting it sample options its beliefs disfavored. Each component helped on its own, and their combination helped most, consistent with the distinction in Deep CANALs between rigid inference and reduced behavioral variability \cite{juliani_deep_2024}. Neither component changed the agent's physiology, the reward function, or its learned weights; the benefit came from what the agent did with a temporarily loosened view of its world, and persisted after the intervention ended.
+Decanalization worked on the agent's beliefs, which is where its canalization lived. Lowering its confidence in what it believed about each cell let new evidence change its cognitive map more easily. This relaxing of beliefs is the core of the REBUS account \citep{carhart-harris_rebus_2019}. Although REBUS concerns high-level priors, such as beliefs about oneself and the world, while ours are low-level beliefs about where food is, the parallel is one of mechanism rather than content.
 
-Both components have a natural reading in active inference, where each is a reduction in precision: of beliefs, and of policy selection, since sampling temperature is the inverse of policy precision. In that framework, setpoints play the role of prior preferences, and homeostatic regulation is treated as inference about interoceptive states \cite{pezzulo_active_2015}; the same framework has been used to model personality as goal regulation \cite{safron_sheikhbahaee_2024}. We built our agent with standard reinforcement learning and have not formulated it in active inference terms. The framework is a natural companion to this work, but was not our focus here.
+Psychedelic effects may involve both relaxed and strengthened beliefs, depending on representational level, dose, and context \citep{safron_albus_2025}; our intervention only relaxes. Raising the temperature of the agent's choices made them more random, letting it sample options its beliefs disfavored. Each component helped on its own but their combination helped most, consistent with the distinction in Deep CANALs between rigid inference and reduced behavioral variability \citep{juliani_deep_2024}. Neither component changed the agent's physiology, the reward function, or its learned weights; the benefit came from what the agent did with a temporarily loosened view of its world, and persisted after the intervention ended.
 
-In the exploratory analysis of intensity, an intermediate temperature boost was most effective, while for the dose more was better. A very high temperature (a boost of 10) made regulation during the intervention much worse than a boost of 3 (MAE of 108 against 62 for HRL) and helped less afterward. For HRL agents at full dose, the benefit afterward rose from 83 points at a boost of 1 to 98 at a boost of 3, then fell to 72 at a boost of 10. This inverted U is the shape predicted by analogies with simulated annealing \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}: destabilization helps when it gets a system out of a suboptimal attractor, but hurts when it destroys useful structure. 
+Both components have a natural reading in active inference, where each is a reduction in precision: of beliefs, and of policy selection, since sampling temperature is the inverse of policy precision. In that framework, setpoints play the role of prior preferences, and homeostatic regulation is treated as inference about interoceptive states \citep{pezzulo_active_2015}; the same framework has been used to model personality as goal regulation \citep{safron_sheikhbahaee_2024}. We built our agent with standard reinforcement learning but have not formulated it in active inference terms. The framework is a natural companion to this work, but was not our focus here.
+
+In the exploratory analysis of intensity, HRL agents benefited most from an intermediate temperature boost, and from a full dose more than a half dose at every boost. For HRL agents at full dose, the benefit afterward rose from 59 points with no boost to 83 at a boost of 1 and 98 at a boost of 3. A boost of 10, tested on three of the four training seeds, made regulation during the intervention much worse than a boost of 3 on the same seeds (MAE of 108 against 62) and helped less afterward (72 points against 91). NF agents showed no such peak: at full dose, raising the temperature never added to the benefit. The inverted U for HRL is the shape predicted by analogies with simulated annealing \citep{kirkpatrick_optimization_1983, hajek_cooling_1988}: destabilization helps when it gets a system out of a suboptimal attractor, but hurts when it destroys useful structure. 
 
 
-The model clearly bears on how rigidity figures in psychopathology. Carhart-Harris et al.\ propose canalization as a general dimension of psychopathology \cite{carhart-harris_canalization_2023}. Cybernetic accounts of personality, which place goal regulation at the center of individual differences \cite{safron_deyoung_2021}, suggest instead that the general factor reflects a lack of well-configured adaptations, with maladaptive rigidity better treated as a secondary dimension. Our results fit this picture. Canalization served the agent well in the stable world and became a problem only when the world changed in ways it had not been trained on. What harmed the agent was not canalization as such but canalization that no longer fit its world.
+The model also bears on how rigidity figures in psychopathology. Carhart-Harris et al.\ \citeyearpar{carhart-harris_canalization_2023} propose that canalization, an entrenched rigidity of beliefs and behavior, is the general factor of psychopathology. Cybernetic accounts of personality, which place goal regulation at the center of individual differences, read the general factor differently. Here, it is associated with high neuroticism and low agreeableness and conscientiousness \citep{caspi_p_2014}, and so corresponds fairly closely to low stability---the Big Five metatrait that protects goals, interpretations and strategies from disruption \citep{safron_deyoung_2021}. These accounts define psychopathology itself as a persistent failure to move toward one's goals, caused by a failure to generate effective new goals, interpretations, or strategies when existing ones stop working. A model like ours with a single kind of agent cannot settle which dimension is general, since that is a question about how individual humans differ. However, it does show that canalization need not be harmful in itself. The canalized agent regulated well in the stable world it was trained in, and it became trapped only when the world changed in ways training had not covered. And, an agent trained in the changing world itself was almost never trapped, suggesting that learning in a changing environment can itself be helpful to stability in the face of change. Moreover, a trapped agent fits the cybernetic definition closely: its familiar patches stopped paying, and it did not find a new strategy in time. What harmed the agent was not canalization as such but canalization that no longer fit the agent's world.
 
-Decanalization need not come from outside. Brouwer and Carhart-Harris propose that pivotal mental states, brief periods of heightened plasticity that can arise naturally under stress, help people leave patterns that no longer serve them \cite{brouwer_pivotal_2021}, and the psychedelic experience has been described as following the narrative arc of the Hero's Journey, through departure, initiation, and return \cite{brouwer_trajectory_2024}. Our three phases have a similar shape. Read this way, the model suggests one reason such states could be adaptive: a brief loosening, coming when the world has changed, shortens the time spent far from the setpoint.
+Decanalization need not come from outside. Brouwer and Carhart-Harris propose that pivotal mental states---brief periods of heightened plasticity that can arise naturally under stress---help people leave patterns that no longer serve them \citep{brouwer_pivotal_2021}, and the psychedelic experience has been described as following the narrative arc of the Hero's Journey, through departure, initiation, and return \citep{brouwer_trajectory_2024}. Our three phases have a similar shape. Read this way, the model suggests one reason such states could be adaptive: a brief loosening, coming when the world has changed, shortens the time spent far from the setpoint, avoiding the practical consequences of this extreme divergence.
 
-Our account builds on the long-standing research tradition surrounding cognitive maps. Rats and people get around using learned maps of their world, encoded in place and grid cells \cite{okeefe_hippocampus_1971, okeefe_hippocampus_1978, hafting_microstructure_2005}, and such maps extend to abstract and social knowledge more broadly \cite{behrens_cognitive_2018}. Tolman's rats, which took a new route when the familiar one was blocked \cite{tolman_cognitive_1948}, faced the problem our agents face when their familiar patches fail, and our decanalized agents solved it sooner because their maps could change. Tolman himself linked these ideas to personality and human well-being. He contrasted people with narrow ``strip'' maps with those who had broad, comprehensive internal maps, and suggested that overly repetitive training and frustrating conditions could narrow a person's way of approaching the world, an early version of the canalization idea. Our model shows, in a simple case, how such a map can guide an agent's choices fruitfully when it is flexible, and hold them in place unhelpfully when it is not.
+Our account builds on the long-standing research tradition surrounding cognitive maps. Rats and people get around using learned maps of their world, encoded in place and in grid cells \citep{okeefe_hippocampus_1978, hafting_microstructure_2005, ekstrom_cellular_2003}, and such maps extend to abstract and social knowledge more broadly \citep{behrens_cognitive_2018}. Tolman's rats, which took a new route when the familiar one was blocked \citep{tolman_cognitive_1948}, faced the problem our agents face when their familiar patches fail, and our decanalized agents solved it sooner, in part because their maps could change. Tolman linked these ideas to personality and human well-being, contrasting people with narrow ``strip'' maps with those who had broad, comprehensive internal maps, suggesting that overly repetitive training and frustrating conditions could narrow a person's way of approaching the world---an early version of the canalization concept. Our model shows, in a simple case, that such a map can effectively guide an agent's choices, contingent on the map fitting the world. Otherwise, it can  hold the agent in place---it must be loosened so that the agent can explore what has changed.
 
-Our account also recognizes an embodied component of, or counterpart to, canalization. Part of what happens to $h$ is set by the world rather than by the agent's beliefs: every step costs energy, and the cost depends on how worn the path is. Agents make local niches for themselves, wearing paths that make familiar routes cheaper and depleting the patches they rely on, a limited form of niche construction \cite{laland_niche_2016, pio-lopez_scale-free_2025}. This is consistent with embodied and extended views of cognition, according to which habits are sustained by the environment as well as by internal states \cite{lyon_reframing_2021, hipolito_pattern_2023}. Clinically, this is a familiar point. Entrenched patterns are held in place by routines, relationships, and settings, not only by beliefs, and interventions that target only the internal side may leave the external grooves intact.
+Our account also recognizes an embodied component of---or counterpart to---canalization. Part of what happens to $h$ is set by the world rather than by the agent's beliefs: every step costs energy, and the cost depends on how worn the path is. Agents make local niches for themselves, wearing paths that make familiar routes cheaper and depleting the patches they rely on---a limited form of niche construction \citep{laland_niche_2016, pio-lopez_scale-free_2025}. This is consistent with embodied and extended views of cognition, which assert that habits are sustained by both environment and internal states \citep{lyon_reframing_2021, hipolito_pattern_2023}. Clinically, this is a familiar point. Entrenched patterns are held in place by routines, relationships, and settings---not only by beliefs---and interventions that target only internal rigidity may leave external grooves intact.
 
-This work also has a phenomenological interpretation, in terms of moment-to-moment experiences of navigating an uncertain and only transiently stable world. Cognitive maps can shape what stands out and what recedes in an agent's field of experience \cite{gurwitsch_field_1964, yoshimi_extending_2015}. As a person develops a sense of their environment, it changes how they see things \cite{yoshimi_husserlian_2016}, and what is salient \cite{clingoDisintegrationReintegrationModelPsychological2025}. In our agent, precise beliefs keep the familiar patches at the center of its choices while the rest of the arena has little pull. A hypercanalized person may be in a similar position: seeing the world in a narrow ``strip map'' kind of way, with just one option or idea ever present before them, and limited means of dealing with unexpected changes in the environment. After decanalization (relaxing precision, so that more things stand out), the field for such a person might encompass more options and contents, more possibilities to draw on in what William James called the ``fringes'' of awareness \cite{james_principles_1890, mangan_taking_1993}.
+This work also has a phenomenological interpretation, in terms of moment-to-moment experiences of navigating an uncertain and only transiently stable world. Cognitive maps can shape what stands out and what recedes in an agent's field of experience \citep{gurwitsch_field_1964, yoshimi_extending_2015}. As a person develops a sense of their environment, it changes how they see things \citep{yoshimi_husserlian_2016}, and what is salient \citep{clingoDisintegrationReintegrationModelPsychological2025}. In our agent, precise beliefs keep the familiar patches at the center of its choices while the rest of the arena has little pull. A hypercanalized person may be in a similar position: seeing the world in a narrow ``strip map'' kind of way, with just one option or idea ever present before them, and limited means of dealing with unexpected changes in the environment. After decanalization (relaxing precision, so that more things stand out), the field for such a person might encompass more options and contents---more possibilities to draw on in what William James called the ``fringes'' of awareness \citep{james_principles_1890, mangan_taking_1993}.
 
 \subsection{Limitations}
 
-The two decanalization components, the option set, and the cognitive map are modeling choices. They are motivated by the REBUS and CANAL frameworks, but other formalizations of ``relaxed priors'' are possible, and the results show what follows from these ones. The policy's choices are coarse: every half second it picks one of four hand-coded options, and the steering that carries each out is fixed. The map is also minimal. Position and geometry are given and only the contents of cells are learned, so it lacks the learned spatial and relational structure of cognitive maps in Tolman's or Behrens's sense \cite{tolman_cognitive_1948, behrens_cognitive_2018}. The model does not learn during or after the intervention: its weights are fixed, and the lasting effect of decanalization runs entirely through the agent's beliefs and position in the world. The intervention also acts only on the agent's beliefs and choices, leaving worn paths and depleted patches as they were.
+The two decanalization components, the option set, and the cognitive map are modeling decisions. They are motivated by the REBUS and CANAL frameworks, but other formalizations of ``relaxed priors'' are possible, and the results show what follows from these choices. The policy's choices are coarse: every half second it picks one of four hand-coded options, and the steering that carries each out is fixed. The map is also minimal. Position and geometry are given and only the contents of cells are learned, so it lacks the learned spatial and relational structure of cognitive maps in Tolman's or Behrens's sense \citep{tolman_cognitive_1948, behrens_cognitive_2018}. The model does not learn during or after the intervention: its weights are fixed, and the lasting effect of decanalization runs entirely through the state it leaves behind: the agent's beliefs, position and homeostatic state, and the world as the agent's behavior has changed it. The intervention also acts only on the agent's beliefs and choices, leaving worn paths and depleted patches as they were.
 
-Hypercanalization required that the world change in ways the policy had not been trained on. This is part of the theory rather than a convenience, but it means the effect size depends on the size of that mismatch, which we did not explore. The changing world also supplies a better alternative; without one, escaping a failing patch is less useful. The size of the benefit also depends on the length of the recanalization phase. CCC agents often found the new patches late in the trial, so with a longer phase more of them would recover and the difference in MAE would shrink. What we measure is the time spent far from the setpoint before recovery, not whether recovery happens.
+Hypercanalization required that the world change in ways the policy had not been trained on. This is part of the theory rather than a convenience, but it means the effect size likely depends on the size of that mismatch, which we did not explore. The changing world also supplies a better alternative; without one, escaping a failing patch is less useful. The size of the benefit also depends on the length of the recanalization phase. Many CCC agents reached the new patches late or not at all: more than a third of HRL agents had not harvested from them by the end of the trial, and those that had first did so at a median of 495\,s, well into the recanalization phase. With a longer phase, more of them would likely find the new patches and recover, and the difference in MAE would shrink. The model also attaches no cost to extreme divergence beyond the reward itself: $h$ is unbounded and an agent cannot die, whereas in real organisms starvation and overeating carry both acute and long-term risks.
 
-Four training seeds per objective support generalization across training runs, but not across architectures or hyperparameters. NF regulation is dominated by surplus, which its objective does not penalize. Checkpoints were selected on held-out trials of the training world. The policies are also not optimal. We used off-the-shelf PPO with limited tuning, and the task is partially observed, since the agent sees only a $90^\circ$ field reaching 10 tiles. The policy trained in the changing world regulated well, which shows that the task can be learned, but how far any of the policies falls short of optimal is unknown. Our aim was comparative rather than to maximize performance: in domains such as Atari games and language modeling, finding good working solutions has required very large amounts of compute and expert engineering \cite{mnih_human-level_2015, badia_agent57_2020, hoffmann_training_2022}.
+Four training seeds per objective supported generalization across training runs, but not across architectures or hyperparameters. Much of NF agents' distance from the setpoint is surplus, which their objective does not penalize, so MAE, which counts surplus and deficit alike, measures NF agents against a goal they were not trained for. Checkpoints were selected on held-out trials of the stable training world, so selection favored policies that regulate well when nothing changes, not ones that adapt to change. The policies are also probably not optimal. We used off-the-shelf PPO with limited tuning, and the task is partially observed, since the agent sees only a $90^\circ$ field reaching 10 tiles. The policy trained in the changing world regulated well, which shows that the task can be learned, but how far any of the policies falls short of optimal is unknown. Our aim was comparative rather than to maximize performance; in domains such as Atari games and language modeling, reaching strong performance has required very large amounts of compute and expert engineering \citep{mnih_human-level_2015, badia_agent57_2020, hoffmann_training_2022}.
 
-Finally, the model manages a single setpoint in a simple world. Living organisms coordinate many setpoints, allowing some to stray far from the ideal range so that others may be satisfied, and setpoints---as in allostasis \cite{sterling_allostasis_1988}---themselves change over time. Nor did we model reintegration. Psychedelic-assisted therapy pairs acute alterations in experience with active reintegration practices \cite{bathje_psychedelic_2022}, and patients receive support before, during, and after treatment; our agents receive none. The model should be read as a formal demonstration of one mechanism, not as an account of psychiatric conditions or of psychedelic treatment.
-
+Finally, the model manages a single setpoint in a simple world. Living organisms coordinate many setpoints, allowing some to stray far from the ideal range so that others may be satisfied, and the setpoints themselves change over time, often in anticipation of demand, as in allostasis \citep{sterling_allostasis_1988}. We also did not model integration, the work done after an acute experience to process and carry its effects into daily life. Psychedelic-assisted therapy pairs acute alterations in experience with active integration practices \citep{bathje_psychedelic_2022}, and patients receive support before, during, and after treatment. In our model, the recanalization phase simply returns the agent to its usual settings, without this support.
 
 \subsection{Future Directions}
 
-The present study applies a single intervention to fixed-weight agents. A natural next step is to allow learning during and after the intervention. Accounts of critical-period plasticity suggest that acute increases in neural plasticity accompany altered states of consciousness and facilitate the formation of new beliefs \cite{nardou_psychedelics_2023}. With learning in place, repeated cycles of decanalization and recanalization could show which schedules lead to recovery and which use the perturbation as fuel for long-term improvement. We expect a long-term Goldilocks zone. With too little decanalization, the agent stays in its rut. With too much, it is constantly destabilized and never has time to consolidate what it finds, so repeated decanalization should eventually degrade performance and could prevent useful canalization. Somewhere in between, periodic decanalization followed by enough recanalization to learn from it should produce the best long-term regulation, much as annealing depends on its cooling schedule \cite{kirkpatrick_optimization_1983, hajek_cooling_1988}. The conditions after the intervention are also important \cite{carhart-harris_context_2018}. This reintegrative phase could vary the quality and density of alternative patches and how far away they are. The same framework could test robustness to new disruptions, a computational analogue of new adversity or trauma: shifting or depleting the resources the agent relies on, or moving its setpoint, and comparing how quickly previously decanalized and never-decanalized agents recover. The model could also be extended to multiple homeostatic variables, which would allow for more complex trade-offs and a richer set of behaviors, and the same experiment could be run with an active inference agent, in which both components of the intervention would be precisions in a single generative model. More generally, the model supports many such studies, varying the timing, intensity, and frequency of interventions and the conditions that follow them, and measuring their long-term rather than only immediate effects.
+The present study applies a single intervention to fixed-weight agents. A natural next step is to allow learning during and after the intervention. Accounts of critical-period plasticity propose that drugs inducing altered states of consciousness share a capacity to reopen critical periods \citep{dolen_emerging_2026}. In mice, psychedelics reopen a critical period for social reward learning for a time proportional to the duration of their acute effects in humans \citep{nardou_psychedelics_2023}, and in people, LSD raises learning rates during the acute state \citep{kanen_effect_2023}, while psilocybin can reduce confidence in negative self-beliefs for weeks afterward \citep{zeifman_rebus_2025}. With learning in place, repeated cycles of decanalization and recanalization could show which schedules lead to recovery and which use the perturbation as fuel for long-term improvement. We expect a long-term Goldilocks zone, much like the intermediate temperature boost that worked best for HRL agents in a single intervention. With too little decanalization, the agent stays in its rut. With too much, it is constantly destabilized and never has time to consolidate what it finds, so repeated decanalization should eventually degrade performance and could prevent useful canalization. Somewhere in between, periodic decanalization followed by enough recanalization to learn from it should produce the best long-term regulation, much as annealing depends on its cooling schedule \citep{kirkpatrick_optimization_1983, hajek_cooling_1988}. 
 
-These questions bear on a broader debate about optimal dosing and the shape of therapeutic change. One view treats change as incremental: a small intervention is given, its effects observed, and the dose increased or decreased accordingly. This is the standard model in behavioral and cognitive-behavioral therapy, and it may explain the continued appeal of psychedelic microdosing, even though placebo-controlled studies have so far found little benefit beyond placebo \cite{szigeti_microdosing_2021}. A newer view, associated with integrative psychotherapy and synergetics \cite{schiepek_self-organization_2014, schiepek_psychotherapy_2017}, introduces criticality into psychological transformation. Change on this view is not smooth; it comes from one or a few highly transformative episodes, such as pivotal mental states \cite{brouwer_pivotal_2021} or transformative experiences \cite{paul_transformative_2014}, in which a system near instability reorganizes. Discontinuous change appears even within cognitive-behavioral therapy, where some patients show large sudden gains between sessions \cite{tang_sudden_1999, hayes_change_2007}. Our model can compare these possibilities directly, for example by giving agents either one large perturbation or many small ones of matched total magnitude and asking which produces more durable improvements in regulation. The present results, in which a single large intervention improved subsequent regulation, are consistent with the pivotal view but do not test it against an incremental alternative.
+The conditions after the intervention are also important \citep{carhart-harris_context_2018, dolen_emerging_2026}. In the model, the recanalization phase could vary the quality and density of alternative patches and how far away they are. The same framework could test robustness to new disruptions, a computational analogue of new adversity or trauma: shifting or depleting the resources the agent relies on, or moving its setpoint, and comparing how quickly previously decanalized and never-decanalized agents recover. The model could also be extended to multiple homeostatic variables, which would allow for more complex trade-offs and a richer set of behaviors, and the same experiment could be run with an active inference agent, in which both components of the intervention would be precisions in a single generative model. More generally, the model supports many such studies, varying the timing, intensity, and frequency of interventions and the conditions that follow them, and measuring their long-term---rather than only immediate---effects.
+
+These questions bear on a broader debate about optimal dosing and the shape of therapeutic change. One view treats change as incremental: a small intervention is given, its effects observed, and the dose increased or decreased accordingly. This logic is familiar from dose titration in pharmacotherapy and from graded, step-by-step exposure in behavioral and cognitive-behavioral therapy, and it may explain the continued appeal of psychedelic microdosing, even though a large placebo-controlled study found little benefit beyond placebo \citep{szigeti_microdosing_2021}. A different view from integrative psychotherapy and synergetics \citep{schiepek_self-organization_2014, schiepek_psychotherapy_2017} introduces criticality into psychological transformation. On this view, change is not smooth: a system near instability reorganizes during one or a few highly transformative episodes, such as those characterized as pivotal mental states \citep{brouwer_pivotal_2021}. Philosophers have similarly described transformative experiences, which change what a person knows and what they care about \citep{paul_transformative_2014}. Discontinuous change appears even within cognitive-behavioral therapy, where some patients show large, sudden gains between sessions \citep{tang_sudden_1999, hayes_change_2007}. Our model can compare these possibilities directly. For example, we could give agents either one large perturbation or many small ones of matched total magnitude and analyze which produces more durable improvements in regulation. The present results, in which a single large intervention improved subsequent regulation, are consistent with the pivotal view, but do not test it against an incremental alternative.
 
 \section{Conclusions}
 
 Research on canalization and decanalization often moves between clinical, dynamical, and mechanistic vocabularies without making underlying computational assumptions explicit. Our aim was to formalize one such set of assumptions in a simple model that could be inspected, perturbed, and compared across conditions.
 
-An agent that learns confident beliefs about its world in stable conditions becomes trapped when the world changes. Temporarily relaxing the precision of those beliefs and the regularity of its choices lets it find new resources sooner, before its deficit grows. The benefit was much larger for an agent that values staying near its setpoint (HRL) than for one rewarded only for reducing deficits (NF). This suggests that decanalization strategies have the potential to improve a person's ability to manage their needs, but the effect is not guaranteed and depends on many contextual factors. It should help most when entrenched beliefs keep an agent from options that would now serve it better.
+An agent that learns confident beliefs about its world in stable conditions often becomes trapped when the world changes. Temporarily relaxing the precision of those beliefs and the regularity of its choices lets it find new resources sooner, before its deficit grows. The benefit was much larger for an agent that values staying near its setpoint (HRL) than for one whose reward depends only on its deficit (NF). This suggests that decanalization strategies have the potential to improve a person's ability to manage their needs, but the effect is not guaranteed and depends on many contextual factors. It should help most when entrenched beliefs keep an agent from taking actions that keep it from fully taking advantage of new, rewarding possibilities.
 
-Like most scientific models, ours is a simplified approximation of a much more complex reality. We reduced the number of possible parameters for tractability, and in doing so may have omitted emergent and higher-level features that are central to behavioral transformation. Many technical and parameter choices may have shaped the results. These are standard tradeoffs in scientific modeling and reflect the need to study behavioral entrenchment with a concrete model. The model should therefore be read as a formal demonstration of one candidate mechanism, not as a direct account of psychiatric disorders, psychotherapeutic change, or psychedelic treatment outcomes. We nevertheless hope it provides a useful starting point for further investigation.
+Like most scientific models, ours is a simplified approximation of a much more complex reality. We kept the model small for tractability, and in doing so may have omitted emergent and higher-level features that are central to behavioral transformation. Many technical and parameter choices may have shaped the results. These are standard tradeoffs in scientific modeling and reflect the need to study behavioral entrenchment with a concrete model. The model should therefore be read as a formal demonstration of one candidate mechanism for behavioral change in the face of deeply entrenched beliefs. We nevertheless hope it provides a useful starting point for further investigation.
 
 \section*{Declarations}
 
@@ -375,525 +383,411 @@ Not applicable. This study used only simulated agents in a simulated environment
 The simulation, training and analysis code and the evaluation outputs used in this study are openly available at \url{https://github.com/JClingo/decanalization}.
 
 \sloppy
-\begin{thebibliography}{33}
-  \providecommand{\natexlab}[1]{#1}
-  \providecommand{\url}[1]{\texttt{#1}}
-  \expandafter\ifx\csname urlstyle\endcsname\relax
-    \providecommand{\doi}[1]{doi: #1}\else
-    \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-  \bibitem[Addicott et~al., 2017]{addicott_primer_2017}
-  M.~A. Addicott, J.~M. Pearson, M.~M. Sweitzer, D.~L. Barack, and M.~L. Platt.
-  \newblock A primer on foraging and the explore/exploit trade-off for psychiatry
-  research.
-  \newblock 42\penalty0 (10):\penalty0 1931--1939, 2017.
-  \newblock ISSN 1740-634X.
-  \newblock \doi{10.1038/npp.2017.108}.
-  \newblock URL \url{https://www.nature.com/articles/npp2017108}.
-  \newblock Publisher: Nature Publishing Group.
-
-  \bibitem[Badia et~al., 2020]{badia_agent57_2020}
-  Adri\`a~Puigdom\`enech Badia, Bilal Piot, Steven Kapturowski, Pablo
-  Sprechmann, Alex Vitvitskyi, Daniel Guo, and Charles Blundell.
-  \newblock Agent57: Outperforming the {Atari} human benchmark.
-  \newblock In \emph{Proceedings of the 37th International Conference on
-  Machine Learning}, volume 119 of \emph{Proceedings of Machine Learning
-  Research}, pages 507--517, 2020.
-
-  \bibitem[Barack and Platt, 2016]{barack_neurocomputational_2016}
-  David~L. Barack and Michael~L. Platt.
-  \newblock Neurocomputational nosology: {{Malfunctions}} of models and
-  mechanisms.
-  \newblock \emph{Frontiers in Psychology}, Volume 7 - 2016, 2016.
-  \newblock ISSN 1664-1078.
-  \newblock \doi{10.3389/fpsyg.2016.00602}.
-
-  \bibitem[Barak, 2017]{barak_recurrent_2017}
-  Omri Barak.
-  \newblock Recurrent neural networks as versatile tools of neuroscience
-  research.
-  \newblock 46:\penalty0 1--6, 2017.
-  \newblock ISSN 0959-4388.
-  \newblock \doi{10.1016/j.conb.2017.06.003}.
-  \newblock URL
-  \url{https://www.sciencedirect.com/science/article/pii/S0959438817300429}.
-
-  \bibitem[Bathje et~al., 2022]{bathje_psychedelic_2022}
-  Geoff~J. Bathje, Eric Majeski, and Mesphina Kudowor.
-  \newblock Psychedelic integration: An analysis of the concept and its practice.
-  \newblock 13, 2022.
-  \newblock ISSN 1664-1078.
-  \newblock URL
-  \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2022.824077}.
-
-  \bibitem[Behrens et~al., 2018]{behrens_cognitive_2018}
-  Timothy~E.~J. Behrens, Timothy~H. Muller, James~C.~R. Whittington, Shirley
-  Mark, Alon~B. Baram, Kimberly~L. Stachenfeld, and Zeb Kurth-Nelson.
-  \newblock What is a cognitive map? {Organizing} knowledge for flexible
-  behavior.
-  \newblock \emph{Neuron}, 100(2):490--509, 2018.
-  \newblock \doi{10.1016/j.neuron.2018.10.012}.
-
-  \bibitem[Bernard, 1974]{bernard_lectures_1974}
-  C.~Bernard.
-  \newblock \emph{Lectures on the phenomena of life common to animals and
-    plants}.
-  \newblock American lecture series, publication. Thomas, 1974.
-  \newblock ISBN 978-0-398-02857-2.
-  \newblock URL \url{https://books.google.com/books?id=zMhqAAAAMAAJ}.
-  \newblock Number: v. 1 tex.lccn: 73004297.
-
-  \bibitem[Bochynek et~al., 2019]{bochynek_infrastructure_2019}
-  Thomas Bochynek, Martin Burd, Christoph Kleineidam, and Bernd Meyer.
-  \newblock Infrastructure construction without information exchange: the trail
-  clearing mechanism in \emph{Atta} leafcutter ants.
-  \newblock \emph{Proceedings of the Royal Society B: Biological Sciences},
-  286(1895):20182539, 2019.
-  \newblock \doi{10.1098/rspb.2018.2539}.
-
-  \bibitem[Brouwer and Carhart-Harris, 2021]{brouwer_pivotal_2021}
-  Ari Brouwer and Robin~L. Carhart-Harris.
-  \newblock Pivotal mental states.
-  \newblock \emph{Journal of Psychopharmacology}, 35(4):319--352, 2021.
-  \newblock \doi{10.1177/0269881120959637}.
-
-  \bibitem[Brouwer et~al., 2024]{brouwer_trajectory_2024}
-  Ari Brouwer, Joshua K. Brown, Earth Erowid, Fire Erowid, Sylvia Thyssen,
-  Charles L. Raison, and Robin L. Carhart-Harris.
-  \newblock The temporal trajectory of the psychedelic mushroom experience
-  mimics the narrative arc of the Hero's Journey.
-  \newblock \emph{Research Square}, preprint, version 1, 2024.
-  \newblock \doi{10.21203/rs.3.rs-3941205/v1}.
-
-  \bibitem[Carhart-Harris and Friston, 2019]{carhart-harris_rebus_2019}
-  R.~L. Carhart-Harris and K.~J. Friston.
-  \newblock {REBUS} and the anarchic brain: Toward a unified model of the brain
-  action of psychedelics.
-  \newblock 71\penalty0 (3):\penalty0 316--344, 2019.
-  \newblock ISSN 0031-6997.
-  \newblock \doi{10.1124/pr.118.017160}.
-  \newblock URL \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6588209/}.
-
-  \bibitem[Carhart-Harris et~al., 2023]{carhart-harris_canalization_2023}
-  R.~L. Carhart-Harris, S.~Chandaria, D.~E. Erritzoe, A.~Gazzaley, M.~Girn,
-  H.~Kettner, P.~A.~M. Mediano, D.~J. Nutt, F.~E. Rosas, L.~Roseman,
-  C.~Timmermann, B.~Weiss, R.~J. Zeifman, and K.~J. Friston.
-  \newblock Canalization and plasticity in psychopathology.
-  \newblock 226:\penalty0 109398, 2023.
-  \newblock ISSN 0028-3908.
-  \newblock \doi{10.1016/j.neuropharm.2022.109398}.
-  \newblock URL
-  \url{https://www.sciencedirect.com/science/article/pii/S0028390822004579}.
-
-  \bibitem[Carhart-Harris et~al., 2014]{carhart-harris_entropic_2014}
-  Robin Carhart-Harris, Robert Leech, Peter Hellyer, Murray Shanahan, Amanda
-  Feilding, Enzo Tagliazucchi, Dante Chialvo, and David Nutt.
-  \newblock The entropic brain: a theory of conscious states informed by
-  neuroimaging research with psychedelic drugs.
-  \newblock 8, 2014.
-  \newblock ISSN 1662-5161.
-  \newblock URL
-  \url{https://www.frontiersin.org/article/10.3389/fnhum.2014.00020}.
-
-  \bibitem[Carhart-Harris, 2018]{carhart-harris_entropic_2018}
-  Robin~L. Carhart-Harris.
-  \newblock The entropic brain---revisited.
-  \newblock 142:\penalty0 167--178, 2018.
-  \newblock ISSN 0028-3908.
-  \newblock \doi{10.1016/j.neuropharm.2018.03.010}.
-  \newblock URL
-  \url{https://www.sciencedirect.com/science/article/pii/S0028390818301175}.
-
-  \bibitem[Carhart-Harris et~al., 2018]{carhart-harris_context_2018}
-  Robin~L. Carhart-Harris, Leor Roseman, Eline Haijen, David Erritzoe,
-  Rosalind Watts, Igor Branchi, and Mendel Kaelen.
-  \newblock Psychedelics and the essential importance of context.
-  \newblock \emph{Journal of Psychopharmacology}, 32(7):725--731, 2018.
-  \newblock \doi{10.1177/0269881118754710}.
-
-  \bibitem[Clingo, 2025]{clingoDisintegrationReintegrationModelPsychological2025}
-  Joshua Clingo.
-  \newblock \emph{The Disintegration-Reintegration Model of Psychological Transformation}.
-  \newblock Thesis, UC Merced, July 23, 2025.
-  \newblock URL \url{https://escholarship.org/uc/item/54z4d95j}.
-
-  \bibitem[Davies and Blackwell, 2007]{davies_energy_2007}
-  Mark~S. Davies and Janine Blackwell.
-  \newblock Energy saving through trail following in a marine snail.
-  \newblock \emph{Proceedings of the Royal Society B: Biological Sciences},
-  274(1614):1233--1236, 2007.
-  \newblock \doi{10.1098/rspb.2007.0046}.
-
-  \bibitem[Girn et~al., 2023]{girn_complex_2023}
-  Manesh Girn, Fernando~E. Rosas, Richard~E. Daws, Courtney~L. Gallen, Adam
-  Gazzaley, and Robin~L. Carhart-Harris.
-  \newblock A complex systems perspective on psychedelic brain action.
-  \newblock 27\penalty0 (5):\penalty0 433--445, 2023.
-  \newblock ISSN 1364-6613, 1879-307X.
-  \newblock \doi{10.1016/j.tics.2023.01.003}.
-  \newblock URL
-  \url{https://www.cell.com/trends/cognitive-sciences/abstract/S1364-6613(23)00021-9}.
-  \newblock Publisher: Elsevier.
-
-  \bibitem[Gurwitsch, 1964]{gurwitsch_field_1964}
-  Aron Gurwitsch.
-  \newblock \emph{The Field of Consciousness}.
-  \newblock Duquesne University Press, Pittsburgh, 1964.
-
-  \bibitem[Haken, 1977]{haken_synergetics_1977}
-  Hermann Haken.
-  \newblock \emph{Synergetics: An Introduction. Nonequilibrium Phase Transitions
-  and Self-Organization in Physics, Chemistry and Biology}.
-  \newblock Springer, Berlin, 1977.
-
-  \bibitem[Hafting et~al., 2005]{hafting_microstructure_2005}
-  Torkel Hafting, Marianne Fyhn, Sturla Molden, May-Britt Moser, and Edvard~I.
-  Moser.
-  \newblock Microstructure of a spatial map in the entorhinal cortex.
-  \newblock \emph{Nature}, 436(7052):801--806, 2005.
-  \newblock \doi{10.1038/nature03721}.
-
-  \bibitem[Hajek, 1988]{hajek_cooling_1988}
-  Bruce Hajek.
-  \newblock Cooling schedules for optimal annealing.
-  \newblock \emph{Mathematics of Operations Research}, 13(2):311--329, 1988.
-  \newblock \doi{10.1287/moor.13.2.311}.
-
-  \bibitem[Hayes et~al., 2007]{hayes_change_2007}
-  Adele~M. Hayes, Jean-Philippe Laurenceau, Greg Feldman, Jennifer~L. Strauss,
-  and LeeAnn Cardaciotto.
-  \newblock Change is not always linear: The study of nonlinear and
-  discontinuous patterns of change in psychotherapy.
-  \newblock \emph{Clinical Psychology Review}, 27(6):715--723, 2007.
-  \newblock \doi{10.1016/j.cpr.2007.01.008}.
-
-  \bibitem[Hip\'olito et~al., 2023]{hipolito_pattern_2023}
-  In\^es Hip\'olito, Jonas Mago, Fernando~E Rosas, and Robin Carhart-Harris.
-  \newblock Pattern breaking: a complex systems approach to psychedelic medicine.
-  \newblock 2023\penalty0 (1):\penalty0 niad017, 2023.
-  \newblock ISSN 2057-2107.
-  \newblock \doi{10.1093/nc/niad017}.
-  \newblock URL \url{https://doi.org/10.1093/nc/niad017}.
-
-  \bibitem[Hoffmann et~al., 2022]{hoffmann_training_2022}
-  Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor
-  Cai, Eliza Rutherford, Diego de~Las~Casas, Lisa~Anne Hendricks, Johannes
-  Welbl, Aidan Clark, et~al.
-  \newblock Training compute-optimal large language models.
-  \newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~35, pages 30016--30030, 2022.
-
-  \bibitem[Huys et~al., 2013]{huys_mapping_2013}
-  Quentin~JM Huys, Diego~A. Pizzagalli, Ryan Bogdan, and Peter Dayan.
-  \newblock Mapping anhedonia onto reinforcement learning: A behavioral
-  meta-analysis.
-  \newblock \emph{Biology of Mood \& Anxiety Disorders}, 3\penalty0 (1):\penalty0
-  12, June 2013.
-  \newblock ISSN 2045-5380.
-  \newblock \doi{10.1186/2045-5380-3-12}.
-
-  \bibitem[James, 1890]{james_principles_1890}
-  William James.
-  \newblock \emph{The Principles of Psychology}.
-  \newblock Henry Holt, New York, 1890.
-
-  \bibitem[Juliani et~al., 2024]{juliani_deep_2024}
-  Arthur Juliani, Adam Safron, and Ryota Kanai.
-  \newblock Deep {CANALs}: a deep learning approach to refining the canalization
-  theory of psychopathology.
-  \newblock 2024\penalty0 (1):\penalty0 niae005, 2024.
-  \newblock ISSN 2057-2107.
-  \newblock \doi{10.1093/nc/niae005}.
-  \newblock URL \url{https://doi.org/10.1093/nc/niae005}.
-
-  \bibitem[Keramati and Gutkin, 2014]{keramati_homeostatic_2014}
-  Mehdi Keramati and Boris Gutkin.
-  \newblock Homeostatic reinforcement learning for integrating reward collection
-  and physiological stability.
-  \newblock 3:\penalty0 e04811, 2014.
-  \newblock ISSN 2050-084X.
-  \newblock \doi{10.7554/eLife.04811}.
-  \newblock URL \url{https://doi.org/10.7554/eLife.04811}.
-  \newblock Publisher: {eLife} Sciences Publications, Ltd.
-
-  \bibitem[Kirkpatrick et~al., 1983]{kirkpatrick_optimization_1983}
-  S. Kirkpatrick, C.~D. Gelatt, Jr., and M.~P. Vecchi.
-  \newblock Optimization by simulated annealing.
-  \newblock \emph{Science}, 220(4598):671--680, 1983.
-  \newblock \doi{10.1126/science.220.4598.671}.
-
-  \bibitem[Laland et~al., 2016]{laland_niche_2016}
-  Kevin Laland, Blake Matthews, and Marcus W. Feldman.
-  \newblock An introduction to niche construction theory.
-  \newblock \emph{Evolutionary Ecology}, 30:191--202, 2016.
-  \newblock \doi{10.1007/s10682-016-9821-z}.
-
-  \bibitem[Lepow et~al., 2021]{lepow_critical_2021}
-  Lauren Lepow, Hirofumi Morishita, and Rachel Yehuda.
-  \newblock Critical period plasticity as a framework for psychedelic-assisted
-  psychotherapy.
-  \newblock 15, 2021.
-  \newblock ISSN 1662-453X.
-  \newblock \doi{10.3389/fnins.2021.710004}.
-  \newblock URL
-  \url{https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2021.710004/full}.
-  \newblock Publisher: Frontiers.
-
-  \bibitem[Lloyd et~al., 2023]{lloyd_understanding_2023}
-  Alex Lloyd, Essi Viding, Ryan McKay, and Nicholas Furl.
-  \newblock Understanding patch foraging strategies across development.
-  \newblock 27\penalty0 (11):\penalty0 1085--1098, 2023.
-  \newblock ISSN 1364-6613, 1879-307X.
-  \newblock \doi{10.1016/j.tics.2023.07.004}.
-  \newblock URL
-  \url{https://www.cell.com/trends/cognitive-sciences/abstract/S1364-6613(23)00172-9}.
-
-  \bibitem[Lyon et~al., 2021]{lyon_reframing_2021}
-  Pamela Lyon, Fred Keijzer, Detlev Arendt, and Michael Levin.
-  \newblock Reframing cognition: getting down to biological basics.
-  \newblock 376\penalty0 (1820):\penalty0 20190750, 2021.
-  \newblock \doi{10.1098/rstb.2019.0750}.
-  \newblock URL
-  \url{https://royalsocietypublishing.org/doi/10.1098/rstb.2019.0750}.
-  \newblock Publisher: Royal Society.
-
-  \bibitem[Mangan, 1993]{mangan_taking_1993}
-  Bruce Mangan.
-  \newblock Taking phenomenology seriously: The ``fringe'' and its implications
-  for cognitive research.
-  \newblock \emph{Consciousness and Cognition}, 2(2):89--108, 1993.
-
-  \bibitem[Mnih et~al., 2015]{mnih_human-level_2015}
-  Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A. Rusu, Joel Veness,
-  Marc~G. Bellemare, Alex Graves, Martin Riedmiller, Andreas~K. Fidjeland,
-  Georg Ostrovski, et~al.
-  \newblock Human-level control through deep reinforcement learning.
-  \newblock \emph{Nature}, 518(7540):529--533, 2015.
-  \newblock \doi{10.1038/nature14236}.
-
-  \bibitem[Moreno et~al., 2026]{moreno_randomized_2026}
-  Francisco~A. Moreno, Katja~E. Allen, Christopher~B. Wiegand, Rajan Dunne,
-  James~I. Prickett, Brian Bayze, and John~J.~B. Allen.
-  \newblock A randomized clinical trial of repeated doses of psilocybin for
-  the treatment of obsessive--compulsive disorder.
-  \newblock \emph{Journal of Psychopharmacology}, 40(5):837--849, 2026.
-  \newblock \doi{10.1177/02698811261424214}.
-
-  \bibitem[Nardou et~al., 2023]{nardou_psychedelics_2023}
-  Romain Nardou, Edward Sawyer, Young~Jun Song, Makenzie Wilkinson,
-  Yasmin Padovan-Hernandez, J\'unia~Lara de~Deus, Noelle Wright, Carine Lama,
-  Sehr Faltin, Loyal~A. Goff, Genevieve~L. Stein-O'Brien, and G\"ul D\"olen.
-  \newblock Psychedelics reopen the social reward learning critical period.
-  \newblock \emph{Nature}, 618(7966):790--798, 2023.
-  \newblock \doi{10.1038/s41586-023-06204-3}.
-
-  \bibitem[Paul, 2014]{paul_transformative_2014}
-  L.~A. Paul.
-  \newblock \emph{Transformative Experience}.
-  \newblock Oxford University Press, Oxford, 2014.
-
-  \bibitem[O'Keefe and Dostrovsky, 1971]{okeefe_hippocampus_1971}
-  John O'Keefe and Jonathan Dostrovsky.
-  \newblock The hippocampus as a spatial map: Preliminary evidence from unit
-  activity in the freely-moving rat.
-  \newblock \emph{Brain Research}, 34(1):171--175, 1971.
-  \newblock \doi{10.1016/0006-8993(71)90358-1}.
-
-  \bibitem[O'Keefe and Nadel, 1978]{okeefe_hippocampus_1978}
-  John O'Keefe and Lynn Nadel.
-  \newblock \emph{The Hippocampus as a Cognitive Map}.
-  \newblock Clarendon Press, Oxford, 1978.
-
-  \bibitem[Pearson et~al., 2014]{pearson_decision_2014}
-  John~M Pearson, Karli~K Watson, and Michael~L Platt.
-  \newblock Decision making: the neuroethological turn.
-  \newblock \emph{Neuron}, 82\penalty0 (5):\penalty0 950--965, June 2014.
-
-  \bibitem[Pezzulo et~al., 2015]{pezzulo_active_2015}
-  Giovanni Pezzulo, Francesco Rigoli, and Karl Friston.
-  \newblock Active inference, homeostatic regulation and adaptive behavioural
-  control.
-  \newblock \emph{Progress in Neurobiology}, 134:17--35, 2015.
-  \newblock \doi{10.1016/j.pneurobio.2015.09.001}.
-
-  \bibitem[Pio-Lopez et~al., 2025]{pio-lopez_scale-free_2025}
-  L\'eo Pio-Lopez, Giovanni Pezzulo, and Michael Levin.
-  \newblock Scale-free niche construction: expanding agent-microenvironment
-  co-development to unconventional substrates, 2025.
-  \newblock URL \url{https://osf.io/ytg35_v1}.
-
-  \bibitem[Safron and DeYoung, 2021]{safron_deyoung_2021}
-  Adam Safron and Colin G. DeYoung.
-  \newblock Integrating Cybernetic Big Five Theory with the free energy
-  principle: A new strategy for modeling personalities as complex systems.
-  \newblock In D. Wood, S. J. Read, P. D. Harms, and A. Slaughter, editors,
-  \emph{Measuring and Modeling Persons and Situations}, pages 617--649.
-  Academic Press, 2021.
-  \newblock \doi{10.1016/B978-0-12-819200-9.00010-7}.
-
-  \bibitem[Safron and Sheikhbahaee, 2024]{safron_sheikhbahaee_2024}
-  Adam Safron and Zahra Sheikhbahaee.
-  \newblock Towards understanding persons and their personalities with
-  Cybernetic Big 5 Theory and the Free Energy Principle and Active Inference
-  (FEP-AI) framework.
-  \newblock In C. L. Buckley et~al., editors, \emph{Active Inference},
-  CCIS 1915, pages 73--90. Springer, 2024.
-  \newblock \doi{10.1007/978-3-031-47958-8_6}.
-
-  \bibitem[Safron et~al., 2025]{safron_albus_2025}
-  Adam Safron, Arthur Juliani, Nicco Reggente, Victoria Klimaj, and Matthew Johnson.
-  \newblock On the varieties of conscious experiences: Altered Beliefs Under
-  Psychedelics (ALBUS).
-  \newblock \emph{Neuroscience of Consciousness}, 2025(1):niae038, 2025.
-  \newblock \doi{10.1093/nc/niae038}.
-
-  \bibitem[Raison et~al., 2023]{raison_single-dose_2023}
-  Charles~L. Raison, Gerard Sanacora, Joshua Woolley, et~al.
-  \newblock Single-dose psilocybin treatment for major depressive disorder:
-  A randomized clinical trial.
-  \newblock \emph{JAMA}, 330(9):843--853, 2023.
-  \newblock \doi{10.1001/jama.2023.14530}.
-
-  \bibitem[Scheffer et~al., 2024]{scheffer_dynamical_2024}
-  Marten Scheffer, Claudi~L. Bockting, Denny Borsboom, Roshan Cools, Clara
-  Delecroix, Jessica~A. Hartmann, Kenneth~S. Kendler, Ingrid van~de Leemput,
-  Han L.~J. van~der Maas, Egbert van Nes, Mark Mattson, Pat~D. {McGorry}, and
-  Barnaby Nelson.
-  \newblock A dynamical systems view of psychiatric disorders-theory: A review.
-  \newblock 81\penalty0 (6):\penalty0 618--623, 2024.
-  \newblock ISSN 2168-6238.
-  \newblock \doi{10.1001/jamapsychiatry.2024.0215}.
-
-  \bibitem[Schiepek et~al., 2015]{schiepek_integrative_2015}
-  G\"unter Schiepek, Heiko Eckert, Benjamin Aas, Sebastian Wallot, and Anna
-  Wallot.
-  \newblock \emph{Integrative Psychotherapy: A Feedback-Driven Dynamic Systems
-    Approach}.
-  \newblock Hogrefe Publishing, 2015.
-  \newblock ISBN 978-0-88937-472-0.
-  \newblock \doi{10.1027/00472-000}.
-
-  \bibitem[Schiepek et~al., 2014]{schiepek_self-organization_2014}
-  G\"unter~K. Schiepek, Igor Tominschek, and Stephan Heinzel.
-  \newblock Self-organization in psychotherapy: testing the synergetic model of
-  change processes.
-  \newblock 5, 2014.
-  \newblock ISSN 1664-1078.
-  \newblock URL
-  \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2014.01089}.
-
-  \bibitem[Schiepek et~al., 2017]{schiepek_psychotherapy_2017}
-  G\"unter~K. Schiepek, Kathrin Viol, Wolfgang Aichhorn, Marc-Thorsten H\"utt,
-  Katharina Sungler, David Pincus, and Helmut~J. Sch\"oller.
-  \newblock Psychotherapy is chaotic---(not only) in a computational world.
-  \newblock 8, 2017.
-  \newblock ISSN 1664-1078.
-  \newblock \doi{10.3389/fpsyg.2017.00379}.
-  \newblock URL
-  \url{https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2017.00379/full}.
-  \newblock Publisher: Frontiers.
-
-  \bibitem[Schulman et~al., 2017]{schulman_proximal_2017}
-  John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
-  \newblock Proximal policy optimization algorithms, 2017.
-  \newblock URL \url{http://arxiv.org/abs/1707.06347}.
-
-  \bibitem[Song et~al., 2019]{song_observational_2019}
-  Xingyou Song, Yiding Jiang, Stephen Tu, Yilun Du, and Behnam Neyshabur.
-  \newblock Observational overfitting in reinforcement learning, 2019.
-  \newblock URL \url{https://arxiv.org/abs/1912.02975}.
-
-  \bibitem[Stephens and Krebs, 1986]{stephens_foraging_1986}
-  David~W Stephens and John~R Krebs.
-  \newblock \emph{Foraging theory}, volume~6.
-  \newblock Princeton university press, 1986.
-
-  \bibitem[Sterling, 2012]{sterling_allostasis_2012}
-  Peter Sterling.
-  \newblock Allostasis: A model of predictive regulation.
-  \newblock 106\penalty0 (1):\penalty0 5--15, 2012.
-  \newblock ISSN 0031-9384.
-  \newblock \doi{10.1016/j.physbeh.2011.06.004}.
-  \newblock URL
-  \url{https://www.sciencedirect.com/science/article/pii/S0031938411003076}.
-
-  \bibitem[Sterling and Eyer, 1988]{sterling_allostasis_1988}
-  Peter Sterling and Joseph Eyer.
-  \newblock Allostasis: A new paradigm to explain arousal pathology.
-  \newblock In \emph{Handbook of life stress, cognition and health}, pages
-  629--649. John Wiley \& Sons, 1988.
-  \newblock ISBN 978-0-471-91269-9.
-
-  \bibitem[Sutton et~al., 1998]{sutton_reinforcement_1998}
-  Richard~S Sutton, Andrew~G Barto, et~al.
-  \newblock \emph{Reinforcement learning: An introduction}, volume~1.
-  \newblock MIT press Cambridge, 1998.
-
-  \bibitem[Sutton et~al., 1999]{sutton_between_1999}
-  Richard~S. Sutton, Doina Precup, and Satinder Singh.
-  \newblock Between {MDPs} and semi-{MDPs}: A framework for temporal
-  abstraction in reinforcement learning.
-  \newblock \emph{Artificial Intelligence}, 112(1--2):181--211, 1999.
-  \newblock \doi{10.1016/S0004-3702(99)00052-1}.
-
-  \bibitem[Szigeti et~al., 2021]{szigeti_microdosing_2021}
-  Balázs Szigeti, Laura Kartner, Allan Blemings, Fernando Rosas, Amanda
-  Feilding, David~J. Nutt, Robin~L. Carhart-Harris, and David Erritzoe.
-  \newblock Self-blinding citizen science to explore psychedelic microdosing.
-  \newblock \emph{eLife}, 10:e62878, 2021.
-  \newblock \doi{10.7554/eLife.62878}.
-
-  \bibitem[Tang and DeRubeis, 1999]{tang_sudden_1999}
-  Tony~Z. Tang and Robert~J. DeRubeis.
-  \newblock Sudden gains and critical sessions in cognitive-behavioral therapy
-  for depression.
-  \newblock \emph{Journal of Consulting and Clinical Psychology},
-  67(6):894--904, 1999.
-  \newblock \doi{10.1037/0022-006X.67.6.894}.
-
-  \bibitem[Tolman, 1948]{tolman_cognitive_1948}
-  Edward~C. Tolman.
-  \newblock Cognitive maps in rats and men.
-  \newblock \emph{Psychological Review}, 55(4):189--208, 1948.
-  \newblock \doi{10.1037/h0061626}.
-
-  \bibitem[Waddington, 1959]{waddington_canalization_1959}
-  C.~H. Waddington.
-  \newblock Canalization of development and genetic assimilation of acquired
-  characters.
-  \newblock 183\penalty0 (4676):\penalty0 1654--1655, 1959.
-  \newblock ISSN 1476-4687.
-  \newblock \doi{10.1038/1831654a0}.
-  \newblock URL \url{https://www.nature.com/articles/1831654a0}.
-  \newblock Number: 4676 Publisher: Nature Publishing Group.
-
-  \bibitem[Wiener, 2019]{wiener_cybernetics_2019}
-  Norbert Wiener.
-  \newblock \emph{Cybernetics or Control and Communication in the Animal and the
-    Machine}.
-  \newblock The {MIT} Press, reissue edition, 2019.
-  \newblock ISBN 978-0-262-35590-2.
-  \newblock \doi{10.7551/mitpress/11810.001.0001}.
-  \newblock URL
-  \url{https://direct.mit.edu/books/oa-monograph/4581/Cybernetics-or-Control-and-Communication-in-the}.
-
-  \bibitem[Yon and Frith, 2021]{yon_precision_2021}
-  Daniel Yon and Chris~D. Frith.
-  \newblock Precision and the {Bayesian} brain.
-  \newblock \emph{Current Biology}, 31(17):R1026--R1031, 2021.
-  \newblock \doi{10.1016/j.cub.2021.07.044}.
-
-  \bibitem[Yoshimi, 2016]{yoshimi_husserlian_2016}
-  Jeffrey Yoshimi.
-  \newblock \emph{Husserlian Phenomenology: A Unifying Interpretation}.
-  \newblock SpringerBriefs in Philosophy. Springer, Cham, 2016.
-  \newblock \doi{10.1007/978-3-319-26698-5}.
-
-  \bibitem[Yoshimi and Vinson, 2015]{yoshimi_extending_2015}
-  Jeff Yoshimi and David~W. Vinson.
-  \newblock Extending {G}urwitsch's field theory of consciousness.
-  \newblock \emph{Consciousness and Cognition}, 34:104--123, 2015.
-  \newblock \doi{10.1016/j.concog.2015.03.017}.
+\providecommand{\doiurl}[1]{\url{https://doi.org/#1}}
+\begin{thebibliography}{}
+
+  \bibitem[{Addicott et~al.(2017)}]{addicott_primer_2017}
+  Addicott, M.~A., Pearson, J.~M., Sweitzer, M.~M., Barack, D.~L., \& Platt, M.~L. (2017).
+  A primer on foraging and the explore/exploit trade-off for psychiatry research.
+  \emph{Neuropsychopharmacology}, \emph{42}(10), 1931--1939.
+  \doiurl{10.1038/npp.2017.108}
+
+  \bibitem[{Badia et~al.(2020)}]{badia_agent57_2020}
+  Badia, A.~P., Piot, B., Kapturowski, S., Sprechmann, P., Vitvitskyi, A., Guo, Z.~D., \& Blundell, C. (2020).
+  Agent57: Outperforming the Atari human benchmark.
+  \emph{Proceedings of Machine Learning Research}, \emph{119}, 507--517.
+
+  \bibitem[{Barack \& Platt(2016)}]{barack_neurocomputational_2016}
+  Barack, D.~L., \& Platt, M.~L. (2016).
+  Neurocomputational nosology: Malfunctions of models and mechanisms.
+  \emph{Frontiers in Psychology}, \emph{7}, Article 602.
+  \doiurl{10.3389/fpsyg.2016.00602}
+
+  \bibitem[{Bathje et~al.(2022)}]{bathje_psychedelic_2022}
+  Bathje, G.~J., Majeski, E., \& Kudowor, M. (2022).
+  Psychedelic integration: An analysis of the concept and its practice.
+  \emph{Frontiers in Psychology}, \emph{13}, Article 824077.
+  \doiurl{10.3389/fpsyg.2022.824077}
+
+  \bibitem[{Behrens et~al.(2018)}]{behrens_cognitive_2018}
+  Behrens, T.~E.~J., Muller, T.~H., Whittington, J.~C.~R., Mark, S., Baram, A.~B., Stachenfeld, K.~L., \& Kurth-Nelson, Z. (2018).
+  What is a cognitive map? Organizing knowledge for flexible behavior.
+  \emph{Neuron}, \emph{100}(2), 490--509.
+  \doiurl{10.1016/j.neuron.2018.10.012}
+
+  \bibitem[{Bernard(1878/1974)}]{bernard_lectures_1974}
+  Bernard, C. (1974).
+  \emph{Lectures on the phenomena of life common to animals and plants}
+  (H.~E. Hoff, R. Guillemin, \& L. Guillemin, Trans.). Charles C Thomas.
+  (Original work published 1878)
+
+  \bibitem[{Bochynek et~al.(2019)}]{bochynek_infrastructure_2019}
+  Bochynek, T., Burd, M., Kleineidam, C., \& Meyer, B. (2019).
+  Infrastructure construction without information exchange: The trail clearing mechanism in \emph{Atta} leafcutter ants.
+  \emph{Proceedings of the Royal Society B: Biological Sciences}, \emph{286}(1895), Article 20182539.
+  \doiurl{10.1098/rspb.2018.2539}
+
+  \bibitem[{Brouwer et~al.(2024)}]{brouwer_trajectory_2024}
+  Brouwer, A., Brown, J.~K., Erowid, E., Erowid, F., Thyssen, S., Raison, C.~L., \& Carhart-Harris, R.~L. (2024).
+  \emph{The temporal trajectory of the psychedelic mushroom experience mimics the narrative arc of the Hero's Journey} [Preprint].
+  Research Square.
+  \doiurl{10.21203/rs.3.rs-3941205/v1}
+
+  \bibitem[{Brouwer \& Carhart-Harris(2021)}]{brouwer_pivotal_2021}
+  Brouwer, A., \& Carhart-Harris, R.~L. (2021).
+  Pivotal mental states.
+  \emph{Journal of Psychopharmacology}, \emph{35}(4), 319--352.
+  \doiurl{10.1177/0269881120959637}
+
+  \bibitem[{Carhart-Harris(2018)}]{carhart-harris_entropic_2018}
+  Carhart-Harris, R.~L. (2018).
+  The entropic brain---Revisited.
+  \emph{Neuropharmacology}, \emph{142}, 167--178.
+  \doiurl{10.1016/j.neuropharm.2018.03.010}
+
+  \bibitem[{Carhart-Harris et~al.(2023)}]{carhart-harris_canalization_2023}
+  Carhart-Harris, R.~L., Chandaria, S., Erritzoe, D.~E., Gazzaley, A., Girn, M., Kettner, H., Mediano, P.~A.~M., Nutt, D.~J., Rosas, F.~E., Roseman, L., Timmermann, C., Weiss, B., Zeifman, R.~J., \& Friston, K.~J. (2023).
+  Canalization and plasticity in psychopathology.
+  \emph{Neuropharmacology}, \emph{226}, Article 109398.
+  \doiurl{10.1016/j.neuropharm.2022.109398}
+
+  \bibitem[{Carhart-Harris \& Friston(2019)}]{carhart-harris_rebus_2019}
+  Carhart-Harris, R.~L., \& Friston, K.~J. (2019).
+  REBUS and the anarchic brain: Toward a unified model of the brain action of psychedelics.
+  \emph{Pharmacological Reviews}, \emph{71}(3), 316--344.
+  \doiurl{10.1124/pr.118.017160}
+
+  \bibitem[{Carhart-Harris et~al.(2014)}]{carhart-harris_entropic_2014}
+  Carhart-Harris, R.~L., Leech, R., Hellyer, P.~J., Shanahan, M., Feilding, A., Tagliazucchi, E., Chialvo, D.~R., \& Nutt, D. (2014).
+  The entropic brain: A theory of conscious states informed by neuroimaging research with psychedelic drugs.
+  \emph{Frontiers in Human Neuroscience}, \emph{8}, Article 20.
+  \doiurl{10.3389/fnhum.2014.00020}
+
+  \bibitem[{Carhart-Harris et~al.(2018)}]{carhart-harris_context_2018}
+  Carhart-Harris, R.~L., Roseman, L., Haijen, E., Erritzoe, D., Watts, R., Branchi, I., \& Kaelen, M. (2018).
+  Psychedelics and the essential importance of context.
+  \emph{Journal of Psychopharmacology}, \emph{32}(7), 725--731.
+  \doiurl{10.1177/0269881118754710}
+
+  \bibitem[{Caspi et~al.(2014)}]{caspi_p_2014}
+  Caspi, A., Houts, R.~M., Belsky, D.~W., Goldman-Mellor, S.~J., Harrington, H., Israel, S., Meier, M.~H., Ramrakha, S., Shalev, I., Poulton, R., \& Moffitt, T.~E. (2014).
+  The p factor: One general psychopathology factor in the structure of psychiatric disorders?
+  \emph{Clinical Psychological Science}, \emph{2}(2), 119--137.
+  \doiurl{10.1177/2167702613497473}
+
+  \bibitem[{Clingo(2025)}]{clingoDisintegrationReintegrationModelPsychological2025}
+  Clingo, J. (2025).
+  \emph{The disintegration-reintegration model of psychological transformation}
+  [Doctoral dissertation, University of California, Merced]. eScholarship.
+  \url{https://escholarship.org/uc/item/54z4d95j}
+
+  \bibitem[{Davies \& Blackwell(2007)}]{davies_energy_2007}
+  Davies, M.~S., \& Blackwell, J. (2007).
+  Energy saving through trail following in a marine snail.
+  \emph{Proceedings of the Royal Society B: Biological Sciences}, \emph{274}(1614), 1233--1236.
+  \doiurl{10.1098/rspb.2007.0046}
+
+  \bibitem[{D\"olen \& Wilkinson(2026)}]{dolen_emerging_2026}
+  D\"olen, G., \& Wilkinson, M.~L. (2026).
+  The emerging neurobiology of psychedelics: Critical periods, metaplasticity, and extracellular matrix remodeling.
+  \emph{Annual Review of Neuroscience}, \emph{49}(1), 495--515.
+  \doiurl{10.1146/annurev-neuro-112723-045129}
+
+  \bibitem[{Ekstrom et~al.(2003)}]{ekstrom_cellular_2003}
+  Ekstrom, A.~D., Kahana, M.~J., Caplan, J.~B., Fields, T.~A., Isham, E.~A., Newman, E.~L., \& Fried, I. (2003).
+  Cellular networks underlying human spatial navigation.
+  \emph{Nature}, \emph{425}(6954), 184--188.
+  \doiurl{10.1038/nature01964}
+
+  \bibitem[{Girn et~al.(2023)}]{girn_complex_2023}
+  Girn, M., Rosas, F.~E., Daws, R.~E., Gallen, C.~L., Gazzaley, A., \& Carhart-Harris, R.~L. (2023).
+  A complex systems perspective on psychedelic brain action.
+  \emph{Trends in Cognitive Sciences}, \emph{27}(5), 433--445.
+  \doiurl{10.1016/j.tics.2023.01.003}
+
+  \bibitem[{Gurwitsch(1964)}]{gurwitsch_field_1964}
+  Gurwitsch, A. (1964).
+  \emph{The field of consciousness}.
+  Duquesne University Press.
+
+  \bibitem[{Hafting et~al.(2005)}]{hafting_microstructure_2005}
+  Hafting, T., Fyhn, M., Molden, S., Moser, M.-B., \& Moser, E.~I. (2005).
+  Microstructure of a spatial map in the entorhinal cortex.
+  \emph{Nature}, \emph{436}(7052), 801--806.
+  \doiurl{10.1038/nature03721}
+
+  \bibitem[{Hajek(1988)}]{hajek_cooling_1988}
+  Hajek, B. (1988).
+  Cooling schedules for optimal annealing.
+  \emph{Mathematics of Operations Research}, \emph{13}(2), 311--329.
+  \doiurl{10.1287/moor.13.2.311}
+
+  \bibitem[{Haken(1977)}]{haken_synergetics_1977}
+  Haken, H. (1977).
+  \emph{Synergetics: An introduction. Nonequilibrium phase transitions and self-organization in physics, chemistry and biology}.
+  Springer.
+
+  \bibitem[{Hayes et~al.(2007)}]{hayes_change_2007}
+  Hayes, A.~M., Laurenceau, J.-P., Feldman, G., Strauss, J.~L., \& Cardaciotto, L. (2007).
+  Change is not always linear: The study of nonlinear and discontinuous patterns of change in psychotherapy.
+  \emph{Clinical Psychology Review}, \emph{27}(6), 715--723.
+  \doiurl{10.1016/j.cpr.2007.01.008}
+
+  \bibitem[{Hip\'olito et~al.(2023)}]{hipolito_pattern_2023}
+  Hip\'olito, I., Mago, J., Rosas, F.~E., \& Carhart-Harris, R. (2023).
+  Pattern breaking: A complex systems approach to psychedelic medicine.
+  \emph{Neuroscience of Consciousness}, \emph{2023}(1), Article niad017.
+  \doiurl{10.1093/nc/niad017}
+
+  \bibitem[{Hoffmann et~al.(2022)}]{hoffmann_training_2022}
+  Hoffmann, J., Borgeaud, S., Mensch, A., Buchatskaya, E., Cai, T., Rutherford, E., de~Las~Casas, D., Hendricks, L.~A., Welbl, J., Clark, A., Hennigan, T., Noland, E., Millican, K., van~den~Driessche, G., Damoc, B., Guy, A., Osindero, S., Simonyan, K., Elsen, E., \ldots{} Sifre, L. (2022).
+  An empirical analysis of compute-optimal large language model training.
+  \emph{Advances in Neural Information Processing Systems}, \emph{35}, 30016--30030.
+  \doiurl{10.52202/068431-2176}
+
+  \bibitem[{Huys et~al.(2013)}]{huys_mapping_2013}
+  Huys, Q.~J.~M., Pizzagalli, D.~A., Bogdan, R., \& Dayan, P. (2013).
+  Mapping anhedonia onto reinforcement learning: A behavioral meta-analysis.
+  \emph{Biology of Mood \& Anxiety Disorders}, \emph{3}, Article 12.
+  \doiurl{10.1186/2045-5380-3-12}
+
+  \bibitem[{James(1890)}]{james_principles_1890}
+  James, W. (1890).
+  \emph{The principles of psychology}.
+  Henry Holt.
+
+  \bibitem[{Juliani et~al.(2024)}]{juliani_deep_2024}
+  Juliani, A., Safron, A., \& Kanai, R. (2024).
+  Deep CANALs: A deep learning approach to refining the canalization theory of psychopathology.
+  \emph{Neuroscience of Consciousness}, \emph{2024}(1), Article niae005.
+  \doiurl{10.1093/nc/niae005}
+
+  \bibitem[{Kanen et~al.(2023)}]{kanen_effect_2023}
+  Kanen, J.~W., Luo, Q., Rostami Kandroodi, M., Cardinal, R.~N., Robbins, T.~W., Nutt, D.~J., Carhart-Harris, R.~L., \& den Ouden, H.~E.~M. (2023).
+  Effect of lysergic acid diethylamide (LSD) on reinforcement learning in humans.
+  \emph{Psychological Medicine}, \emph{53}(14), 6434--6445.
+  \doiurl{10.1017/S0033291722002963}
+
+  \bibitem[{Keramati \& Gutkin(2014)}]{keramati_homeostatic_2014}
+  Keramati, M., \& Gutkin, B. (2014).
+  Homeostatic reinforcement learning for integrating reward collection and physiological stability.
+  \emph{eLife}, \emph{3}, Article e04811.
+  \doiurl{10.7554/eLife.04811}
+
+  \bibitem[{Kirkpatrick et~al.(1983)}]{kirkpatrick_optimization_1983}
+  Kirkpatrick, S., Gelatt, C.~D., Jr., \& Vecchi, M.~P. (1983).
+  Optimization by simulated annealing.
+  \emph{Science}, \emph{220}(4598), 671--680.
+  \doiurl{10.1126/science.220.4598.671}
+
+  \bibitem[{Laland et~al.(2016)}]{laland_niche_2016}
+  Laland, K., Matthews, B., \& Feldman, M.~W. (2016).
+  An introduction to niche construction theory.
+  \emph{Evolutionary Ecology}, \emph{30}(2), 191--202.
+  \doiurl{10.1007/s10682-016-9821-z}
+
+  \bibitem[{Lepow et~al.(2021)}]{lepow_critical_2021}
+  Lepow, L., Morishita, H., \& Yehuda, R. (2021).
+  Critical period plasticity as a framework for psychedelic-assisted psychotherapy.
+  \emph{Frontiers in Neuroscience}, \emph{15}, Article 710004.
+  \doiurl{10.3389/fnins.2021.710004}
+
+  \bibitem[{Lloyd et~al.(2023)}]{lloyd_understanding_2023}
+  Lloyd, A., Viding, E., McKay, R., \& Furl, N. (2023).
+  Understanding patch foraging strategies across development.
+  \emph{Trends in Cognitive Sciences}, \emph{27}(11), 1085--1098.
+  \doiurl{10.1016/j.tics.2023.07.004}
+
+  \bibitem[{Lyon et~al.(2021)}]{lyon_reframing_2021}
+  Lyon, P., Keijzer, F., Arendt, D., \& Levin, M. (2021).
+  Reframing cognition: Getting down to biological basics.
+  \emph{Philosophical Transactions of the Royal Society B: Biological Sciences}, \emph{376}(1820), Article 20190750.
+  \doiurl{10.1098/rstb.2019.0750}
+
+  \bibitem[{Mangan(1993)}]{mangan_taking_1993}
+  Mangan, B. (1993).
+  Taking phenomenology seriously: The ``fringe'' and its implications for cognitive research.
+  \emph{Consciousness and Cognition}, \emph{2}(2), 89--108.
+  \doiurl{10.1006/ccog.1993.1008}
+
+  \bibitem[{Mnih et~al.(2015)}]{mnih_human-level_2015}
+  Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.~A., Veness, J., Bellemare, M.~G., Graves, A., Riedmiller, M., Fidjeland, A.~K., Ostrovski, G., Petersen, S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra, D., Legg, S., \& Hassabis, D. (2015).
+  Human-level control through deep reinforcement learning.
+  \emph{Nature}, \emph{518}(7540), 529--533.
+  \doiurl{10.1038/nature14236}
+
+  \bibitem[{Nardou et~al.(2023)}]{nardou_psychedelics_2023}
+  Nardou, R., Sawyer, E., Song, Y.~J., Wilkinson, M., Padovan-Hernandez, Y., de~Deus, J.~L., Wright, N., Lama, C., Faltin, S., Goff, L.~A., Stein-O'Brien, G.~L., \& D\"olen, G. (2023).
+  Psychedelics reopen the social reward learning critical period.
+  \emph{Nature}, \emph{618}(7966), 790--798.
+  \doiurl{10.1038/s41586-023-06204-3}
+
+  \bibitem[{O'Keefe \& Nadel(1978)}]{okeefe_hippocampus_1978}
+  O'Keefe, J., \& Nadel, L. (1978).
+  \emph{The hippocampus as a cognitive map}.
+  Clarendon Press.
+
+  \bibitem[{Paul(2014)}]{paul_transformative_2014}
+  Paul, L.~A. (2014).
+  \emph{Transformative experience}.
+  Oxford University Press.
+
+  \bibitem[{Pearson et~al.(2014)}]{pearson_decision_2014}
+  Pearson, J.~M., Watson, K.~K., \& Platt, M.~L. (2014).
+  Decision making: The neuroethological turn.
+  \emph{Neuron}, \emph{82}(5), 950--965.
+  \doiurl{10.1016/j.neuron.2014.04.037}
+
+  \bibitem[{Pezzulo et~al.(2015)}]{pezzulo_active_2015}
+  Pezzulo, G., Rigoli, F., \& Friston, K. (2015).
+  Active inference, homeostatic regulation and adaptive behavioural control.
+  \emph{Progress in Neurobiology}, \emph{134}, 17--35.
+  \doiurl{10.1016/j.pneurobio.2015.09.001}
+
+  \bibitem[{Pio-Lopez et~al.(2025)}]{pio-lopez_scale-free_2025}
+  Pio-Lopez, L., Pezzulo, G., \& Levin, M. (2025).
+  \emph{Scale-free niche construction: Expanding agent-microenvironment co-development to unconventional substrates} [Preprint].
+  OSF Preprints.
+  \doiurl{10.31219/osf.io/ytg35_v1}
+
+  \bibitem[{Safron \& DeYoung(2021)}]{safron_deyoung_2021}
+  Safron, A., \& DeYoung, C.~G. (2021).
+  Integrating Cybernetic Big Five Theory with the free energy principle: A new strategy for modeling personalities as complex systems.
+  In D. Wood, S.~J. Read, P.~D. Harms, \& A. Slaughter (Eds.), \emph{Measuring and modeling persons and situations} (pp.~617--649).
+  Academic Press.
+  \doiurl{10.1016/B978-0-12-819200-9.00010-7}
+
+  \bibitem[{Safron et~al.(2025)}]{safron_albus_2025}
+  Safron, A., Juliani, A., Reggente, N., Klimaj, V., \& Johnson, M. (2025).
+  On the varieties of conscious experiences: Altered Beliefs Under Psychedelics (ALBUS).
+  \emph{Neuroscience of Consciousness}, \emph{2025}(1), Article niae038.
+  \doiurl{10.1093/nc/niae038}
+
+  \bibitem[{Safron \& Sheikhbahaee(2024)}]{safron_sheikhbahaee_2024}
+  Safron, A., \& Sheikhbahaee, Z. (2024).
+  Towards understanding persons and their personalities with Cybernetic Big 5 Theory and the Free Energy Principle and Active Inference (FEP-AI) framework.
+  In C.~L. Buckley, D. Cialfi, P. Lanillos, M. Ramstead, N. Sajid, H. Shimazaki, T. Verbelen, \& M. Wisse (Eds.), \emph{Active inference: 4th International Workshop, IWAI 2023, Ghent, Belgium, September 13--15, 2023, revised selected papers} (pp.~73--90).
+  Springer.
+  \doiurl{10.1007/978-3-031-47958-8_6}
+
+  \bibitem[{Scheffer et~al.(2024)}]{scheffer_dynamical_2024}
+  Scheffer, M., Bockting, C.~L., Borsboom, D., Cools, R., Delecroix, C., Hartmann, J.~A., Kendler, K.~S., van~de Leemput, I., van~der Maas, H.~L.~J., van Nes, E., Mattson, M., McGorry, P.~D., \& Nelson, B. (2024).
+  A dynamical systems view of psychiatric disorders---Theory: A review.
+  \emph{JAMA Psychiatry}, \emph{81}(6), 618--623.
+  \doiurl{10.1001/jamapsychiatry.2024.0215}
+
+  \bibitem[{Schiepek et~al.(2015)}]{schiepek_integrative_2015}
+  Schiepek, G., Eckert, H., Aas, B., Wallot, S., \& Wallot, A. (2015).
+  \emph{Integrative psychotherapy: A feedback-driven dynamic systems approach}.
+  Hogrefe.
+  \doiurl{10.1027/00472-000}
+
+  \bibitem[{Schiepek et~al.(2014)}]{schiepek_self-organization_2014}
+  Schiepek, G.~K., Tominschek, I., \& Heinzel, S. (2014).
+  Self-organization in psychotherapy: Testing the synergetic model of change processes.
+  \emph{Frontiers in Psychology}, \emph{5}, Article 1089.
+  \doiurl{10.3389/fpsyg.2014.01089}
+
+  \bibitem[{Schiepek et~al.(2017)}]{schiepek_psychotherapy_2017}
+  Schiepek, G.~K., Viol, K., Aichhorn, W., H\"utt, M.-T., Sungler, K., Pincus, D., \& Sch\"oller, H.~J. (2017).
+  Psychotherapy is chaotic---(not only) in a computational world.
+  \emph{Frontiers in Psychology}, \emph{8}, Article 379.
+  \doiurl{10.3389/fpsyg.2017.00379}
+
+  \bibitem[{Schulman et~al.(2017)}]{schulman_proximal_2017}
+  Schulman, J., Wolski, F., Dhariwal, P., Radford, A., \& Klimov, O. (2017).
+  \emph{Proximal policy optimization algorithms} [Preprint].
+  arXiv.
+  \doiurl{10.48550/arXiv.1707.06347}
+
+  \bibitem[{Song et~al.(2019)}]{song_observational_2019}
+  Song, X., Jiang, Y., Tu, S., Du, Y., \& Neyshabur, B. (2019).
+  \emph{Observational overfitting in reinforcement learning} [Preprint].
+  arXiv.
+  \doiurl{10.48550/arXiv.1912.02975}
+
+  \bibitem[{Stephens \& Krebs(1986)}]{stephens_foraging_1986}
+  Stephens, D.~W., \& Krebs, J.~R. (1986).
+  \emph{Foraging theory}.
+  Princeton University Press.
+
+  \bibitem[{Sterling(2012)}]{sterling_allostasis_2012}
+  Sterling, P. (2012).
+  Allostasis: A model of predictive regulation.
+  \emph{Physiology \& Behavior}, \emph{106}(1), 5--15.
+  \doiurl{10.1016/j.physbeh.2011.06.004}
+
+  \bibitem[{Sterling \& Eyer(1988)}]{sterling_allostasis_1988}
+  Sterling, P., \& Eyer, J. (1988).
+  Allostasis: A new paradigm to explain arousal pathology.
+  In S. Fisher \& J. Reason (Eds.), \emph{Handbook of life stress, cognition and health} (pp.~629--649).
+  Wiley.
+
+  \bibitem[{Sutton \& Barto(1998)}]{sutton_reinforcement_1998}
+  Sutton, R.~S., \& Barto, A.~G. (1998).
+  \emph{Reinforcement learning: An introduction}.
+  MIT Press.
+
+  \bibitem[{Sutton et~al.(1999)}]{sutton_between_1999}
+  Sutton, R.~S., Precup, D., \& Singh, S. (1999).
+  Between MDPs and semi-MDPs: A framework for temporal abstraction in reinforcement learning.
+  \emph{Artificial Intelligence}, \emph{112}(1--2), 181--211.
+  \doiurl{10.1016/S0004-3702(99)00052-1}
+
+  \bibitem[{Szigeti et~al.(2021)}]{szigeti_microdosing_2021}
+  Szigeti, B., Kartner, L., Blemings, A., Rosas, F., Feilding, A., Nutt, D.~J., Carhart-Harris, R.~L., \& Erritzoe, D. (2021).
+  Self-blinding citizen science to explore psychedelic microdosing.
+  \emph{eLife}, \emph{10}, Article e62878.
+  \doiurl{10.7554/eLife.62878}
+
+  \bibitem[{Tang \& DeRubeis(1999)}]{tang_sudden_1999}
+  Tang, T.~Z., \& DeRubeis, R.~J. (1999).
+  Sudden gains and critical sessions in cognitive-behavioral therapy for depression.
+  \emph{Journal of Consulting and Clinical Psychology}, \emph{67}(6), 894--904.
+  \doiurl{10.1037/0022-006X.67.6.894}
+
+  \bibitem[{Tolman(1948)}]{tolman_cognitive_1948}
+  Tolman, E.~C. (1948).
+  Cognitive maps in rats and men.
+  \emph{Psychological Review}, \emph{55}(4), 189--208.
+  \doiurl{10.1037/h0061626}
+
+  \bibitem[{Waddington(1959)}]{waddington_canalization_1959}
+  Waddington, C.~H. (1959).
+  Canalization of development and genetic assimilation of acquired characters.
+  \emph{Nature}, \emph{183}(4676), 1654--1655.
+  \doiurl{10.1038/1831654a0}
+
+  \bibitem[{Wiener(1948/2019)}]{wiener_cybernetics_2019}
+  Wiener, N. (2019).
+  \emph{Cybernetics or control and communication in the animal and the machine} (Reissue ed.).
+  MIT Press.
+  \doiurl{10.7551/mitpress/11810.001.0001}
+  (Original work published 1948)
+
+  \bibitem[{Yon \& Frith(2021)}]{yon_precision_2021}
+  Yon, D., \& Frith, C.~D. (2021).
+  Precision and the Bayesian brain.
+  \emph{Current Biology}, \emph{31}(17), R1026--R1031.
+  \doiurl{10.1016/j.cub.2021.07.044}
+
+  \bibitem[{Yoshimi(2016)}]{yoshimi_husserlian_2016}
+  Yoshimi, J. (2016).
+  \emph{Husserlian phenomenology: A unifying interpretation}.
+  Springer.
+  \doiurl{10.1007/978-3-319-26698-5}
+
+  \bibitem[{Yoshimi \& Vinson(2015)}]{yoshimi_extending_2015}
+  Yoshimi, J., \& Vinson, D.~W. (2015).
+  Extending Gurwitsch's field theory of consciousness.
+  \emph{Consciousness and Cognition}, \emph{34}, 104--123.
+  \doiurl{10.1016/j.concog.2015.03.017}
+
+  \bibitem[{Zeifman et~al.(2025)}]{zeifman_rebus_2025}
+  Zeifman, R.~J., Spriggs, M.~J., Kettner, H., Lyons, T., Rosas, F.~E., Mediano, P.~A.~M., Erritzoe, D., \& Carhart-Harris, R.~L. (2025).
+  From relaxed beliefs under psychedelics (REBUS) to revised beliefs after psychedelics (REBAS).
+  \emph{Scientific Reports}, \emph{15}(1), Article 3651.
+  \doiurl{10.1038/s41598-023-28111-3}
 
 \end{thebibliography}
 
