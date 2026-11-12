@@ -1,6 +1,6 @@
 % !TEX root = ./modelingDecanalization.tex
 
-This appendix gives the exact settings used in the study and the additional results that the main text refers to. Anything not listed here, including the full list of policy inputs, the steering rules for each option, and the code for every analysis, is in the code repository (Section~\ref{sec:code}).
+This appendix gives the exact settings used in the study and the additional results that the main text refers to. Anything not listed here, including the steering rules for each option, and the code for every analysis, is in the code repository (Section~\ref{sec:code}).
 
 \subsection{Implementation settings}\label{app:implementation-settings}
 
@@ -88,13 +88,13 @@ Trials & 64 paired trials per training seed (trial seeds 5000--5063)\\
 Choices & sampled from the policy, as in training\\
 \bottomrule
 \end{tabularx}
-\caption{Policy, reward, training and evaluation settings (Sections~\ref{sec:policy}--\ref{sec:stats}). HRL and NF policies differ only in their reward function. Training used proximal policy optimization.}
+\caption{Policy, reward, training, and evaluation settings (Sections~\ref{sec:policy}--\ref{sec:stats}). HRL and NF policies differ only in their reward function. Training used proximal policy optimization.}
 \label{tab:ppo-settings}
 \end{table}
 
 \subsection{Mechanism checks and sensitivity analysis}\label{app:additional}
 
-Table~\ref{tab:main} gives results that the main text refers to but does not show. The mechanism checks ask why agents are trapped. For example, precise beliefs raised the fraction of HRL agents trapped by 0.24, from 0.45 with low-precision beliefs to 0.70. The sensitivity analysis asks whether the benefit of decanalization depends on the setting chosen for the main comparison. For HRL agents it does not: decanalization lowered MAE in every version tested, by 11 to 98 points. The size of the benefit varied, and a boost of 10 helped less than a boost of 3 and was costly during the intervention itself (MAE 108, against 62). Medians show the typical trial, which is less affected by the few trials with very large deficits.
+Table~\ref{tab:main} gives results that the main text refers to but does not show. The mechanism checks ask why agents are trapped. For example, precise beliefs raised the fraction of HRL agents trapped by 0.24, from 0.45 with low-precision beliefs to 0.70. The sensitivity analysis asks whether the benefit of decanalization depends on the setting chosen for the main comparison. For HRL agents, it does not: decanalization lowered MAE in every version tested, by 11 to 98 points. The size of the benefit varied, and a boost of 10 helped less than a boost of 3 and was costly during the intervention itself (MAE 108, against 62). Medians show the typical trial, which is less affected by the few trials with very large deficits.
 
 \begin{table}[H]
 \centering\small
