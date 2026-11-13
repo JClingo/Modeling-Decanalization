@@ -12,7 +12,7 @@ Response: Corrected in the main text.
 
 Comment: Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are.
 
-Response: The Introduction now ends with two explicit hypotheses. 
+Response: The Introduction now ends with two explicit hypotheses and alludes to our findings.
 
 Comment: Page 4: Why was a 3D environment chosen?
 
@@ -44,7 +44,7 @@ Response: Following Keramati and Gutkin (2014), NF is now explained as a contras
 
 Comment: Page 12: It is not clear what "60 seconds" means in this context.
 
-Response: Durations are now in simulated seconds.
+Response: Durations are given in seconds of simulated time, with a 0.05 s tick (Methods).
 
 Comment: Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. [...] It would be valuable to see how adjusting this parameter influences the results of the simulations.
 
@@ -52,7 +52,7 @@ Response: We now vary intensity and test each component alone and include a sens
 
 Comment: Page 15: The tables are somewhat difficult to interpret. [...] Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition.
 
-Response: Measures are now defined in a table before the results, and the main results table is simpler.
+Response: Measures are now defined in a table before the results, and the main results table is simpler. Figures 2 and 4 follow one paired trial, showing where a trained agent goes and how its homeostatic state changes; Methods describes the four options the policy can choose.
 
 Comment: Page 16: The authors find differences in the performance of the control conditions which they describe as a "false positive."
 
@@ -64,11 +64,11 @@ Response: Done. Both hypotheses held; other analyses are checks or exploratory.
 
 Comment: A related question is: "why did this need to be simulated at all?"
 
-Response: We think the paper as a whole now makes the answer to this more clear. We did not add any explicit discussion of why many of the results are non-obvious (though we could on request).
+Response: We think the paper as a whole now makes the answer to this more clear. The Introduction in particular now states the rationale: these concepts have mostly been used metaphorically, and a working model makes their assumptions explicit and testable. Several results were not obvious in advance, and our particular set of modeling choices and sensitivity analysis of some of these demonstrates what can happen when some of the assumptions of the field are included/excluded. These broader ideas should now be more clear in the Discussion and Future directions sections.
 
 Comment: Page 19: The authors provide "niche-construction" as a motivation for the reward function in the discussion.
 
-Response: No longer applies.
+Response: Niche construction is no longer presented as motivating the reward function. It now motivates only path wear, a feature of the world (Methods; Discussion).
 
 Comment: Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment.
 
@@ -80,14 +80,14 @@ Response: The Discussion has been expanded substantially.
 
 Comment: Page 28 and 29: These figures are difficult to read. [...] Another suggestion would be to have a single "hero figure".
 
-Response: All figures are new and figure 5 functions as a kind of hero figure.
+Response: All figures are new, and Figure 5 functions as a kind of hero figure.
 
 
 REVIEWER 2
 
 Comment: "Canalization and plasticity in psychopathology" is a highly problematic paper [...] it would be more accurate (even if less satisfying/aggrandizing) to refer to this as the "second principal component" of psychopathology.
 
-Response: Added to the Discussion.
+Response: We now present Carhart-Harris et al.'s claim as a proposal and contrast it with cybernetic accounts, on which the general factor corresponds to low Stability (Discussion). We also note that a single-agent model like ours cannot settle which dimension is general.
 
 Comment: In discussing altered beliefs under psychedelics, it could be worth mentioning this work which suggests we ought to expect combinations of both directly and indirectly relaxed and strengthened beliefs (ALBUS).
 
