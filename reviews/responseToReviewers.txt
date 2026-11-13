@@ -1,18 +1,28 @@
 We thank both reviewers for helpful comments. They led to fairly substantial changes both to the model and the paper. The simulation is now a two-dimensional world in pure Python, and everything can be regenerated from the public repository. Canalization is now located in learning, as Reviewer 1 recommended.
 
+Page and line numbers below refer to the revised manuscript, with lines numbered on each page. Quoted passages are new or rewritten text.
+
 REVIEWER 1
 
 Comment: My biggest issue with the paper as it currently exists is that the choice of reward function is not well justified within the paper itself. [...] My recommendation would be to focus on canalization that is connected to the intrinsic dynamics of learning itself. If, however, the focus remains on the design of the reward function, then that choice should be thoroughly justified and defended within the paper. It may also be valuable to design a non-canalization-inducing reward function which can be compared against the canalizing one.
 
 Response: We took this recommendation. Canalization now arises from learning, not the reward function. The "healthy" comparison is provided by agents with low-precision beliefs, which are trapped much less often.
 
+- Methods, p. 7, ll. 4-7: "In this model, canalization corresponds to the precision of the agent's expectations in its cognitive map: having specific expectations about where food is corresponds to being canalized."
+- Methods, p. 14, ll. 10-11: "Finally, to check whether precise beliefs are what trap the agent, we ran each policy with beliefs that never become precise and with no intervention."
+- Results, p. 16, l. 32 to p. 17, l. 2: "Compared with the low-precision control—which keeps precision low for the whole trial—agents with precise beliefs were trapped more often in the recanalization phase, by 24 percentage points for HRL and 33 for NF."
+
 Comment: Page 3 (Footnote): Deep CANALs is the Juliani et al. (2024) model, while CANAL is the Carhart-Harris et al. (2023) model.
 
-Response: Corrected in the main text.
+Response: Corrected in the main text, and the footnote was removed.
+
+- Introduction, p. 3, ll. 16-19: "We also draw heavily from Juliani et al.'s "Deep CANALs" (2024), which directly extends the "CANAL" model (Carhart-Harris et al., 2023) and distinguishes overfitting in inference from loss of plasticity in learning."
 
 Comment: Page 4: It would be helpful if the Introduction ended with a discussion of the hypothesis being tested in the paper and an allusion to what the findings of the paper are.
 
 Response: The Introduction now ends with two explicit hypotheses and alludes to our findings.
+
+- Introduction, p. 4, ll. 27-34: "We test two hypotheses. First, temporary decanalization [...] will improve the agent's ability to regulate its homeostatic state after the intervention ends. Second, in the same worlds and with the same intervention, an HRL agent will benefit more than an NF agent. Both hypotheses held in our simulations. Decanalization helped agents find new resources sooner and regulate better afterward, and HRL agents benefited far more than NF agents, which escaped their failing patches but consistently overate."
 
 Comment: Page 4: Why was a 3D environment chosen?
 
@@ -22,17 +32,25 @@ Comment: Page 5: The PPO algorithm should be properly cited here.
 
 Response: Done.
 
+- Methods, p. 12, ll. 10-24: "Policies were trained in stable worlds with proximal policy optimization (PPO) (Schulman et al., 2017), a standard reinforcement learning method for neural network policies." The rest of this paragraph explains the two features of PPO that matter for our results.
+
 Comment: Page 5: There is no description of the architecture of the model itself. [...] Please include these details, as well as what parameter choices were used for training.
 
 Response: Architecture is in Methods, training settings in the Appendix.
+
+- Methods, Section 2.3, p. 10, ll. 4-18, lists the policy's ten inputs and ends: "The policy is a two-layer network of 64 units per layer, with separate policy and value outputs."
+- Methods, Section 2.6, p. 12, describes training and checkpoint selection.
+- Appendix A.1, Tables 3 and 4 (pp. 40-42), list every world, agent, reward, training, and evaluation setting.
 
 Comment: Page 7: I am not clear on the action space available to the agent.
 
 Response: The policy now chooses among four options every 0.5 s (Methods).
 
+- Methods, Section 2.3, p. 10, ll. 6-11: "Every 0.5 s, the policy gives a probability for each option, one option is sampled, and its fixed steering rule runs until the next choice. The four options are to seek the remembered cell with the greatest believed worth, discounted by distance; explore toward the nearest cell never seen; cruise along the cheapest (most worn) direction; or avoid visible food."
+
 Comment: Page 10: It is claimed that it is a normal practice to provide "disproportionally more reward the closer it gets to the target."
 
-Response: Removed.
+Response: Removed. Reward is now the reduction in drive, following Keramati and Gutkin (2014) (Section 2.4, p. 10).
 
 Comment: Page 10: It is claimed that positive reinforcement is more effective than negative reinforcement.
 
@@ -40,43 +58,71 @@ Response: Removed.
 
 Comment: Page 11: The choice of the Negative Feedback agent as a baseline should be better justified.
 
-Response: Following Keramati and Gutkin (2014), NF is now explained as a contrast to HRL (Introduction; Methods).
+Response: Following Keramati and Gutkin (2014), NF is now explained as a contrast to HRL.
+
+- Introduction, p. 4, ll. 15-26: "Our agents are trained with one of two objectives. A homeostatic reinforcement learning (HRL) objective rewards movement toward the setpoint from either side, while a one-sided negative-feedback (NF) objective rewards only reductions in deficit. This contrast follows Keramati & Gutkin (2014) [...]"
+- Methods, Section 2.5, p. 12, ll. 1-6: "Following Keramati & Gutkin (2014), we chose NF as a contrast to HRL. [...] NF is a simple version of such an account: like HRL, it rewards the agent for regulating h, but only deficits matter to it."
 
 Comment: Page 12: It is not clear what "60 seconds" means in this context.
 
-Response: Durations are given in seconds of simulated time, with a 0.05 s tick (Methods).
+Response: Durations are given in seconds of simulated time, with a 0.05 s tick.
+
+- Methods, p. 7, ll. 16-17: "At each tick of Δt = 0.05 s, the agent moves forward at 5 tiles per second [...]"
 
 Comment: Page 12: As currently described, the decanalization intervention feels somewhat arbitrary. [...] It would be valuable to see how adjusting this parameter influences the results of the simulations.
 
 Response: We now vary intensity and test each component alone and include a sensitivity analysis in an appendix.
 
+- Methods, Section 2.7, p. 13, l. 31 to p. 14, l. 9, defines the dose and temperature boost: "To quantify how the strength of the intervention matters, we tested every combination of a half or full dose (d = 0.5 or 1) with a boost of 0, 1, or 3, and, at full dose only, a boost of 10. To see what each component contributes, we tested precision relaxation alone (boost 0) and the temperature boost alone (boost 1 or 3, with precision unchanged)."
+- Results, p. 20, ll. 7-19, and Figure 6 (p. 21): each component alone and combined.
+- Results, p. 20, ll. 20-30: intensity. "For HRL agents, a larger dose was better: half doses helped less than full doses at every boost tested. For the boost, a middle value was best."
+- Appendix A.2, Table 5 (p. 44): every setting, with 95% intervals.
+
 Comment: Page 15: The tables are somewhat difficult to interpret. [...] Furthermore, it would be valuable to demonstrate more clearly what kind of policies are learned by agents within the first condition.
 
 Response: Measures are now defined in a table before the results, and the main results table is simpler. Figures 2 and 4 follow one paired trial, showing where a trained agent goes and how its homeostatic state changes; Methods describes the four options the policy can choose.
+
+- Table 1 (p. 15) defines each measure, its range, and which direction is better.
+- Table 2 (p. 19) gives CCC, CDR, the difference with a 95% interval, and p for each measure.
+- Figure 2 (p. 6) shows the paths of a CCC and a CDR agent in each phase; Figure 4 (p. 17) shows their homeostatic state over the same trial.
+- The four options are described in Section 2.3 (p. 10, ll. 6-11).
 
 Comment: Page 16: The authors find differences in the performance of the control conditions which they describe as a "false positive."
 
 Response: No longer applies. Paired conditions are identical until the intervention.
 
+- Methods, p. 15, ll. 16-19: "The trials are paired: a CCC trial and its CDR partner share the world layout, starting state, and random events, so they are identical until the intervention begins, and any later difference between them comes from the intervention."
+
 Comment: Page 19: Having a stronger hypothesis being tested would help make the summary section more clear.
 
 Response: Done. Both hypotheses held; other analyses are checks or exploratory.
+
+- Results, p. 16, ll. 9-11: "We show that canalization becomes maladaptive in the changing world, test the two hypotheses, and then turn to the exploratory question of how the components and intensity of the intervention affect outcomes."
+- Discussion, p. 20, ll. 32-34: "We hypothesized that decanalization would improve post-intervention homeostatic regulation in an HRL agent, and that an NF agent would benefit less. Both predictions held."
 
 Comment: A related question is: "why did this need to be simulated at all?"
 
 Response: We think the paper as a whole now makes the answer to this more clear. The Introduction in particular now states the rationale: these concepts have mostly been used metaphorically, and a working model makes their assumptions explicit and testable. Several results were not obvious in advance, and our particular set of modeling choices and sensitivity analysis of some of these demonstrates what can happen when some of the assumptions of the field are included/excluded. These broader ideas should now be more clear in the Discussion and Future directions sections.
 
+- Introduction, p. 3, ll. 5-9: "For the most part, these concepts have remained metaphorical. Existing conceptualizations are often suggestive, but they rarely model their assumptions directly. [...] To address this gap, we developed a simulation that translates some of these assumptions into observable behavior."
+- Conclusions, p. 29, ll. 18-22: "Research on canalization and decanalization often moves between clinical, dynamical, and mechanistic vocabularies without making computational assumptions explicit. Our aim was to formalize one such set of assumptions in a simple model that could be inspected, perturbed, and compared across conditions."
+
 Comment: Page 19: The authors provide "niche-construction" as a motivation for the reward function in the discussion.
 
-Response: Niche construction is no longer presented as motivating the reward function. It now motivates only path wear, a feature of the world (Methods; Discussion).
+Response: Niche construction is no longer presented as motivating the reward function. It now motivates only path wear, a feature of the world.
+
+- Methods, p. 7, l. 29 to p. 8, l. 1: "Traversal cost models a simple form of niche construction, in which organisms modify their environments and so change the conditions they later encounter (Laland et al., 2016)."
+- Discussion, p. 24, l. 36: "Our account also has an embodied counterpart to hypercanalization."
 
 Comment: Page 20: The authors state that the HRL agent did not achieve an optimal policy given the environment.
 
 Response: This is now discussed in Limitations. A policy trained in the changing world regulates well, so the task is learnable.
 
+- Limitations, p. 27, ll. 7-13: "The policies are also unlikely to be optimal. [...] The policy trained in the changing world regulated well (MAE 12.5), so the task can be learned, but we do not know how far any of the policies falls short of optimal."
+
 Comment: Page 20: The discussion is a place for engaging with the wider literature [...] It would be valuable to expand it.
 
-Response: The Discussion has been expanded substantially.
+Response: The Discussion has been expanded substantially (pp. 20-28).
 
 Comment: Page 28 and 29: These figures are difficult to read. [...] Another suggestion would be to have a single "hero figure".
 
@@ -89,10 +135,16 @@ Comment: "Canalization and plasticity in psychopathology" is a highly problemati
 
 Response: We now present Carhart-Harris et al.'s claim as a proposal and contrast it with cybernetic accounts, on which the general factor corresponds to low Stability (Discussion). We also note that a single-agent model like ours cannot settle which dimension is general.
 
+- Discussion, p. 23, ll. 23-36: "Carhart-Harris et al. (2023) propose that canalization, an entrenched rigidity of beliefs and behavior, is the general factor of psychopathology. Cybernetic accounts of personality, which place goal regulation at the center of individual differences, read the general factor differently. [...] A model like ours with a single kind of agent cannot settle which dimension is general, since that is a question about how individual humans differ."
+
 Comment: In discussing altered beliefs under psychedelics, it could be worth mentioning this work which suggests we ought to expect combinations of both directly and indirectly relaxed and strengthened beliefs (ALBUS).
 
 Response: Added to the Discussion.
 
+- Discussion, p. 22, ll. 36-38: "Psychedelic effects may involve both relaxed and strengthened beliefs, depending on representational level, dose, and context (Safron et al., 2025); our intervention only relaxes."
+
 Comment: Another question I had in reading this manuscript was the extent to which these findings could be used to understand the natural/normative functioning of psychedelic-like transformative experiences as described in the excellent work of Ari Brouwer.
 
 Response: Added to the Discussion.
+
+- Discussion, p. 24, ll. 7-16: "Decanalization need not come from outside. Brouwer & Carhart-Harris (2021) propose that pivotal mental states—brief periods of heightened plasticity that can arise naturally under stress—help people leave patterns that no longer serve them. The psychedelic experience has been described as following the narrative arc of the Hero's Journey, with a departure, initiation, and return (Brouwer et al., 2024). Our three phases have a similar shape. Read this way, our implementation suggests one reason such pivotal states could be adaptive: a brief loosening, coming when the world has changed, shortens the time spent far from the setpoint, avoiding the homeostatic consequences of extreme divergence."
